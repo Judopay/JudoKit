@@ -77,7 +77,7 @@
 			children = (
 				DAB2619C1B7B74CD005024FF /* JudoSwiftApplePay.xcodeproj */,
 				DA76A5FF1B7B73D30033E553 /* Source */,
-				DAD13A021B7B8BD6007BB196 /* JudoKitTests */,
+				DAD13A021B7B8BD6007BB196 /* Tests */,
 				DAB261AB1B7B79EE005024FF /* JudoSecure */,
 				DA76A5FE1B7B73D30033E553 /* Products */,
 			);
@@ -119,13 +119,13 @@
 			name = JudoSecure;
 			sourceTree = "<group>";
 		};
-		DAD13A021B7B8BD6007BB196 /* JudoKitTests */ = {
+		DAD13A021B7B8BD6007BB196 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				DAD13A031B7B8BD6007BB196 /* JudoKitTests.swift */,
 				DAD13A051B7B8BD6007BB196 /* Info.plist */,
 			);
-			path = JudoKitTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,7 +425,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Judo-Security/Source/Debug",
 				);
-				INFOPLIST_FILE = JudoKitTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitTests;
@@ -440,7 +440,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Judo-Security/Source/Debug",
 				);
-				INFOPLIST_FILE = JudoKitTests/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitTests;
