@@ -1,0 +1,3 @@
+[submodule "Judo-Swift-ApplePay"]
+	path = Judo-Swift-ApplePay
+	url = https://github.com/JudoPay/Judo-Swift-ApplePay
