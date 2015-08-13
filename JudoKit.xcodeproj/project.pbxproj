@@ -13,6 +13,8 @@
 		DAD13A041B7B8BD6007BB196 /* JudoKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A031B7B8BD6007BB196 /* JudoKitTests.swift */; };
 		DAD13A061B7B8BD6007BB196 /* JudoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA76A5FD1B7B73D30033E553 /* JudoKit.framework */; };
 		DAD13A201B7B9323007BB196 /* JudoSecure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAD13A1F1B7B9323007BB196 /* JudoSecure.framework */; };
+		DAD13A221B7C9E76007BB196 /* JKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A211B7C9E76007BB196 /* JKTextField.swift */; };
+		DAD13A241B7CABA7007BB196 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A231B7CABA7007BB196 /* Card.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		DAD13A031B7B8BD6007BB196 /* JudoKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitTests.swift; sourceTree = "<group>"; };
 		DAD13A051B7B8BD6007BB196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DAD13A1F1B7B9323007BB196 /* JudoSecure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoSecure.framework; path = "Judo-Security/Source/Release/JudoSecure.framework"; sourceTree = "<group>"; };
+		DAD13A211B7C9E76007BB196 /* JKTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JKTextField.swift; sourceTree = "<group>"; };
+		DAD13A231B7CABA7007BB196 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,8 @@
 				DA76A6001B7B73D30033E553 /* JudoKit.h */,
 				DA76A6021B7B73D30033E553 /* Info.plist */,
 				DAB261AC1B7B7A0B005024FF /* JudoKit.swift */,
+				DAD13A211B7C9E76007BB196 /* JKTextField.swift */,
+				DAD13A231B7CABA7007BB196 /* Card.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -259,6 +265,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAD13A221B7C9E76007BB196 /* JKTextField.swift in Sources */,
+				DAD13A241B7CABA7007BB196 /* Card.swift in Sources */,
 				DAB261AD1B7B7A0B005024FF /* JudoKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
