@@ -9,7 +9,8 @@
 import Foundation
 import Judo
 
-
+let VISAPattern = "XXXX XXXX XXXX XXXX"
+let AMEXPattern = "XXXX XXXXXX XXXXX"
 
 public extension String {
     
@@ -21,27 +22,34 @@ public extension String {
             return nil
         }
         
-        var batchesArray = Array<String>()
+        var resultString: String? = nil
         
         switch self.cardNetwork() {
         case .Visa(.Debit), .Visa(.Credit), .Visa(.Unknown), .MasterCard(.Debit), .MasterCard(.Credit), .MasterCard(.Unknown), .Dankort, .JCB, .InstaPayment, .Discover where strippedSelf.characters.count == 16:
-            repeat {
-                let batch = strippedSelf.substringToIndex(advance(strippedSelf.startIndex, 4))
-                batchesArray.append(batch)
-                strippedSelf = strippedSelf.substringFromIndex(advance(strippedSelf.startIndex, 4))
-            } while strippedSelf.characters.count > 0
-            break
-        case .AMEX:
             
+            resultString = VISAPattern
+        case .AMEX:
+            resultString = AMEXPattern
             break
         default:
-            batchesArray.append(strippedSelf)
+            return strippedSelf
         }
         
-        var resultString = batchesArray.first
-        for batch in batchesArray.dropFirst() {
-            resultString = "\(resultString) \(batch)"
+        if let resultString = resultString {
+        
+            var patternIndex = resultString.startIndex
+            
+            strippedSelf.characters.reduce(resultString, combine: { (inputString, character) -> String in
+                if resultString.characters[patternIndex] == "X" {
+                    patternIndex = advance(patternIndex, 1)
+                    return String(character)
+                } else {
+                    patternIndex = advance(patternIndex, 2)
+                    return " \(character)"
+                }
+            })
         }
+        
         return resultString
         
     }

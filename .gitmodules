@@ -1,6 +1,6 @@
-[submodule "Judo-Swift-ApplePay"]
-	path = Judo-Swift-ApplePay
-	url = https://github.com/JudoPay/Judo-Swift-ApplePay
 [submodule "Judo-Security"]
 	path = Judo-Security
 	url = https://github.com/JudoPay/Judo-Security.git
+[submodule "Judo-Swift"]
+	path = Judo-Swift
+	url = https://github.com/JudoPay/Judo-Swift
