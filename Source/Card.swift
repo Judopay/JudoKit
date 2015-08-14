@@ -48,19 +48,19 @@ public extension String {
         
             var patternIndex = patternString.startIndex
             
-            let retVal = strippedSelf.characters.map({ (element) -> String in
+            var retString = ""
+            
+            for element in strippedSelf.characters {
                 if patternString.characters[patternIndex] == "X" {
                     patternIndex = advance(patternIndex, 1)
-                    return String(element)
+                    retString = retString + String(element)
                 } else {
                     patternIndex = advance(patternIndex, 2)
-                    return " \(element)"
+                    retString = retString + " \(element)"
                 }
-            })
+            }
             
-            let returnString = "".join(retVal)
-            
-            return returnString
+            return retString
         }
         
         return nil
