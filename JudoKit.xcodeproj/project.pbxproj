@@ -14,6 +14,7 @@
 		DAD13A221B7C9E76007BB196 /* JKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A211B7C9E76007BB196 /* JKTextField.swift */; };
 		DAD13A241B7CABA7007BB196 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A231B7CABA7007BB196 /* Card.swift */; };
 		DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDB0081B7DF3160073C6F1 /* Judo.framework */; };
+		DADDB00F1B7DF4530073C6F1 /* JudoSecure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDB00E1B7DF4530073C6F1 /* JudoSecure.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		DAD13A211B7C9E76007BB196 /* JKTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JKTextField.swift; sourceTree = "<group>"; };
 		DAD13A231B7CABA7007BB196 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		DADDB0021B7DF3160073C6F1 /* Judo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Judo.xcodeproj; path = "Judo-Swift/Judo.xcodeproj"; sourceTree = "<group>"; };
+		DADDB00E1B7DF4530073C6F1 /* JudoSecure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoSecure.framework; path = "Judo-Security/Source/Release/JudoSecure.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */,
+				DADDB00F1B7DF4530073C6F1 /* JudoSecure.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +111,7 @@
 		DAB261AB1B7B79EE005024FF /* JudoSecure */ = {
 			isa = PBXGroup;
 			children = (
+				DADDB00E1B7DF4530073C6F1 /* JudoSecure.framework */,
 			);
 			name = JudoSecure;
 			sourceTree = "<group>";
@@ -432,7 +436,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $SRCROOT/Judo-Security/Source/Debug";
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -448,7 +452,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $SRCROOT/Judo-Security/Source/Debug";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
