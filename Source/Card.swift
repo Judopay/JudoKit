@@ -15,6 +15,11 @@ let AMEXPattern = "XXXX XXXXXX XXXXX"
 public extension String {
     
     
+    /**
+    returns a string that matches the format of the number on the card itself based on the spacing pattern
+    
+    - Returns: a String with correct spacing for a credit card number
+    */
     func cardPresentationString() -> String? {
         var strippedSelf = self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
 
@@ -22,35 +27,43 @@ public extension String {
             return nil
         }
         
-        var resultString: String? = nil
+        var patternString: String? = nil
         
         switch self.cardNetwork() {
-        case .Visa(.Debit), .Visa(.Credit), .Visa(.Unknown), .MasterCard(.Debit), .MasterCard(.Credit), .MasterCard(.Unknown), .Dankort, .JCB, .InstaPayment, .Discover where strippedSelf.characters.count == 16:
-            
-            resultString = VISAPattern
+        case .Visa(.Debit), .Visa(.Credit), .Visa(.Unknown), .MasterCard(.Debit), .MasterCard(.Credit), .MasterCard(.Unknown), .Dankort, .JCB, .InstaPayment, .Discover:
+            patternString = VISAPattern
+            break
         case .AMEX:
-            resultString = AMEXPattern
+            patternString = AMEXPattern
             break
         default:
-            return strippedSelf
+            if strippedSelf.characters.count == 16 {
+                patternString = VISAPattern
+            } else {
+                return strippedSelf
+            }
         }
         
-        if let resultString = resultString {
+        if let patternString = patternString {
         
-            var patternIndex = resultString.startIndex
+            var patternIndex = patternString.startIndex
             
-            strippedSelf.characters.reduce(resultString, combine: { (inputString, character) -> String in
-                if resultString.characters[patternIndex] == "X" {
+            let retVal = strippedSelf.characters.map({ (element) -> String in
+                if patternString.characters[patternIndex] == "X" {
                     patternIndex = advance(patternIndex, 1)
-                    return String(character)
+                    return String(element)
                 } else {
                     patternIndex = advance(patternIndex, 2)
-                    return " \(character)"
+                    return " \(element)"
                 }
             })
+            
+            let returnString = "".join(retVal)
+            
+            return returnString
         }
         
-        return resultString
+        return nil
         
     }
     
