@@ -11,12 +11,18 @@ import UIKit
 public class JKTextField: UIScrollView, UITextFieldDelegate {
     
     let textField: UITextField = UITextField()
+    let identifyLabel: UILabel = {
+        let label = UILabel(frame: CGRectMake(220, 0, 80, 44))
+        label.font = UIFont.systemFontOfSize(10)
+        return label
+        }()
     
     init() {
         super.init(frame: CGRectMake(0, 0, 300, 44))
         self.textField.frame = frame
         self.textField.delegate = self
         self.addSubview(self.textField)
+        self.addSubview(self.identifyLabel)
     }
     
     override init(frame: CGRect) {
@@ -24,6 +30,7 @@ public class JKTextField: UIScrollView, UITextFieldDelegate {
         self.textField.frame = frame
         self.textField.delegate = self
         self.addSubview(self.textField)
+        self.addSubview(self.identifyLabel)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -31,45 +38,36 @@ public class JKTextField: UIScrollView, UITextFieldDelegate {
         self.textField.frame = frame
         self.textField.delegate = self
         self.addSubview(self.textField)
+        self.addSubview(self.identifyLabel)
     }
     
     // MARK: UITextFieldDelegate
     
-    // FIXME: this needs fixing!
     @objc public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
-        let beginning = textField.beginningOfDocument
-        let start = textField.positionFromPosition(beginning, offset: range.location)
-        let end = textField.positionFromPosition(start!, offset:range.length)
-        let textRange = textField.textRangeFromPosition(start!, toPosition:end!)
+        if newString.characters.count == 0 {
+            textField.backgroundColor = UIColor.grayColor()
+            self.identifyLabel.text = ""
+            return true
+        }
         
-        let currentCursorPosition = textField.positionFromPosition(textField.beginningOfDocument, offset: 0)
-        // this will be the new cursor location after insert/paste/typing
-        let cursorOffset = textField.offsetFromPosition(beginning, toPosition:start!) + string.characters.count
-        
-        textField.replaceRange(textRange!, withText: string)
-
         do {
             textField.text = try newString.cardPresentationString()
         } catch {
-            // do nothing
+            textField.backgroundColor = UIColor.redColor()
+            // visual representation of false input
         }
         
+        if textField.text!.isCardNumberValid() {
+            textField.backgroundColor = UIColor.greenColor()
+        } else {
+            textField.backgroundColor = UIColor.redColor()
+        }
         
-        let newCursorPosition = textField.positionFromPosition(textField.beginningOfDocument, offset:cursorOffset)
-        let newSelectedRange = textField.textRangeFromPosition(newCursorPosition!, toPosition:newCursorPosition!)
-        textField.selectedTextRange = newSelectedRange
-        
-//        if let currentCursorPosition = currentCursorPosition {
-//            if let newCursorPosition = textField.positionFromPosition(currentCursorPosition, offset: 1) {
-//                let newRange = textField.textRangeFromPosition(newCursorPosition, toPosition: newCursorPosition)
-//                textField.selectedTextRange = newRange
-//            }
-//        }
-        
-        
+        self.identifyLabel.text = textField.text!.cardNetwork().stringValue()
+
         return false
     }
     

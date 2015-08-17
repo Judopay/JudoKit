@@ -25,6 +25,8 @@ public extension String {
 
         if strippedSelf.characters.count == 0 {
             return nil
+        } else if strippedSelf.characters.count > 19 {
+            throw JudoError.Unknown
         }
         
         if strippedSelf.cardNetwork() == .Unknown {
@@ -179,26 +181,28 @@ public extension String {
         let network = self.cardNetwork()
         let strippedSelf = self.stringByReplacingOccurrencesOfString(" ", withString: "")
         
-        guard strippedSelf.isLuhnValid() else { return false }
-
-        let strippedSelfCount = strippedSelf.characters.count
-        
-        switch network {
-        case .UATP, .AMEX:
-            return strippedSelfCount == 15
-        case .Visa(.Debit), .Visa(.Credit), .Visa(.Unknown):
-            return strippedSelfCount == 13 || strippedSelfCount == 16
-        case .MasterCard(.Debit), .MasterCard(.Credit), .MasterCard(.Unknown), .Dankort, .JCB, .InstaPayment, .Discover:
-            return strippedSelfCount == 16
-        case .Maestro:
-            return (12...19).contains(strippedSelfCount)
-        case .DinersClub:
-            return strippedSelfCount == 14
-        case .ChinaUnionPay, .InterPayment:
-            return (16...19).contains(strippedSelfCount)
-        case .Unknown:
-            return false
+        if strippedSelf.isLuhnValid() {
+            let strippedSelfCount = strippedSelf.characters.count
+            
+            switch network {
+            case .UATP, .AMEX:
+                return strippedSelfCount == 15
+            case .Visa(.Debit), .Visa(.Credit), .Visa(.Unknown):
+                return strippedSelfCount == 13 || strippedSelfCount == 16
+            case .MasterCard(.Debit), .MasterCard(.Credit), .MasterCard(.Unknown), .Dankort, .JCB, .InstaPayment, .Discover:
+                return strippedSelfCount == 16
+            case .Maestro:
+                return (12...19).contains(strippedSelfCount)
+            case .DinersClub:
+                return strippedSelfCount == 14
+            case .ChinaUnionPay, .InterPayment:
+                return (16...19).contains(strippedSelfCount)
+            case .Unknown:
+                return false
+            }
         }
+        return false
+
     }
     
     
