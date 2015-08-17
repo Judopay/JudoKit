@@ -9,8 +9,10 @@
 import Foundation
 import Judo
 
-let VISAPattern = "XXXX XXXX XXXX XXXX"
-let AMEXPattern = "XXXX XXXXXX XXXXX"
+let VISAPattern         = "XXXX XXXX XXXX XXXX"
+let AMEXPattern         = "XXXX XXXXXX XXXXX"
+let CUPPattern          = "XXXXXX XXXXXXXXXXXX"
+let DinersClubPattern   = "XXXX XXXXXX XXXX"
 
 public extension String {
     
@@ -50,6 +52,24 @@ public extension String {
                 throw JudoError.Unknown
             }
             break
+        case .ChinaUnionPay, .InterPayment:
+            if strippedSelf.characters.count <= 16 {
+                patternString = VISAPattern
+            } else if strippedSelf.characters.count == 19 {
+                patternString = CUPPattern
+            } else {
+                throw JudoError.Unknown
+            }
+            break;
+        case .DinersClub:
+            if strippedSelf.characters.count <= 14 {
+                patternString = DinersClubPattern
+            } else if strippedSelf.characters.count <= 16 {
+                patternString = VISAPattern
+            } else {
+                throw JudoError.Unknown
+            }
+            // TODO: Maestro Format
         default:
             if strippedSelf.characters.count <= 16 {
                 patternString = VISAPattern
