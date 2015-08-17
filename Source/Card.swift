@@ -20,24 +20,36 @@ public extension String {
     
     - Returns: a String with correct spacing for a credit card number
     */
-    func cardPresentationString() -> String? {
-        var strippedSelf = self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    func cardPresentationString() throws -> String? {
+        var strippedSelf = self.stringByReplacingOccurrencesOfString(" ", withString: "")
 
-        if strippedSelf.characters.count == 0 || strippedSelf.cardNetwork() == .Unknown {
+        if strippedSelf.characters.count == 0 {
             return nil
+        }
+        
+        if strippedSelf.cardNetwork() == .Unknown {
+            return strippedSelf
         }
         
         var patternString: String? = nil
         
         switch self.cardNetwork() {
         case .Visa(.Debit), .Visa(.Credit), .Visa(.Unknown), .MasterCard(.Debit), .MasterCard(.Credit), .MasterCard(.Unknown), .Dankort, .JCB, .InstaPayment, .Discover:
-            patternString = VISAPattern
+            if strippedSelf.characters.count <= 16 {
+                patternString = VISAPattern
+            } else {
+                throw JudoError.Unknown
+            }
             break
         case .AMEX:
-            patternString = AMEXPattern
+            if strippedSelf.characters.count <= 15 {
+                patternString = AMEXPattern
+            } else {
+                throw JudoError.Unknown
+            }
             break
         default:
-            if strippedSelf.characters.count == 16 {
+            if strippedSelf.characters.count <= 16 {
                 patternString = VISAPattern
             } else {
                 return strippedSelf
@@ -63,8 +75,7 @@ public extension String {
             return retString
         }
         
-        return nil
-        
+        throw JudoError.Unknown
     }
     
     
@@ -78,7 +89,7 @@ public extension String {
     */
     func cardNetwork() -> CardNetwork {
         
-        let strippedSelf = self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        let strippedSelf = self.stringByReplacingOccurrencesOfString(" ", withString: "")
         
         // Card Networks that only have one prefix
         switch self {
@@ -166,7 +177,7 @@ public extension String {
     func isCardNumberValid() -> Bool {
         
         let network = self.cardNetwork()
-        let strippedSelf = self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let strippedSelf = self.stringByReplacingOccurrencesOfString(" ", withString: "")
         
         guard strippedSelf.isLuhnValid() else { return false }
 

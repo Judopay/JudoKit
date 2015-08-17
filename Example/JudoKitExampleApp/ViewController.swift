@@ -13,8 +13,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+        let textField = JKTextField()
+        textField.backgroundColor = UIColor.grayColor()
+        self.view.addSubview(textField)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
