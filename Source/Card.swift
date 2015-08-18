@@ -9,10 +9,28 @@
 import Foundation
 import Judo
 
+
 let VISAPattern         = "XXXX XXXX XXXX XXXX"
 let AMEXPattern         = "XXXX XXXXXX XXXXX"
-let CUPPattern          = "XXXXXX XXXXXXXXXXXX"
+let CUPPattern          = "XXXXXX XXXXXXXXXXXXX"
 let DinersClubPattern   = "XXXX XXXXXX XXXX"
+
+
+// these should be computed once and then referenced
+let masterCardPrefixes      = stringRange(2221...2720) + stringRange(51...55)
+let maestroPrefixes         = stringRange(56...69) + ["50"]
+let dinersClubPrefixes      = stringRange(300...305) + ["36", "38", "39", "309"]
+let discoverPrefixes        = stringRange(644...649) + ["65", "6011"] + stringRange(622126...622925)
+let instaPaymentPrefixes    = stringRange(637...639)
+let JCBPrefixes             = stringRange(3528...3589)
+
+func stringRange(range: Range<Int>) -> [String] {
+    var result = [String]()
+    for num in range {
+        result.append(String(num))
+    }
+    return result
+}
 
 public extension String {
     
@@ -69,7 +87,14 @@ public extension String {
             } else {
                 throw JudoError.Unknown
             }
-            // TODO: Maestro Format
+        case .Maestro:
+            if strippedSelf.characters.count <= 16 {
+                patternString = VISAPattern
+            } else if strippedSelf.characters.count <= 19 {
+                patternString = CUPPattern
+            } else {
+                throw JudoError.Unknown
+            }
         default:
             if strippedSelf.characters.count <= 16 {
                 patternString = VISAPattern
@@ -129,6 +154,7 @@ public extension String {
             break
         }
         
+        
         // Card Networks with multiple different prefix
         // AMEX begins with 34 & 37
         for prefix in ["34", "37"] {
@@ -138,49 +164,43 @@ public extension String {
         }
         
         // MasterCard begins with 51 - 55
-        for prefix in (51...55).map({ String($0) }) {
-            if strippedSelf.beginsWith(prefix) {
-                return .MasterCard(.Unknown)
-            }
-        }
-        
-        // future MasterCard range 2221-2720
-        for prefix in (2221...2720).map({ String($0) }) {
+        // new MasterCard range starting in 2016: 2221-2720
+        for prefix in masterCardPrefixes {
             if strippedSelf.beginsWith(prefix) {
                 return .MasterCard(.Unknown)
             }
         }
         
         // Maestro has 50, 56-69
-        for prefix in [56...69].map({ String($0) }) {
+        for prefix in maestroPrefixes {
             if strippedSelf.beginsWith(prefix) {
                 return .Maestro
             }
         }
         
         // Diners Club 300-305 / 309 & 36, 38, 39
-        for prefix in (300...305).map({ String($0) }) + ["36", "38", "39", "309"] {
+        for prefix in dinersClubPrefixes {
             if strippedSelf.beginsWith(prefix) {
                 return .DinersClub
             }
         }
         
         // Discover 644-649
-        for prefix in (644...649).map({ String($0) }) + ["65", "6011"] + (622126...622925).map({ String($0) }) {
+        for prefix in discoverPrefixes {
             if strippedSelf.beginsWith(prefix) {
                 return .Discover
             }
         }
         
         // InstaPayment
-        for prefix in (637...639).map({ String($0) }) {
+        for prefix in instaPaymentPrefixes {
             if strippedSelf.beginsWith(prefix) {
                 return .InstaPayment
             }
         }
         
         // JCB 3528-3589
-        for prefix in (3528...3589).map({ String($0) }) {
+        for prefix in JCBPrefixes {
             if strippedSelf.beginsWith(prefix) {
                 return .JCB
             }
@@ -252,7 +272,6 @@ public extension String {
             return sum + (odd ? (val.element! == 9 ? 9 : (val.element! * 2) % 9) : val.element!)
             } % 10 == 0
     }
-    
     
     
     func isNumeric() -> Bool {

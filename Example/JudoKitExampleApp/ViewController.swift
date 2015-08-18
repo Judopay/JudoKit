@@ -16,6 +16,7 @@ class ViewController: UIViewController {
         let textField = JKTextField()
         textField.backgroundColor = UIColor.grayColor()
         self.view.addSubview(textField)
+        textField.center = self.view.center
         // Do any additional setup after loading the view, typically from a nib.
     }
 
