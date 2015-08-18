@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let textField = JKTextField()
-        textField.backgroundColor = UIColor.grayColor()
+        textField.layer.borderColor = UIColor.grayColor().CGColor
+        textField.layer.borderWidth = 1.0
         self.view.addSubview(textField)
         textField.center = self.view.center
         // Do any additional setup after loading the view, typically from a nib.

@@ -39,9 +39,9 @@ public class JKTextField: UIScrollView, UITextFieldDelegate {
     }
     
     func setupView() {
-        self.contentSize = CGSizeMake(400, 44)
+        self.contentSize = CGSizeMake(360, 44)
         
-        self.cardNumberTextField.frame = CGRectMake(10, 0, 230, 44)
+        self.cardNumberTextField.frame = CGRectMake(10, 0, 220, 44)
         self.cardNumberTextField.delegate = self
         self.addSubview(self.cardNumberTextField)
         
@@ -54,6 +54,8 @@ public class JKTextField: UIScrollView, UITextFieldDelegate {
         self.addSubview(self.ccvTextField)
         
         self.addSubview(self.identifyLabel)
+        
+        self.showsVerticalScrollIndicator = false
     }
     
     // MARK: UITextFieldDelegate
@@ -65,7 +67,7 @@ public class JKTextField: UIScrollView, UITextFieldDelegate {
             let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
             
             if newString.characters.count == 0 {
-                self.backgroundColor = UIColor.grayColor()
+                self.backgroundColor = UIColor.clearColor()
                 self.identifyLabel.text = ""
                 return true
             }
@@ -79,7 +81,7 @@ public class JKTextField: UIScrollView, UITextFieldDelegate {
             
             if textField.text!.isCardNumberValid() {
                 self.backgroundColor = UIColor.greenColor()
-                self.scrollRectToVisible(CGRectMake(200, 0, self.bounds.width, self.bounds.height), animated: true)
+                self.scrollRectToVisible(CGRectMake(180, 0, self.bounds.width, self.bounds.height), animated: true)
             } else {
                 self.backgroundColor = UIColor.redColor()
                 self.scrollRectToVisible(CGRectMake(0, 0, self.bounds.width, self.bounds.height), animated: true)
