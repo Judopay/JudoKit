@@ -12,9 +12,5 @@ import Judo
 
 public class JudoKit {
     
-    public static func someMethod() {
-        let signal = JudoSecure().deviceSignal()
-        print("signal: \(signal)")
-    }
     
 }

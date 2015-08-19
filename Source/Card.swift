@@ -45,7 +45,7 @@ public extension String {
         if strippedSelf.characters.count == 0 {
             return nil
         } else if strippedSelf.characters.count > 19 {
-            throw JudoError.Unknown
+            throw JudoError.CardLengthMismatchError
         }
         
         if strippedSelf.cardNetwork() == .Unknown {
@@ -59,14 +59,14 @@ public extension String {
             if strippedSelf.characters.count <= 16 {
                 patternString = VISAPattern
             } else {
-                throw JudoError.Unknown
+                throw JudoError.CardLengthMismatchError
             }
             break
         case .AMEX:
             if strippedSelf.characters.count <= 15 {
                 patternString = AMEXPattern
             } else {
-                throw JudoError.Unknown
+                throw JudoError.CardLengthMismatchError
             }
             break
         case .ChinaUnionPay, .InterPayment:
@@ -75,7 +75,7 @@ public extension String {
             } else if strippedSelf.characters.count == 19 {
                 patternString = CUPPattern
             } else {
-                throw JudoError.Unknown
+                throw JudoError.CardLengthMismatchError
             }
             break;
         case .DinersClub:
@@ -84,7 +84,7 @@ public extension String {
             } else if strippedSelf.characters.count <= 16 {
                 patternString = VISAPattern
             } else {
-                throw JudoError.Unknown
+                throw JudoError.CardLengthMismatchError
             }
         case .Maestro:
             if strippedSelf.characters.count <= 16 {
@@ -92,7 +92,7 @@ public extension String {
             } else if strippedSelf.characters.count <= 19 {
                 patternString = CUPPattern
             } else {
-                throw JudoError.Unknown
+                throw JudoError.CardLengthMismatchError
             }
         default:
             if strippedSelf.characters.count <= 16 {

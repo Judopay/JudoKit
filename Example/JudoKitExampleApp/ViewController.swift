@@ -13,7 +13,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let textField = JKTextField()
+        let textField = CardTextField(frame: CGRectMake(0, 0, 240, 44))
         textField.layer.borderColor = UIColor.grayColor().CGColor
         textField.layer.borderWidth = 1.0
         self.view.addSubview(textField)
@@ -21,10 +21,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    @IBAction func tapButton() {
-        JudoKit.someMethod()
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
