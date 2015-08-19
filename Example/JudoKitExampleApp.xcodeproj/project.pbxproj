@@ -76,7 +76,7 @@
 		DA7A98951B7E3291005754F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA7A989B1B7E32A7005754F1 /* JudoKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JudoKit.xcodeproj; path = ../JudoKit.xcodeproj; sourceTree = "<group>"; };
 		DAAF28311B84BA140089AFFA /* Judo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Judo.framework; path = "/Users/hamonriazy/Library/Developer/Xcode/DerivedData/JudoKitExampleApp-goxonsoimxpftuaneqlmishpsnak/Build/Products/Debug-iphoneos/Judo.framework"; sourceTree = "<absolute>"; };
-		DAAF28341B84BA350089AFFA /* JudoSecure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoSecure.framework; path = "../Judo-Security/Source/Debug/JudoSecure.framework"; sourceTree = "<group>"; };
+		DAAF28341B84BA350089AFFA /* JudoSecure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoSecure.framework; path = "../Judo-Security/Framework/JudoSecure.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -369,7 +369,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Judo-Security/Source/Release";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Judo-Security/Framework";
 				INFOPLIST_FILE = JudoKitExampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -386,7 +386,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Judo-Security/Source/Release";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../Judo-Security/Framework";
 				INFOPLIST_FILE = JudoKitExampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
