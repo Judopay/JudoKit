@@ -26,7 +26,7 @@ class JudoKitTests: XCTestCase {
         let visaCardNumber = "46231344642" // VISA
         
         // When
-        let visaCardFormatted = visaCardNumber.cardPresentationString()
+        let visaCardFormatted = try! visaCardNumber.cardPresentationString()
         
         // Then
         XCTAssertEqual(visaCardFormatted, "4623 1344 642")
@@ -36,7 +36,7 @@ class JudoKitTests: XCTestCase {
         let masterCardNumber = "5546231344642" // MasterCard
         
         // When
-        let masterCardFormatted = masterCardNumber.cardPresentationString()
+        let masterCardFormatted = try! masterCardNumber.cardPresentationString()
         
         // Then
         XCTAssertEqual(masterCardFormatted, "5546 2313 4464 2")
@@ -46,7 +46,7 @@ class JudoKitTests: XCTestCase {
         let amexCardNumber = "3446231344642" // MasterCard
         
         // When
-        let amexCardFormatted = amexCardNumber.cardPresentationString()
+        let amexCardFormatted = try! amexCardNumber.cardPresentationString()
         
         // Then
         XCTAssertEqual(amexCardFormatted, "3446 231344 642")
