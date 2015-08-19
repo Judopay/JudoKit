@@ -20,6 +20,10 @@ class ViewController: UIViewController {
         textField.center = self.view.center
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
+    @IBAction func tapButton() {
+        JudoKit.someMethod()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

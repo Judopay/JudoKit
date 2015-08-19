@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Judo
 
 public class JKTextField: UIScrollView, UITextFieldDelegate {
     
     let cardNumberTextField: UITextField = UITextField()
     let expiryDateTextField: UITextField = UITextField()
     let ccvTextField: UITextField = UITextField()
+    
+    var acceptedCardNetworks: [CardNetwork]?
     
     let identifyLabel: UILabel = {
         let label = UILabel(frame: CGRectMake(200, 0, 40, 44))
