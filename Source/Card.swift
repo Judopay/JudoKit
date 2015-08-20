@@ -10,12 +10,6 @@ import Foundation
 import Judo
 
 
-let VISAPattern         = "XXXX XXXX XXXX XXXX"
-let AMEXPattern         = "XXXX XXXXXX XXXXX"
-let CUPPattern          = "XXXXXX XXXXXXXXXXXXX"
-let DinersClubPattern   = "XXXX XXXXXX XXXX"
-
-
 // these should be computed once and then referenced - O(n)
 let masterCardPrefixes          = ([Int](2221...2720)).map({ String($0) }) + ([Int](51...55)).map { String($0) }
 let maestroPrefixes             = ([Int](56...69)).map({ String($0) }) + ["50"]
@@ -28,6 +22,12 @@ let discoverPrefixes: [String]  = {
     let discover = ([Int](644...649)).map({ String($0) }) + ([Int](622126...622925)).map({ String($0) })
     return discover + ["65", "6011"]
     }()
+
+
+let defaultCardConfigurations = [Card.Configuration(.Visa(.Unknown), 16),
+                                Card.Configuration(.MasterCard(.Unknown), 16),
+                                Card.Configuration(.AMEX, 15)]
+
 
 
 public extension String {
@@ -47,92 +47,60 @@ public extension String {
     /**
     returns a string that matches the format of the number on the card itself based on the spacing pattern
     
-    - Returns: a String with correct spacing for a credit card number
+    - Parameter configurations: the valid configurations to check for when
+    
+    - Returns: a formatted String that matches the credit card format
+    
+    - Throws CardLengthMismatchError: if amount of characters is longer than the maximum character number
+    - Throws InvalidCardNumber: if the card number is invalid
     */
-    func cardPresentationString() throws -> String? {
+    func cardPresentationString(configurations: [Card.Configuration] = defaultCardConfigurations) throws -> String {
         
         var strippedSelf = self.stripped
 
+        // do not continue if the string is empty or out of range
         if strippedSelf.characters.count == 0 {
-            return nil
-        } else if strippedSelf.characters.count > 19 {
+            return ""
+        } else if strippedSelf.characters.count > Card.maximumLength {
             throw JudoError.CardLengthMismatchError
         }
         
-        if strippedSelf.cardNetwork() == .Unknown {
+        let cardNetwork = strippedSelf.cardNetwork()
+        
+        // only try to format if a specific card number has been recognized
+        if cardNetwork == .Unknown {
             return strippedSelf
         }
         
-        var patternString: String? = nil
+        // special secret ingredient
+        // 1. filter out networks that dont match the entered card numbers
+        // 2. map all remaining strings while removing all optional values
+        // 3. check if the current string has already passed any valid Card number lengths
+        var patterns = configurations.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.characters.count >= self.characters.count })
         
-        switch self.cardNetwork() {
-        case .Visa(.Debit), .Visa(.Credit), .Visa(.Unknown), .MasterCard(.Debit), .MasterCard(.Credit), .MasterCard(.Unknown), .Dankort, .JCB, .InstaPayment, .Discover:
-            if strippedSelf.characters.count <= 16 {
-                patternString = VISAPattern
+        if patterns.count == 0 {
+            // if no patterns are left - the entered number is invalid
+            throw JudoError.InvalidCardNumber
+        }
+        
+        // retrieve the shortest pattern that is left and start moving the characters across
+        let patternString = patterns.sort({ $0.characters.count < $1.characters.count })[0]
+        
+        var patternIndex = patternString.startIndex
+        
+        var retString = ""
+        
+        for element in strippedSelf.characters {
+            if patternString.characters[patternIndex] == "X" {
+                patternIndex = advance(patternIndex, 1)
+                retString = retString + String(element)
             } else {
-                throw JudoError.CardLengthMismatchError
-            }
-            break
-        case .AMEX:
-            if strippedSelf.characters.count <= 15 {
-                patternString = AMEXPattern
-            } else {
-                throw JudoError.CardLengthMismatchError
-            }
-            break
-        case .ChinaUnionPay, .InterPayment:
-            if strippedSelf.characters.count <= 16 {
-                patternString = VISAPattern
-            } else if strippedSelf.characters.count == 19 {
-                patternString = CUPPattern
-            } else {
-                throw JudoError.CardLengthMismatchError
-            }
-            break;
-        case .DinersClub:
-            if strippedSelf.characters.count <= 14 {
-                patternString = DinersClubPattern
-            } else if strippedSelf.characters.count <= 16 {
-                patternString = VISAPattern
-            } else {
-                throw JudoError.CardLengthMismatchError
-            }
-        case .Maestro:
-            if strippedSelf.characters.count <= 16 {
-                patternString = VISAPattern
-            } else if strippedSelf.characters.count <= 19 {
-                patternString = CUPPattern
-            } else {
-                throw JudoError.CardLengthMismatchError
-            }
-        default:
-            if strippedSelf.characters.count <= 16 {
-                patternString = VISAPattern
-            } else {
-                return strippedSelf
+                patternIndex = advance(patternIndex, 2)
+                retString = retString + " \(element)"
             }
         }
         
-        if let patternString = patternString {
-        
-            var patternIndex = patternString.startIndex
-            
-            var retString = ""
-            
-            for element in strippedSelf.characters {
-                if patternString.characters[patternIndex] == "X" {
-                    patternIndex = advance(patternIndex, 1)
-                    retString = retString + String(element)
-                } else {
-                    patternIndex = advance(patternIndex, 2)
-                    retString = retString + " \(element)"
-                }
-            }
-            
-            return retString
-        }
-        
-        throw JudoError.Unknown
+        return retString
     }
     
     

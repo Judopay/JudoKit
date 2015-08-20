@@ -19,7 +19,7 @@ public class CardTextField: UIView, UITextFieldDelegate {
     
     let textField: UITextField = UITextField()
     
-    var acceptedCardNetworks: [CardNetwork]?
+    var acceptedCardNetworks: [Card.Configuration]?
     
     var delegate: CardTextFieldDelegate?
     
