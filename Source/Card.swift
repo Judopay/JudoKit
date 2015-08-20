@@ -33,6 +33,17 @@ let discoverPrefixes: [String]  = {
 public extension String {
     
     
+    /// string by stripping whitespaces
+    public var stripped: String {
+        get {
+            return self.stringByReplacingOccurrencesOfString(" ", withString: "")
+        }
+        set {
+            // do nothing
+        }
+    }
+    
+    
     /**
     returns a string that matches the format of the number on the card itself based on the spacing pattern
     
@@ -40,7 +51,7 @@ public extension String {
     */
     func cardPresentationString() throws -> String? {
         
-        var strippedSelf = self.stringByReplacingOccurrencesOfString(" ", withString: "")
+        var strippedSelf = self.stripped
 
         if strippedSelf.characters.count == 0 {
             return nil
@@ -135,7 +146,7 @@ public extension String {
     */
     func cardNetwork() -> CardNetwork {
         
-        let strippedSelf = self.stringByReplacingOccurrencesOfString(" ", withString: "")
+        let strippedSelf = self.stripped
         
         // Card Networks that only have one prefix
         switch self {
@@ -218,7 +229,7 @@ public extension String {
     func isCardNumberValid() -> Bool {
         
         let network = self.cardNetwork()
-        let strippedSelf = self.stringByReplacingOccurrencesOfString(" ", withString: "")
+        let strippedSelf = self.stripped
         
         if strippedSelf.isLuhnValid() {
             let strippedSelfCount = strippedSelf.characters.count
@@ -260,7 +271,6 @@ public extension String {
     }
     
     
-    
     func isLuhnValid() -> Bool {
         guard self.isNumeric() else {
             return false
@@ -276,6 +286,6 @@ public extension String {
     func isNumeric() -> Bool {
         return Double(self) != nil
     }
-
-
+    
+    
 }

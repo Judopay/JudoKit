@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Judo
 import JudoKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, CardTextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,18 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    func cardTextField(textField: CardTextField, error: ErrorType) {
+        
+    }
+    
+    func cardTextField(textField: CardTextField, didFindValidNumber cardNumberString: String) {
+        
+    }
+    
+    func cardTextField(textField: CardTextField, didDetectNetwork: CardNetwork) {
+        
+    }
 
 }
 
