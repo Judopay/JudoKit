@@ -82,15 +82,17 @@ public extension String {
         // 1. filter out networks that dont match the entered card numbers
         // 2. map all remaining strings while removing all optional values
         // 3. check if the current string has already passed any valid Card number lengths
-        var patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.characters.count >= self.characters.count })
+        var patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.stripped.characters.count > strippedSelf.characters.count })
         
         if patterns.count == 0 {
             // if no patterns are left - the entered number is invalid
             throw JudoError.InvalidCardNumber
         }
         
+        print("patterns: \(patterns)")
         // retrieve the shortest pattern that is left and start moving the characters across
         let patternString = patterns.sort({ $0.characters.count < $1.characters.count })[0]
+        print("pattern: \(patternString)")
         
         var patternIndex = patternString.startIndex
         

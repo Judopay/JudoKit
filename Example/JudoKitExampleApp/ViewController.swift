@@ -21,8 +21,8 @@ class ViewController: UIViewController, CardTextFieldDelegate {
         self.view.addSubview(textField)
         textField.center = self.view.center
         
-        // TODO: text this with multiple lengths of cards
-        textField.acceptedCardNetworks = []
+        textField.acceptedCardNetworks = [Card.Configuration(.ChinaUnionPay, 19),
+            Card.Configuration(.ChinaUnionPay, 16)]
         
         // Do any additional setup after loading the view, typically from a nib.
     }
