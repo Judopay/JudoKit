@@ -56,6 +56,9 @@ public extension String {
     */
     func cardPresentationString(configurations: [Card.Configuration]?) throws -> String {
         
+        // TODO: need to throw error when non-numeric strings are entered
+        // TODO: check for prefixes in the given configurations
+        
         var config = defaultCardConfigurations
         
         if let configurations = configurations {
