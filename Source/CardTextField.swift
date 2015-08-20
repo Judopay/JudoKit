@@ -63,7 +63,7 @@ public class CardTextField: UIView, UITextFieldDelegate {
             self.delegate?.cardTextField(self, error: error)
         }
         
-        if textField.text!.characters.count > Card.minimumCardLength {
+        if textField.text!.characters.count > Card.minimumLength {
             if textField.text!.isCardNumberValid() {
                 self.delegate?.cardTextField(self, didFindValidNumber: textField.text!)
             } else {
