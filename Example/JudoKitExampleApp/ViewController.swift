@@ -15,10 +15,15 @@ class ViewController: UIViewController, CardTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let textField = CardTextField(frame: CGRectMake(0, 0, 240, 44))
+        textField.delegate = self
         textField.layer.borderColor = UIColor.grayColor().CGColor
         textField.layer.borderWidth = 1.0
         self.view.addSubview(textField)
         textField.center = self.view.center
+        
+        // TODO: text this with multiple lengths of cards
+        textField.acceptedCardNetworks = []
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
     
@@ -28,15 +33,15 @@ class ViewController: UIViewController, CardTextFieldDelegate {
     }
     
     func cardTextField(textField: CardTextField, error: ErrorType) {
-        
+        print("error happened")
     }
     
     func cardTextField(textField: CardTextField, didFindValidNumber cardNumberString: String) {
-        
+        print("did find valid number")
     }
     
     func cardTextField(textField: CardTextField, didDetectNetwork: CardNetwork) {
-        
+        print("did detect network")
     }
 
 }

@@ -19,9 +19,9 @@ public class CardTextField: UIView, UITextFieldDelegate {
     
     let textField: UITextField = UITextField()
     
-    var acceptedCardNetworks: [Card.Configuration]?
+    public var acceptedCardNetworks: [Card.Configuration]?
     
-    var delegate: CardTextFieldDelegate?
+    public var delegate: CardTextFieldDelegate?
     
     // MARK: Initializers
     
@@ -57,7 +57,7 @@ public class CardTextField: UIView, UITextFieldDelegate {
         }
         
         do {
-            textField.text = try newString.cardPresentationString()
+            textField.text = try newString.cardPresentationString(self.acceptedCardNetworks)
             self.delegate?.cardTextField(self, didDetectNetwork: textField.text!.cardNetwork())
         } catch let error {
             self.delegate?.cardTextField(self, error: error)

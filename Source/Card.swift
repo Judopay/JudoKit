@@ -54,7 +54,13 @@ public extension String {
     - Throws CardLengthMismatchError: if amount of characters is longer than the maximum character number
     - Throws InvalidCardNumber: if the card number is invalid
     */
-    func cardPresentationString(configurations: [Card.Configuration] = defaultCardConfigurations) throws -> String {
+    func cardPresentationString(configurations: [Card.Configuration]?) throws -> String {
+        
+        var config = defaultCardConfigurations
+        
+        if let configurations = configurations {
+            config = configurations
+        }
         
         var strippedSelf = self.stripped
 
@@ -76,7 +82,7 @@ public extension String {
         // 1. filter out networks that dont match the entered card numbers
         // 2. map all remaining strings while removing all optional values
         // 3. check if the current string has already passed any valid Card number lengths
-        var patterns = configurations.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.characters.count >= self.characters.count })
+        var patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.characters.count >= self.characters.count })
         
         if patterns.count == 0 {
             // if no patterns are left - the entered number is invalid
