@@ -59,7 +59,8 @@ public extension String {
             throw JudoError.InvalidEntry
         }
         
-        let cardNetwork = strippedSelf.cardNetwork()
+        // make sure to only check validity for the necessary networks
+        let cardNetwork = strippedSelf.cardNetwork(constrainedToConfigurations: config)
         
         // only try to format if a specific card number has been recognized
         if cardNetwork == .Unknown {
@@ -100,10 +101,17 @@ public extension String {
     }
     
     
+    /**
+    see https://en.wikipedia.org/wiki/Bank_card_number
+    This method will not do any validation - just a check for numbers from at least 1 character and return an assumption about what the card might be
     
-    func cardNetwork(configuration: Card.Configuration) -> CardNetwork? {
-        
-        return .Unknown
+    - Parameter configurations: only return valid responses for the given configurations
+    
+    - Returns: CardNetwork object
+    */
+    func cardNetwork(constrainedToConfigurations configurations: [Card.Configuration]) -> CardNetwork? {
+        let constrainedNetworks = configurations.map { $0.cardNetwork }
+        return CardNetwork.networkForString(self.stripped, constrainedToNetworks: constrainedNetworks)
     }
     
     
