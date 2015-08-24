@@ -10,28 +10,12 @@ import Foundation
 import Judo
 
 
-// these should be computed once and then referenced - O(n)
-let masterCardPrefixes          = ([Int](2221...2720)).map({ String($0) }) + ([Int](51...55)).map { String($0) }
-let maestroPrefixes             = ([Int](56...69)).map({ String($0) }) + ["50"]
-let dinersClubPrefixes          = ([Int](300...305)).map({ String($0) }) + ["36", "38", "39", "309"]
-let instaPaymentPrefixes        = ([Int](637...639)).map({ String($0) })
-let JCBPrefixes                 = ([Int](3528...3589)).map({ String($0) })
-
-// expression was too complex to be executed in one line 😩😭💥
-let discoverPrefixes: [String]  = {
-    let discover = ([Int](644...649)).map({ String($0) }) + ([Int](622126...622925)).map({ String($0) })
-    return discover + ["65", "6011"]
-    }()
-
-
 let defaultCardConfigurations = [Card.Configuration(.Visa(.Unknown), 16),
                                 Card.Configuration(.MasterCard(.Unknown), 16),
                                 Card.Configuration(.AMEX, 15)]
 
 
-
 public extension String {
-    
     
     /// string by stripping whitespaces
     public var stripped: String {
@@ -56,7 +40,6 @@ public extension String {
     */
     func cardPresentationString(configurations: [Card.Configuration]?) throws -> String {
         
-        // TODO: need to throw error when non-numeric strings are entered
         // TODO: check for prefixes in the given configurations
         
         var config = defaultCardConfigurations
@@ -72,6 +55,8 @@ public extension String {
             return ""
         } else if strippedSelf.characters.count > Card.maximumLength {
             throw JudoError.CardLengthMismatchError
+        } else if !strippedSelf.isNumeric() {
+            throw JudoError.InvalidEntry
         }
         
         let cardNetwork = strippedSelf.cardNetwork()
@@ -115,88 +100,21 @@ public extension String {
     }
     
     
+    
+    func cardNetwork(configuration: Card.Configuration) -> CardNetwork? {
+        
+        return .Unknown
+    }
+    
+    
     /**
     see https://en.wikipedia.org/wiki/Bank_card_number
     This method will not do any validation - just a check for numbers from at least 1 character and return an assumption about what the card might be
     
-    - Parameter cardNumber: the cardnumber to check for
-    
     - Returns: CardNetwork object
     */
     func cardNetwork() -> CardNetwork {
-        
-        let strippedSelf = self.stripped
-        
-        // Card Networks that only have one prefix
-        switch self {
-        case _ where strippedSelf.beginsWith("1"):
-            return .UATP
-        case _ where strippedSelf.beginsWith("4"):
-            return .Visa(.Unknown)
-        case _ where strippedSelf.beginsWith("62"):
-            return .ChinaUnionPay
-        case _ where strippedSelf.beginsWith("636"):
-            return .InterPayment
-        case _ where strippedSelf.beginsWith("5019"):
-            return .Dankort
-        default:
-            break
-        }
-        
-        
-        // Card Networks with multiple different prefix
-        // AMEX begins with 34 & 37
-        for prefix in ["34", "37"] {
-            if strippedSelf.beginsWith(prefix) {
-                return .AMEX
-            }
-        }
-        
-        // MasterCard begins with 51 - 55
-        // new MasterCard range starting in 2016: 2221-2720
-        for prefix in masterCardPrefixes {
-            if strippedSelf.beginsWith(prefix) {
-                return .MasterCard(.Unknown)
-            }
-        }
-        
-        // Maestro has 50, 56-69
-        for prefix in maestroPrefixes {
-            if strippedSelf.beginsWith(prefix) {
-                return .Maestro
-            }
-        }
-        
-        // Diners Club 300-305 / 309 & 36, 38, 39
-        for prefix in dinersClubPrefixes {
-            if strippedSelf.beginsWith(prefix) {
-                return .DinersClub
-            }
-        }
-        
-        // Discover 644-649
-        for prefix in discoverPrefixes {
-            if strippedSelf.beginsWith(prefix) {
-                return .Discover
-            }
-        }
-        
-        // InstaPayment
-        for prefix in instaPaymentPrefixes {
-            if strippedSelf.beginsWith(prefix) {
-                return .InstaPayment
-            }
-        }
-        
-        // JCB 3528-3589
-        for prefix in JCBPrefixes {
-            if strippedSelf.beginsWith(prefix) {
-                return .JCB
-            }
-        }
-        
-        // none of the patterns did match
-        return .Unknown
+        return CardNetwork.networkForString(self.stripped)
     }
     
     
@@ -232,21 +150,6 @@ public extension String {
         }
         return false
 
-    }
-    
-    
-    /**
-    helper method to check wether the string begins with another given string
-    
-    - Parameter str: prefix string to compare
-    
-    - Returns: boolean indicating wether the prefix matches or not
-    */
-    func beginsWith (str: String) -> Bool {
-        if let range = self.rangeOfString(str) {
-            return range.startIndex == self.startIndex
-        }
-        return false
     }
     
     
