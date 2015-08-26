@@ -48,7 +48,7 @@ public extension String {
             config = configurations
         }
         
-        var strippedSelf = self.stripped
+        let strippedSelf = self.stripped
 
         // do not continue if the string is empty or out of range
         if strippedSelf.characters.count == 0 {
@@ -71,7 +71,7 @@ public extension String {
         // 1. filter out networks that dont match the entered card numbers
         // 2. map all remaining strings while removing all optional values
         // 3. check if the current string has already passed any valid Card number lengths
-        var patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.stripped.characters.count > strippedSelf.characters.count })
+        let patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.stripped.characters.count > strippedSelf.characters.count })
         
         if patterns.count == 0 {
             // if no patterns are left - the entered number is invalid
@@ -89,10 +89,10 @@ public extension String {
         
         for element in strippedSelf.characters {
             if patternString.characters[patternIndex] == "X" {
-                patternIndex = advance(patternIndex, 1)
+                patternIndex = patternIndex.advancedBy(1)
                 retString = retString + String(element)
             } else {
-                patternIndex = advance(patternIndex, 2)
+                patternIndex = patternIndex.advancedBy(2)
                 retString = retString + " \(element)"
             }
         }
