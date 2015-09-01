@@ -13,13 +13,15 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
     let textField = UITextField()
     let datePicker = UIPickerView()
     
-    let dateFormatter: NSDateFormatter = {
+    private let dateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MM/yyyy"
         return formatter
     }()
     
-    let currentYear = NSCalendar.currentCalendar().component(.Year, fromDate: NSDate())
+    private let currentYear = NSCalendar.currentCalendar().component(.Year, fromDate: NSDate())
+    
+    public var isStartDate: Bool = false
     
     
     // MARK: Initializers
@@ -46,7 +48,7 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
         
         self.addSubview(self.textField)
     }
-     
+    
     
     // MARK: UIPickerViewDataSource
     
@@ -55,7 +57,7 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
     }
     
     public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return component == 0 ? 12 : 10
+        return component == 0 ? 12 : 11
     }
     
     
@@ -66,7 +68,7 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
         case 0:
             return NSString(format: "%2f", row + 1) as String
         case 1:
-            return "\(row + currentYear)"
+            return self.isStartDate ? "\(currentYear - row)" : "\(currentYear + row)"
         default:
             return nil
         }
@@ -75,7 +77,8 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // need to use NSString because Precision String Format Specifier is easier this way
         let month = NSString(format: "%2f", row + 1)
-        self.textField.text = "\(month)/\(currentYear + component)"
+        let year = self.isStartDate ? currentYear - component : currentYear + component
+        self.textField.text = "\(month)/\(year)"
     }
     
 }
