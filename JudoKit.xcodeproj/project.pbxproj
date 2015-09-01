@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DA3902351B95B5DF001A703C /* JPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902341B95B5DF001A703C /* JPayViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		DA3902371B95DC62001A703C /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902361B95DC62001A703C /* DateTextField.swift */; settings = {ASSET_TAGS = (); }; };
+		DA39023E1B96092B001A703C /* SecurityTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39023D1B96092B001A703C /* SecurityTextField.swift */; settings = {ASSET_TAGS = (); }; };
 		DA76A6011B7B73D30033E553 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DA76A6001B7B73D30033E553 /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAAF28431B84DE700089AFFA /* JudoKitErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAF28421B84DE700089AFFA /* JudoKitErrors.swift */; };
 		DAB261AD1B7B7A0B005024FF /* JudoKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB261AC1B7B7A0B005024FF /* JudoKit.swift */; };
@@ -47,6 +48,7 @@
 /* Begin PBXFileReference section */
 		DA3902341B95B5DF001A703C /* JPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPayViewController.swift; sourceTree = "<group>"; };
 		DA3902361B95DC62001A703C /* DateTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
+		DA39023D1B96092B001A703C /* SecurityTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityTextField.swift; sourceTree = "<group>"; };
 		DA76A5FD1B7B73D30033E553 /* JudoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JudoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA76A6001B7B73D30033E553 /* JudoKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JudoKit.h; sourceTree = "<group>"; };
 		DA76A6021B7B73D30033E553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -90,6 +92,16 @@
 			name = Boxed;
 			sourceTree = "<group>";
 		};
+		DA39023C1B960918001A703C /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				DAD13A211B7C9E76007BB196 /* CardTextField.swift */,
+				DA3902361B95DC62001A703C /* DateTextField.swift */,
+				DA39023D1B96092B001A703C /* SecurityTextField.swift */,
+			);
+			name = TextFields;
+			sourceTree = "<group>";
+		};
 		DA76A5F31B7B73D30033E553 = {
 			isa = PBXGroup;
 			children = (
@@ -113,14 +125,13 @@
 		DA76A5FF1B7B73D30033E553 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				DA39023C1B960918001A703C /* TextFields */,
 				DA3902311B95B587001A703C /* Boxed */,
 				DA76A6001B7B73D30033E553 /* JudoKit.h */,
 				DA76A6021B7B73D30033E553 /* Info.plist */,
 				DAB261AC1B7B7A0B005024FF /* JudoKit.swift */,
-				DAD13A211B7C9E76007BB196 /* CardTextField.swift */,
 				DAD13A231B7CABA7007BB196 /* Card.swift */,
 				DAAF28421B84DE700089AFFA /* JudoKitErrors.swift */,
-				DA3902361B95DC62001A703C /* DateTextField.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -284,6 +295,7 @@
 			files = (
 				DAD13A221B7C9E76007BB196 /* CardTextField.swift in Sources */,
 				DA3902371B95DC62001A703C /* DateTextField.swift in Sources */,
+				DA39023E1B96092B001A703C /* SecurityTextField.swift in Sources */,
 				DAAF28431B84DE700089AFFA /* JudoKitErrors.swift in Sources */,
 				DAD13A241B7CABA7007BB196 /* Card.swift in Sources */,
 				DA3902351B95B5DF001A703C /* JPayViewController.swift in Sources */,
