@@ -26,4 +26,14 @@ import UIKit
 
 class JPayViewController: UIViewController {
     
+    let paymentTextField: CardTextField = CardTextField()
+    let expiryDateTextField: UITextField = UITextField()
+    let secureCodeTextField: UITextField = UITextField()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    
+    
 }

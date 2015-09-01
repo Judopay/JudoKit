@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DA3902351B95B5DF001A703C /* JPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902341B95B5DF001A703C /* JPayViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		DA3902371B95DC62001A703C /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902361B95DC62001A703C /* DateTextField.swift */; settings = {ASSET_TAGS = (); }; };
 		DA76A6011B7B73D30033E553 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DA76A6001B7B73D30033E553 /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAAF28431B84DE700089AFFA /* JudoKitErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAAF28421B84DE700089AFFA /* JudoKitErrors.swift */; };
 		DAB261AD1B7B7A0B005024FF /* JudoKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB261AC1B7B7A0B005024FF /* JudoKit.swift */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		DA3902341B95B5DF001A703C /* JPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPayViewController.swift; sourceTree = "<group>"; };
+		DA3902361B95DC62001A703C /* DateTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
 		DA76A5FD1B7B73D30033E553 /* JudoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JudoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA76A6001B7B73D30033E553 /* JudoKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JudoKit.h; sourceTree = "<group>"; };
 		DA76A6021B7B73D30033E553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				DAD13A211B7C9E76007BB196 /* CardTextField.swift */,
 				DAD13A231B7CABA7007BB196 /* Card.swift */,
 				DAAF28421B84DE700089AFFA /* JudoKitErrors.swift */,
+				DA3902361B95DC62001A703C /* DateTextField.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAD13A221B7C9E76007BB196 /* CardTextField.swift in Sources */,
+				DA3902371B95DC62001A703C /* DateTextField.swift in Sources */,
 				DAAF28431B84DE700089AFFA /* JudoKitErrors.swift in Sources */,
 				DAD13A241B7CABA7007BB196 /* Card.swift in Sources */,
 				DA3902351B95B5DF001A703C /* JPayViewController.swift in Sources */,
