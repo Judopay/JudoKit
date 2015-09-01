@@ -8,8 +8,6 @@
 
 import UIKit
 
-let maximumCardValidity = 60 * 60 * 24 * 365 * 10 // a Credit Card can be valid up to ten years
-
 public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let textField = UITextField()
@@ -17,8 +15,12 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
     
     let dateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
+        formatter.dateFormat = "MM/yyyy"
         return formatter
     }()
+    
+    let currentYear = NSCalendar.currentCalendar().component(.Year, fromDate: NSDate())
+    
     
     // MARK: Initializers
     
@@ -39,11 +41,13 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
         
         // input method should be via date picker
         self.datePicker.delegate = self
+        self.datePicker.dataSource = self
         self.textField.inputView = self.datePicker
         
         self.addSubview(self.textField)
     }
      
+    
     // MARK: UIPickerViewDataSource
     
     public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -54,8 +58,24 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
         return component == 0 ? 12 : 10
     }
     
-    func viewForRow(row: Int, forComponent component: Int) -> UIView? {
-        return nil
+    
+    // MARK: UIPickerViewDelegate
+    
+    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            return NSString(format: "%2f", row + 1) as String
+        case 1:
+            return "\(row + currentYear)"
+        default:
+            return nil
+        }
+    }
+    
+    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // need to use NSString because Precision String Format Specifier is easier this way
+        let month = NSString(format: "%2f", row + 1)
+        self.textField.text = "\(month)/\(currentYear + component)"
     }
     
 }
