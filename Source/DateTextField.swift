@@ -20,6 +20,7 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
     }()
     
     private let currentYear = NSCalendar.currentCalendar().component(.Year, fromDate: NSDate())
+    private let currentMonth = NSCalendar.currentCalendar().component(.Month, fromDate: NSDate())
     
     public var isStartDate: Bool = false
     
@@ -46,6 +47,12 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
         self.datePicker.dataSource = self
         self.textField.inputView = self.datePicker
         
+        let month = NSString(format: "%02i", currentMonth)
+        let year = NSString(format: "%02i", currentYear - 2000)
+        self.textField.text = "\(month)/\(year)"
+       
+        self.datePicker.selectRow(currentMonth - 1, inComponent: 0, animated: false)
+        
         self.addSubview(self.textField)
     }
     
@@ -66,9 +73,9 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
     public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
-            return NSString(format: "%2f", row + 1) as String
+            return NSString(format: "%02i", row + 1) as String
         case 1:
-            return self.isStartDate ? "\(currentYear - row)" : "\(currentYear + row)"
+            return NSString(format: "%02i", (self.isStartDate ? currentYear - row : currentYear + row) - 2000) as String
         default:
             return nil
         }
@@ -76,9 +83,17 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
     
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // need to use NSString because Precision String Format Specifier is easier this way
-        let month = NSString(format: "%2f", row + 1)
-        let year = self.isStartDate ? currentYear - component : currentYear + component
-        self.textField.text = "\(month)/\(year)"
+        if component == 0 {
+            let month = NSString(format: "%02i", row + 1)
+            let oldDateString = self.textField.text!
+            let year = oldDateString.substringFromIndex(oldDateString.endIndex.advancedBy(-2))
+            self.textField.text = "\(month)/\(year)"
+        } else if component == 1 {
+            let oldDateString = self.textField.text!
+            let month = oldDateString.substringToIndex(oldDateString.startIndex.advancedBy(2))
+            let year = NSString(format: "%02i", (self.isStartDate ? currentYear - row : currentYear + row) - 2000)
+            self.textField.text = "\(month)/\(year)"
+        }
     }
     
 }

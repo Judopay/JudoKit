@@ -10,6 +10,8 @@
 		DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CC31B84AA0C003FBAA5 /* Security.framework */; };
 		DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */; };
 		DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */; };
+		DA3902431B972374001A703C /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3902421B972374001A703C /* Judo.framework */; };
+		DA3902441B972374001A703C /* Judo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA3902421B972374001A703C /* Judo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA7A988A1B7E3291005754F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A98891B7E3291005754F1 /* AppDelegate.swift */; };
 		DA7A988C1B7E3291005754F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A988B1B7E3291005754F1 /* ViewController.swift */; };
 		DA7A988F1B7E3291005754F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA7A988D1B7E3291005754F1 /* Main.storyboard */; };
@@ -52,6 +54,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				DA3902441B972374001A703C /* Judo.framework in Embed Frameworks */,
 				DAAF28361B84BA350089AFFA /* JudoSecure.framework in Embed Frameworks */,
 				DA7A98A61B7E32CA005754F1 /* JudoKit.framework in Embed Frameworks */,
 			);
@@ -64,6 +67,7 @@
 		DA1B9CC31B84AA0C003FBAA5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DA3902421B972374001A703C /* Judo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Judo.framework; path = "/Users/hamonriazy/Library/Developer/Xcode/DerivedData/JudoKitExampleApp-goxonsoimxpftuaneqlmishpsnak/Build/Products/Debug-iphoneos/Judo.framework"; sourceTree = "<absolute>"; };
 		DA7A98861B7E3291005754F1 /* JudoKitExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JudoKitExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7A98891B7E3291005754F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA7A988B1B7E3291005754F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DA3902431B972374001A703C /* Judo.framework in Frameworks */,
 				DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */,
 				DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */,
 				DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */,
@@ -105,6 +110,7 @@
 		DA7A987D1B7E3291005754F1 = {
 			isa = PBXGroup;
 			children = (
+				DA3902421B972374001A703C /* Judo.framework */,
 				DA7A989B1B7E32A7005754F1 /* JudoKit.xcodeproj */,
 				DA7A98881B7E3291005754F1 /* JudoKitExampleApp */,
 				DA1B9CC61B84AA13003FBAA5 /* Frameworks */,

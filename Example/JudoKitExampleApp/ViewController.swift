@@ -11,18 +11,19 @@ import Judo
 import JudoKit
 
 class ViewController: UIViewController, CardTextFieldDelegate {
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let textField = CardTextField(frame: CGRectMake(0, 0, 240, 44))
-        textField.delegate = self
+        let textField = DateTextField(frame: CGRectMake(0, 0, 240, 44))
+//        textField.delegate = self
         textField.layer.borderColor = UIColor.grayColor().CGColor
         textField.layer.borderWidth = 1.0
         self.view.addSubview(textField)
         textField.center = self.view.center
         
-        textField.acceptedCardNetworks = [Card.Configuration(.ChinaUnionPay, 19),
-            Card.Configuration(.ChinaUnionPay, 16)]
+//        textField.acceptedCardNetworks = [Card.Configuration(.ChinaUnionPay, 19),
+//            Card.Configuration(.ChinaUnionPay, 16)]
         
         // Do any additional setup after loading the view, typically from a nib.
     }
