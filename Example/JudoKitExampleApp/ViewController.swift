@@ -16,6 +16,7 @@ class ViewController: UIViewController, CardTextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         let textField = DateTextField(frame: CGRectMake(0, 0, 240, 44))
+//        textField.dateInputType = .Picker
 //        textField.delegate = self
         textField.layer.borderColor = UIColor.grayColor().CGColor
         textField.layer.borderWidth = 1.0
