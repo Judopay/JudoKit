@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import Judo
 
 public class SecurityTextField: UIView, UITextFieldDelegate {
     
     let textField = UITextField()
+    
+    public var cardNetwork: CardNetwork = .Unknown
     
     // MARK: Initializers
     
@@ -47,7 +50,7 @@ public class SecurityTextField: UIView, UITextFieldDelegate {
             return true
         }
         
-        return newString.isNumeric()
+        return newString.isNumeric() && newString.characters.count < self.cardNetwork.securityCodeLength()
     }
 
 }

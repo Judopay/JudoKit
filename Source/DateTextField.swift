@@ -43,7 +43,7 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
                 self.textField.keyboardType = .NumberPad
             }
         }
-    }
+    } 
     
     
     // MARK: Initializers
