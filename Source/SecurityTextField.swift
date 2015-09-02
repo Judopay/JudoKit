@@ -50,7 +50,7 @@ public class SecurityTextField: UIView, UITextFieldDelegate {
             return true
         }
         
-        return newString.isNumeric() && newString.characters.count < self.cardNetwork.securityCodeLength()
+        return newString.isNumeric() && newString.characters.count <= self.cardNetwork.securityCodeLength()
     }
 
 }

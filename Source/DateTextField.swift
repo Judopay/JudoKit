@@ -8,6 +8,13 @@
 
 import UIKit
 
+
+/**
+The DateTextField allows two different modes of input.
+
+- Picker: use a custom UIPickerView with month and year fields
+- Text:   use a common Numpad Keyboard as text input method
+*/
 public enum DateInputType {
     case Picker, Text
 }
