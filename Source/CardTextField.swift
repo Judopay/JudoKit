@@ -38,6 +38,11 @@ public class CardTextField: JudoPayInputField {
     public var delegate: CardTextFieldDelegate?
     
     
+    override func setupView() {
+        super.setupView()
+        self.titleLabel.text = "Card"
+    }
+    
     // MARK: UITextFieldDelegate
     
     @objc public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {

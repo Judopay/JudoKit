@@ -15,13 +15,24 @@ class ViewController: UIViewController, CardTextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let textField = DateTextField(frame: CGRectMake(0, 0, 240, 44))
-//        textField.dateInputType = .Picker
-//        textField.delegate = self
-        textField.layer.borderColor = UIColor.grayColor().CGColor
-        textField.layer.borderWidth = 1.0
-        self.view.addSubview(textField)
-        textField.center = self.view.center
+        let cardTextField = CardTextField(frame: CGRectMake(0, 0, 280, 44))
+        let dateTextField = DateTextField(frame: CGRectMake(0, 0, 140, 44))
+        let secTextField = SecurityTextField(frame: CGRectMake(0, 0, 140, 44))
+
+        cardTextField.layer.borderColor = UIColor.grayColor().CGColor
+        cardTextField.layer.borderWidth = 1.0
+        self.view.addSubview(cardTextField)
+        cardTextField.center = CGPointMake(self.view.center.x, self.view.center.y - 44)
+        
+        dateTextField.layer.borderColor = UIColor.grayColor().CGColor
+        dateTextField.layer.borderWidth = 1.0
+        self.view.addSubview(dateTextField)
+        dateTextField.center = CGPointMake(self.view.center.x - 70, self.view.center.y)
+        
+        secTextField.layer.borderColor = UIColor.grayColor().CGColor
+        secTextField.layer.borderWidth = 1.0
+        self.view.addSubview(secTextField)
+        secTextField.center = CGPointMake(self.view.center.x + 70, self.view.center.y)
         
 //        textField.acceptedCardNetworks = [Card.Configuration(.ChinaUnionPay, 19),
 //            Card.Configuration(.ChinaUnionPay, 16)]

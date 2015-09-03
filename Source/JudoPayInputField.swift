@@ -29,14 +29,17 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     func setupView() {
         self.textField.frame = self.frame
         self.textField.delegate = self
+        self.textField.keyboardType = .NumberPad
+        
         self.addSubview(self.textField)
         self.addSubview(self.titleLabel)
         
         self.textField.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[title]", options: .DirectionLeftToRight, metrics: nil, views: ["title":titleLabel]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-50-[text]", options: .DirectionLeftToRight, metrics: nil, views: ["text":textField]))
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[title]|", options: .AlignAllBaseline, metrics: nil, views: ["title":titleLabel]))
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField]))
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[title(50)]-[text]-|", options: .DirectionLeftToRight, metrics: nil, views: ["title":titleLabel, "text":textField]))
         
     }
     

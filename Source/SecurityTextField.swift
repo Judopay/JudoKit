@@ -13,6 +13,11 @@ public class SecurityTextField: JudoPayInputField {
     
     public var cardNetwork: CardNetwork = .Unknown
     
+    override func setupView() {
+        super.setupView()
+        self.titleLabel.text = self.cardNetwork.securityName()
+    }
+
     // MARK: UITextFieldDelegate Methods
     
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {

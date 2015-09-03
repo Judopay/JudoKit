@@ -57,6 +57,8 @@ public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerV
     override func setupView() {
         super.setupView()
         
+        self.titleLabel.text = "Expiry"
+        
         // input method should be via date picker
         self.datePicker.delegate = self
         self.datePicker.dataSource = self
