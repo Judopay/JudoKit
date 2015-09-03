@@ -77,4 +77,24 @@ public class CardTextField: JudoPayInputField {
         
     }
     
+    // MARK: Custom methods
+    
+    override func placeholder() -> String? {
+        do {
+            let placeholder = try self.textField.text?.cardPresentationString(self.acceptedCardNetworks)
+            return placeholder
+        } catch {
+            return nil
+        }
+    }
+    
+    override func containsLogo() -> Bool {
+        return true
+    }
+    
+    override func logoView() -> UIView? {
+        // FIXME: need to check which card it is
+        return VisaCardView()
+    }
+    
 }

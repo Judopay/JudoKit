@@ -24,11 +24,33 @@
 
 import UIKit
 
+let inputFieldBorderColor = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
+
 class JPayViewController: UIViewController {
     
-    let paymentTextField = CardTextField()
-    let expiryDateTextField = DateTextField()
-    let secureCodeTextField = SecurityTextField()
+    let paymentTextField: CardTextField = {
+        let inputField = CardTextField()
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.layer.borderColor = inputFieldBorderColor.CGColor
+        inputField.layer.borderWidth = 1.0
+        return inputField
+    }()
+    
+    let expiryDateTextField: DateTextField = {
+        let inputField = DateTextField()
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.layer.borderColor = inputFieldBorderColor.CGColor
+        inputField.layer.borderWidth = 1.0
+        return inputField
+    }()
+    
+    let secureCodeTextField: SecurityTextField = {
+        let inputField = SecurityTextField()
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.layer.borderColor = inputFieldBorderColor.CGColor
+        inputField.layer.borderWidth = 1.0
+        return inputField
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()

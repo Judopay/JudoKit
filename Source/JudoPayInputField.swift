@@ -27,7 +27,6 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     }
     
     func setupView() {
-        self.textField.frame = self.frame
         self.textField.delegate = self
         self.textField.keyboardType = .NumberPad
         
@@ -39,8 +38,34 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[title]|", options: .AlignAllBaseline, metrics: nil, views: ["title":titleLabel]))
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[title(50)]-[text]-|", options: .DirectionLeftToRight, metrics: nil, views: ["title":titleLabel, "text":textField]))
         
+        var visualFormat = "|-[title(50)]-[text]-|"
+        var views = ["title":titleLabel, "text":textField]
+        if self.containsLogo() {
+            let logoView = self.logoView()!
+            logoView.translatesAutoresizingMaskIntoConstraints = false
+            self.addSubview(logoView)
+            visualFormat = "|-[title(50)]-[text]-[logo(38)]-|"
+            views["logo"] = logoView
+
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[logo]|", options: .AlignAllBaseline, metrics: nil, views: ["logo":logoView]))
+        }
+        
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(visualFormat, options: .DirectionLeftToRight, metrics: nil, views: views))
+    }
+    
+    // MARK: Custom methods
+    
+    func placeholder() -> String? {
+        return nil
+    }
+    
+    func containsLogo() -> Bool {
+        return false
+    }
+    
+    func logoView() -> UIView? {
+        return nil
     }
     
 }

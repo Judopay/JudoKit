@@ -36,4 +36,14 @@ public class SecurityTextField: JudoPayInputField {
         return newString.isNumeric() && newString.characters.count <= self.cardNetwork.securityCodeLength()
     }
 
+    // MARK: Custom methods
+
+    override func containsLogo() -> Bool {
+        return true
+    }
+    
+    override func logoView() -> UIView? {
+        return SecurityCodeView()
+    }
+
 }
