@@ -19,9 +19,8 @@ public enum DateInputType {
     case Picker, Text
 }
 
-public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
+public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    let textField = UITextField()
     let datePicker = UIPickerView()
     
     private let dateFormatter: NSDateFormatter = {
@@ -50,25 +49,13 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
                 self.textField.keyboardType = .NumberPad
             }
         }
-    } 
+    }
     
     
     // MARK: Initializers
     
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.setupView()
-    }
-    
-    func setupView() {
-        // set up the textfield
-        self.textField.frame = self.frame
-        self.textField.delegate = self
+    override func setupView() {
+        super.setupView()
         
         // input method should be via date picker
         self.datePicker.delegate = self
@@ -84,8 +71,6 @@ public class DateTextField: UIView, UITextFieldDelegate, UIPickerViewDataSource,
         case .Text:
             self.textField.keyboardType = .NumberPad
         }
-        
-        self.addSubview(self.textField)
     }
     
     

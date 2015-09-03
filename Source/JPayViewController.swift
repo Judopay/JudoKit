@@ -26,12 +26,17 @@ import UIKit
 
 class JPayViewController: UIViewController {
     
-    let paymentTextField: CardTextField = CardTextField()
-    let expiryDateTextField: UITextField = UITextField()
-    let secureCodeTextField: UITextField = UITextField()
+    let paymentTextField = CardTextField()
+    let expiryDateTextField = DateTextField()
+    let secureCodeTextField = SecurityTextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(paymentTextField)
+        self.view.addSubview(expiryDateTextField)
+        self.view.addSubview(secureCodeTextField)
+        
+        // TODO: Autolayout
     }
     
     

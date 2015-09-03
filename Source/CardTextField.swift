@@ -31,31 +31,12 @@ public protocol CardTextFieldDelegate {
     func cardTextField(textField: CardTextField, didDetectNetwork: CardNetwork)
 }
 
-public class CardTextField: UIView, UITextFieldDelegate {
-    
-    let textField: UITextField = UITextField()
+public class CardTextField: JudoPayInputField {
     
     public var acceptedCardNetworks: [Card.Configuration]?
     
     public var delegate: CardTextFieldDelegate?
     
-    // MARK: Initializers
-    
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.setupView()
-    }
-    
-    func setupView() {
-        self.textField.frame = self.frame
-        self.textField.delegate = self
-        self.addSubview(self.textField)
-    }
     
     // MARK: UITextFieldDelegate
     

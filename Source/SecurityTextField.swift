@@ -9,31 +9,9 @@
 import UIKit
 import Judo
 
-public class SecurityTextField: UIView, UITextFieldDelegate {
-    
-    let textField = UITextField()
+public class SecurityTextField: JudoPayInputField {
     
     public var cardNetwork: CardNetwork = .Unknown
-    
-    // MARK: Initializers
-    
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.setupView()
-    }
-    
-    func setupView() {
-        // set up the textfield
-        self.textField.frame = self.frame
-        self.textField.delegate = self
-        
-        self.addSubview(self.textField)
-    }
     
     // MARK: UITextFieldDelegate Methods
     
