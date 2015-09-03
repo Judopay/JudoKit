@@ -26,9 +26,13 @@ import UIKit
 
 let inputFieldBorderColor = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
 
-class JPayViewController: UIViewController {
+public class JPayViewController: UIViewController {
     
-    let paymentTextField: CardTextField = {
+    public static func payment() -> UINavigationController {
+        return UINavigationController(rootViewController: JPayViewController())
+    }
+    
+    let cardTextField: CardTextField = {
         let inputField = CardTextField()
         inputField.translatesAutoresizingMaskIntoConstraints = false
         inputField.layer.borderColor = inputFieldBorderColor.CGColor
@@ -52,13 +56,17 @@ class JPayViewController: UIViewController {
         return inputField
     }()
     
-    override func viewDidLoad() {
+    override public func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(paymentTextField)
+        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.addSubview(cardTextField)
         self.view.addSubview(expiryDateTextField)
         self.view.addSubview(secureCodeTextField)
         
-        // TODO: Autolayout
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[card]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["card":self.cardTextField]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["expiry":self.expiryDateTextField, "security":self.secureCodeTextField]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[expiry(44)]->=20-|", options: .AlignAllLeft, metrics: nil, views: ["card":self.cardTextField, "expiry":self.expiryDateTextField]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[security(44)]->=20-|", options: .AlignAllRight, metrics: nil, views: ["card":self.cardTextField, "security":self.secureCodeTextField]))
     }
     
     

@@ -43,7 +43,7 @@ public class SecurityTextField: JudoPayInputField {
     }
     
     override func logoView() -> UIView? {
-        return SecurityCodeView()
+        return CardLogoView(type: .BackCode)
     }
 
 }

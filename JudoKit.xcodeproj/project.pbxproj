@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA0C19B91B986B5400CD2613 /* VisaCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C19B81B986B5400CD2613 /* VisaCardView.swift */; settings = {ASSET_TAGS = (); }; };
-		DA0C19BE1B9871D500CD2613 /* SecurityCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C19BD1B9871D500CD2613 /* SecurityCodeView.swift */; settings = {ASSET_TAGS = (); }; };
+		DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C19B81B986B5400CD2613 /* CardLogoView.swift */; settings = {ASSET_TAGS = (); }; };
 		DA3902351B95B5DF001A703C /* JPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902341B95B5DF001A703C /* JPayViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		DA3902371B95DC62001A703C /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902361B95DC62001A703C /* DateTextField.swift */; settings = {ASSET_TAGS = (); }; };
 		DA39023E1B96092B001A703C /* SecurityTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39023D1B96092B001A703C /* SecurityTextField.swift */; settings = {ASSET_TAGS = (); }; };
@@ -49,8 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		DA0C19B81B986B5400CD2613 /* VisaCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisaCardView.swift; sourceTree = "<group>"; };
-		DA0C19BD1B9871D500CD2613 /* SecurityCodeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityCodeView.swift; sourceTree = "<group>"; };
+		DA0C19B81B986B5400CD2613 /* CardLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLogoView.swift; sourceTree = "<group>"; };
 		DA3902341B95B5DF001A703C /* JPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPayViewController.swift; sourceTree = "<group>"; };
 		DA3902361B95DC62001A703C /* DateTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
 		DA39023D1B96092B001A703C /* SecurityTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityTextField.swift; sourceTree = "<group>"; };
@@ -93,8 +91,7 @@
 		DA0C19BC1B986B5800CD2613 /* CardLogos */ = {
 			isa = PBXGroup;
 			children = (
-				DA0C19B81B986B5400CD2613 /* VisaCardView.swift */,
-				DA0C19BD1B9871D500CD2613 /* SecurityCodeView.swift */,
+				DA0C19B81B986B5400CD2613 /* CardLogoView.swift */,
 			);
 			name = CardLogos;
 			sourceTree = "<group>";
@@ -313,10 +310,9 @@
 				DAD13A221B7C9E76007BB196 /* CardTextField.swift in Sources */,
 				DA3902371B95DC62001A703C /* DateTextField.swift in Sources */,
 				DA3902461B983959001A703C /* JudoPayInputField.swift in Sources */,
-				DA0C19BE1B9871D500CD2613 /* SecurityCodeView.swift in Sources */,
 				DA39023E1B96092B001A703C /* SecurityTextField.swift in Sources */,
 				DAAF28431B84DE700089AFFA /* JudoKitErrors.swift in Sources */,
-				DA0C19B91B986B5400CD2613 /* VisaCardView.swift in Sources */,
+				DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */,
 				DAD13A241B7CABA7007BB196 /* Card.swift in Sources */,
 				DA3902351B95B5DF001A703C /* JPayViewController.swift in Sources */,
 				DAB261AD1B7B7A0B005024FF /* JudoKit.swift in Sources */,

@@ -94,7 +94,7 @@ public class CardTextField: JudoPayInputField {
     
     override func logoView() -> UIView? {
         // FIXME: need to check which card it is
-        return VisaCardView()
+        return CardLogoView()
     }
     
 }
