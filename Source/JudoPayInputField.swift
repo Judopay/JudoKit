@@ -39,14 +39,22 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[title]|", options: .AlignAllBaseline, metrics: nil, views: ["title":titleLabel]))
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField]))
         
-        var visualFormat = "|-15-[title(50)]-[text]-15-|"
+        self.titleLabel.textColor = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        self.textField.textColor = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        
+        self.titleLabel.font = UIFont.systemFontOfSize(14)
+        self.textField.font = UIFont.boldSystemFontOfSize(14)
+        
+        self.textField.placeholder = self.placeholder()
+        
+        var visualFormat = "|-15-[title(45)][text]-15-|"
         var views = ["title":titleLabel, "text":textField]
         if self.containsLogo() {
             let logoView = self.logoView()!
             logoView.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(logoView)
             
-            visualFormat = "|-15-[title(50)]-[text]-[logo(38)]-15-|"
+            visualFormat = "|-15-[title(45)][text][logo(38)]-15-|"
             views["logo"] = logoView
             
             self.addConstraint(NSLayoutConstraint(item: logoView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
