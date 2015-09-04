@@ -87,7 +87,7 @@ public extension String {
         // 1. filter out networks that dont match the entered card numbers
         // 2. map all remaining strings while removing all optional values
         // 3. check if the current string has already passed any valid Card number lengths
-        let patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.stripped.characters.count > strippedSelf.characters.count })
+        let patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.stripped.characters.count >= strippedSelf.characters.count })
         
         if patterns.count == 0 {
             // if no patterns are left - the entered number is invalid

@@ -43,7 +43,8 @@ public class SecurityTextField: JudoPayInputField {
     }
     
     override func logoView() -> UIView? {
-        return CardLogoView(type: .BackCode)
+        let type: CardLogoType = self.cardNetwork == .AMEX ? .CIDV : .CVC
+        return CardLogoView(type: type)
     }
 
 }

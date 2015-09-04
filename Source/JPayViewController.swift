@@ -23,10 +23,11 @@
 //  SOFTWARE.
 
 import UIKit
+import Judo
 
 let inputFieldBorderColor = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
 
-public class JPayViewController: UIViewController {
+public class JPayViewController: UIViewController, CardTextFieldDelegate {
     
     public static func payment() -> UINavigationController {
         return UINavigationController(rootViewController: JPayViewController())
@@ -63,12 +64,37 @@ public class JPayViewController: UIViewController {
         self.view.addSubview(expiryDateTextField)
         self.view.addSubview(secureCodeTextField)
         
+        self.cardTextField.delegate = self
+        
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[card]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["card":self.cardTextField]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["expiry":self.expiryDateTextField, "security":self.secureCodeTextField]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[expiry(44)]->=20-|", options: .AlignAllLeft, metrics: nil, views: ["card":self.cardTextField, "expiry":self.expiryDateTextField]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[security(44)]->=20-|", options: .AlignAllRight, metrics: nil, views: ["card":self.cardTextField, "security":self.secureCodeTextField]))
     }
     
+    
+    // MARK: CardTextFieldDelegate
+        
+    public func cardTextField(textField: CardTextField, error: ErrorType) {
+        let animation = CAKeyframeAnimation()
+        animation.keyPath = "position.x"
+        animation.values = [0, 8, -8, 4, 0]
+        animation.keyTimes = [0, (1 / 6.0), (3 / 6.0), (5 / 6.0), 1]
+        animation.duration = 0.4
+        animation.additive = true
+        textField.layer.addAnimation(animation, forKey: "wiggle")
+    }
+    
+    public func cardTextField(textField: CardTextField, didFindValidNumber cardNumberString: String) {
+        self.expiryDateTextField.textField.becomeFirstResponder()
+    }
+    
+    public func cardTextField(textField: CardTextField, didDetectNetwork network: CardNetwork) {
+        self.cardTextField.updateCardLogo()
+        self.secureCodeTextField.cardNetwork = network
+        self.secureCodeTextField.updateCardLogo()
+    }
+
     
     
 }

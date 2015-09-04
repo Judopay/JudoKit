@@ -14,6 +14,8 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     let titleLabel: UILabel = UILabel()
     
+    lazy var logoContainerView: UIView = UIView()
+    
     // MARK: Initializers
     
     override public init(frame: CGRect) {
@@ -51,17 +53,30 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         var views = ["title":titleLabel, "text":textField]
         if self.containsLogo() {
             let logoView = self.logoView()!
-            logoView.translatesAutoresizingMaskIntoConstraints = false
-            self.addSubview(logoView)
+            logoView.frame = CGRectMake(0, 0, 38, 25)
+            self.addSubview(self.logoContainerView)
+            self.logoContainerView.translatesAutoresizingMaskIntoConstraints = false
+            self.logoContainerView.clipsToBounds = true
+            self.logoContainerView.layer.cornerRadius = 2
+            self.logoContainerView.addSubview(logoView)
             
             visualFormat = "|-15-[title(45)][text][logo(38)]-15-|"
-            views["logo"] = logoView
+            views["logo"] = self.logoContainerView
             
-            self.addConstraint(NSLayoutConstraint(item: logoView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
-            logoView.addConstraint(NSLayoutConstraint(item: logoView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 25.0))
+            self.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
+            self.logoContainerView.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 25.0))
         }
         
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(visualFormat, options: .DirectionLeftToRight, metrics: nil, views: views))
+    }
+    
+    // MARK: Helpers
+    
+    public func updateCardLogo() {
+        self.logoContainerView.subviews.enumerate().forEach { $1.removeFromSuperview() }
+        let logoView = self.logoView()!
+        logoView.frame = CGRectMake(0, 0, 38, 25)
+        self.logoContainerView.addSubview(logoView)
     }
     
     // MARK: Custom methods

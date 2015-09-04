@@ -28,7 +28,7 @@ import Judo
 public protocol CardTextFieldDelegate {
     func cardTextField(textField: CardTextField, error: ErrorType)
     func cardTextField(textField: CardTextField, didFindValidNumber cardNumberString: String)
-    func cardTextField(textField: CardTextField, didDetectNetwork: CardNetwork)
+    func cardTextField(textField: CardTextField, didDetectNetwork network: CardNetwork)
 }
 
 public class CardTextField: JudoPayInputField {
@@ -65,7 +65,17 @@ public class CardTextField: JudoPayInputField {
             self.delegate?.cardTextField(self, error: error)
         }
         
-        if textField.text!.characters.count > Card.minimumLength {
+        var cardConfigs = defaultCardConfigurations
+        
+        if let acceptedCardConfigs = self.acceptedCardNetworks {
+            cardConfigs = acceptedCardConfigs
+        }
+        
+        let filteredNetworks = cardConfigs.filter { $0.cardNetwork == newString.cardNetwork()}
+        
+        let lowestNumber = filteredNetworks.sort { $0.cardLength < $1.cardLength }
+        
+        if let textCount = textField.text?.stripped.characters.count where textCount == lowestNumber.first?.cardLength {
             if textField.text!.isCardNumberValid() {
                 self.delegate?.cardTextField(self, didFindValidNumber: textField.text!)
             } else {
@@ -93,8 +103,20 @@ public class CardTextField: JudoPayInputField {
     }
     
     override func logoView() -> UIView? {
-        // FIXME: need to check which card it is
-        return CardLogoView()
+        var type: CardLogoType = .Unknown
+        switch self.textField.text!.cardNetwork() {
+        case .Visa(.Credit), .Visa(.Debit), .Visa(.Unknown):
+            type = .Visa
+        case .MasterCard(.Credit), .MasterCard(.Debit), .MasterCard(.Unknown):
+            type = .MasterCard
+        case .Maestro:
+            type = .Maestro
+        case .AMEX:
+            type = .AMEX
+        default:
+            break
+        }
+        return CardLogoView(type: type)
     }
     
 }
