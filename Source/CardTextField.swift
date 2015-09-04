@@ -102,7 +102,7 @@ public class CardTextField: JudoPayInputField {
         return true
     }
     
-    override func logoView() -> UIView? {
+    override func logoView() -> CardLogoView? {
         var type: CardLogoType = .Unknown
         switch self.textField.text!.cardNetwork() {
         case .Visa(.Credit), .Visa(.Debit), .Visa(.Unknown):

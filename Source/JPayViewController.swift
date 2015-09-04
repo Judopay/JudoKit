@@ -74,7 +74,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate {
     
     
     // MARK: CardTextFieldDelegate
-        
+    
     public func cardTextField(textField: CardTextField, error: ErrorType) {
         let animation = CAKeyframeAnimation()
         animation.keyPath = "position.x"
@@ -93,8 +93,8 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate {
         self.cardTextField.updateCardLogo()
         self.secureCodeTextField.cardNetwork = network
         self.secureCodeTextField.updateCardLogo()
+        self.secureCodeTextField.titleLabel.text = network.securityName()
     }
-
     
     
 }

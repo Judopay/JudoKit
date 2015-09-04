@@ -49,7 +49,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         
         self.textField.placeholder = self.placeholder()
         
-        var visualFormat = "|-15-[title(45)][text]-15-|"
+        var visualFormat = "|-12-[title(50)][text]-12-|"
         var views = ["title":titleLabel, "text":textField]
         if self.containsLogo() {
             let logoView = self.logoView()!
@@ -60,7 +60,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             self.logoContainerView.layer.cornerRadius = 2
             self.logoContainerView.addSubview(logoView)
             
-            visualFormat = "|-15-[title(45)][text][logo(38)]-15-|"
+            visualFormat = "|-12-[title(50)][text][logo(38)]-12-|"
             views["logo"] = self.logoContainerView
             
             self.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
@@ -73,10 +73,13 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     // MARK: Helpers
     
     public func updateCardLogo() {
-        self.logoContainerView.subviews.enumerate().forEach { $1.removeFromSuperview() }
         let logoView = self.logoView()!
         logoView.frame = CGRectMake(0, 0, 38, 25)
-        self.logoContainerView.addSubview(logoView)
+        if let oldLogoView = self.logoContainerView.subviews.first as? CardLogoView {
+            if oldLogoView.type != logoView.type {
+                UIView.transitionFromView(self.logoContainerView.subviews.first!, toView: logoView, duration: 0.3, options: .TransitionFlipFromBottom, completion: nil)
+            }
+        }
     }
     
     // MARK: Custom methods
@@ -89,7 +92,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         return false
     }
     
-    func logoView() -> UIView? {
+    func logoView() -> CardLogoView? {
         return nil
     }
     
