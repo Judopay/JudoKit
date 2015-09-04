@@ -15,7 +15,7 @@ public class SecurityTextField: JudoPayInputField {
     
     override func setupView() {
         super.setupView()
-        self.titleLabel.text = self.cardNetwork.securityName()
+        self.titleLabel.text = self.cardNetwork.securityCodeTitle()
     }
 
     // MARK: UITextFieldDelegate Methods

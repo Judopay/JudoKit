@@ -27,7 +27,7 @@ import Judo
 
 let inputFieldBorderColor = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
 
-public class JPayViewController: UIViewController, CardTextFieldDelegate {
+public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTextFieldDelegate {
     
     public static func payment() -> UINavigationController {
         return UINavigationController(rootViewController: JPayViewController())
@@ -65,6 +65,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate {
         self.view.addSubview(secureCodeTextField)
         
         self.cardTextField.delegate = self
+        self.expiryDateTextField.delegate = self
         
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[card]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["card":self.cardTextField]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["expiry":self.expiryDateTextField, "security":self.secureCodeTextField]))
@@ -72,17 +73,20 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate {
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[security(44)]->=20-|", options: .AlignAllRight, metrics: nil, views: ["card":self.cardTextField, "security":self.secureCodeTextField]))
     }
     
-    
-    // MARK: CardTextFieldDelegate
-    
-    public func cardTextField(textField: CardTextField, error: ErrorType) {
+    func errorAnimation(view: JudoPayInputField) {
         let animation = CAKeyframeAnimation()
         animation.keyPath = "position.x"
         animation.values = [0, 8, -8, 4, 0]
         animation.keyTimes = [0, (1 / 6.0), (3 / 6.0), (5 / 6.0), 1]
         animation.duration = 0.4
         animation.additive = true
-        textField.layer.addAnimation(animation, forKey: "wiggle")
+        view.layer.addAnimation(animation, forKey: "wiggle")
+    }
+    
+    // MARK: CardTextFieldDelegate
+    
+    public func cardTextField(textField: CardTextField, error: ErrorType) {
+        self.errorAnimation(textField)
     }
     
     public func cardTextField(textField: CardTextField, didFindValidNumber cardNumberString: String) {
@@ -93,7 +97,17 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate {
         self.cardTextField.updateCardLogo()
         self.secureCodeTextField.cardNetwork = network
         self.secureCodeTextField.updateCardLogo()
-        self.secureCodeTextField.titleLabel.text = network.securityName()
+        self.secureCodeTextField.titleLabel.text = network.securityCodeTitle()
+    }
+    
+    // MARK: DateTextFieldDelegate
+    
+    public func dateTextField(textField: DateTextField, error: ErrorType) {
+        self.errorAnimation(textField)
+    }
+    
+    public func dateTextField(textField: DateTextField, didFindValidDate date: String) {
+        self.secureCodeTextField.textField.becomeFirstResponder()
     }
     
     

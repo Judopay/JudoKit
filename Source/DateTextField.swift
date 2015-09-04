@@ -7,6 +7,12 @@
 //
 
 import UIKit
+import Judo
+
+public protocol DateTextFieldDelegate {
+    func dateTextField(textField: DateTextField, error: ErrorType)
+    func dateTextField(textField: DateTextField, didFindValidDate date: String)
+}
 
 
 /**
@@ -23,9 +29,11 @@ public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerV
     
     let datePicker = UIPickerView()
     
+    public var delegate: DateTextFieldDelegate?
+
     private let dateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
-        formatter.dateFormat = "MM/yyyy"
+        formatter.dateFormat = "MM/yy"
         return formatter
     }()
     
@@ -108,9 +116,47 @@ public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerV
 
         } else if newString.characters.count == 3 {
             return newString.characters.last == "/"
+        } else if newString.characters.count == 4 {
+            // FIXME: need to make sure that number is numeric
+            let deciYear = Int((Double(NSCalendar.currentCalendar().component(.Year, fromDate: NSDate()) - 2000) / 10.0))
+            let lastChar = Int(String(newString.characters.last!))
+            
+            if self.isStartDate {
+                return lastChar == deciYear || lastChar == deciYear - 1
+            } else {
+                return lastChar == deciYear || lastChar == deciYear + 1
+            }
+            
+        } else if newString.characters.count == 5 {
+            let date = self.dateFormatter.dateFromString(newString)
+            if self.isStartDate {
+                if date?.compare(NSDate()) == .OrderedDescending {
+                    // FIXME: not a good solution - need to think of something better
+                    // Delegate calls result in the next textfield being selected before the actual input can be processed
+                    self.textField.text = newString
+                    self.delegate?.dateTextField(self, didFindValidDate: newString)
+                    return false
+                } else {
+                    self.delegate?.dateTextField(self, error: JudoError.InvalidEntry)
+                    return false
+                }
+            } else {
+                if date?.compare(NSDate()) != .OrderedAscending {
+                    // FIXME: not a good solution - need to think of something better
+                    // Delegate calls result in the next textfield being selected before the actual input can be processed
+                    self.textField.text = newString
+                    self.delegate?.dateTextField(self, didFindValidDate: newString)
+                    return false
+                } else {
+                    self.delegate?.dateTextField(self, error: JudoError.InvalidEntry)
+                    return false
+                }
+            }
         } else {
-            let regex = try! NSRegularExpression(pattern: "^(0[1-9]|1[0-2])(\\/[0-9]{0,2})?$", options: .AnchorsMatchLines)
-            return regex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0
+            self.delegate?.dateTextField(self, error: JudoError.InputLengthMismatchError)
+            return false
+//            let regex = try! NSRegularExpression(pattern: "^(0[1-9]|1[0-2])(\\/[0-9]{0,2})?$", options: .AnchorsMatchLines)
+//            return regex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0
         }
     }
     
