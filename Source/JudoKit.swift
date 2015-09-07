@@ -28,5 +28,9 @@ import Judo
 
 public class JudoKit {
     
+    public static func setToken(token: String, andSecret secret: String) {
+        Judo.setToken(token, secret: secret)
+    }
+    
     
 }

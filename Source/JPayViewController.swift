@@ -1,6 +1,6 @@
 //
-//  Payment.swift
-//  Judo
+//  JPayViewController.swift
+//  JudoKit
 //
 //  Copyright (c) 2015 Alternative Payments Ltd
 //
@@ -27,12 +27,24 @@ import Judo
 import JudoSecure
 
 let inputFieldBorderColor = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
+let navBarTextColor = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+
+public protocol JPayViewDelegate {
+    func payViewControllerDidCancelPayment(controller: JPayViewController)
+    func payViewController(controller: JPayViewController, didPaySuccessfullyWithResponse response: Response)
+    func payViewController(controller: JPayViewController, didFailPaymentWithError error: NSError)
+    func payViewController(controller: JPayViewController, didEncounterError error: NSError)
+}
 
 public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTextFieldDelegate, SecurityTextFieldDelegate {
     
     private (set) var amount: Amount?
-    private (set) var judoIDString: String = ""
+    private (set) var judoID: String?
     private (set) var reference: Reference?
+    
+    private let judoSecure = JudoSecure()
+    
+    var delegate: JPayViewDelegate?
     
     var keyboardHeightConstraint: NSLayoutConstraint?
     
@@ -91,7 +103,14 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
-
+    
+    public init(judoID: String, amount: Amount, reference: Reference) {
+        self.judoID = judoID
+        self.amount = amount
+        self.reference = reference
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
@@ -172,19 +191,22 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.paymentNavBarButton!.enabled = false
         self.navigationItem.rightBarButtonItem = self.paymentNavBarButton
         
-        self.navigationController?.navigationBar.tintColor = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)]
+        self.paymentButton.addTarget(self, action: Selector("payButtonAction:"), forControlEvents: .TouchUpInside)
+        
+        self.navigationController?.navigationBar.tintColor = navBarTextColor
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:navBarTextColor]
     }
     
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-//        JudoSecure.locationWithCompletion { coordinate, err in
-//            if let _ = err {
-//                // do nothing
-//            } else {
-//                self.currentLocation = coordinate
-//            }
-//        }
+        
+        self.judoSecure.locationWithCompletion { (coordinate, error) -> Void in
+            if let error = error {
+                self.delegate?.payViewController(self, didEncounterError: error)
+            } else {
+                self.currentLocation = coordinate
+            }
+        }
     }
     
     // MARK: CardTextFieldDelegate
@@ -224,22 +246,32 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     
     func payButtonAction(sender: AnyObject) {
         guard let reference = self.reference,
-        let amount = self.amount else { return } // delegate method call for error
+            let amount = self.amount,
+            let judoID = self.judoID else {
+                self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.ParameterError as NSError)
+                return // BAIL
+        }
         
-        guard let location = self.currentLocation else { return } // need to send a warning
+        guard let location = self.currentLocation else { return } // TODO: need to send a warning and continue
         
+        // I expect that all the texts are available because the Pay Button would not be active otherwise
         let card = Card(number: self.cardTextField.textField.text!.stripped, expiryDate: self.expiryDateTextField.textField.text!, cv2: self.secureCodeTextField.textField.text!, address: nil)
+        
         do {
-            try Judo.payment(self.judoIDString, amount: amount, reference: reference).card(card).location(location).completion { (response, error) -> () in
-                // delegate method call
+            try Judo.payment(judoID, amount: amount, reference: reference).card(card).location(location).completion { (response, error) -> () in
+                if let err = error {
+                    self.delegate?.payViewController(self, didFailPaymentWithError: err)
+                } else if let response = response {
+                    self.delegate?.payViewController(self, didPaySuccessfullyWithResponse: response)
+                }
             }
-        } catch {
-            
+        } catch let error as NSError {
+            self.delegate?.payViewController(self, didFailPaymentWithError: error)
         }
     }
     
     func doneButtonAction(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.delegate?.payViewControllerDidCancelPayment(self)
     }
     
     // MARK: Helpers
