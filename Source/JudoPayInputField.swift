@@ -29,6 +29,8 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     }
     
     func setupView() {
+        self.backgroundColor = .whiteColor()
+        
         self.textField.delegate = self
         self.textField.keyboardType = .NumberPad
         

@@ -9,9 +9,15 @@
 import UIKit
 import Judo
 
+public protocol SecurityTextFieldDelegate {
+    func securityTextFieldDidEnterCode(textField: SecurityTextField, isValid: Bool)
+}
+
 public class SecurityTextField: JudoPayInputField {
     
     public var cardNetwork: CardNetwork = .Unknown
+    
+    public var delegate: SecurityTextFieldDelegate?
     
     override func setupView() {
         super.setupView()
@@ -32,6 +38,8 @@ public class SecurityTextField: JudoPayInputField {
         if newString.characters.count == 0 {
             return true
         }
+        
+        self.delegate?.securityTextFieldDidEnterCode(self, isValid: newString.characters.count == self.cardNetwork.securityCodeLength())
         
         return newString.isNumeric() && newString.characters.count <= self.cardNetwork.securityCodeLength()
     }
