@@ -65,7 +65,7 @@ public extension String {
         }
         
         let strippedSelf = self.stripped
-
+        
         // do not continue if the string is empty or out of range
         if strippedSelf.characters.count == 0 {
             return ""
