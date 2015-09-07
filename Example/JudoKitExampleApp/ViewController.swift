@@ -8,10 +8,12 @@
 
 import UIKit
 import JudoKit
+import Judo
+
+let strippedJudoID = "<#YOUR JUDOID#>"
 
 class ViewController: UIViewController {
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,9 +26,7 @@ class ViewController: UIViewController {
     }
     
     func startPaymentJourney() {
-        let vc = JPayViewController.payment()
-        self.presentViewController(vc, animated: true, completion: nil)
+        JudoKit.payment(strippedJudoID, amount: Amount(30), reference: Reference(yourConsumerReference: "consumerRef", yourPaymentReference: "paymentRef"), viewController: self)
     }
 
 }
-

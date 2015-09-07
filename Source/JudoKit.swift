@@ -32,9 +32,13 @@ public class JudoKit {
         Judo.setToken(token, secret: secret)
     }
     
+    public static func sandboxed(enabled: Bool) {
+        Judo.sandboxed = enabled
+    }
+    
     public static func payment(judoID: String, amount: Amount, reference: Reference, viewController: UIViewController) {
-        let viewController = JPayViewController(judoID: judoID, amount: amount, reference: reference)
-        viewController.presentViewController(viewController, animated: true, completion: nil)
+        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference)
+        viewController.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
     

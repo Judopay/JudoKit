@@ -55,12 +55,24 @@ public class SecurityTextField: JudoPayInputField {
             return true
         }
         
-        self.delegate?.securityTextFieldDidEnterCode(self, isValid: newString.characters.count == self.cardNetwork.securityCodeLength())
+        let shouldChangeCharacters = newString.isNumeric() && newString.characters.count <= self.cardNetwork.securityCodeLength()
         
-        return newString.isNumeric() && newString.characters.count <= self.cardNetwork.securityCodeLength()
+        if shouldChangeCharacters {
+            self.delegate?.securityTextFieldDidEnterCode(self, isValid: newString.characters.count == self.cardNetwork.securityCodeLength())
+        }
+        
+        return shouldChangeCharacters
     }
-
+    
     // MARK: Custom methods
+    
+    override func placeholder() -> String? {
+        if self.cardNetwork == .AMEX {
+            return "0000"
+        } else {
+            return "000"
+        }
+    }
 
     override func containsLogo() -> Bool {
         return true

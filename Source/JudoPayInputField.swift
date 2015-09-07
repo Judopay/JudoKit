@@ -98,6 +98,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
                 UIView.transitionFromView(self.logoContainerView.subviews.first!, toView: logoView, duration: 0.3, options: .TransitionFlipFromBottom, completion: nil)
             }
         }
+        self.textField.placeholder = self.placeholder()
     }
     
     // MARK: Custom methods

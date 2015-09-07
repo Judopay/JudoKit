@@ -216,4 +216,10 @@ public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerV
         }
     }
     
+    // MARK: Custom methods
+    
+    override func placeholder() -> String? {
+        return "MM/YY"
+    }
+    
 }

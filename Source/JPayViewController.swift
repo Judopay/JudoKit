@@ -50,10 +50,6 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     
     private var currentLocation: CLLocationCoordinate2D?
     
-    public static func payment() -> UINavigationController {
-        return UINavigationController(rootViewController: JPayViewController())
-    }
-    
     let cardTextField: CardTextField = {
         let inputField = CardTextField()
         inputField.translatesAutoresizingMaskIntoConstraints = false
@@ -108,7 +104,11 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.judoID = judoID
         self.amount = amount
         self.reference = reference
+        
         super.init(nibName: nil, bundle: nil)
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -207,6 +207,8 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
                 self.currentLocation = coordinate
             }
         }
+        
+        self.cardTextField.textField.becomeFirstResponder()
     }
     
     // MARK: CardTextFieldDelegate
@@ -252,13 +254,19 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
                 return // BAIL
         }
         
-        guard let location = self.currentLocation else { return } // TODO: need to send a warning and continue
         
         // I expect that all the texts are available because the Pay Button would not be active otherwise
         let card = Card(number: self.cardTextField.textField.text!.stripped, expiryDate: self.expiryDateTextField.textField.text!, cv2: self.secureCodeTextField.textField.text!, address: nil)
         
         do {
-            try Judo.payment(judoID, amount: amount, reference: reference).card(card).location(location).completion { (response, error) -> () in
+            var payment = try Judo.payment(judoID, amount: amount, reference: reference).card(card)
+            
+            // if location was fetched until now, get it
+            if let location = self.currentLocation {
+                payment = payment.location(location)
+            }
+            
+            payment = try payment.completion { (response, error) -> () in
                 if let err = error {
                     self.delegate?.payViewController(self, didFailPaymentWithError: err)
                 } else if let response = response {

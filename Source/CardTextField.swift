@@ -90,11 +90,10 @@ public class CardTextField: JudoPayInputField {
     // MARK: Custom methods
     
     override func placeholder() -> String? {
-        do {
-            let placeholder = try self.textField.text?.cardPresentationString(self.acceptedCardNetworks)
-            return placeholder
-        } catch {
-            return nil
+        if let acceptedCardNetworks = self.acceptedCardNetworks {
+            return acceptedCardNetworks.first?.placeholderString()
+        } else {
+            return defaultCardConfigurations.first?.placeholderString()
         }
     }
     
