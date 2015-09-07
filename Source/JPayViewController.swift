@@ -87,6 +87,12 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         return button
     }()
     
+    private let loadingView: LoadingView = {
+        let view = UIView()
+        view.alpha = 0.0
+        return view
+    }()
+
     
     // can not initialize because self is not available at this point
     // must be var? because can also not be initialized in init before self is available
@@ -154,7 +160,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
             self.paymentButton.layoutIfNeeded()
             }, completion: nil)
     }
-
+    
     // MARK: View Lifecycle
     
     override public func viewDidLoad() {
