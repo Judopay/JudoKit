@@ -26,8 +26,6 @@ import UIKit
 import Judo
 import JudoSecure
 
-let inputFieldBorderColor = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
-let navBarTextColor = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
 
 public protocol JPayViewDelegate {
     func payViewControllerDidCancelPayment(controller: JPayViewController)
@@ -53,7 +51,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     let cardTextField: CardTextField = {
         let inputField = CardTextField()
         inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = inputFieldBorderColor.CGColor
+        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
         inputField.layer.borderWidth = 1.0
         return inputField
     }()
@@ -61,7 +59,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     let expiryDateTextField: DateTextField = {
         let inputField = DateTextField()
         inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = inputFieldBorderColor.CGColor
+        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
         inputField.layer.borderWidth = 1.0
         return inputField
     }()
@@ -69,7 +67,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     let secureCodeTextField: SecurityTextField = {
         let inputField = SecurityTextField()
         inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = inputFieldBorderColor.CGColor
+        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
         inputField.layer.borderWidth = 1.0
         return inputField
     }()
@@ -77,7 +75,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     let paymentButton: UIButton = {
         let button = UIButton(type: .Custom)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
+        button.backgroundColor = .judoButtonColor()
         button.setTitle("Pay", forState: .Normal)
         button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         button.titleLabel?.font = UIFont.boldSystemFontOfSize(22)
@@ -170,7 +168,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.title = "Payment"
         
         // view
-        self.view.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        self.view.backgroundColor = .judoGrayColor()
         self.view.addSubview(cardTextField)
         self.view.addSubview(expiryDateTextField)
         self.view.addSubview(secureCodeTextField)
@@ -205,8 +203,8 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         
         self.paymentButton.addTarget(self, action: Selector("payButtonAction:"), forControlEvents: .TouchUpInside)
         
-        self.navigationController?.navigationBar.tintColor = navBarTextColor
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:navBarTextColor]
+        self.navigationController?.navigationBar.tintColor = .judoDarkGrayColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor()]
     }
     
     public override func viewDidAppear(animated: Bool) {

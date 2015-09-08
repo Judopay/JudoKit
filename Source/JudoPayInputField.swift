@@ -59,8 +59,8 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[title]|", options: .AlignAllBaseline, metrics: nil, views: ["title":titleLabel]))
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField]))
         
-        self.titleLabel.textColor = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
-        self.textField.textColor = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        self.titleLabel.textColor = .judoDarkGrayColor()
+        self.textField.textColor = .judoDarkGrayColor()
         
         self.titleLabel.font = UIFont.systemFontOfSize(14)
         self.textField.font = UIFont.boldSystemFontOfSize(14)

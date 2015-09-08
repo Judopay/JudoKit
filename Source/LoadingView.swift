@@ -30,7 +30,7 @@ public class LoadingView: UIView {
     }
     
     func setupView() {
-        self.backgroundColor = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 0.8)
+        self.backgroundColor = .judoLoadingBackgroundColor()
         
         self.blockView.translatesAutoresizingMaskIntoConstraints = false
         self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,7 +38,7 @@ public class LoadingView: UIView {
         
         self.blockView.backgroundColor = UIColor.whiteColor()
         self.activityIndicatorView.activityIndicatorViewStyle = .Gray
-        self.actionLabel.textColor = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        self.actionLabel.textColor = .judoDarkGrayColor()
         
         self.actionLabel.text = "Processing Payment"
         
@@ -50,7 +50,7 @@ public class LoadingView: UIView {
         self.blockView.addSubview(self.activityIndicatorView)
         self.blockView.addSubview(self.actionLabel)
         
-        self.blockView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-<=30-[activity]-25-[label]-<=30-|", options: .AlignAllBaseline, metrics: nil, views: ["activity":self.activityIndicatorView, "label":self.actionLabel]))
+        self.blockView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-<=30-[activity]-25-[label]-<=30-|", options: .AlignAllCenterY, metrics: nil, views: ["activity":self.activityIndicatorView, "label":self.actionLabel]))
         self.blockView.addConstraint(NSLayoutConstraint(item: self.activityIndicatorView, attribute: .CenterY, relatedBy: .Equal, toItem: self.blockView, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
         self.blockView.addConstraint(NSLayoutConstraint(item: self.actionLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self.blockView, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
         
