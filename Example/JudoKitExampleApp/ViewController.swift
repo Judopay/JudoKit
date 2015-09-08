@@ -11,6 +11,7 @@ import JudoKit
 import Judo
 
 let strippedJudoID = "100963875"
+let ref = Reference(yourConsumerReference: "consumerRef", yourPaymentReference: "paymentRef")
 
 class ViewController: UIViewController {
     
@@ -26,7 +27,7 @@ class ViewController: UIViewController {
     }
     
     func startPaymentJourney() {
-        JudoKit.payment(strippedJudoID, amount: Amount(30), reference: Reference(yourConsumerReference: "consumerRef", yourPaymentReference: "paymentRef"), viewController: self)
+        JudoKit.payment(strippedJudoID, amount: Amount(30), reference: ref)
     }
 
 }

@@ -36,9 +36,9 @@ public class JudoKit {
         Judo.sandboxed = enabled
     }
     
-    public static func payment(judoID: String, amount: Amount, reference: Reference, viewController: UIViewController) {
+    public static func payment(judoID: String, amount: Amount, reference: Reference) {
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference)
-        viewController.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
     
