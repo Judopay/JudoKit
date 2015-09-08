@@ -88,7 +88,8 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     }()
     
     private let loadingView: LoadingView = {
-        let view = UIView()
+        let view = LoadingView()
+        view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0.0
         return view
     }()
@@ -176,6 +177,8 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         
         self.view.addSubview(paymentButton)
         
+        self.view.addSubview(self.loadingView)
+        
         // delegates
         self.cardTextField.delegate = self
         self.expiryDateTextField.delegate = self
@@ -190,6 +193,9 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.paymentButton.addConstraint(NSLayoutConstraint(item: self.paymentButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50))
         self.keyboardHeightConstraint = NSLayoutConstraint(item: self.paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
         self.view.addConstraint(self.keyboardHeightConstraint!)
+        
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[loadingView]|", options: .AlignAllBaseline, metrics: nil, views: ["loadingView":self.loadingView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[loadingView]|", options: .AlignAllRight, metrics: nil, views: ["loadingView":self.loadingView]))
         
         // button actions
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: Selector("doneButtonAction:"))
@@ -261,6 +267,8 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         }
         
         
+        self.loadingView.startAnimating()
+
         // I expect that all the texts are available because the Pay Button would not be active otherwise
         let card = Card(number: self.cardTextField.textField.text!.stripped, expiryDate: self.expiryDateTextField.textField.text!, cv2: self.secureCodeTextField.textField.text!, address: nil)
         
@@ -272,15 +280,18 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
                 payment = payment.location(location)
             }
             
+
             payment = try payment.completion { (response, error) -> () in
                 if let err = error {
                     self.delegate?.payViewController(self, didFailPaymentWithError: err)
                 } else if let response = response {
                     self.delegate?.payViewController(self, didPaySuccessfullyWithResponse: response)
                 }
+                self.loadingView.stopAnimating()
             }
         } catch let error as NSError {
             self.delegate?.payViewController(self, didFailPaymentWithError: error)
+            self.loadingView.stopAnimating()
         }
     }
     

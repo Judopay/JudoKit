@@ -10,7 +10,7 @@ import UIKit
 import JudoKit
 import Judo
 
-let strippedJudoID = "<#YOUR JUDOID#>"
+let strippedJudoID = "100963875"
 
 class ViewController: UIViewController {
     
