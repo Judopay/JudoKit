@@ -39,6 +39,14 @@ public protocol JPayViewDelegate {
 
 public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTextFieldDelegate, SecurityTextFieldDelegate {
     
+    private let contentView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.directionalLockEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
+    
     private (set) var amount: Amount?
     private (set) var judoID: String?
     private (set) var reference: Reference?
@@ -53,9 +61,9 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     
     var keyboardHeightConstraint: NSLayoutConstraint?
     
-    var startDateHeightConstraint: NSLayoutConstraint?
-    var issueNumberHeightConstraint: NSLayoutConstraint?
-    
+    var maestroFieldsHeightConstraint: NSLayoutConstraint?
+    var avsHeightConstraint: NSLayoutConstraint?
+
     private var currentLocation: CLLocationCoordinate2D?
     
     let cardInputField: CardInputField = {
@@ -98,7 +106,23 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         inputField.layer.borderWidth = 1.0
         return inputField
     }()
-    
+
+    let billingCountryInputField: BillingCountryInputField = {
+        let inputField = BillingCountryInputField()
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
+        inputField.layer.borderWidth = 1.0
+        return inputField
+    }()
+
+    let postCodeInputField: PostCodeInputField = {
+        let inputField = PostCodeInputField()
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
+        inputField.layer.borderWidth = 1.0
+        return inputField
+    }()
+
     let paymentButton: UIButton = {
         let button = UIButton(type: .Custom)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -212,17 +236,22 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.paymentButton.setTitle(payButtonTitle, forState: .Normal)
         
         // view
-        self.view.backgroundColor = .judoGrayColor()
-        self.view.addSubview(cardInputField)
-        self.view.addSubview(expiryDateInputField)
-        self.view.addSubview(secureCodeInputField)
+        self.view.addSubview(contentView)
+        self.contentView.contentSize = self.view.bounds.size
         
-        self.view.addSubview(startDateInputField)
-        self.view.addSubview(issueNumberInputField)
+        self.view.backgroundColor = .judoGrayColor()
+        
+        self.contentView.addSubview(cardInputField)
+        self.contentView.addSubview(startDateInputField)
+        self.contentView.addSubview(issueNumberInputField)
+        self.contentView.addSubview(expiryDateInputField)
+        self.contentView.addSubview(secureCodeInputField)
+        self.contentView.addSubview(billingCountryInputField)
+        self.contentView.addSubview(postCodeInputField)
         
         self.view.addSubview(paymentButton)
         
-        self.view.addSubview(self.loadingView)
+        self.view.addSubview(loadingView)
         
         // delegates
         self.cardInputField.delegate = self
@@ -230,25 +259,30 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.secureCodeInputField.delegate = self
         
         // layout constraints
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[card]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["card":self.cardInputField]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["expiry":self.expiryDateInputField, "security":self.secureCodeInputField]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]->=20-|", options: .AlignAllLeft, metrics: nil, views: ["card":self.cardInputField, "start":self.startDateInputField , "expiry":self.expiryDateInputField]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[issue]-(-1)-[security(44)]->=20-|", options: .AlignAllRight, metrics: nil, views: ["card":self.cardInputField, "issue":self.issueNumberInputField, "security":self.secureCodeInputField]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: nil, views: ["button":self.paymentButton]))
-        self.paymentButton.addConstraint(NSLayoutConstraint(item: self.paymentButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50))
-        self.keyboardHeightConstraint = NSLayoutConstraint(item: self.paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
-        self.view.addConstraint(self.keyboardHeightConstraint!)
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[scrollView]|", options: .AlignAllBaseline, metrics: nil, views: ["scrollView":contentView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollView]-1-[button]", options: .AlignAllLeading, metrics: nil, views: ["scrollView":contentView, "button":paymentButton]))
         
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[loadingView]|", options: .AlignAllBaseline, metrics: nil, views: ["loadingView":self.loadingView]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[loadingView]|", options: .AlignAllRight, metrics: nil, views: ["loadingView":self.loadingView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[loadingView]|", options: .AlignAllBaseline, metrics: nil, views: ["loadingView":loadingView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[loadingView]|", options: .AlignAllLeading, metrics: nil, views: ["loadingView":loadingView]))
         
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[start]-(-1)-[issue(==start)]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["start":self.startDateInputField, "issue":self.issueNumberInputField]))
-
-        self.startDateHeightConstraint = NSLayoutConstraint(item: self.startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
-        self.issueNumberHeightConstraint = NSLayoutConstraint(item: self.issueNumberInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: .AlignAllBaseline, metrics: nil, views: ["button":paymentButton]))
         
-        self.startDateInputField.addConstraint(self.startDateHeightConstraint!)
-        self.issueNumberInputField.addConstraint(self.issueNumberHeightConstraint!)
+        self.keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
+        self.view.addConstraint(keyboardHeightConstraint!)
+        self.paymentButton.addConstraint(NSLayoutConstraint(item: paymentButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50))
+        
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[card(viewWidth)]-(-1)-|", options: .AlignAllBaseline, metrics: ["viewWidth" : self.view.bounds.width + 2], views: ["card":cardInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[expiry(halfViewWidth)]-(-1)-[security(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[start(halfViewWidth)]-(-1)-[issue(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["start":startDateInputField, "issue":issueNumberInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[billing(halfViewWidth)]-(-1)-[post(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["billing":billingCountryInputField, "post":postCodeInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]", options: .AlignAllLeft, metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[issue(==start)]-(-1)-[security(44)]-(-1)-[post(==billing)]", options: .AlignAllRight, metrics: nil, views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField]))
+        
+        self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
+        self.avsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
+        
+        self.startDateInputField.addConstraint(maestroFieldsHeightConstraint!)
+        self.billingCountryInputField.addConstraint(avsHeightConstraint!)
         
         // button actions
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: Selector("doneButtonAction:"))
@@ -281,7 +315,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
             }
         }
         
-        if self.cardInputField.textField.text?.characters.count >= 0 {
+        if self.cardInputField.textField.text?.characters.count > 0 {
             self.secureCodeInputField.textField.becomeFirstResponder()
         } else {
             self.cardInputField.textField.becomeFirstResponder()
@@ -289,8 +323,7 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     }
     
     public func toggleStartDateVisibility(isVisible: Bool) {
-        self.issueNumberHeightConstraint?.constant = isVisible ? 44 : 0
-        self.startDateHeightConstraint?.constant = isVisible ? 44 : 0
+        self.maestroFieldsHeightConstraint?.constant = isVisible ? 44 : 0
         self.issueNumberInputField.setNeedsUpdateConstraints()
         self.startDateInputField.setNeedsUpdateConstraints()
         
@@ -302,7 +335,18 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
             self.secureCodeInputField.layoutIfNeeded()
             }, completion: nil)
     }
-    
+
+    public func toggleAVSVisibility(isVisible: Bool) {
+        self.avsHeightConstraint?.constant = isVisible ? 44 : 0
+        self.billingCountryInputField.setNeedsUpdateConstraints()
+        self.postCodeInputField.setNeedsUpdateConstraints()
+        
+        UIView.animateWithDuration(0.2, delay: 0.0, options:UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+            self.billingCountryInputField.layoutIfNeeded()
+            self.postCodeInputField.layoutIfNeeded()
+            }, completion: nil)
+    }
+
     // MARK: CardTextFieldDelegate
     
     public func cardTextField(textField: CardInputField, error: ErrorType) {
