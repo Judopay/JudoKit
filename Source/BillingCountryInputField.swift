@@ -10,8 +10,29 @@ import UIKit
 
 public enum BillingCountry: String {
     case UK, USA, Canada, Other
+    
+    public func titleDescription() -> String {
+        switch self {
+        case .USA:
+            return "ZIP"
+        case .Canada:
+            return "Postal"
+        default:
+            return "Post"
+        }
+    }
 }
 
 public class BillingCountryInputField: JudoPayInputField {
     
+    override func setupView() {
+        super.setupView()
+        
+        self.textField.text = "UK"
+    }
+    
+    override func title() -> String {
+        return "Billing"
+    }
+
 }

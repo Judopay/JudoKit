@@ -130,7 +130,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func AVSValueChanged(theSwitch: UISwitch) {
-        // TODO: AVS enabled setting
+        JudoKit.sharedInstance.avsEnabled = theSwitch.on
     }
     
     @IBAction func maestroValueChanged(theSwitch: UISwitch) {

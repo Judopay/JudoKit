@@ -34,6 +34,8 @@ public class JudoKit: JPayViewDelegate {
     
     private var completionBlock: TransactionBlock?
     
+    public var avsEnabled: Bool = false
+    
     public static func setToken(token: String, andSecret secret: String) {
         Judo.setToken(token, secret: secret)
     }

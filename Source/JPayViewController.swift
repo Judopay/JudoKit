@@ -275,8 +275,8 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[expiry(halfViewWidth)]-(-1)-[security(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[start(halfViewWidth)]-(-1)-[issue(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["start":startDateInputField, "issue":issueNumberInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[billing(halfViewWidth)]-(-1)-[post(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["billing":billingCountryInputField, "post":postCodeInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]", options: .AlignAllLeft, metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[issue(==start)]-(-1)-[security(44)]-(-1)-[post(==billing)]", options: .AlignAllRight, metrics: nil, views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]|", options: .AlignAllLeft, metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[issue(==start)]-(-1)-[security(44)]-(-1)-[post(==billing)]|", options: .AlignAllRight, metrics: nil, views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField]))
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.avsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
@@ -378,7 +378,14 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     // MARK: SecurityTextFieldDelegate
     
     public func securityTextFieldDidEnterCode(textField: SecurityInputField, isValid: Bool) {
-        self.paymentEnabled(isValid)
+        if JudoKit.sharedInstance.avsEnabled {
+            if isValid {
+                self.toggleAVSVisibility(true)
+                self.billingCountryInputField.textField.becomeFirstResponder()
+            }
+        } else {
+            self.paymentEnabled(isValid)
+        }
     }
     
     // MARK: Button Actions
@@ -390,7 +397,6 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
                 self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.ParameterError as NSError)
                 return // BAIL
         }
-        
         
         self.loadingView.startAnimating()
         
@@ -408,8 +414,16 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
                 transaction = transaction?.paymentToken(payToken)
             } else {
                 // I expect that all the texts are available because the Pay Button would not be active otherwise
-                transaction = transaction?.card(Card(number: self.cardInputField.textField.text!.stripped, expiryDate: self.expiryDateInputField.textField.text!, cv2: self.secureCodeInputField.textField.text!, address: nil))
+                var address: Address? = nil
+                if JudoKit.sharedInstance.avsEnabled {
+                    guard let billing = self.billingCountryInputField.textField.text,
+                        let postCode = self.postCodeInputField.textField.text else { return }
+                    
+                    address = Address(postCode: postCode, country: billing)
+                }
+                transaction = transaction?.card(Card(number: self.cardInputField.textField.text!.stripped, expiryDate: self.expiryDateInputField.textField.text!, cv2: self.secureCodeInputField.textField.text!, address: address))
             }
+            
             
             // if location was fetched until now, get it
             if let location = self.currentLocation {

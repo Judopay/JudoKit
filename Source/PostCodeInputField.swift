@@ -19,7 +19,7 @@ public class PostCodeInputField: JudoPayInputField {
     }
     
     override func title() -> String {
-        return self.billingCountry.rawValue
+        return self.billingCountry.titleDescription()
     }
 
 }

@@ -145,36 +145,11 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
                 return lastChar == deciYear || lastChar == deciYear + 1
             }
             
-        } else if newString.characters.count > 5 {
-            let date = self.dateFormatter.dateFromString(newString)
-            if self.isStartDate {
-                if date?.compare(NSDate()) == .OrderedDescending {
-                    // FIXME: not a good solution - need to think of something better
-                    // Delegate calls result in the next textfield being selected before the actual input can be processed
-                    self.textField.text = newString
-                    self.delegate?.dateTextField(self, didFindValidDate: newString)
-                    return false
-                } else {
-                    self.delegate?.dateTextField(self, error: JudoError.InvalidEntry)
-                    return false
-                }
-            } else {
-                if date?.compare(NSDate()) != .OrderedAscending {
-                    // FIXME: not a good solution - need to think of something better
-                    // Delegate calls result in the next textfield being selected before the actual input can be processed
-                    self.textField.text = newString
-                    self.delegate?.dateTextField(self, didFindValidDate: newString)
-                    return false
-                } else {
-                    self.delegate?.dateTextField(self, error: JudoError.InvalidEntry)
-                    return false
-                }
-            }
+        } else if newString.characters.count == 5 {
+            return true
         } else {
             self.delegate?.dateTextField(self, error: JudoError.InputLengthMismatchError)
             return false
-//            let regex = try! NSRegularExpression(pattern: "^(0[1-9]|1[0-2])(\\/[0-9]{0,2})?$", options: .AnchorsMatchLines)
-//            return regex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0
         }
     }
     
