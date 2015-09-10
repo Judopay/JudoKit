@@ -26,8 +26,8 @@ import UIKit
 import Judo
 
 public protocol DateTextFieldDelegate {
-    func dateTextField(textField: DateTextField, error: ErrorType)
-    func dateTextField(textField: DateTextField, didFindValidDate date: String)
+    func dateTextField(textField: DateInputField, error: ErrorType)
+    func dateTextField(textField: DateInputField, didFindValidDate date: String)
 }
 
 
@@ -41,7 +41,7 @@ public enum DateInputType {
     case Picker, Text
 }
 
-public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerViewDelegate {
+public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let datePicker = UIPickerView()
     
@@ -56,7 +56,11 @@ public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerV
     private let currentYear = NSCalendar.currentCalendar().component(.Year, fromDate: NSDate())
     private let currentMonth = NSCalendar.currentCalendar().component(.Month, fromDate: NSDate())
     
-    public var isStartDate: Bool = false
+    public var isStartDate: Bool = false {
+        didSet {
+            self.titleLabel.text = isStartDate ? "Start" : "Expiry"
+        }
+    }
     
     public var dateInputType: DateInputType = .Text {
         didSet {
@@ -80,8 +84,6 @@ public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerV
     
     override func setupView() {
         super.setupView()
-        
-        self.titleLabel.text = "Expiry"
         
         // input method should be via date picker
         self.datePicker.delegate = self
@@ -107,7 +109,7 @@ public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerV
         guard self.dateInputType == .Text else { return true }
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField else { return true }
+        guard textField == self.textField else { return false }
         
         // get old and new text
         let oldString = textField.text!
@@ -143,7 +145,7 @@ public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerV
                 return lastChar == deciYear || lastChar == deciYear + 1
             }
             
-        } else if newString.characters.count == 5 {
+        } else if newString.characters.count > 5 {
             let date = self.dateFormatter.dateFromString(newString)
             if self.isStartDate {
                 if date?.compare(NSDate()) == .OrderedDescending {
@@ -218,8 +220,35 @@ public class DateTextField: JudoPayInputField, UIPickerViewDataSource, UIPickerV
     
     // MARK: Custom methods
     
+    override func textFieldDidChangeValue(textField: UITextField) {
+        
+        guard let text = textField.text where text.characters.count == 5 else { return }
+        
+        let date = self.dateFormatter.dateFromString(text)
+        if self.isStartDate {
+            if date?.compare(NSDate()) == .OrderedDescending {
+                self.delegate?.dateTextField(self, didFindValidDate: text)
+            } else {
+                self.delegate?.dateTextField(self, error: JudoError.InvalidEntry)
+            }
+        } else {
+            if date?.compare(NSDate()) != .OrderedAscending {
+                self.delegate?.dateTextField(self, didFindValidDate: text)
+            } else {
+                self.delegate?.dateTextField(self, error: JudoError.InvalidEntry)
+            }
+        }
+    }
+    
     override func placeholder() -> String? {
         return "MM/YY"
     }
     
+    override func title() -> String {
+        if isStartDate {
+            return "Start"
+        }
+        return "Expiry"
+    }
+
 }

@@ -26,6 +26,9 @@ import UIKit
 import Judo
 import JudoSecure
 
+public enum TransactionType {
+    case Payment, PreAuth, RegisterCard
+}
 
 public protocol JPayViewDelegate {
     func payViewControllerDidCancelPayment(controller: JPayViewController)
@@ -39,33 +42,57 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     private (set) var amount: Amount?
     private (set) var judoID: String?
     private (set) var reference: Reference?
+    private (set) var cardDetails: CardDetails?
+    private (set) var paymentToken: PaymentToken?
     
     private let judoSecure = JudoSecure()
+    
+    private let transactionType: TransactionType
     
     var delegate: JPayViewDelegate?
     
     var keyboardHeightConstraint: NSLayoutConstraint?
     
+    var startDateHeightConstraint: NSLayoutConstraint?
+    var issueNumberHeightConstraint: NSLayoutConstraint?
+    
     private var currentLocation: CLLocationCoordinate2D?
     
-    let cardTextField: CardTextField = {
-        let inputField = CardTextField()
+    let cardInputField: CardInputField = {
+        let inputField = CardInputField()
         inputField.translatesAutoresizingMaskIntoConstraints = false
         inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
         inputField.layer.borderWidth = 1.0
         return inputField
     }()
     
-    let expiryDateTextField: DateTextField = {
-        let inputField = DateTextField()
+    let expiryDateInputField: DateInputField = {
+        let inputField = DateInputField()
         inputField.translatesAutoresizingMaskIntoConstraints = false
         inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
         inputField.layer.borderWidth = 1.0
         return inputField
     }()
     
-    let secureCodeTextField: SecurityTextField = {
-        let inputField = SecurityTextField()
+    let secureCodeInputField: SecurityInputField = {
+        let inputField = SecurityInputField()
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
+        inputField.layer.borderWidth = 1.0
+        return inputField
+    }()
+    
+    let startDateInputField: DateInputField = {
+        let inputField = DateInputField()
+        inputField.isStartDate = true
+        inputField.translatesAutoresizingMaskIntoConstraints = false
+        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
+        inputField.layer.borderWidth = 1.0
+        return inputField
+    }()
+    
+    let issueNumberInputField: IssueNumberInputField = {
+        let inputField = IssueNumberInputField()
         inputField.translatesAutoresizingMaskIntoConstraints = false
         inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
         inputField.layer.borderWidth = 1.0
@@ -104,11 +131,14 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
-    
-    public init(judoID: String, amount: Amount, reference: Reference) {
+
+    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
         self.judoID = judoID
         self.amount = amount
         self.reference = reference
+        self.cardDetails = cardDetails
+        self.paymentToken = paymentToken
+        self.transactionType = transactionType
         
         super.init(nibName: nil, bundle: nil)
 
@@ -117,13 +147,15 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        self.transactionType = .Payment
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     required public init?(coder aDecoder: NSCoder) {
+        self.transactionType = .Payment
         super.init(coder: aDecoder)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
@@ -165,28 +197,43 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Payment"
+        switch self.transactionType {
+        case .Payment, .PreAuth:
+            self.title = "Payment"
+        case .RegisterCard:
+            self.title = "Add Card"
+        }
+        
+        var payButtonTitle = "Pay"
+        if self.transactionType == .RegisterCard {
+            payButtonTitle = "Add"
+        }
+        
+        self.paymentButton.setTitle(payButtonTitle, forState: .Normal)
         
         // view
         self.view.backgroundColor = .judoGrayColor()
-        self.view.addSubview(cardTextField)
-        self.view.addSubview(expiryDateTextField)
-        self.view.addSubview(secureCodeTextField)
+        self.view.addSubview(cardInputField)
+        self.view.addSubview(expiryDateInputField)
+        self.view.addSubview(secureCodeInputField)
+        
+        self.view.addSubview(startDateInputField)
+        self.view.addSubview(issueNumberInputField)
         
         self.view.addSubview(paymentButton)
         
         self.view.addSubview(self.loadingView)
         
         // delegates
-        self.cardTextField.delegate = self
-        self.expiryDateTextField.delegate = self
-        self.secureCodeTextField.delegate = self
+        self.cardInputField.delegate = self
+        self.expiryDateInputField.delegate = self
+        self.secureCodeInputField.delegate = self
         
         // layout constraints
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[card]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["card":self.cardTextField]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["expiry":self.expiryDateTextField, "security":self.secureCodeTextField]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[expiry(44)]->=20-|", options: .AlignAllLeft, metrics: nil, views: ["card":self.cardTextField, "expiry":self.expiryDateTextField]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[security(44)]->=20-|", options: .AlignAllRight, metrics: nil, views: ["card":self.cardTextField, "security":self.secureCodeTextField]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[card]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["card":self.cardInputField]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["expiry":self.expiryDateInputField, "security":self.secureCodeInputField]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]->=20-|", options: .AlignAllLeft, metrics: nil, views: ["card":self.cardInputField, "start":self.startDateInputField , "expiry":self.expiryDateInputField]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-79-[card(44)]-(-1)-[issue]-(-1)-[security(44)]->=20-|", options: .AlignAllRight, metrics: nil, views: ["card":self.cardInputField, "issue":self.issueNumberInputField, "security":self.secureCodeInputField]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: NSLayoutFormatOptions.AlignAllBaseline, metrics: nil, views: ["button":self.paymentButton]))
         self.paymentButton.addConstraint(NSLayoutConstraint(item: self.paymentButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50))
         self.keyboardHeightConstraint = NSLayoutConstraint(item: self.paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
@@ -195,9 +242,17 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[loadingView]|", options: .AlignAllBaseline, metrics: nil, views: ["loadingView":self.loadingView]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[loadingView]|", options: .AlignAllRight, metrics: nil, views: ["loadingView":self.loadingView]))
         
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[start]-(-1)-[issue(==start)]-(-1)-|", options: .AlignAllBaseline, metrics: nil, views: ["start":self.startDateInputField, "issue":self.issueNumberInputField]))
+
+        self.startDateHeightConstraint = NSLayoutConstraint(item: self.startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
+        self.issueNumberHeightConstraint = NSLayoutConstraint(item: self.issueNumberInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
+        
+        self.startDateInputField.addConstraint(self.startDateHeightConstraint!)
+        self.issueNumberInputField.addConstraint(self.issueNumberHeightConstraint!)
+        
         // button actions
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: Selector("doneButtonAction:"))
-        self.paymentNavBarButton = UIBarButtonItem(title: "Pay", style: .Done, target: self, action: Selector("payButtonAction:"))
+        self.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .Done, target: self, action: Selector("payButtonAction:"))
         self.paymentNavBarButton!.enabled = false
         self.navigationItem.rightBarButtonItem = self.paymentNavBarButton
         
@@ -205,6 +260,14 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         
         self.navigationController?.navigationBar.tintColor = .judoDarkGrayColor()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor()]
+        
+        // if card details are available, fill out the fields
+        if let cardDetails = self.cardDetails,
+            let cardLastFour = cardDetails.cardLastFour,
+            let expiryDate = cardDetails.endDate {
+            self.cardInputField.textField.text = "**** " + cardLastFour
+            self.expiryDateInputField.textField.text = expiryDate
+        }
     }
     
     public override func viewDidAppear(animated: Bool) {
@@ -218,39 +281,59 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
             }
         }
         
-        self.cardTextField.textField.becomeFirstResponder()
+        if self.cardInputField.textField.text?.characters.count >= 0 {
+            self.secureCodeInputField.textField.becomeFirstResponder()
+        } else {
+            self.cardInputField.textField.becomeFirstResponder()
+        }
+    }
+    
+    public func toggleStartDateVisibility(isVisible: Bool) {
+        self.issueNumberHeightConstraint?.constant = isVisible ? 44 : 0
+        self.startDateHeightConstraint?.constant = isVisible ? 44 : 0
+        self.issueNumberInputField.setNeedsUpdateConstraints()
+        self.startDateInputField.setNeedsUpdateConstraints()
+        
+        UIView.animateWithDuration(0.2, delay: 0.0, options:UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+            self.issueNumberInputField.layoutIfNeeded()
+            self.startDateInputField.layoutIfNeeded()
+            
+            self.expiryDateInputField.layoutIfNeeded()
+            self.secureCodeInputField.layoutIfNeeded()
+            }, completion: nil)
     }
     
     // MARK: CardTextFieldDelegate
     
-    public func cardTextField(textField: CardTextField, error: ErrorType) {
+    public func cardTextField(textField: CardInputField, error: ErrorType) {
         self.errorAnimation(textField)
     }
     
-    public func cardTextField(textField: CardTextField, didFindValidNumber cardNumberString: String) {
-        self.expiryDateTextField.textField.becomeFirstResponder()
+    public func cardTextField(textField: CardInputField, didFindValidNumber cardNumberString: String) {
+        self.expiryDateInputField.textField.becomeFirstResponder()
     }
     
-    public func cardTextField(textField: CardTextField, didDetectNetwork network: CardNetwork) {
-        self.cardTextField.updateCardLogo()
-        self.secureCodeTextField.cardNetwork = network
-        self.secureCodeTextField.updateCardLogo()
-        self.secureCodeTextField.titleLabel.text = network.securityCodeTitle()
+    public func cardTextField(textField: CardInputField, didDetectNetwork network: CardNetwork) {
+        self.cardInputField.updateCardLogo()
+        self.secureCodeInputField.cardNetwork = network
+        self.secureCodeInputField.updateCardLogo()
+        self.secureCodeInputField.titleLabel.text = network.securityCodeTitle()
+        self.toggleStartDateVisibility(network == .Maestro)
     }
     
     // MARK: DateTextFieldDelegate
     
-    public func dateTextField(textField: DateTextField, error: ErrorType) {
+    public func dateTextField(textField: DateInputField, error: ErrorType) {
         self.errorAnimation(textField)
     }
     
-    public func dateTextField(textField: DateTextField, didFindValidDate date: String) {
-        self.secureCodeTextField.textField.becomeFirstResponder()
+    public func dateTextField(textField: DateInputField, didFindValidDate date: String) {
+        self.secureCodeInputField.textField.becomeFirstResponder()
     }
     
     // MARK: SecurityTextFieldDelegate
     
-    public func securityTextFieldDidEnterCode(textField: SecurityTextField, isValid: Bool) {
+    public func securityTextFieldDidEnterCode(textField: SecurityInputField, isValid: Bool) {
         self.paymentEnabled(isValid)
     }
     
@@ -266,20 +349,31 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         
         
         self.loadingView.startAnimating()
-
-        // I expect that all the texts are available because the Pay Button would not be active otherwise
-        let card = Card(number: self.cardTextField.textField.text!.stripped, expiryDate: self.expiryDateTextField.textField.text!, cv2: self.secureCodeTextField.textField.text!, address: nil)
         
         do {
-            var payment = try Judo.payment(judoID, amount: amount, reference: reference).card(card)
+            var transaction: Transaction?
+            
+            switch self.transactionType {
+            case .Payment:
+                transaction = try Judo.payment(judoID, amount: amount, reference: reference)
+            case .PreAuth, .RegisterCard:
+                transaction = try Judo.preAuth(judoID, amount: amount, reference: reference)
+            }
+            
+            if let payToken = self.paymentToken {
+                transaction = transaction?.paymentToken(payToken)
+            } else {
+                // I expect that all the texts are available because the Pay Button would not be active otherwise
+                transaction = transaction?.card(Card(number: self.cardInputField.textField.text!.stripped, expiryDate: self.expiryDateInputField.textField.text!, cv2: self.secureCodeInputField.textField.text!, address: nil))
+            }
             
             // if location was fetched until now, get it
             if let location = self.currentLocation {
-                payment = payment.location(location)
+                transaction = transaction?.location(location)
             }
             
-
-            payment = try payment.completion { (response, error) -> () in
+            
+            transaction = try transaction?.completion { (response, error) -> () in
                 if let err = error {
                     self.delegate?.payViewController(self, didFailPaymentWithError: err)
                 } else if let response = response {

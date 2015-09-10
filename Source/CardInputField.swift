@@ -26,29 +26,23 @@ import UIKit
 import Judo
 
 public protocol CardTextFieldDelegate {
-    func cardTextField(textField: CardTextField, error: ErrorType)
-    func cardTextField(textField: CardTextField, didFindValidNumber cardNumberString: String)
-    func cardTextField(textField: CardTextField, didDetectNetwork network: CardNetwork)
+    func cardTextField(textField: CardInputField, error: ErrorType)
+    func cardTextField(textField: CardInputField, didFindValidNumber cardNumberString: String)
+    func cardTextField(textField: CardInputField, didDetectNetwork network: CardNetwork)
 }
 
-public class CardTextField: JudoPayInputField {
+public class CardInputField: JudoPayInputField {
     
     public var acceptedCardNetworks: [Card.Configuration]?
     
     public var delegate: CardTextFieldDelegate?
-    
-    
-    override func setupView() {
-        super.setupView()
-        self.titleLabel.text = "Card"
-    }
     
     // MARK: UITextFieldDelegate
     
     @objc public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField else { return true }
+        guard textField == self.textField else { return false }
         
         // get old and new text
         let oldString = textField.text!
@@ -118,4 +112,8 @@ public class CardTextField: JudoPayInputField {
         return CardLogoView(type: type)
     }
     
+    override func title() -> String {
+        return "Card"
+    }
+
 }

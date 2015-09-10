@@ -26,26 +26,21 @@ import UIKit
 import Judo
 
 public protocol SecurityTextFieldDelegate {
-    func securityTextFieldDidEnterCode(textField: SecurityTextField, isValid: Bool)
+    func securityTextFieldDidEnterCode(textField: SecurityInputField, isValid: Bool)
 }
 
-public class SecurityTextField: JudoPayInputField {
+public class SecurityInputField: JudoPayInputField {
     
     public var cardNetwork: CardNetwork = .Unknown
     
     public var delegate: SecurityTextFieldDelegate?
     
-    override func setupView() {
-        super.setupView()
-        self.titleLabel.text = self.cardNetwork.securityCodeTitle()
-    }
-
     // MARK: UITextFieldDelegate Methods
     
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField else { return true }
+        guard textField == self.textField else { return false }
         
         // get old and new text
         let oldString = textField.text!
@@ -55,16 +50,16 @@ public class SecurityTextField: JudoPayInputField {
             return true
         }
         
-        let shouldChangeCharacters = newString.isNumeric() && newString.characters.count <= self.cardNetwork.securityCodeLength()
-        
-        if shouldChangeCharacters {
-            self.delegate?.securityTextFieldDidEnterCode(self, isValid: newString.characters.count == self.cardNetwork.securityCodeLength())
-        }
-        
-        return shouldChangeCharacters
+        return newString.isNumeric() && newString.characters.count <= self.cardNetwork.securityCodeLength()
     }
     
     // MARK: Custom methods
+    
+    override func textFieldDidChangeValue(textField: UITextField) {
+        guard let text = textField.text else { return }
+        
+        self.delegate?.securityTextFieldDidEnterCode(self, isValid: text.characters.count == self.cardNetwork.securityCodeLength())
+    }
     
     override func placeholder() -> String? {
         if self.cardNetwork == .AMEX {
@@ -73,7 +68,7 @@ public class SecurityTextField: JudoPayInputField {
             return "000"
         }
     }
-
+    
     override func containsLogo() -> Bool {
         return true
     }
@@ -81,6 +76,10 @@ public class SecurityTextField: JudoPayInputField {
     override func logoView() -> CardLogoView? {
         let type: CardLogoType = self.cardNetwork == .AMEX ? .CIDV : .CVC
         return CardLogoView(type: type)
+    }
+    
+    override func title() -> String {
+        return self.cardNetwork.securityCodeTitle()
     }
 
 }

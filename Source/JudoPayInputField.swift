@@ -47,6 +47,8 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     func setupView() {
         self.backgroundColor = .whiteColor()
         
+        self.titleLabel.text = self.title()
+
         self.textField.delegate = self
         self.textField.keyboardType = .NumberPad
         
@@ -66,6 +68,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.textField.font = UIFont.boldSystemFontOfSize(14)
         
         self.textField.placeholder = self.placeholder()
+        self.textField.addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
         
         var visualFormat = "|-12-[title(50)][text]-12-|"
         var views = ["title":titleLabel, "text":textField]
@@ -103,6 +106,10 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     // MARK: Custom methods
     
+    func textFieldDidChangeValue(textField: UITextField) {
+        // method for subclassing
+    }
+    
     func placeholder() -> String? {
         return nil
     }
@@ -113,6 +120,10 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     func logoView() -> CardLogoView? {
         return nil
+    }
+    
+    func title() -> String {
+        return ""
     }
     
 }

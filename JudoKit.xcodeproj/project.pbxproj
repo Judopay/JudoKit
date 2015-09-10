@@ -9,16 +9,19 @@
 /* Begin PBXBuildFile section */
 		DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C19B81B986B5400CD2613 /* CardLogoView.swift */; settings = {ASSET_TAGS = (); }; };
 		DA3902351B95B5DF001A703C /* JPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902341B95B5DF001A703C /* JPayViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		DA3902371B95DC62001A703C /* DateTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902361B95DC62001A703C /* DateTextField.swift */; settings = {ASSET_TAGS = (); }; };
-		DA39023E1B96092B001A703C /* SecurityTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39023D1B96092B001A703C /* SecurityTextField.swift */; settings = {ASSET_TAGS = (); }; };
+		DA3902371B95DC62001A703C /* DateInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902361B95DC62001A703C /* DateInputField.swift */; settings = {ASSET_TAGS = (); }; };
+		DA39023E1B96092B001A703C /* SecurityInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA39023D1B96092B001A703C /* SecurityInputField.swift */; settings = {ASSET_TAGS = (); }; };
 		DA3902461B983959001A703C /* JudoPayInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902451B983959001A703C /* JudoPayInputField.swift */; settings = {ASSET_TAGS = (); }; };
 		DA7418BD1B9DF61900C4D323 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7418BC1B9DF61900C4D323 /* LoadingView.swift */; settings = {ASSET_TAGS = (); }; };
 		DA7418BF1B9EF8F000C4D323 /* UIColor+Judo.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7418BE1B9EF8F000C4D323 /* UIColor+Judo.swift */; settings = {ASSET_TAGS = (); }; };
+		DA7418C41BA039FF00C4D323 /* PostCodeInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7418C31BA039FF00C4D323 /* PostCodeInputField.swift */; settings = {ASSET_TAGS = (); }; };
+		DA7418C61BA0448D00C4D323 /* BillingCountryInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7418C51BA0448D00C4D323 /* BillingCountryInputField.swift */; settings = {ASSET_TAGS = (); }; };
+		DA7418C81BA0538E00C4D323 /* IssueNumberInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7418C71BA0538E00C4D323 /* IssueNumberInputField.swift */; settings = {ASSET_TAGS = (); }; };
 		DA76A6011B7B73D30033E553 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DA76A6001B7B73D30033E553 /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DAB261AD1B7B7A0B005024FF /* JudoKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB261AC1B7B7A0B005024FF /* JudoKit.swift */; };
 		DAD13A041B7B8BD6007BB196 /* JudoKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A031B7B8BD6007BB196 /* JudoKitTests.swift */; };
 		DAD13A061B7B8BD6007BB196 /* JudoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA76A5FD1B7B73D30033E553 /* JudoKit.framework */; };
-		DAD13A221B7C9E76007BB196 /* CardTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A211B7C9E76007BB196 /* CardTextField.swift */; };
+		DAD13A221B7C9E76007BB196 /* CardInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A211B7C9E76007BB196 /* CardInputField.swift */; };
 		DAD13A241B7CABA7007BB196 /* String+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A231B7CABA7007BB196 /* String+Card.swift */; };
 		DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDB0081B7DF3160073C6F1 /* Judo.framework */; };
 		DADDB00F1B7DF4530073C6F1 /* JudoSecure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDB00E1B7DF4530073C6F1 /* JudoSecure.framework */; };
@@ -51,11 +54,14 @@
 /* Begin PBXFileReference section */
 		DA0C19B81B986B5400CD2613 /* CardLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardLogoView.swift; sourceTree = "<group>"; };
 		DA3902341B95B5DF001A703C /* JPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JPayViewController.swift; sourceTree = "<group>"; };
-		DA3902361B95DC62001A703C /* DateTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextField.swift; sourceTree = "<group>"; };
-		DA39023D1B96092B001A703C /* SecurityTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityTextField.swift; sourceTree = "<group>"; };
+		DA3902361B95DC62001A703C /* DateInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateInputField.swift; sourceTree = "<group>"; };
+		DA39023D1B96092B001A703C /* SecurityInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecurityInputField.swift; sourceTree = "<group>"; };
 		DA3902451B983959001A703C /* JudoPayInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoPayInputField.swift; sourceTree = "<group>"; };
 		DA7418BC1B9DF61900C4D323 /* LoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		DA7418BE1B9EF8F000C4D323 /* UIColor+Judo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Judo.swift"; sourceTree = "<group>"; };
+		DA7418C31BA039FF00C4D323 /* PostCodeInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCodeInputField.swift; sourceTree = "<group>"; };
+		DA7418C51BA0448D00C4D323 /* BillingCountryInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BillingCountryInputField.swift; sourceTree = "<group>"; };
+		DA7418C71BA0538E00C4D323 /* IssueNumberInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueNumberInputField.swift; sourceTree = "<group>"; };
 		DA76A5FD1B7B73D30033E553 /* JudoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JudoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA76A6001B7B73D30033E553 /* JudoKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JudoKit.h; sourceTree = "<group>"; };
 		DA76A6021B7B73D30033E553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,7 +69,7 @@
 		DAD13A011B7B8BD6007BB196 /* JudoKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAD13A031B7B8BD6007BB196 /* JudoKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JudoKitTests.swift; sourceTree = "<group>"; };
 		DAD13A051B7B8BD6007BB196 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DAD13A211B7C9E76007BB196 /* CardTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardTextField.swift; sourceTree = "<group>"; };
+		DAD13A211B7C9E76007BB196 /* CardInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardInputField.swift; sourceTree = "<group>"; };
 		DAD13A231B7CABA7007BB196 /* String+Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "String+Card.swift"; sourceTree = "<group>"; };
 		DADDB0021B7DF3160073C6F1 /* Judo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Judo.xcodeproj; path = "Judo-Swift/Judo.xcodeproj"; sourceTree = "<group>"; };
 		DADDB00E1B7DF4530073C6F1 /* JudoSecure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoSecure.framework; path = "Judo-Security/Framework/JudoSecure.framework"; sourceTree = "<group>"; };
@@ -111,9 +117,12 @@
 			isa = PBXGroup;
 			children = (
 				DA3902451B983959001A703C /* JudoPayInputField.swift */,
-				DAD13A211B7C9E76007BB196 /* CardTextField.swift */,
-				DA3902361B95DC62001A703C /* DateTextField.swift */,
-				DA39023D1B96092B001A703C /* SecurityTextField.swift */,
+				DA7418C71BA0538E00C4D323 /* IssueNumberInputField.swift */,
+				DAD13A211B7C9E76007BB196 /* CardInputField.swift */,
+				DA3902361B95DC62001A703C /* DateInputField.swift */,
+				DA39023D1B96092B001A703C /* SecurityInputField.swift */,
+				DA7418C31BA039FF00C4D323 /* PostCodeInputField.swift */,
+				DA7418C51BA0448D00C4D323 /* BillingCountryInputField.swift */,
 			);
 			name = TextFields;
 			sourceTree = "<group>";
@@ -318,15 +327,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAD13A221B7C9E76007BB196 /* CardTextField.swift in Sources */,
-				DA3902371B95DC62001A703C /* DateTextField.swift in Sources */,
+				DAD13A221B7C9E76007BB196 /* CardInputField.swift in Sources */,
+				DA3902371B95DC62001A703C /* DateInputField.swift in Sources */,
 				DA3902461B983959001A703C /* JudoPayInputField.swift in Sources */,
-				DA39023E1B96092B001A703C /* SecurityTextField.swift in Sources */,
+				DA39023E1B96092B001A703C /* SecurityInputField.swift in Sources */,
 				DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */,
 				DAD13A241B7CABA7007BB196 /* String+Card.swift in Sources */,
+				DA7418C41BA039FF00C4D323 /* PostCodeInputField.swift in Sources */,
 				DA3902351B95B5DF001A703C /* JPayViewController.swift in Sources */,
 				DAB261AD1B7B7A0B005024FF /* JudoKit.swift in Sources */,
 				DA7418BD1B9DF61900C4D323 /* LoadingView.swift in Sources */,
+				DA7418C81BA0538E00C4D323 /* IssueNumberInputField.swift in Sources */,
+				DA7418C61BA0448D00C4D323 /* BillingCountryInputField.swift in Sources */,
 				DA7418BF1B9EF8F000C4D323 /* UIColor+Judo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
