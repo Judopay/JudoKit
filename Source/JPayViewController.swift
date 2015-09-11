@@ -446,14 +446,21 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
                 // I expect that all the texts are available because the Pay Button would not be active otherwise
                 var address: Address? = nil
                 if JudoKit.sharedInstance.avsEnabled {
-                    guard let billing = self.billingCountryInputField.textField.text,
-                        let postCode = self.postCodeInputField.textField.text else { return }
+                    guard let postCode = self.postCodeInputField.textField.text else { return }
                     
-                    address = Address(postCode: postCode, country: billing)
+                    address = Address(postCode: postCode, country: self.billingCountryInputField.selectedCountry)
                 }
-                transaction = transaction?.card(Card(number: self.cardInputField.textField.text!.stripped, expiryDate: self.expiryDateInputField.textField.text!, cv2: self.secureCodeInputField.textField.text!, address: address))
+                
+                var issueNumber: String? = nil
+                var startDate: String? = nil
+                
+                if self.cardInputField.textField.text?.cardNetwork() == .Maestro {
+                    issueNumber = self.issueNumberInputField.textField.text
+                    startDate = self.startDateInputField.textField.text
+                }
+                
+                transaction = transaction?.card(Card(number: self.cardInputField.textField.text!.stripped, expiryDate: self.expiryDateInputField.textField.text!, cv2: self.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
-            
             
             // if location was fetched until now, get it
             if let location = self.currentLocation {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Judo
 
 public protocol PostCodeInputDelegate {
     func postCodeInput(input: PostCodeInputField, isValid: Bool)
@@ -70,16 +71,14 @@ public class PostCodeInputField: JudoPayInputField {
         let canadaRegex = try! NSRegularExpression(pattern: "[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]", options: .AnchorsMatchLines)
         
         switch billingCountry {
-        case .UK where ukRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0:
-            self.delegate?.postCodeInput(self, isValid: true)
-        case .Canada where canadaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0 && newString.characters.count == 6:
-            self.delegate?.postCodeInput(self, isValid: true)
-        case .USA where usaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0:
-            self.delegate?.postCodeInput(self, isValid: true)
-        case .Other where newString.isNumeric() && newString.characters.count <= 8:
-            self.delegate?.postCodeInput(self, isValid: true)
-        default:
-            self.delegate?.postCodeInput(self, isValid: false)
+        case .UK:
+            self.delegate?.postCodeInput(self, isValid: ukRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0)
+        case .Canada:
+            self.delegate?.postCodeInput(self, isValid: canadaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0 && newString.characters.count == 6)
+        case .USA:
+            self.delegate?.postCodeInput(self, isValid: usaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0)
+        case .Other:
+            self.delegate?.postCodeInput(self, isValid: newString.isNumeric() && newString.characters.count <= 8)
         }
     }
     

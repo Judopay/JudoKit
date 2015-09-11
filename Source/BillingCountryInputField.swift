@@ -7,24 +7,7 @@
 //
 
 import UIKit
-
-public enum BillingCountry: String {
-    case UK, USA, Canada, Other
-    
-    static let allValues = [UK, USA, Canada, Other]
-    
-    public func titleDescription() -> String {
-        switch self {
-        case .USA:
-            return "ZIP"
-        case .Canada:
-            return "Postal"
-        default:
-            return "Post"
-        }
-    }
-}
-
+import Judo
 
 public protocol BillingCountryInputDelegate {
     func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry)
@@ -33,6 +16,8 @@ public protocol BillingCountryInputDelegate {
 public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let countryPicker = UIPickerView()
+    
+    var selectedCountry: BillingCountry = .UK
     
     var delegate: BillingCountryInputDelegate?
     
@@ -50,11 +35,13 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
         return "Billing"
     }
 
+    
     // MARK: UITextFieldDelegate Methods
     
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         return false
     }
+    
     
     // MARK: UIPickerViewDataSource
     
@@ -74,9 +61,9 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
     }
     
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let country = BillingCountry.allValues[row]
-        self.textField.text = country.rawValue
-        self.delegate?.billingCountryInputDidEnter(self, billingCountry: country)
+        self.selectedCountry = BillingCountry.allValues[row]
+        self.textField.text = self.selectedCountry.rawValue
+        self.delegate?.billingCountryInputDidEnter(self, billingCountry: self.selectedCountry)
     }
 
 }
