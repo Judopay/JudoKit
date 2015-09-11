@@ -37,7 +37,7 @@ public protocol JPayViewDelegate {
     func payViewController(controller: JPayViewController, didEncounterError error: NSError)
 }
 
-public class JPayViewController: UIViewController, CardInputDelegate, DateInputDelegate, SecurityInputDelegate, IssueNumberInputDelegate {
+public class JPayViewController: UIViewController, CardInputDelegate, DateInputDelegate, SecurityInputDelegate, IssueNumberInputDelegate, BillingCountryInputDelegate, PostCodeInputDelegate {
     
     private let contentView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -259,6 +259,8 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
         self.secureCodeInputField.delegate = self
         self.issueNumberInputField.delegate = self
         self.startDateInputField.delegate = self
+        self.billingCountryInputField.delegate = self
+        self.postCodeInputField.delegate = self
         
         // layout constraints
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[scrollView]|", options: .AlignAllBaseline, metrics: nil, views: ["scrollView":contentView]))
@@ -402,6 +404,20 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
         }
     }
     
+    // MARK: BillingCountryInputDelegate
+    
+    public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
+        self.postCodeInputField.billingCountry = billingCountry
+        // FIXME: maybe check if the postcode is still valid and then delete if nessecary
+        self.postCodeInputField.textField.text = ""
+    }
+    
+    // MARK: PostCodeInputDelegate
+    
+    public func postCodeInput(input: PostCodeInputField, isValid: Bool) {
+        self.paymentEnabled(isValid)
+    }
+
     // MARK: Button Actions
     
     func payButtonAction(sender: AnyObject) {

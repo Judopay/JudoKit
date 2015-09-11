@@ -194,4 +194,10 @@ public extension String {
     }
     
     
+    func isAlphaNumeric() -> Bool {
+        let nonAlphaNum = NSCharacterSet.alphanumericCharacterSet().invertedSet
+        return self.rangeOfCharacterFromSet(nonAlphaNum) == nil
+    }
+    
+    
 }
