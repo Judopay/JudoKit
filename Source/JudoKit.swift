@@ -47,24 +47,28 @@ public class JudoKit: JPayViewDelegate {
     public func payment(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock?) {
         self.completionBlock = completion
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference)
+        vc.delegate = self
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
     public func preAuth(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock?) {
         self.completionBlock = completion
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth)
+        vc.delegate = self
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
     public func registerCard(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock?) {
         self.completionBlock = completion
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard)
+        vc.delegate = self
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
     public func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock?) {
         self.completionBlock = completion
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, cardDetails: cardDetails, paymentToken: paymentToken)
+        vc.delegate = self
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
 
@@ -81,6 +85,7 @@ public class JudoKit: JPayViewDelegate {
         if let compl = self.completionBlock {
             compl(nil, JudoError.UserDidCancel as NSError)
         }
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     public func payViewController(controller: JPayViewController, didPaySuccessfullyWithResponse response: Response) {

@@ -31,17 +31,17 @@ public class IssueNumberInputField: JudoPayInputField {
             return true
         }
         
-        let shouldChangeCharacters = newString.characters.count == 3
-        
-        if shouldChangeCharacters {
-            self.delegate?.issueNumberInputDidEnterCode(self, issueNumber: newString)
-        }
-        
-        return shouldChangeCharacters
+        return newString.isNumeric() && newString.characters.count <= 3
     }
     
     // MARK: Custom methods
     
+    override func textFieldDidChangeValue(textField: UITextField) {
+        guard let text = textField.text else { return }
+        
+        self.delegate?.issueNumberInputDidEnterCode(self, issueNumber: text)
+    }
+
     override func placeholder() -> String? {
         return "00"
     }

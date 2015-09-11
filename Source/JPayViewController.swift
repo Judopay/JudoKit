@@ -37,7 +37,7 @@ public protocol JPayViewDelegate {
     func payViewController(controller: JPayViewController, didEncounterError error: NSError)
 }
 
-public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTextFieldDelegate, SecurityTextFieldDelegate {
+public class JPayViewController: UIViewController, CardInputDelegate, DateInputDelegate, SecurityInputDelegate, IssueNumberInputDelegate {
     
     private let contentView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -257,6 +257,8 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.cardInputField.delegate = self
         self.expiryDateInputField.delegate = self
         self.secureCodeInputField.delegate = self
+        self.issueNumberInputField.delegate = self
+        self.startDateInputField.delegate = self
         
         // layout constraints
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[scrollView]|", options: .AlignAllBaseline, metrics: nil, views: ["scrollView":contentView]))
@@ -275,8 +277,8 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[expiry(halfViewWidth)]-(-1)-[security(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[start(halfViewWidth)]-(-1)-[issue(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["start":startDateInputField, "issue":issueNumberInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[billing(halfViewWidth)]-(-1)-[post(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["billing":billingCountryInputField, "post":postCodeInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]|", options: .AlignAllLeft, metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[issue(==start)]-(-1)-[security(44)]-(-1)-[post(==billing)]|", options: .AlignAllRight, metrics: nil, views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]-(15)-|", options: .AlignAllLeft, metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[issue(==start)]-(-1)-[security(44)]-(-1)-[post(==billing)]-(15)-|", options: .AlignAllRight, metrics: nil, views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField]))
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.avsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
@@ -347,17 +349,17 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
             }, completion: nil)
     }
 
-    // MARK: CardTextFieldDelegate
+    // MARK: CardInputDelegate
     
-    public func cardTextField(textField: CardInputField, error: ErrorType) {
-        self.errorAnimation(textField)
+    public func cardInput(input: CardInputField, error: ErrorType) {
+        self.errorAnimation(input)
     }
     
-    public func cardTextField(textField: CardInputField, didFindValidNumber cardNumberString: String) {
+    public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
         self.expiryDateInputField.textField.becomeFirstResponder()
     }
     
-    public func cardTextField(textField: CardInputField, didDetectNetwork network: CardNetwork) {
+    public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
         self.cardInputField.updateCardLogo()
         self.secureCodeInputField.cardNetwork = network
         self.secureCodeInputField.updateCardLogo()
@@ -365,19 +367,23 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
         self.toggleStartDateVisibility(network == .Maestro)
     }
     
-    // MARK: DateTextFieldDelegate
+    // MARK: DateInputDelegate
     
-    public func dateTextField(textField: DateInputField, error: ErrorType) {
-        self.errorAnimation(textField)
+    public func dateInput(input: DateInputField, error: ErrorType) {
+        self.errorAnimation(input)
     }
     
-    public func dateTextField(textField: DateInputField, didFindValidDate date: String) {
-        self.secureCodeInputField.textField.becomeFirstResponder()
+    public func dateInput(input: DateInputField, didFindValidDate date: String) {
+        if input == self.startDateInputField {
+            self.issueNumberInputField.textField.becomeFirstResponder()
+        } else {
+            self.secureCodeInputField.textField.becomeFirstResponder()
+        }
     }
     
-    // MARK: SecurityTextFieldDelegate
+    // MARK: SecurityInputDelegate
     
-    public func securityTextFieldDidEnterCode(textField: SecurityInputField, isValid: Bool) {
+    public func securityInputDidEnterCode(input: SecurityInputField, isValid: Bool) {
         if JudoKit.sharedInstance.avsEnabled {
             if isValid {
                 self.toggleAVSVisibility(true)
@@ -385,6 +391,14 @@ public class JPayViewController: UIViewController, CardTextFieldDelegate, DateTe
             }
         } else {
             self.paymentEnabled(isValid)
+        }
+    }
+    
+    // MARK: IssueNumberInputDelegate
+    
+    public func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String) {
+        if issueNumber.characters.count == 3 {
+            self.expiryDateInputField.textField.becomeFirstResponder()
         }
     }
     

@@ -25,9 +25,9 @@
 import UIKit
 import Judo
 
-public protocol DateTextFieldDelegate {
-    func dateTextField(textField: DateInputField, error: ErrorType)
-    func dateTextField(textField: DateInputField, didFindValidDate date: String)
+public protocol DateInputDelegate {
+    func dateInput(input: DateInputField, error: ErrorType)
+    func dateInput(input: DateInputField, didFindValidDate date: String)
 }
 
 
@@ -45,7 +45,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     
     let datePicker = UIPickerView()
     
-    public var delegate: DateTextFieldDelegate?
+    public var delegate: DateInputDelegate?
 
     private let dateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
@@ -148,7 +148,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         } else if newString.characters.count == 5 {
             return true
         } else {
-            self.delegate?.dateTextField(self, error: JudoError.InputLengthMismatchError)
+            self.delegate?.dateInput(self, error: JudoError.InputLengthMismatchError)
             return false
         }
     }
@@ -202,15 +202,15 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         let date = self.dateFormatter.dateFromString(text)
         if self.isStartDate {
             if date?.compare(NSDate()) == .OrderedDescending {
-                self.delegate?.dateTextField(self, didFindValidDate: text)
+                self.delegate?.dateInput(self, didFindValidDate: text)
             } else {
-                self.delegate?.dateTextField(self, error: JudoError.InvalidEntry)
+                self.delegate?.dateInput(self, error: JudoError.InvalidEntry)
             }
         } else {
             if date?.compare(NSDate()) != .OrderedAscending {
-                self.delegate?.dateTextField(self, didFindValidDate: text)
+                self.delegate?.dateInput(self, didFindValidDate: text)
             } else {
-                self.delegate?.dateTextField(self, error: JudoError.InvalidEntry)
+                self.delegate?.dateInput(self, error: JudoError.InvalidEntry)
             }
         }
     }

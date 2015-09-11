@@ -180,6 +180,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func paymentOperation() {
         JudoKit.sharedInstance.payment(judoID, amount: Amount(35.0, currentCurrency), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference")) { (response, error) -> () in
+            if let _ = error {
+                // TODO: handle error
+                return // BAIL
+            }
             if let resp = response, transactionData = resp.items.first {
                 self.cardDetails = transactionData.cardDetails
                 self.paymentToken = transactionData.paymentToken()
@@ -194,6 +198,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func preAuthOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
             JudoKit.sharedInstance.tokenPreAuth(judoID, amount: Amount(40, currentCurrency), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken) { (response, error) -> () in
+                if let _ = error {
+                    // TODO: handle error
+                    return // BAIL
+                }
                 if let resp = response, transactionData = resp.items.first {
                     self.cardDetails = transactionData.cardDetails
                     self.paymentToken = transactionData.paymentToken()
@@ -211,6 +219,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func createCardTokenOperation() {
         JudoKit.sharedInstance.registerCard(judoID, amount: Amount(1), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference")) { (response, error) -> () in
+            if let _ = error {
+                // TODO: handle error
+                return // BAIL
+            }
             if let resp = response, transactionData = resp.items.first {
                 self.cardDetails = transactionData.cardDetails
                 self.paymentToken = transactionData.paymentToken()
@@ -221,6 +233,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func repeatPaymentOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
             JudoKit.sharedInstance.tokenPayment(judoID, amount: Amount(30), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken) { (response, error) -> () in
+                if let _ = error {
+                    // TODO: handle error
+                    return // BAIL
+                }
                 if let resp = response, transactionData = resp.items.first {
                     self.cardDetails = transactionData.cardDetails
                     self.paymentToken = transactionData.paymentToken()

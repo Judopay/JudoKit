@@ -25,17 +25,17 @@
 import UIKit
 import Judo
 
-public protocol CardTextFieldDelegate {
-    func cardTextField(textField: CardInputField, error: ErrorType)
-    func cardTextField(textField: CardInputField, didFindValidNumber cardNumberString: String)
-    func cardTextField(textField: CardInputField, didDetectNetwork network: CardNetwork)
+public protocol CardInputDelegate {
+    func cardInput(input: CardInputField, error: ErrorType)
+    func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String)
+    func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork)
 }
 
 public class CardInputField: JudoPayInputField {
     
     public var acceptedCardNetworks: [Card.Configuration]?
     
-    public var delegate: CardTextFieldDelegate?
+    public var delegate: CardInputDelegate?
     
     // MARK: UITextFieldDelegate
     
@@ -54,9 +54,9 @@ public class CardInputField: JudoPayInputField {
         
         do {
             textField.text = try newString.cardPresentationString(self.acceptedCardNetworks)
-            self.delegate?.cardTextField(self, didDetectNetwork: textField.text!.cardNetwork())
+            self.delegate?.cardInput(self, didDetectNetwork: textField.text!.cardNetwork())
         } catch let error {
-            self.delegate?.cardTextField(self, error: error)
+            self.delegate?.cardInput(self, error: error)
         }
         
         var cardConfigs = defaultCardConfigurations
@@ -71,9 +71,9 @@ public class CardInputField: JudoPayInputField {
         
         if let textCount = textField.text?.stripped.characters.count where textCount == lowestNumber.first?.cardLength {
             if textField.text!.isCardNumberValid() {
-                self.delegate?.cardTextField(self, didFindValidNumber: textField.text!)
+                self.delegate?.cardInput(self, didFindValidNumber: textField.text!)
             } else {
-                self.delegate?.cardTextField(self, error: JudoError.InvalidCardNumber)
+                self.delegate?.cardInput(self, error: JudoError.InvalidCardNumber)
             }
         }
         
