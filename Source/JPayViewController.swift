@@ -356,15 +356,20 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
             }, completion: nil)
     }
 
-    public func toggleAVSVisibility(isVisible: Bool) {
+    public func toggleAVSVisibility(isVisible: Bool, completion: (() -> ())? = nil) {
         self.avsHeightConstraint?.constant = isVisible ? 44 : 0
         self.billingCountryInputField.setNeedsUpdateConstraints()
         self.postCodeInputField.setNeedsUpdateConstraints()
         
-        UIView.animateWithDuration(0.2, delay: 0.0, options:UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+        UIView.animateWithDuration(0.2, animations: { () -> Void in
             self.billingCountryInputField.layoutIfNeeded()
             self.postCodeInputField.layoutIfNeeded()
-            }, completion: nil)
+        }) { (didFinish) -> Void in
+            if let completion = completion {
+                completion()
+            }
+        }
+        
     }
 
     // MARK: CardInputDelegate
@@ -404,8 +409,10 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
     public func securityInputDidEnterCode(input: SecurityInputField, isValid: Bool) {
         if JudoKit.sharedInstance.avsEnabled {
             if isValid {
-                self.toggleAVSVisibility(true)
                 self.postCodeInputField.textField.becomeFirstResponder()
+                self.toggleAVSVisibility(true, completion: { () -> () in
+                    self.contentView.scrollRectToVisible(self.postCodeInputField.frame, animated: true)
+                })
             }
         } else {
             self.paymentEnabled(isValid)
