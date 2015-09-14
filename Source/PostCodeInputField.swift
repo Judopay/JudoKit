@@ -25,6 +25,7 @@ public class PostCodeInputField: JudoPayInputField {
             default:
                 self.textField.keyboardType = .NumberPad
             }
+            self.titleLabel.text = self.billingCountry.titleDescription()
         }
     }
     

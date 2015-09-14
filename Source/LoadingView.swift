@@ -40,7 +40,7 @@ public class LoadingView: UIView {
         self.activityIndicatorView.activityIndicatorViewStyle = .Gray
         self.actionLabel.textColor = .judoDarkGrayColor()
         
-        self.actionLabel.text = "Processing Payment"
+        self.actionLabel.text = "Processing payment..."
         
         self.blockView.clipsToBounds = true
         self.blockView.layer.cornerRadius = 5.0

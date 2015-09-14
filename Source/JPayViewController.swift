@@ -405,7 +405,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         if JudoKit.sharedInstance.avsEnabled {
             if isValid {
                 self.toggleAVSVisibility(true)
-                self.billingCountryInputField.textField.becomeFirstResponder()
+                self.postCodeInputField.textField.becomeFirstResponder()
             }
         } else {
             self.paymentEnabled(isValid)
@@ -426,6 +426,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         self.postCodeInputField.billingCountry = billingCountry
         // FIXME: maybe check if the postcode is still valid and then delete if nessecary
         self.postCodeInputField.textField.text = ""
+        self.paymentEnabled(false)
     }
     
     // MARK: PostCodeInputDelegate
@@ -480,6 +481,16 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         }
         
         return true
+    }
+    
+    public func webViewDidFinishLoad(webView: UIWebView) {
+        var alphaVal: CGFloat = 1.0
+        if webView.request?.URL?.absoluteString == "about:blank" {
+            alphaVal = 0.0
+        }
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.threeDSecureWebView.alpha = alphaVal
+        })
     }
 
     // MARK: Button Actions
@@ -569,9 +580,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
                         
                         self.threeDSecureWebView.loadRequest(request)
                         
-                        UIView.animateWithDuration(0.5, animations: { () -> Void in
-                            self.threeDSecureWebView.alpha = 1.0
-                        })
+                        self.loadingView.actionLabel.text = "Redirecting..."
+                        self.title = "Authentication"
+                        self.paymentEnabled(false)
                         
                     } else {
                         self.delegate?.payViewController(self, didFailPaymentWithError: error)

@@ -26,7 +26,7 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
 
         self.countryPicker.delegate = self
         self.countryPicker.dataSource = self
-
+        
         self.textField.text = "UK"
         self.textField.inputView = self.countryPicker
     }
@@ -65,5 +65,5 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
         self.textField.text = self.selectedCountry.rawValue
         self.delegate?.billingCountryInputDidEnter(self, billingCountry: self.selectedCountry)
     }
-
+    
 }
