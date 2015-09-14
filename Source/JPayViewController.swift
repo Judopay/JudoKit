@@ -37,7 +37,7 @@ public protocol JPayViewDelegate {
     func payViewController(controller: JPayViewController, didEncounterError error: NSError)
 }
 
-public class JPayViewController: UIViewController, CardInputDelegate, DateInputDelegate, SecurityInputDelegate, IssueNumberInputDelegate, BillingCountryInputDelegate, PostCodeInputDelegate {
+public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputDelegate, DateInputDelegate, SecurityInputDelegate, IssueNumberInputDelegate, BillingCountryInputDelegate, PostCodeInputDelegate {
     
     private let contentView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -65,6 +65,9 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
     var avsHeightConstraint: NSLayoutConstraint?
 
     private var currentLocation: CLLocationCoordinate2D?
+    
+    private var pending3DSTransaction: Transaction?
+    private var pending3DSReceiptID: String?
     
     let cardInputField: CardInputField = {
         let inputField = CardInputField()
@@ -141,6 +144,13 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
         view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0.0
         return view
+    }()
+    
+    private let threeDSecureWebView: UIWebView = {
+        let webView = UIWebView()
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        webView.alpha = 0.0
+        return webView
     }()
 
     
@@ -251,6 +261,8 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
         
         self.view.addSubview(paymentButton)
         
+        self.view.addSubview(threeDSecureWebView)
+
         self.view.addSubview(loadingView)
         
         // delegates
@@ -261,6 +273,7 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
         self.startDateInputField.delegate = self
         self.billingCountryInputField.delegate = self
         self.postCodeInputField.delegate = self
+        self.threeDSecureWebView.delegate = self
         
         // layout constraints
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[scrollView]|", options: .AlignAllBaseline, metrics: nil, views: ["scrollView":contentView]))
@@ -268,7 +281,10 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
         
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[loadingView]|", options: .AlignAllBaseline, metrics: nil, views: ["loadingView":loadingView]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[loadingView]|", options: .AlignAllLeading, metrics: nil, views: ["loadingView":loadingView]))
-        
+
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[tdsecure]-|", options: .AlignAllBaseline, metrics: nil, views: ["tdsecure":threeDSecureWebView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(68)-[tdsecure]-(30)-|", options: .AlignAllLeading, metrics: nil, views: ["tdsecure":threeDSecureWebView]))
+
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: .AlignAllBaseline, metrics: nil, views: ["button":paymentButton]))
         
         self.keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
@@ -417,6 +433,54 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
     public func postCodeInput(input: PostCodeInputField, isValid: Bool) {
         self.paymentEnabled(isValid)
     }
+    
+    // MARK: UIWebViewDelegate
+    
+    public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        let urlString = request.URL?.absoluteString
+        
+        if let urlString = urlString where urlString.rangeOfString("threedsecurecallback") != nil {
+            guard let body = request.HTTPBody else { return false } // TODO: handle error
+            guard let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else { return false } // TODO: handle error
+            
+            var results = JSONDictionary()
+            let pairs = bodyString.componentsSeparatedByString("&")
+            
+            for pair in pairs {
+                if pair.rangeOfString("=") != nil {
+                    let components = pair.componentsSeparatedByString("=")
+                    let value = components[1]
+                    let escapedVal = value.stringByRemovingPercentEncoding
+                    
+                    results[components[0]] = escapedVal
+                }
+            }
+            
+            if let receiptID = self.pending3DSReceiptID {
+                self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { (resp, error) -> () in
+                    if let error = error {
+                        self.delegate?.payViewController(self, didFailPaymentWithError: error)
+                    } else if let resp = resp {
+                        self.delegate?.payViewController(self, didPaySuccessfullyWithResponse: resp)
+                    } else {
+                        self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Unknown as NSError)
+                    }
+                })
+            } else {
+                self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Unknown as NSError)
+            }
+            
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.threeDSecureWebView.alpha = 0.0
+            }, completion: { (didFinish) -> Void in
+                self.threeDSecureWebView.loadRequest(NSURLRequest(URL: NSURL(string: "about:blank")!))
+            })
+            
+            return false
+        }
+        
+        return true
+    }
 
     // MARK: Button Actions
     
@@ -426,6 +490,12 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
             let judoID = self.judoID else {
                 self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.ParameterError as NSError)
                 return // BAIL
+        }
+        
+        if self.secureCodeInputField.textField.isFirstResponder() {
+            self.secureCodeInputField.textField.resignFirstResponder()
+        } else if self.postCodeInputField.textField.isFirstResponder() {
+            self.postCodeInputField.textField.resignFirstResponder()
         }
         
         self.loadingView.startAnimating()
@@ -468,9 +538,44 @@ public class JPayViewController: UIViewController, CardInputDelegate, DateInputD
             }
             
             
-            transaction = try transaction?.completion { (response, error) -> () in
-                if let err = error {
-                    self.delegate?.payViewController(self, didFailPaymentWithError: err)
+            self.pending3DSTransaction = try transaction?.completion { (response, error) -> () in
+                if let error = error {
+                    // check for 3ds error
+                    if error.domain == JudoErrorDomain && error.code == JudoError.ThreeDSAuthRequest.rawValue {
+                        let payload = error.userInfo
+                        guard let urlString = payload["acsUrl"] as? String, let acsURL = NSURL(string: urlString) else { return }
+                        
+                        let request = NSMutableURLRequest(URL: acsURL)
+                        
+                        guard let paReqString = payload["paReq"],
+                        let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet) else { return }
+                        
+                        guard let md = payload["md"] else { return }
+                        
+                        guard let receiptID = payload["receiptId"] as? String else { return }
+                        
+                        self.pending3DSReceiptID = receiptID // save it for later
+                        
+                        guard let termURLString = "judo1234567890://threedsecurecallback".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet) else { return }
+                        
+                        let post = "MD=\(md)&PaReq=\(paReqEscapedString)&TermUrl=\(termURLString)"
+                        
+                        guard let postData = post.dataUsingEncoding(NSUTF8StringEncoding) else { return }
+                        
+                        request.HTTPMethod = "POST"
+                        
+                        request.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
+                        request.HTTPBody = postData
+                        
+                        self.threeDSecureWebView.loadRequest(request)
+                        
+                        UIView.animateWithDuration(0.5, animations: { () -> Void in
+                            self.threeDSecureWebView.alpha = 1.0
+                        })
+                        
+                    } else {
+                        self.delegate?.payViewController(self, didFailPaymentWithError: error)
+                    }
                 } else if let response = response {
                     self.delegate?.payViewController(self, didPaySuccessfullyWithResponse: response)
                 }

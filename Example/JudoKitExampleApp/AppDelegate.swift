@@ -9,8 +9,8 @@
 import UIKit
 import JudoKit
 
-let token = "<#YOUR TOKEN#>"
-let secret = "<#YOUR SECRET#>"
+let token = "Izx9omsBR15LatAl"
+let secret = "b5787124845533d8e68d12a586fa3713871b876b528600ebfdc037afec880cd6"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
