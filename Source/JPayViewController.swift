@@ -590,35 +590,35 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
     // MARK: Helpers
     
     func show3DSWebViewWithPayload(payload: [String : AnyObject]) {
-        guard let urlString = payload["acsUrl"] as? String, let acsURL = NSURL(string: urlString) else { return }
+        let allowedCharacterSet = NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet
         
-        let request = NSMutableURLRequest(URL: acsURL)
-        
-        guard let paReqString = payload["paReq"],
-            let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet) else { return }
-        
-        guard let md = payload["md"] else { return }
-        
-        guard let receiptID = payload["receiptId"] as? String else { return }
+        guard let urlString = payload["acsUrl"] as? String,
+            let acsURL = NSURL(string: urlString),
+            let md = payload["md"],
+            let receiptID = payload["receiptId"] as? String,
+            let paReqString = payload["paReq"],
+            let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet),
+            let termURLString = "judo1234567890://threedsecurecallback".stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) else {
+            self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Failed3DSError as NSError)
+            return
+        }
         
         self.pending3DSReceiptID = receiptID // save it for later
         
-        guard let termURLString = "judo1234567890://threedsecurecallback".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet) else { return }
-        
-        let post = "MD=\(md)&PaReq=\(paReqEscapedString)&TermUrl=\(termURLString)"
-        
-        guard let postData = post.dataUsingEncoding(NSUTF8StringEncoding) else { return }
-        
-        request.HTTPMethod = "POST"
-        
-        request.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
-        request.HTTPBody = postData
-        
-        self.threeDSecureWebView.loadRequest(request)
-        
-        self.loadingView.actionLabel.text = "Redirecting..."
-        self.title = "Authentication"
-        self.paymentEnabled(false)
+        if let postData = "MD=\(md)&PaReq=\(paReqEscapedString)&TermUrl=\(termURLString)".dataUsingEncoding(NSUTF8StringEncoding) {
+            let request = NSMutableURLRequest(URL: acsURL)
+            request.HTTPMethod = "POST"
+            request.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
+            request.HTTPBody = postData
+            
+            self.threeDSecureWebView.loadRequest(request)
+            
+            self.loadingView.actionLabel.text = "Redirecting..."
+            self.title = "Authentication"
+            self.paymentEnabled(false)
+        } else {
+            self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Failed3DSError as NSError)
+        }
     }
     
     func errorAnimation(view: JudoPayInputField) {
