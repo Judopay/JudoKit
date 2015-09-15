@@ -47,28 +47,31 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         return scrollView
     }()
     
-    private (set) var amount: Amount?
-    private (set) var judoID: String?
-    private (set) var reference: Reference?
-    private (set) var cardDetails: CardDetails?
-    private (set) var paymentToken: PaymentToken?
-    
-    private let judoSecure = JudoSecure()
+    // MARK: Transaction variables
+    public private (set) var amount: Amount?
+    public private (set) var judoID: String?
+    public private (set) var reference: Reference?
+    public private (set) var cardDetails: CardDetails?
+    public private (set) var paymentToken: PaymentToken?
     
     private let transactionType: TransactionType
     
+    // MARK: Fraud Prevention
+    private let judoSecure = JudoSecure()
+    private var currentLocation: CLLocationCoordinate2D?
+    
     var delegate: JPayViewDelegate?
     
+    // MARK: 3DS variables
+    private var pending3DSTransaction: Transaction?
+    private var pending3DSReceiptID: String?
+    
+    // MARK: UI properties
     var keyboardHeightConstraint: NSLayoutConstraint?
     
     var maestroFieldsHeightConstraint: NSLayoutConstraint?
     var avsHeightConstraint: NSLayoutConstraint?
 
-    private var currentLocation: CLLocationCoordinate2D?
-    
-    private var pending3DSTransaction: Transaction?
-    private var pending3DSReceiptID: String?
-    
     let cardInputField: CardInputField = {
         let inputField = CardInputField()
         inputField.translatesAutoresizingMaskIntoConstraints = false
@@ -209,7 +212,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         
         UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
             self.paymentButton.layoutIfNeeded()
-            }, completion: nil)
+        }, completion: nil)
     }
     
     func keyboardWillHide(note: NSNotification) {
@@ -223,7 +226,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
 
         UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
             self.paymentButton.layoutIfNeeded()
-            }, completion: nil)
+        }, completion: nil)
     }
     
     // MARK: View Lifecycle
