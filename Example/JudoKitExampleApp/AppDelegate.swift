@@ -9,8 +9,8 @@
 import UIKit
 import JudoKit
 
-let token = "<#YOUR TOKEN#>"
-let secret = "<#YOUR SECRET#>"
+let token = "4Y4s0pCe3vAJPTyq"
+let secret = "2b0fbae818723be0b6ce4c683fadf9eb2e68051731c0c9e7b8ed2e544994d51c"
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         JudoKit.setToken(token, andSecret: secret)
         
-        JudoKit.sandboxed(true)
+//        JudoKit.sandboxed(true)
         // Override point for customization after application launch.
         return true
     }

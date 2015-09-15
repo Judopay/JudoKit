@@ -45,7 +45,7 @@ enum TableViewContent : Int {
     
 }
 
-let judoID              = "<#YOUR JUDO-ID#>"
+let judoID              = "100874981"
 let tokenPayReference   = "<#YOUR REFERENCE#>"
 
 
