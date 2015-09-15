@@ -45,7 +45,7 @@ enum TableViewContent : Int {
     
 }
 
-let judoID              = "100915867"
+let judoID              = "<#YOUR JUDO-ID#>"
 let tokenPayReference   = "<#YOUR REFERENCE#>"
 
 
@@ -181,7 +181,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func paymentOperation() {
         JudoKit.sharedInstance.payment(judoID, amount: Amount(35.0, currentCurrency), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), completion: { (response, error) -> () in
             if let _ = error {
-                // TODO: handle error
+                self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
+                self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
                 return // BAIL
             }
             if let resp = response, transactionData = resp.items.first {
@@ -199,7 +200,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
             JudoKit.sharedInstance.tokenPreAuth(judoID, amount: Amount(40, currentCurrency), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 if let _ = error {
-                    // TODO: handle error
+                    self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
+                    self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
                     return // BAIL
                 }
                 if let resp = response, transactionData = resp.items.first {
@@ -220,7 +222,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func createCardTokenOperation() {
         JudoKit.sharedInstance.registerCard(judoID, amount: Amount(1), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), completion: { (response, error) -> () in
             if let _ = error {
-                // TODO: handle error
+                self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
+                self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
                 return // BAIL
             }
             if let resp = response, transactionData = resp.items.first {
@@ -234,7 +237,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
             JudoKit.sharedInstance.tokenPayment(judoID, amount: Amount(30), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 if let _ = error {
-                    // TODO: handle error
+                    self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
+                    self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
                     return // BAIL
                 }
                 if let resp = response, transactionData = resp.items.first {

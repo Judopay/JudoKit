@@ -45,10 +45,8 @@ class DetailViewController: UIViewController {
         if let response = self.response, let transaction = response.items.first {
             self.dateStampLabel.text = self.outputDateFormatter.stringFromDate(transaction.createdAt)
             self.currencyFormatter.currencyCode = transaction.amount.currency
-            self.amountLabel.text = transaction.amount.amount.stringValue
+            self.amountLabel.text = transaction.amount.amount.stringValue + " " + transaction.amount.currency
         }
-        
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -57,13 +55,8 @@ class DetailViewController: UIViewController {
         if let response = self.response, let transaction = response.items.first {
             self.dateStampLabel.text = self.outputDateFormatter.stringFromDate(transaction.createdAt)
             self.currencyFormatter.currencyCode = transaction.amount.currency
-            self.amountLabel.text = transaction.amount.amount.stringValue
+            self.amountLabel.text = transaction.amount.amount.stringValue + " " + transaction.amount.currency
         }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func homeButtonHandler(sender: AnyObject) {

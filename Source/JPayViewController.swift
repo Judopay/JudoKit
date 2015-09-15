@@ -555,8 +555,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
                 transaction = transaction?.location(location)
             }
             
+            let deviceSignal = self.judoSecure.deviceSignal() as! JSONDictionary
             
-            self.pending3DSTransaction = try transaction?.completion { (response, error) -> () in
+            self.pending3DSTransaction = try transaction?.deviceSignal(deviceSignal).completion { (response, error) -> () in
                 if let error = error {
                     // check for 3ds error
                     if error.domain == JudoErrorDomain && error.code == JudoError.ThreeDSAuthRequest.rawValue {
