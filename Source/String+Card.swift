@@ -56,8 +56,6 @@ public extension String {
     */
     func cardPresentationString(configurations: [Card.Configuration]?) throws -> String {
         
-        // TODO: check for prefixes in the given configurations
-        
         var config = defaultCardConfigurations
         
         if let configurations = configurations {

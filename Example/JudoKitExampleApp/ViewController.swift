@@ -111,7 +111,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func settingsButtonDismissHandler(sender: AnyObject) {
         if self.settingsViewBottomConstraint.constant == 0 {
             self.view.layoutIfNeeded()
-            self.settingsViewBottomConstraint.constant = -350
+            self.settingsViewBottomConstraint.constant = -190
             UIView.animateWithDuration(0.5, animations: { () -> Void in
                 self.tableView.alpha = 1.0
                 self.view.layoutIfNeeded()
@@ -125,21 +125,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    @IBAction func threeDSecureChanged(theSwitch: UISwitch) {
-        // TODO: 3DS enabled setting
-    }
-    
     @IBAction func AVSValueChanged(theSwitch: UISwitch) {
         JudoKit.sharedInstance.avsEnabled = theSwitch.on
     }
     
-    @IBAction func maestroValueChanged(theSwitch: UISwitch) {
-        // TODO: Maestro settings
-    }
-    
-    @IBAction func AMEXValueChanged(theSwitch: UISwitch) {
-        // TODO: Amex accepted setting
-    }
+    // TODO: need to think of a way to add or remove certain card type acceptance as samples
     
     // MARK: UITableViewDataSource
     
@@ -197,26 +187,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func preAuthOperation() {
-        if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
-            JudoKit.sharedInstance.tokenPreAuth(judoID, amount: Amount(40, currentCurrency), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
-                if let _ = error {
-                    self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
-                    self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-                    return // BAIL
-                }
-                if let resp = response, transactionData = resp.items.first {
-                    self.cardDetails = transactionData.cardDetails
-                    self.paymentToken = transactionData.paymentToken()
-                }
-                let sb = UIStoryboard(name: "Main", bundle: nil)
-                let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
-                viewController.response = response
-                self.navigationController?.pushViewController(viewController, animated: true)
-            })
-        } else {
-            self.alertController = UIAlertController(title: "Error", message: "you need to create a card token before you can do a pre auth", preferredStyle: .Alert)
-            self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-        }
+        JudoKit.sharedInstance.preAuth(judoID, amount: Amount(40, currentCurrency), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), completion: { (response, error) -> () in
+            if let _ = error {
+                self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
+                self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                return // BAIL
+            }
+            if let resp = response, transactionData = resp.items.first {
+                self.cardDetails = transactionData.cardDetails
+                self.paymentToken = transactionData.paymentToken()
+            }
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
+            viewController.response = response
+            self.navigationController?.pushViewController(viewController, animated: true)
+        })
     }
     
     func createCardTokenOperation() {

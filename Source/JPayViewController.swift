@@ -448,8 +448,11 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         let urlString = request.URL?.absoluteString
         
         if let urlString = urlString where urlString.rangeOfString("threedsecurecallback") != nil {
-            guard let body = request.HTTPBody else { return false } // TODO: handle error
-            guard let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else { return false } // TODO: handle error
+            guard let body = request.HTTPBody,
+                let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
+                self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Failed3DSError as NSError)
+                return false
+            }
             
             var results = JSONDictionary()
             let pairs = bodyString.componentsSeparatedByString("&")
@@ -561,37 +564,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
                 if let error = error {
                     // check for 3ds error
                     if error.domain == JudoErrorDomain && error.code == JudoError.ThreeDSAuthRequest.rawValue {
-                        let payload = error.userInfo
-                        guard let urlString = payload["acsUrl"] as? String, let acsURL = NSURL(string: urlString) else { return }
-                        
-                        let request = NSMutableURLRequest(URL: acsURL)
-                        
-                        guard let paReqString = payload["paReq"],
-                        let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet) else { return }
-                        
-                        guard let md = payload["md"] else { return }
-                        
-                        guard let receiptID = payload["receiptId"] as? String else { return }
-                        
-                        self.pending3DSReceiptID = receiptID // save it for later
-                        
-                        guard let termURLString = "judo1234567890://threedsecurecallback".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet) else { return }
-                        
-                        let post = "MD=\(md)&PaReq=\(paReqEscapedString)&TermUrl=\(termURLString)"
-                        
-                        guard let postData = post.dataUsingEncoding(NSUTF8StringEncoding) else { return }
-                        
-                        request.HTTPMethod = "POST"
-                        
-                        request.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
-                        request.HTTPBody = postData
-                        
-                        self.threeDSecureWebView.loadRequest(request)
-                        
-                        self.loadingView.actionLabel.text = "Redirecting..."
-                        self.title = "Authentication"
-                        self.paymentEnabled(false)
-                        
+                        let payload = error.userInfo as! JSONDictionary
+                        self.show3DSWebViewWithPayload(payload)
                     } else {
                         self.delegate?.payViewController(self, didFailPaymentWithError: error)
                     }
@@ -611,6 +585,38 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
     }
     
     // MARK: Helpers
+    
+    func show3DSWebViewWithPayload(payload: [String : AnyObject]) {
+        guard let urlString = payload["acsUrl"] as? String, let acsURL = NSURL(string: urlString) else { return }
+        
+        let request = NSMutableURLRequest(URL: acsURL)
+        
+        guard let paReqString = payload["paReq"],
+            let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet) else { return }
+        
+        guard let md = payload["md"] else { return }
+        
+        guard let receiptID = payload["receiptId"] as? String else { return }
+        
+        self.pending3DSReceiptID = receiptID // save it for later
+        
+        guard let termURLString = "judo1234567890://threedsecurecallback".stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet) else { return }
+        
+        let post = "MD=\(md)&PaReq=\(paReqEscapedString)&TermUrl=\(termURLString)"
+        
+        guard let postData = post.dataUsingEncoding(NSUTF8StringEncoding) else { return }
+        
+        request.HTTPMethod = "POST"
+        
+        request.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
+        request.HTTPBody = postData
+        
+        self.threeDSecureWebView.loadRequest(request)
+        
+        self.loadingView.actionLabel.text = "Redirecting..."
+        self.title = "Authentication"
+        self.paymentEnabled(false)
+    }
     
     func errorAnimation(view: JudoPayInputField) {
         let animation = CAKeyframeAnimation()
