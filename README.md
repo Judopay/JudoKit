@@ -17,7 +17,7 @@ The JudoKit is a framework for creating easy payments inside your app with [Judo
 - To use the Judo SDK, you'll need to [sign up](https://www.judopay.com/signup) and get your app token 
 - the SDK has to be integrated in your project using one of the following methods
 
-#### CocoaPods
+#### ~~CocoaPods~~
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
@@ -44,7 +44,7 @@ $ pod install
 ```
 
 
-#### Carthage
+#### ~~Carthage~~
 
 [Carthage](https://github.com/Carthage/Carthage) - decentralized dependency management.
 
@@ -131,3 +131,5 @@ JudoKit.sharedInstance.payment(judoID, amount: Amount(35.0, currentCurrency), re
 	}
 })
 ```
+
+
