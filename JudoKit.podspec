@@ -26,6 +26,7 @@ Pod::Spec.new do |s|
 
   s.xcconfig         = { 'FRAMEWORK_SEARCH_PATHS'   => '"${PODS_ROOT}/Judo-Security/Framework"' }
   s.xcconfig         = { 'LIBRARY_SEARCH_PATHS'     => '"${PODS_ROOT}/Judo-Security/Framework"' }
-  s.xcconfig         = { 'LD_RUNPATH_SEARCH_PATHS'  => '"$(inherited) @executable_path/Frameworks"' }
+
+  s.dependency 'Judo' 
 
 end
