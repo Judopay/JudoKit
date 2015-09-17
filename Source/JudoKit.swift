@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 import Foundation
-import JudoSecure
 import Judo
 
 public typealias TransactionBlock = (Response?, NSError?) -> ()

@@ -24,7 +24,7 @@
 		DAD13A221B7C9E76007BB196 /* CardInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A211B7C9E76007BB196 /* CardInputField.swift */; };
 		DAD13A241B7CABA7007BB196 /* String+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A231B7CABA7007BB196 /* String+Card.swift */; };
 		DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDB0081B7DF3160073C6F1 /* Judo.framework */; };
-		DADDB00F1B7DF4530073C6F1 /* JudoSecure.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDB00E1B7DF4530073C6F1 /* JudoSecure.framework */; };
+		DAE44E9F1BAB15920007A9FD /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE44E9E1BAB15920007A9FD /* JudoShield.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +73,7 @@
 		DAD13A231B7CABA7007BB196 /* String+Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "String+Card.swift"; sourceTree = "<group>"; };
 		DADDB0021B7DF3160073C6F1 /* Judo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Judo.xcodeproj; path = "Judo-Swift/Judo.xcodeproj"; sourceTree = "<group>"; };
 		DADDB00E1B7DF4530073C6F1 /* JudoSecure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoSecure.framework; path = "Judo-Security/Framework/JudoSecure.framework"; sourceTree = "<group>"; };
+		DAE44E9E1BAB15920007A9FD /* JudoShield.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoShield.framework; path = JudoShield/Framework/JudoShield.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAE44E9F1BAB15920007A9FD /* JudoShield.framework in Frameworks */,
 				DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */,
-				DADDB00F1B7DF4530073C6F1 /* JudoSecure.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +140,7 @@
 		DA76A5F31B7B73D30033E553 = {
 			isa = PBXGroup;
 			children = (
+				DAE44E9E1BAB15920007A9FD /* JudoShield.framework */,
 				DADDB0021B7DF3160073C6F1 /* Judo.xcodeproj */,
 				DA76A5FF1B7B73D30033E553 /* Source */,
 				DAD13A021B7B8BD6007BB196 /* Tests */,
@@ -459,10 +461,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Judo-Security/Framework";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/JudoShield/Framework";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $SRCROOT/Judo-Security/Framework";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $SRCROOT/JudoShield/Framework";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -478,10 +480,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Judo-Security/Framework";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/JudoShield/Framework";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $SRCROOT/Judo-Security/Framework";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $SRCROOT/JudoShield/Framework";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

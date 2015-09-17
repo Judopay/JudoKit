@@ -561,7 +561,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
                 transaction = transaction?.location(location)
             }
             
-            let deviceSignal = self.judoShield.deviceSignal() as! JSONDictionary
+            let deviceSignal = self.judoShield.deviceSignal() as JSONDictionary
             
             self.pending3DSTransaction = try transaction?.deviceSignal(deviceSignal).completion { (response, error) -> () in
                 if let error = error {
