@@ -26,8 +26,6 @@ Pod::Spec.new do |s|
   s.frameworks       = 'CoreLocation', 'Security', 'CoreTelephony'
 
   s.dependency 'Judo'
-
-  s.xcconfig         = { 'FRAMEWORK_SEARCH_PATHS'   => '"${PODS_ROOT}/Judo-Security/Framework"' }
-  s.xcconfig         = { 'LIBRARY_SEARCH_PATHS'     => '"${PODS_ROOT}/Judo-Security/Framework"' }
+  s.dependency 'JudoShield'
 
 end
