@@ -24,7 +24,7 @@
 
 import UIKit
 import Judo
-import JudoSecure
+import JudoShield
 
 public enum TransactionType {
     case Payment, PreAuth, RegisterCard
@@ -57,7 +57,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
     private let transactionType: TransactionType
     
     // MARK: Fraud Prevention
-    private let judoSecure = JudoSecure()
+    private let judoShield = JudoShield()
     private var currentLocation: CLLocationCoordinate2D?
     
     var delegate: JPayViewDelegate?
@@ -330,7 +330,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.judoSecure.locationWithCompletion { (coordinate, error) -> Void in
+        self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
             if let error = error {
                 self.delegate?.payViewController(self, didEncounterError: error)
             } else {
@@ -561,7 +561,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
                 transaction = transaction?.location(location)
             }
             
-            let deviceSignal = self.judoSecure.deviceSignal() as! JSONDictionary
+            let deviceSignal = self.judoShield.deviceSignal() as! JSONDictionary
             
             self.pending3DSTransaction = try transaction?.deviceSignal(deviceSignal).completion { (response, error) -> () in
                 if let error = error {

@@ -14,7 +14,8 @@ Pod::Spec.new do |s|
   s.homepage         = 'http://judopay.com/'
   s.license          = 'MIT'
   s.author           = { "Hamon Ben Riazy" => 'hamon.riazy@judopayments.com' }
-  s.source           = { :git => 'https://github.com/JudoPay/Judo-Swift.git', :tag => s.version.to_s, :submodules => true}
+  s.source           = { :git => 'https://github.com/JudoPay/Judo-Swift.git',
+                         :tag => "v#{s.version}", :submodules => true }
 
   s.ios.deployment_target = '8.0'
   s.ios.platform          = '9.0'
@@ -22,11 +23,11 @@ Pod::Spec.new do |s|
   s.requires_arc     = true
 
   s.source_files     = 'Source/**/*.swift'
-  s.frameworks       = 'CoreLocation', 'Security', 'CoreTelephony', 'JudoSecure', 'Judo'
+  s.frameworks       = 'CoreLocation', 'Security', 'CoreTelephony'
+
+  s.dependency 'Judo'
 
   s.xcconfig         = { 'FRAMEWORK_SEARCH_PATHS'   => '"${PODS_ROOT}/Judo-Security/Framework"' }
   s.xcconfig         = { 'LIBRARY_SEARCH_PATHS'     => '"${PODS_ROOT}/Judo-Security/Framework"' }
-
-  s.dependency 'Judo' 
 
 end
