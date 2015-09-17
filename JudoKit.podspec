@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.license          = 'MIT'
   s.author           = { "Hamon Ben Riazy" => 'hamon.riazy@judopayments.com' }
   s.source           = { :git => 'https://github.com/JudoPay/JudoKit.git',
-                         :tag => "v#{s.version}" }
+                         :tag => s.version.to_s }
   s.ios.deployment_target = '8.0'
   s.ios.platform          = '9.0'
   s.requires_arc     = true
