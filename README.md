@@ -4,7 +4,7 @@
 
 # JudoKit #
 
-This is the official Judo iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judo-security)) combining them with additional tools to enable easy integration of payments into your App.
+This is the official Judo iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judoshield)) combining them with additional tools to enable easy integration of payments into your App.
 
 ### What is this project for? ###
 
@@ -88,13 +88,13 @@ $ git submodule add https://github.com/JudoPay/JudoKit
 - Select your application project the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
 - In the tab bar at the top of that window, open the "General" panel.
 - Click on the '+' button in 'Embedded Binaries' section
-- Click on 'Add Other...' and Navigate to the Judo-Security/Framework Folder and add JudoSecure.Framework 
+- Click on 'Add Other...' and Navigate to the JudoShield/Framework Folder and add JudoSecure.Framework 
 - Navigate to your projects folder and add `Judo.framework` and `JudoKit.framework`
 - in the project navigator
 - Click on the `+` button under the "Linked Frameworks and Libraries" section.
 - Select `Security.framework`, `CoreTelephony.framework` and `CoreLocation.framework` from the list presented
 - Open the "Build Settings" panel.
-- Search for 'Framework Search Paths' and add `$(PROJECT_DIR)/Judo-Security/Framework`
+- Search for 'Framework Search Paths' and add `$(PROJECT_DIR)/JudoShield/Framework`
 - Search for 'Runpath Search Paths' and make sure it contains '@executable_path/Frameworks'
 
 
