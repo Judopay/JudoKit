@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'JudoKit'
-  s.version          = '5.1.0'
+  s.version          = '5.1.1'
   s.summary          = 'Judo Pay Full iOS Client Kit'
   s.homepage         = 'http://judopay.com/'
   s.license          = 'MIT'
