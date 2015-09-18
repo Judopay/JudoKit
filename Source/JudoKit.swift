@@ -35,16 +35,71 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     private var completionBlock: TransactionBlock?
     private var errorHandlerBlock: ErrorHandlerBlock?
     
+    
+    /// set the address verification service to true to prompt the user to input his country and post code information
     public var avsEnabled: Bool = false
     
+    
+    /**
+    a mandatory method that sets the token and secret for making payments with Judo
+    
+    - Parameter token:  a string object representing the token
+    - Parameter secret: a string object representing the secret
+    */
     public static func setToken(token: String, andSecret secret: String) {
         Judo.setToken(token, secret: secret)
     }
     
+
+    /**
+    set the app to sandboxed mode
+    
+    - parameter enabled: true to set the SDK to sandboxed mode
+    */
     public static func sandboxed(enabled: Bool) {
         Judo.sandboxed = enabled
     }
     
+    
+    // MARK: Transactions
+    
+    
+    /**
+    Objective C accessible method to make a payment
+    
+    - parameter judoID:       the judoID of the merchant to receive the payment
+    - parameter amount:       the amount of the payment
+    - parameter currency:     the currency in which the payment should be made (default is GBP)
+    - parameter payRef:       the payment reference
+    - parameter consRef:      the consumer reference
+    - parameter metaData:     arbitrary dictionary that can hold any kind of JSON formatted information
+    - parameter completion:   the completion handler which will respond with a JSON Dictionary or an NSError
+    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
+    */
+    @objc public func payment(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+        let complBlock: TransactionBlock = { (response, error) in
+            var respArray: [AnyObject]? = nil
+            if let response = response {
+                respArray = response.items.map { $0.rawData }
+            }
+            if let completion = completion {
+                completion(respArray, error)
+            }
+        }
+        let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
+        self.payment(judoID, amount: Amount(amount, currency), reference: ref, completion: complBlock, errorHandler: errorHandler)
+    }
+    
+    
+    /**
+    Main payment method
+    
+    - parameter judoID:       the judoID of the merchant to receive the payment
+    - parameter amount:       the amount and currency of the payment (default is GBP)
+    - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+    - parameter completion:   the completion handler which will respond with a Response Object or an NSError
+    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
+    */
     public func payment(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
         self.completionBlock = completion
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference)
@@ -52,6 +107,43 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
+    
+    /**
+    Objective C accessible method to make a preAuth
+    
+    - parameter judoID:       the judoID of the merchant to receive the payment
+    - parameter amount:       the amount of the payment
+    - parameter currency:     the currency in which the payment should be made (default is GBP)
+    - parameter payRef:       the payment reference
+    - parameter consRef:      the consumer reference
+    - parameter metaData:     arbitrary dictionary that can hold any kind of JSON formatted information
+    - parameter completion:   the completion handler which will respond with a JSON Dictionary or an NSError
+    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
+    */
+    @objc public func preAuth(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+        let complBlock: TransactionBlock = { (response, error) in
+            var respArray: [AnyObject]? = nil
+            if let response = response {
+                respArray = response.items.map { $0.rawData }
+            }
+            if let completion = completion {
+                completion(respArray, error)
+            }
+        }
+        let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
+        self.preAuth(judoID, amount: Amount(amount, currency), reference: ref, completion: complBlock, errorHandler: errorHandler)
+    }
+    
+    
+    /**
+    Make a preAuth using this method
+    
+    - parameter judoID:       the judoID of the merchant to receive the payment
+    - parameter amount:       the amount and currency of the payment (default is GBP)
+    - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+    - parameter completion:   the completion handler which will respond with a Response Object or an NSError
+    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
+    */
     public func preAuth(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
         self.completionBlock = completion
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth)
@@ -59,6 +151,46 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
+    
+    // MARK: Register Card
+    
+    
+    /**
+    Objective C accessible method to initiate a card registration
+    
+    - parameter judoID:       the judoID of the merchant to receive the payment
+    - parameter amount:       the amount of the payment
+    - parameter currency:     the currency in which the payment should be made (default is GBP)
+    - parameter payRef:       the payment reference
+    - parameter consRef:      the consumer reference
+    - parameter metaData:     arbitrary dictionary that can hold any kind of JSON formatted information
+    - parameter completion:   the completion handler which will respond with a JSON Dictionary or an NSError
+    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
+    */
+    @objc public func registerCard(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+        let complBlock: TransactionBlock = { (response, error) in
+            var respArray: [AnyObject]? = nil
+            if let response = response {
+                respArray = response.items.map { $0.rawData }
+            }
+            if let completion = completion {
+                completion(respArray, error)
+            }
+        }
+        let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
+        self.registerCard(judoID, amount: Amount(amount, currency), reference: ref, completion: complBlock, errorHandler: errorHandler)
+    }
+    
+    
+    /**
+    Initiates a card registration
+    
+    - parameter judoID:       the judoID of the merchant to receive the payment
+    - parameter amount:       the amount and currency of the payment (default is GBP)
+    - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+    - parameter completion:   the completion handler which will respond with a Response Object or an NSError
+    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
+    */
     public func registerCard(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
         self.completionBlock = completion
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard)
@@ -66,19 +198,107 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
+    
+    // MARK: Token Transactions
+    
+    
+    /**
+    Objective C accessible method to initiate a token payment
+    
+    - parameter judoID:         the judoID of the merchant to receive the payment
+    - parameter amount:         the amount of the payment
+    - parameter currency:       the currency in which the payment should be made (default is GBP)
+    - parameter payRef:         the payment reference
+    - parameter consRef:        the consumer reference
+    - parameter metaData:       arbitrary dictionary that can hold any kind of JSON formatted information
+    - parameter cardDetails:    a Dictionary containing the last four numbers of the card, the expiry date String and the card token
+    - parameter consumerToken:  the consumer token that has been returned from a card registration response
+    - parameter completion:     the completion handler which will respond with a JSON Dictionary or an NSError
+    - parameter errorHandler:   arbitrary error handler for more control to detect input or other non-fatal errors
+    */
+    @objc public func tokenPayment(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+        let complBlock: TransactionBlock = { (response, error) in
+            var respArray: [AnyObject]? = nil
+            if let response = response {
+                respArray = response.items.map { $0.rawData }
+            }
+            if let completion = completion {
+                completion(respArray, error)
+            }
+        }
+        let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
+        let payToken = PaymentToken(consumerToken: consumerToken, cardToken: cardDetails["cardToken"])
+        self.tokenPayment(judoID, amount: Amount(amount, currency), reference: ref, cardDetails: CardDetails(cardDetails), paymentToken: payToken!, completion: complBlock, errorHandler: errorHandler)
+    }
+    
+    
+    /**
+    Initiates the token payment process
+    
+    - parameter judoID:       the judoID of the merchant to receive the payment
+    - parameter amount:       the amount and currency of the payment (default is GBP)
+    - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+    - parameter cardDetails:  the card details to present in the input fields
+    - parameter paymentToken: the consumer and card token to make a token payment with
+    - parameter completion:   the completion handler which will respond with a Response Object or an NSError
+    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
+    */
     public func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
         self.completionBlock = completion
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, cardDetails: cardDetails, paymentToken: paymentToken)
         vc.delegate = self
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
-
+    
+    
+    /**
+    Objective C accessible method to initiate a token pre auth
+    
+    - parameter judoID:         the judoID of the merchant to receive the payment
+    - parameter amount:         the amount of the payment
+    - parameter currency:       the currency in which the payment should be made (default is GBP)
+    - parameter payRef:         the payment reference
+    - parameter consRef:        the consumer reference
+    - parameter metaData:       arbitrary dictionary that can hold any kind of JSON formatted information
+    - parameter cardDetails:    a Dictionary containing the last four numbers of the card, the expiry date String and the card token
+    - parameter consumerToken:  the consumer token that has been returned from a card registration response
+    - parameter completion:     the completion handler which will respond with a JSON Dictionary or an NSError
+    - parameter errorHandler:   arbitrary error handler for more control to detect input or other non-fatal errors
+    */
+    @objc public func tokenPreAuth(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+        let complBlock: TransactionBlock = { (response, error) in
+            var respArray: [AnyObject]? = nil
+            if let response = response {
+                respArray = response.items.map { $0.rawData }
+            }
+            if let completion = completion {
+                completion(respArray, error)
+            }
+        }
+        let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
+        let payToken = PaymentToken(consumerToken: consumerToken, cardToken: cardDetails["cardToken"])
+        self.tokenPreAuth(judoID, amount: Amount(amount, currency), reference: ref, cardDetails: CardDetails(cardDetails), paymentToken: payToken!, completion: complBlock, errorHandler: errorHandler)
+    }
+    
+    
+    /**
+    Initiates the token pre auth process
+    
+    - parameter judoID:       the judoID of the merchant to receive the payment
+    - parameter amount:       the amount and currency of the payment (default is GBP)
+    - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+    - parameter cardDetails:  the card details to present in the input fields
+    - parameter paymentToken: the consumer and card token to make a token payment with
+    - parameter completion:   the completion handler which will respond with a Response Object or an NSError
+    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
+    */
     public func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
         self.completionBlock = completion
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, cardDetails: cardDetails, paymentToken: paymentToken)
         vc.delegate = self
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
+    
     
     // MARK: JPayViewDelegate
     
