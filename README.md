@@ -1,3 +1,5 @@
+[![Cocoapods Compatible](https://img.shields.io/cocoapods/v/JudoKit.svg)](https://img.shields.io/cocoapods/v/JudoKit.svg)
+[![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/JudoKit.svg)](http://http://cocoadocs.org/docsets/Judo)
 [![Platform](https://img.shields.io/cocoapods/p/JudoKit.svg)](http://http://cocoadocs.org/docsets/Judo)
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
@@ -17,7 +19,7 @@ The JudoKit is a framework for creating easy payments inside your app with [Judo
 - To use the Judo SDK, you'll need to [sign up](https://www.judopay.com/signup) and get your app token 
 - the SDK has to be integrated in your project using one of the following methods
 
-#### ~~CocoaPods~~
+#### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
@@ -34,7 +36,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 5.0.0'
+pod 'JudoKit', '~> 5.1.0'
 ```
 
 Then, run the following command:
@@ -58,7 +60,7 @@ $ brew install carthage
 - To integrate Judo into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "JudoPay/JudoKit" >= 5.0.0
+github "JudoPay/JudoKit" >= 5.1.0
 ```
 
 - On your application targets’ “General” settings tab, in the “Linked Frameworks and Libraries” section, drag and drop each framework you want to use from the Carthage/Build folder on disk.
