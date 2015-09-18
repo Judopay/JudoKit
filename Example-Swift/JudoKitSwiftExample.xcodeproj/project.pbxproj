@@ -378,7 +378,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../JudoShield/Framework";
 				INFOPLIST_FILE = JudoKitExampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitExampleApp;
 				PRODUCT_NAME = JudoKitSwiftExample;
 				PROVISIONING_PROFILE = "";
@@ -395,7 +395,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../JudoShield/Framework";
 				INFOPLIST_FILE = JudoKitExampleApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitExampleApp;
 				PRODUCT_NAME = JudoKitSwiftExample;
 				PROVISIONING_PROFILE = "";
