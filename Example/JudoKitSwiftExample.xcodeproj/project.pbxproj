@@ -71,7 +71,7 @@
 		DA3902421B972374001A703C /* Judo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Judo.framework; path = "/Users/hamonriazy/Library/Developer/Xcode/DerivedData/JudoKitExampleApp-goxonsoimxpftuaneqlmishpsnak/Build/Products/Debug-iphoneos/Judo.framework"; sourceTree = "<absolute>"; };
 		DA6259FD1BAB149A00E38892 /* JudoShield.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoShield.framework; path = ../JudoShield/Framework/JudoShield.framework; sourceTree = "<group>"; };
 		DA7418C01BA0226000C4D323 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		DA7A98861B7E3291005754F1 /* JudoKitExampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JudoKitExampleApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA7A98861B7E3291005754F1 /* JudoKitSwiftExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JudoKitSwiftExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7A98891B7E3291005754F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DA7A988B1B7E3291005754F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DA7A988E1B7E3291005754F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 		DA7A98871B7E3291005754F1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DA7A98861B7E3291005754F1 /* JudoKitExampleApp.app */,
+				DA7A98861B7E3291005754F1 /* JudoKitSwiftExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -139,7 +139,8 @@
 				DA7A98921B7E3291005754F1 /* LaunchScreen.storyboard */,
 				DA7A98951B7E3291005754F1 /* Info.plist */,
 			);
-			path = JudoKitExampleApp;
+			name = JudoKitExampleApp;
+			path = JudoKitSwiftExample;
 			sourceTree = "<group>";
 		};
 		DA7A989C1B7E32A7005754F1 /* Products */ = {
@@ -154,9 +155,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DA7A98851B7E3291005754F1 /* JudoKitExampleApp */ = {
+		DA7A98851B7E3291005754F1 /* JudoKitSwiftExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA7A98981B7E3291005754F1 /* Build configuration list for PBXNativeTarget "JudoKitExampleApp" */;
+			buildConfigurationList = DA7A98981B7E3291005754F1 /* Build configuration list for PBXNativeTarget "JudoKitSwiftExample" */;
 			buildPhases = (
 				DA7A98821B7E3291005754F1 /* Sources */,
 				DA7A98831B7E3291005754F1 /* Frameworks */,
@@ -168,9 +169,9 @@
 			dependencies = (
 				DA7A98A81B7E32CA005754F1 /* PBXTargetDependency */,
 			);
-			name = JudoKitExampleApp;
+			name = JudoKitSwiftExample;
 			productName = JudoKitExampleApp;
-			productReference = DA7A98861B7E3291005754F1 /* JudoKitExampleApp.app */;
+			productReference = DA7A98861B7E3291005754F1 /* JudoKitSwiftExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -189,7 +190,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DA7A98811B7E3291005754F1 /* Build configuration list for PBXProject "JudoKitExampleApp" */;
+			buildConfigurationList = DA7A98811B7E3291005754F1 /* Build configuration list for PBXProject "JudoKitSwiftExample" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -208,7 +209,7 @@
 			);
 			projectRoot = "";
 			targets = (
-				DA7A98851B7E3291005754F1 /* JudoKitExampleApp */,
+				DA7A98851B7E3291005754F1 /* JudoKitSwiftExample */,
 			);
 		};
 /* End PBXProject section */
@@ -379,7 +380,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitExampleApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JudoKitSwiftExample;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -396,7 +397,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitExampleApp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JudoKitSwiftExample;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -404,7 +405,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA7A98811B7E3291005754F1 /* Build configuration list for PBXProject "JudoKitExampleApp" */ = {
+		DA7A98811B7E3291005754F1 /* Build configuration list for PBXProject "JudoKitSwiftExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA7A98961B7E3291005754F1 /* Debug */,
@@ -413,7 +414,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DA7A98981B7E3291005754F1 /* Build configuration list for PBXNativeTarget "JudoKitExampleApp" */ = {
+		DA7A98981B7E3291005754F1 /* Build configuration list for PBXNativeTarget "JudoKitSwiftExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA7A98991B7E3291005754F1 /* Debug */,
