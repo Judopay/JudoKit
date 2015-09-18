@@ -28,7 +28,7 @@ import Judo
 public typealias TransactionBlock = (Response?, NSError?) -> ()
 public typealias ErrorHandlerBlock = (NSError?) -> ()
 
-public class JudoKit: JPayViewDelegate {
+@objc public class JudoKit: NSObject, JPayViewDelegate {
     
     static public let sharedInstance = JudoKit()
     
