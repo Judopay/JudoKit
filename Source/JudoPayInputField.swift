@@ -23,6 +23,22 @@
 //  SOFTWARE.
 
 import UIKit
+import Judo
+
+public protocol JudoPayInputDelegate {
+    func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String)
+    
+    func cardInput(input: CardInputField, error: ErrorType)
+    func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String)
+    func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork)
+    
+    func dateInput(input: DateInputField, error: ErrorType)
+    func dateInput(input: DateInputField, didFindValidDate date: String)
+    
+    func judoPayInput(input: JudoPayInputField, isValid: Bool)
+    
+    func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry)
+}
 
 public class JudoPayInputField: UIView, UITextFieldDelegate {
 
@@ -31,6 +47,8 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     let titleLabel: UILabel = UILabel()
     
     lazy var logoContainerView: UIView = UIView()
+    
+    public var delegate: JudoPayInputDelegate?
     
     // MARK: Initializers
     
@@ -46,6 +64,10 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     func setupView() {
         self.backgroundColor = .whiteColor()
+        
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.borderColor = UIColor.judoLightGrayColor().CGColor
+        self.layer.borderWidth = 1.0
         
         self.titleLabel.text = self.title()
 

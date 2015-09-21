@@ -37,7 +37,7 @@ public protocol JPayViewDelegate {
     func payViewController(controller: JPayViewController, didEncounterError error: NSError)
 }
 
-public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputDelegate, DateInputDelegate, SecurityInputDelegate, IssueNumberInputDelegate, BillingCountryInputDelegate, PostCodeInputDelegate {
+public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInputDelegate {
     
     private let contentView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -72,62 +72,13 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
     var maestroFieldsHeightConstraint: NSLayoutConstraint?
     var avsHeightConstraint: NSLayoutConstraint?
 
-    let cardInputField: CardInputField = {
-        let inputField = CardInputField()
-        inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
-        inputField.layer.borderWidth = 1.0
-        return inputField
-    }()
-    
-    let expiryDateInputField: DateInputField = {
-        let inputField = DateInputField()
-        inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
-        inputField.layer.borderWidth = 1.0
-        return inputField
-    }()
-    
-    let secureCodeInputField: SecurityInputField = {
-        let inputField = SecurityInputField()
-        inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
-        inputField.layer.borderWidth = 1.0
-        return inputField
-    }()
-    
-    let startDateInputField: DateInputField = {
-        let inputField = DateInputField()
-        inputField.isStartDate = true
-        inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
-        inputField.layer.borderWidth = 1.0
-        return inputField
-    }()
-    
-    let issueNumberInputField: IssueNumberInputField = {
-        let inputField = IssueNumberInputField()
-        inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
-        inputField.layer.borderWidth = 1.0
-        return inputField
-    }()
-
-    let billingCountryInputField: BillingCountryInputField = {
-        let inputField = BillingCountryInputField()
-        inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
-        inputField.layer.borderWidth = 1.0
-        return inputField
-    }()
-
-    let postCodeInputField: PostCodeInputField = {
-        let inputField = PostCodeInputField()
-        inputField.translatesAutoresizingMaskIntoConstraints = false
-        inputField.layer.borderColor = UIColor.judoLightGrayColor().CGColor
-        inputField.layer.borderWidth = 1.0
-        return inputField
-    }()
+    let cardInputField = CardInputField()
+    let expiryDateInputField = DateInputField()
+    let secureCodeInputField = SecurityInputField()
+    let startDateInputField = DateInputField()
+    let issueNumberInputField = IssueNumberInputField()
+    let billingCountryInputField = BillingCountryInputField()
+    let postCodeInputField = PostCodeInputField()
 
     let paymentButton: UIButton = {
         let button = UIButton(type: .Custom)
@@ -142,12 +93,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         return button
     }()
     
-    private let loadingView: LoadingView = {
-        let view = LoadingView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.alpha = 0.0
-        return view
-    }()
+    private let loadingView = LoadingView()
     
     private let threeDSecureWebView: UIWebView = {
         let webView = UIWebView()
@@ -248,6 +194,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         
         self.paymentButton.setTitle(payButtonTitle, forState: .Normal)
         
+        self.startDateInputField.isStartDate = true
+        
         // view
         self.view.addSubview(contentView)
         self.contentView.contentSize = self.view.bounds.size
@@ -263,9 +211,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         self.contentView.addSubview(postCodeInputField)
         
         self.view.addSubview(paymentButton)
-        
         self.view.addSubview(threeDSecureWebView)
-
         self.view.addSubview(loadingView)
         
         // delegates
@@ -372,7 +318,6 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
                 completion()
             }
         }
-        
     }
 
     // MARK: CardInputDelegate
@@ -407,21 +352,6 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         }
     }
     
-    // MARK: SecurityInputDelegate
-    
-    public func securityInputDidEnterCode(input: SecurityInputField, isValid: Bool) {
-        if JudoKit.sharedInstance.avsEnabled {
-            if isValid {
-                self.postCodeInputField.textField.becomeFirstResponder()
-                self.toggleAVSVisibility(true, completion: { () -> () in
-                    self.contentView.scrollRectToVisible(self.postCodeInputField.frame, animated: true)
-                })
-            }
-        } else {
-            self.paymentEnabled(isValid)
-        }
-    }
-    
     // MARK: IssueNumberInputDelegate
     
     public func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String) {
@@ -439,10 +369,23 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
         self.paymentEnabled(false)
     }
     
-    // MARK: PostCodeInputDelegate
+    // MARK: JudoPayInputDelegate
     
-    public func postCodeInput(input: PostCodeInputField, isValid: Bool) {
-        self.paymentEnabled(isValid)
+    public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
+        if input == self.postCodeInputField {
+            self.paymentEnabled(isValid)
+        } else if input == self.secureCodeInputField {
+            if JudoKit.sharedInstance.avsEnabled {
+                if isValid {
+                    self.postCodeInputField.textField.becomeFirstResponder()
+                    self.toggleAVSVisibility(true, completion: { () -> () in
+                        self.contentView.scrollRectToVisible(self.postCodeInputField.frame, animated: true)
+                    })
+                }
+            } else {
+                self.paymentEnabled(isValid)
+            }
+        }
     }
     
     // MARK: UIWebViewDelegate
@@ -489,10 +432,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
             }, completion: { (didFinish) -> Void in
                 self.threeDSecureWebView.loadRequest(NSURLRequest(URL: NSURL(string: "about:blank")!))
             })
-            
             return false
         }
-        
         return true
     }
     
@@ -505,7 +446,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, CardInputD
             self.threeDSecureWebView.alpha = alphaVal
         })
     }
-
+    
     // MARK: Button Actions
     
     func payButtonAction(sender: AnyObject) {

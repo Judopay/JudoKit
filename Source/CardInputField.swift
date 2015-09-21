@@ -25,17 +25,9 @@
 import UIKit
 import Judo
 
-public protocol CardInputDelegate {
-    func cardInput(input: CardInputField, error: ErrorType)
-    func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String)
-    func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork)
-}
-
 public class CardInputField: JudoPayInputField {
     
     public var acceptedCardNetworks: [Card.Configuration]?
-    
-    public var delegate: CardInputDelegate?
     
     // MARK: UITextFieldDelegate
     

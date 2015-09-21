@@ -31,7 +31,10 @@ public class LoadingView: UIView {
     
     func setupView() {
         self.backgroundColor = .judoLoadingBackgroundColor()
-        
+
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.alpha = 0.0
+
         self.blockView.translatesAutoresizingMaskIntoConstraints = false
         self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         self.actionLabel.translatesAutoresizingMaskIntoConstraints = false

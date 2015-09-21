@@ -9,17 +9,11 @@
 import UIKit
 import Judo
 
-public protocol BillingCountryInputDelegate {
-    func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry)
-}
-
 public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let countryPicker = UIPickerView()
     
     var selectedCountry: BillingCountry = .UK
-    
-    var delegate: BillingCountryInputDelegate?
     
     override func setupView() {
         super.setupView()

@@ -9,13 +9,7 @@
 import UIKit
 import Judo
 
-public protocol PostCodeInputDelegate {
-    func postCodeInput(input: PostCodeInputField, isValid: Bool)
-}
-
 public class PostCodeInputField: JudoPayInputField {
-    
-    var delegate: PostCodeInputDelegate?
     
     var billingCountry: BillingCountry = .UK {
         didSet {
@@ -71,16 +65,20 @@ public class PostCodeInputField: JudoPayInputField {
         let ukRegex = try! NSRegularExpression(pattern: "(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})", options: .AnchorsMatchLines)
         let canadaRegex = try! NSRegularExpression(pattern: "[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]", options: .AnchorsMatchLines)
         
+        var isValid = false
+        
         switch billingCountry {
         case .UK:
-            self.delegate?.postCodeInput(self, isValid: ukRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0)
+            isValid = ukRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0
         case .Canada:
-            self.delegate?.postCodeInput(self, isValid: canadaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0 && newString.characters.count == 6)
+            isValid = canadaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0 && newString.characters.count == 6
         case .USA:
-            self.delegate?.postCodeInput(self, isValid: usaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0)
+            isValid = usaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0
         case .Other:
-            self.delegate?.postCodeInput(self, isValid: newString.isNumeric() && newString.characters.count <= 8)
+            isValid = newString.isNumeric() && newString.characters.count <= 8
         }
+        
+        self.delegate?.judoPayInput(self, isValid: isValid)
     }
     
     override func placeholder() -> String? {
