@@ -10,6 +10,7 @@
 #import "DetailViewController.h"
 
 @import JudoKit;
+@import Judo;
 
 typedef NS_ENUM(NSUInteger, TableViewContent) {
     TableViewContentPayment,
@@ -86,7 +87,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (IBAction)AVSValueChanged:(UISwitch *)theSwitch {
-    JudoKit.sharedInstance.avsEnabled = theSwitch.on;
+    JudoKit.avsEnabled = theSwitch.on;
 }
 
 #pragma mark - UITableViewDataSource
@@ -165,60 +166,68 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)paymentOperation {
     NSDecimalNumber *amount = [NSDecimalNumber decimalNumberWithString:@"25.0"];
-    [[JudoKit sharedInstance] payment:judoID
-                               amount:amount
-                             currency:nil
-                               payRef:@"payment reference"
-                              consRef:@"consumer reference"
-                             metaData:nil
-                           completion:^(NSArray * response, NSError * error) {
-                               if (error || response.count == 0) {
-                                   _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
-                                   [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-                                   return; // BAIL
-                               }
-                               NSDictionary *JSON = response[0];
-                               if (JSON[@"cardDetails"]) {
-                                   self.cardDetails = JSON[@"cardDetails"];
-                               }
-                               UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                               DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
-                               viewController.infoDict = JSON;
-                               [self.navigationController pushViewController:viewController animated:YES];
-                           } errorHandler:^(NSError * error) {
-                               // handle non-fatal error
-                           }];
+    [JudoKit payment:judoID
+              amount:amount
+            currency:nil
+              payRef:@"payment reference"
+             consRef:@"consumer reference"
+            metaData:nil
+          completion:^(NSArray * response, NSError * error) {
+              if (error || response.count == 0) {
+                  _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
+                  [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                  return; // BAIL
+              }
+              NSDictionary *JSON = response[0];
+              if (JSON[@"cardDetails"]) {
+                  self.cardDetails = JSON[@"cardDetails"];
+              }
+              UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+              DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
+              viewController.infoDict = JSON;
+              [self.navigationController pushViewController:viewController animated:YES];
+          } errorHandler:^(NSError * error) {
+              // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
+              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+                  [self dismissViewControllerAnimated:YES completion:nil];
+              }
+              // handle non-fatal error
+          }];
 }
 
 - (void)preAuthOperation {
     NSDecimalNumber *amount = [NSDecimalNumber decimalNumberWithString:@"25.0"];
-    [[JudoKit sharedInstance] preAuth:judoID
-                               amount:amount
-                             currency:nil
-                               payRef:@"payment reference"
-                              consRef:@"consumer reference"
-                             metaData:nil
-                           completion:^(NSArray * response, NSError * error) {
-                               if (error || response.count == 0) {
-                                   _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
-                                   [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-                                   return; // BAIL
-                               }
-                               NSDictionary *JSON = response[0];
-                               if (JSON[@"cardDetails"]) {
-                                   self.cardDetails = JSON[@"cardDetails"];
-                               }
-                               UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                               DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
-                               viewController.infoDict = JSON;
-                               [self.navigationController pushViewController:viewController animated:YES];
-                           } errorHandler:^(NSError * error) {
-                               // handle non-fatal error
-                           }];
+    [JudoKit preAuth:judoID
+              amount:amount
+            currency:nil
+              payRef:@"payment reference"
+             consRef:@"consumer reference"
+            metaData:nil
+          completion:^(NSArray * response, NSError * error) {
+              if (error || response.count == 0) {
+                  _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
+                  [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                  return; // BAIL
+              }
+              NSDictionary *JSON = response[0];
+              if (JSON[@"cardDetails"]) {
+                  self.cardDetails = JSON[@"cardDetails"];
+              }
+              UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+              DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
+              viewController.infoDict = JSON;
+              [self.navigationController pushViewController:viewController animated:YES];
+          } errorHandler:^(NSError * error) {
+              // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
+              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+                  [self dismissViewControllerAnimated:YES completion:nil];
+              }
+              // handle non-fatal error
+          }];
 }
 
 - (void)createCardTokenOperation {
-    [[JudoKit sharedInstance] registerCard:judoID amount:[NSDecimalNumber decimalNumberWithString:@"1.01"] currency:nil payRef:@"payRef" consRef:@"consRef" metaData:nil completion:^(NSArray * response, NSError * error) {
+    [JudoKit registerCard:judoID amount:[NSDecimalNumber decimalNumberWithString:@"1.01"] currency:nil payRef:@"payRef" consRef:@"consRef" metaData:nil completion:^(NSArray * response, NSError * error) {
         if (error && response.count == 0) {
             _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
@@ -229,38 +238,46 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
             self.cardDetails = JSON[@"cardDetails"];
         }
     } errorHandler:^(NSError * error) {
-        
+        // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
+        if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        // handle non-fatal error
     }];
 }
 
 - (void)tokenPaymentOperation {
     if (self.cardDetails) {
         NSDecimalNumber *amount = [NSDecimalNumber decimalNumberWithString:@"25.0"];
-        [[JudoKit sharedInstance] tokenPayment:judoID
-                                        amount:amount
-                                      currency:nil
-                                        payRef:@"payment reference"
-                                       consRef:@"consumer reference"
-                                      metaData:nil
-                                   cardDetails:self.cardDetails
-                                 consumerToken:self.cardDetails[@"consumerToken"]
-                                    completion:^(NSArray * response, NSError * error) {
-                                        if (error || response.count == 0) {
-                                            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
-                                            [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-                                            return; // BAIL
-                                        }
-                                        NSDictionary *JSON = response[0];
-                                        if (JSON[@"cardDetails"]) {
-                                            self.cardDetails = JSON[@"cardDetails"];
-                                        }
-                                        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                                        DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
-                                        viewController.infoDict = JSON;
-                                        [self.navigationController pushViewController:viewController animated:YES];
-                                    } errorHandler:^(NSError * error) {
-                                        // handle non-fatal error
-                                    }];
+        [JudoKit tokenPayment:judoID
+                       amount:amount
+                     currency:nil
+                       payRef:@"payment reference"
+                      consRef:@"consumer reference"
+                     metaData:nil
+                  cardDetails:self.cardDetails
+                consumerToken:self.cardDetails[@"consumerToken"]
+                   completion:^(NSArray * response, NSError * error) {
+                       if (error || response.count == 0) {
+                           _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
+                           [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                           return; // BAIL
+                       }
+                       NSDictionary *JSON = response[0];
+                       if (JSON[@"cardDetails"]) {
+                           self.cardDetails = JSON[@"cardDetails"];
+                       }
+                       UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                       DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
+                       viewController.infoDict = JSON;
+                       [self.navigationController pushViewController:viewController animated:YES];
+                   } errorHandler:^(NSError * error) {
+                       // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
+                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+                           [self dismissViewControllerAnimated:YES completion:nil];
+                       }
+                       // handle non-fatal error
+                   }];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"you need to create a card token before you can do a pre auth" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
@@ -271,31 +288,35 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)tokenPreAuthOperation {
     if (self.cardDetails) {
         NSDecimalNumber *amount = [NSDecimalNumber decimalNumberWithString:@"25.0"];
-        [[JudoKit sharedInstance] tokenPreAuth:judoID
-                                        amount:amount
-                                      currency:nil
-                                        payRef:@"payment reference"
-                                       consRef:@"consumer reference"
-                                      metaData:nil
-                                   cardDetails:self.cardDetails
-                                 consumerToken:self.cardDetails[@"consumerToken"]
-                                    completion:^(NSArray * response, NSError * error) {
-                                        if (error || response.count == 0) {
-                                            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
-                                            [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-                                            return; // BAIL
-                                        }
-                                        NSDictionary *JSON = response[0];
-                                        if (JSON[@"cardDetails"]) {
-                                            self.cardDetails = JSON[@"cardDetails"];
-                                        }
-                                        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                                        DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
-                                        viewController.infoDict = JSON;
-                                        [self.navigationController pushViewController:viewController animated:YES];
-                                    } errorHandler:^(NSError * error) {
-                                        // handle non-fatal error
-                                    }];
+        [JudoKit tokenPreAuth:judoID
+                       amount:amount
+                     currency:nil
+                       payRef:@"payment reference"
+                      consRef:@"consumer reference"
+                     metaData:nil
+                  cardDetails:self.cardDetails
+                consumerToken:self.cardDetails[@"consumerToken"]
+                   completion:^(NSArray * response, NSError * error) {
+                       if (error || response.count == 0) {
+                           _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
+                           [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                           return; // BAIL
+                       }
+                       NSDictionary *JSON = response[0];
+                       if (JSON[@"cardDetails"]) {
+                           self.cardDetails = JSON[@"cardDetails"];
+                       }
+                       UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+                       DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
+                       viewController.infoDict = JSON;
+                       [self.navigationController pushViewController:viewController animated:YES];
+                   } errorHandler:^(NSError * error) {
+                       // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
+                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+                           [self dismissViewControllerAnimated:YES completion:nil];
+                       }
+                       // handle non-fatal error
+                   }];
     } else {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"you need to create a card token before you can do a pre auth" preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];

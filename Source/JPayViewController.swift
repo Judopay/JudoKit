@@ -30,13 +30,6 @@ public enum TransactionType {
     case Payment, PreAuth, RegisterCard
 }
 
-public protocol JPayViewDelegate {
-    func payViewControllerDidCancelPayment(controller: JPayViewController)
-    func payViewController(controller: JPayViewController, didPaySuccessfullyWithResponse response: Response)
-    func payViewController(controller: JPayViewController, didFailPaymentWithError error: NSError)
-    func payViewController(controller: JPayViewController, didEncounterError error: NSError)
-}
-
 public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInputDelegate {
     
     private let contentView: UIScrollView = {
@@ -60,8 +53,6 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     private let judoShield = JudoShield()
     private var currentLocation: CLLocationCoordinate2D?
     
-    var delegate: JPayViewDelegate?
-    
     // MARK: 3DS variables
     private var pending3DSTransaction: Transaction?
     private var pending3DSReceiptID: String?
@@ -80,16 +71,16 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     let billingCountryInputField = BillingCountryInputField()
     let postCodeInputField = PostCodeInputField()
 
-    let paymentButton = PayButton()
-    
-    private let loadingView = LoadingView()
-    
-    private let threeDSecureWebView = _DSWebView()
-    
     // can not initialize because self is not available at this point
     // must be var? because can also not be initialized in init before self is available
     var paymentNavBarButton: UIBarButtonItem?
+    let paymentButton = PayButton()
+    private let loadingView = LoadingView()
+    private let threeDSecureWebView = _DSWebView()
     
+    // MARK: completion blocks
+    private var completionBlock: TransactionBlock?
+    private var encounterErrorBlock: ErrorHandlerBlock?
     
     // MARK: Keyboard notification configuration
     
@@ -98,13 +89,15 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
 
-    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
+    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: TransactionBlock, encounteredError: ErrorHandlerBlock, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
         self.judoID = judoID
         self.amount = amount
         self.reference = reference
         self.cardDetails = cardDetails
         self.paymentToken = paymentToken
         self.transactionType = transactionType
+        self.completionBlock = completion
+        self.encounterErrorBlock = encounteredError
         
         super.init(nibName: nil, bundle: nil)
 
@@ -261,7 +254,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         
         self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
             if let error = error {
-                self.delegate?.payViewController(self, didEncounterError: error)
+                self.encounterErrorBlock?(error)
             } else {
                 self.currentLocation = coordinate
             }
@@ -358,7 +351,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         if input == self.postCodeInputField {
             self.paymentEnabled(isValid)
         } else if input == self.secureCodeInputField {
-            if JudoKit.sharedInstance.avsEnabled {
+            if JudoKit.avsEnabled {
                 if isValid {
                     self.postCodeInputField.textField.becomeFirstResponder()
                     self.toggleAVSVisibility(true, completion: { () -> () in
@@ -379,8 +372,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         if let urlString = urlString where urlString.rangeOfString("threedsecurecallback") != nil {
             guard let body = request.HTTPBody,
                 let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
-                self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Failed3DSError as NSError)
-                return false
+                    self.encounterErrorBlock?(JudoError.Failed3DSError as NSError)
+                    return false
             }
             
             var results = JSONDictionary()
@@ -399,15 +392,15 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             if let receiptID = self.pending3DSReceiptID {
                 self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { (resp, error) -> () in
                     if let error = error {
-                        self.delegate?.payViewController(self, didFailPaymentWithError: error)
+                        self.completionBlock?(nil, error)
                     } else if let resp = resp {
-                        self.delegate?.payViewController(self, didPaySuccessfullyWithResponse: resp)
+                        self.completionBlock?(resp, nil)
                     } else {
-                        self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Unknown as NSError)
+                        self.completionBlock?(nil, JudoError.Unknown as NSError)
                     }
                 })
             } else {
-                self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Unknown as NSError)
+                self.completionBlock?(nil, JudoError.Unknown as NSError)
             }
             
             UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -436,7 +429,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         guard let reference = self.reference,
             let amount = self.amount,
             let judoID = self.judoID else {
-                self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.ParameterError as NSError)
+                self.completionBlock?(nil, JudoError.ParameterError as NSError)
                 return // BAIL
         }
         
@@ -463,7 +456,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             } else {
                 // I expect that all the texts are available because the Pay Button would not be active otherwise
                 var address: Address? = nil
-                if JudoKit.sharedInstance.avsEnabled {
+                if JudoKit.avsEnabled {
                     guard let postCode = self.postCodeInputField.textField.text else { return }
                     
                     address = Address(postCode: postCode, country: self.billingCountryInputField.selectedCountry)
@@ -493,28 +486,28 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                     if error.domain == JudoErrorDomain && error.code == JudoError.ThreeDSAuthRequest.rawValue {
                         do {
                             self.pending3DSReceiptID = try self.threeDSecureWebView.load3DSWithPayload(error.userInfo as! JSONDictionary)
-                        } catch let error {
-                            self.delegate?.payViewController(self, didFailPaymentWithError: error as NSError)
+                        } catch let error as NSError {
+                            self.completionBlock?(nil, error)
                         }
                         self.loadingView.actionLabel.text = "Redirecting..."
                         self.title = "Authentication"
                         self.paymentEnabled(false)
                     } else {
-                        self.delegate?.payViewController(self, didFailPaymentWithError: error)
+                        self.completionBlock?(nil, error)
                     }
                 } else if let response = response {
-                    self.delegate?.payViewController(self, didPaySuccessfullyWithResponse: response)
+                    self.completionBlock?(response, nil)
                 }
                 self.loadingView.stopAnimating()
             }
         } catch let error as NSError {
-            self.delegate?.payViewController(self, didFailPaymentWithError: error)
+            self.completionBlock?(nil, error)
             self.loadingView.stopAnimating()
         }
     }
     
     func doneButtonAction(sender: UIBarButtonItem) {
-        self.delegate?.payViewControllerDidCancelPayment(self)
+        self.encounterErrorBlock?(JudoError.UserDidCancel as NSError)
     }
     
     // MARK: Helpers
