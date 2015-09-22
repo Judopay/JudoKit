@@ -80,18 +80,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     let billingCountryInputField = BillingCountryInputField()
     let postCodeInputField = PostCodeInputField()
 
-    let paymentButton: UIButton = {
-        let button = UIButton(type: .Custom)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .judoButtonColor()
-        button.setTitle("Pay", forState: .Normal)
-        button.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-        button.titleLabel?.font = UIFont.boldSystemFontOfSize(22)
-        button.enabled = false
-        button.alpha = 0.25
-        button.titleLabel?.alpha = 0.5
-        return button
-    }()
+    let paymentButton = PayButton()
     
     private let loadingView = LoadingView()
     
@@ -531,9 +520,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     // MARK: Helpers
     
     func paymentEnabled(enabled: Bool) {
-        self.paymentButton.enabled = enabled
-        self.paymentButton.alpha = enabled ? 1.0 : 0.25
-        self.paymentButton.titleLabel?.alpha = enabled ? 1.0 : 0.5
+        self.paymentButton.paymentEnabled(enabled)
         self.paymentNavBarButton!.enabled = enabled
     }
     
