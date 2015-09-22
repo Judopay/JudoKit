@@ -43,9 +43,9 @@ public class PayButton: UIButton {
     // MARK: configuration
     
     public func paymentEnabled(enabled: Bool) {
-        self.paymentButton.enabled = enabled
-        self.paymentButton.alpha = enabled ? 1.0 : 0.25
-        self.paymentButton.titleLabel?.alpha = enabled ? 1.0 : 0.5
+        self.enabled = enabled
+        self.alpha = enabled ? 1.0 : 0.25
+        self.titleLabel?.alpha = enabled ? 1.0 : 0.5
     }
 
 }
