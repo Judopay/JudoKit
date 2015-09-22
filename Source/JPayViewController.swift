@@ -323,7 +323,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     // MARK: CardInputDelegate
     
     public func cardInput(input: CardInputField, error: ErrorType) {
-        self.errorAnimation(input)
+        input.errorAnimation()
     }
     
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
@@ -341,7 +341,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     // MARK: DateInputDelegate
     
     public func dateInput(input: DateInputField, error: ErrorType) {
-        self.errorAnimation(input)
+        input.errorAnimation()
     }
     
     public func dateInput(input: DateInputField, didFindValidDate date: String) {
@@ -560,16 +560,6 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         } else {
             self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Failed3DSError as NSError)
         }
-    }
-    
-    func errorAnimation(view: JudoPayInputField) {
-        let animation = CAKeyframeAnimation()
-        animation.keyPath = "position.x"
-        animation.values = [0, 8, -8, 4, 0]
-        animation.keyTimes = [0, (1 / 6.0), (3 / 6.0), (5 / 6.0), 1]
-        animation.duration = 0.4
-        animation.additive = true
-        view.layer.addAnimation(animation, forKey: "wiggle")
     }
     
     func paymentEnabled(enabled: Bool) {

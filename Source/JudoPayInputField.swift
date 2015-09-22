@@ -115,6 +115,16 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     // MARK: Helpers
     
+    public func errorAnimation() {
+        let animation = CAKeyframeAnimation()
+        animation.keyPath = "position.x"
+        animation.values = [0, 8, -8, 4, 0]
+        animation.keyTimes = [0, (1 / 6.0), (3 / 6.0), (5 / 6.0), 1]
+        animation.duration = 0.4
+        animation.additive = true
+        self.layer.addAnimation(animation, forKey: "wiggle")
+    }
+    
     public func updateCardLogo() {
         let logoView = self.logoView()!
         logoView.frame = CGRectMake(0, 0, 38, 25)
