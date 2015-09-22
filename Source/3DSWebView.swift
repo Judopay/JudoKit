@@ -11,8 +11,26 @@ import Judo
 
 public class _DSWebView: UIWebView {
     
-    public override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
+    // MARK: initialization
+    
+    public init() {
+        super.init(frame: CGRectZero)
+        self.setupView()
+    }
+    
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setupView()
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.setupView()
+    }
+    
+    // MARK: View Setup
+    
+    public func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.alpha = 0.0
     }
