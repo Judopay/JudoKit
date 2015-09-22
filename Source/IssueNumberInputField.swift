@@ -8,13 +8,7 @@
 
 import UIKit
 
-public protocol IssueNumberInputDelegate {
-    func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String)
-}
-
 public class IssueNumberInputField: JudoPayInputField {
-    
-    var delegate: IssueNumberInputDelegate?
     
     // MARK: UITextFieldDelegate Methods
     

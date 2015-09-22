@@ -25,15 +25,9 @@
 import UIKit
 import Judo
 
-public protocol SecurityInputDelegate {
-    func securityInputDidEnterCode(input: SecurityInputField, isValid: Bool)
-}
-
 public class SecurityInputField: JudoPayInputField {
     
     public var cardNetwork: CardNetwork = .Unknown
-    
-    public var delegate: SecurityInputDelegate?
     
     // MARK: UITextFieldDelegate Methods
     
@@ -58,7 +52,7 @@ public class SecurityInputField: JudoPayInputField {
     override func textFieldDidChangeValue(textField: UITextField) {
         guard let text = textField.text else { return }
         
-        self.delegate?.securityInputDidEnterCode(self, isValid: text.characters.count == self.cardNetwork.securityCodeLength())
+        self.delegate?.judoPayInput(self, isValid: text.characters.count == self.cardNetwork.securityCodeLength())
     }
     
     override func placeholder() -> String? {

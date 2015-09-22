@@ -25,11 +25,6 @@
 import UIKit
 import Judo
 
-public protocol DateInputDelegate {
-    func dateInput(input: DateInputField, error: ErrorType)
-    func dateInput(input: DateInputField, didFindValidDate date: String)
-}
-
 
 /**
 The DateTextField allows two different modes of input.
@@ -45,8 +40,6 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     
     let datePicker = UIPickerView()
     
-    public var delegate: DateInputDelegate?
-
     private let dateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MM/yy"
