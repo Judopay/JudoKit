@@ -95,13 +95,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     
     private let loadingView = LoadingView()
     
-    private let threeDSecureWebView: UIWebView = {
-        let webView = UIWebView()
-        webView.translatesAutoresizingMaskIntoConstraints = false
-        webView.alpha = 0.0
-        return webView
-    }()
-
+    private let threeDSecureWebView = _DSWebView()
     
     // can not initialize because self is not available at this point
     // must be var? because can also not be initialized in init before self is available
@@ -508,8 +502,14 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                 if let error = error {
                     // check for 3ds error
                     if error.domain == JudoErrorDomain && error.code == JudoError.ThreeDSAuthRequest.rawValue {
-                        let payload = error.userInfo as! JSONDictionary
-                        self.show3DSWebViewWithPayload(payload)
+                        do {
+                            self.pending3DSReceiptID = try self.threeDSecureWebView.load3DSWithPayload(error.userInfo as! JSONDictionary)
+                        } catch let error {
+                            self.delegate?.payViewController(self, didFailPaymentWithError: error as NSError)
+                        }
+                        self.loadingView.actionLabel.text = "Redirecting..."
+                        self.title = "Authentication"
+                        self.paymentEnabled(false)
                     } else {
                         self.delegate?.payViewController(self, didFailPaymentWithError: error)
                     }
@@ -529,38 +529,6 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     }
     
     // MARK: Helpers
-    
-    func show3DSWebViewWithPayload(payload: [String : AnyObject]) {
-        let allowedCharacterSet = NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet
-        
-        guard let urlString = payload["acsUrl"] as? String,
-            let acsURL = NSURL(string: urlString),
-            let md = payload["md"],
-            let receiptID = payload["receiptId"] as? String,
-            let paReqString = payload["paReq"],
-            let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet),
-            let termURLString = "judo1234567890://threedsecurecallback".stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) else {
-            self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Failed3DSError as NSError)
-            return
-        }
-        
-        self.pending3DSReceiptID = receiptID // save it for later
-        
-        if let postData = "MD=\(md)&PaReq=\(paReqEscapedString)&TermUrl=\(termURLString)".dataUsingEncoding(NSUTF8StringEncoding) {
-            let request = NSMutableURLRequest(URL: acsURL)
-            request.HTTPMethod = "POST"
-            request.setValue("\(postData.length)", forHTTPHeaderField: "Content-Length")
-            request.HTTPBody = postData
-            
-            self.threeDSecureWebView.loadRequest(request)
-            
-            self.loadingView.actionLabel.text = "Redirecting..."
-            self.title = "Authentication"
-            self.paymentEnabled(false)
-        } else {
-            self.delegate?.payViewController(self, didFailPaymentWithError: JudoError.Failed3DSError as NSError)
-        }
-    }
     
     func paymentEnabled(enabled: Bool) {
         self.paymentButton.enabled = enabled
