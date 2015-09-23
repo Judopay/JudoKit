@@ -26,18 +26,12 @@ import Foundation
 import Judo
 
 public typealias TransactionBlock = (Response?, NSError?) -> ()
-public typealias ErrorHandlerBlock = (NSError?) -> ()
+public typealias ErrorHandlerBlock = NSError -> ()
 
-@objc public class JudoKit: NSObject, JPayViewDelegate {
-    
-    static public let sharedInstance = JudoKit()
-    
-    private var completionBlock: TransactionBlock?
-    private var errorHandlerBlock: ErrorHandlerBlock?
-    
+@objc public class JudoKit: NSObject {
     
     /// set the address verification service to true to prompt the user to input his country and post code information
-    public var avsEnabled: Bool = false
+    public static var avsEnabled: Bool = false
     
     
     /**
@@ -50,7 +44,7 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
         Judo.setToken(token, secret: secret)
     }
     
-
+    
     /**
     set the app to sandboxed mode
     
@@ -76,16 +70,15 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:   the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public func payment(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+    @objc static public func payment(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            if let completion = completion {
-                completion(respArray, error)
-            }
+            completion(respArray, error)
         }
+        
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
         self.payment(judoID, amount: Amount(amount, currency), reference: ref, completion: complBlock, errorHandler: errorHandler)
     }
@@ -100,10 +93,8 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    public func payment(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
-        self.completionBlock = completion
-        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference)
-        vc.delegate = self
+    static public func payment(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
+        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, encounteredError: errorHandler)
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
@@ -120,15 +111,13 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:   the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public func preAuth(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+    @objc static public func preAuth(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            if let completion = completion {
-                completion(respArray, error)
-            }
+            completion(respArray, error)
         }
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
         self.preAuth(judoID, amount: Amount(amount, currency), reference: ref, completion: complBlock, errorHandler: errorHandler)
@@ -144,10 +133,8 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    public func preAuth(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
-        self.completionBlock = completion
-        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth)
-        vc.delegate = self
+    static public func preAuth(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
+        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler)
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
@@ -167,15 +154,13 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:   the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public func registerCard(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+    @objc static public func registerCard(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            if let completion = completion {
-                completion(respArray, error)
-            }
+            completion(respArray, error)
         }
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
         self.registerCard(judoID, amount: Amount(amount, currency), reference: ref, completion: complBlock, errorHandler: errorHandler)
@@ -191,10 +176,8 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    public func registerCard(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
-        self.completionBlock = completion
-        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard)
-        vc.delegate = self
+    static public func registerCard(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
+        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, encounteredError: errorHandler)
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
@@ -216,15 +199,13 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:     the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler:   arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public func tokenPayment(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+    @objc static public func tokenPayment(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            if let completion = completion {
-                completion(respArray, error)
-            }
+            completion(respArray, error)
         }
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
         let payToken = PaymentToken(consumerToken: consumerToken, cardToken: cardDetails["cardToken"])
@@ -243,10 +224,8 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    public func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
-        self.completionBlock = completion
-        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, cardDetails: cardDetails, paymentToken: paymentToken)
-        vc.delegate = self
+    static public func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
+        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken)
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
@@ -265,15 +244,13 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:     the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler:   arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public func tokenPreAuth(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ())?, errorHandler: ErrorHandlerBlock? = nil) {
+    @objc static public func tokenPreAuth(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            if let completion = completion {
-                completion(respArray, error)
-            }
+            completion(respArray, error)
         }
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
         let payToken = PaymentToken(consumerToken: consumerToken, cardToken: cardDetails["cardToken"])
@@ -292,42 +269,9 @@ public typealias ErrorHandlerBlock = (NSError?) -> ()
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    public func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock?, errorHandler: ErrorHandlerBlock? = nil) {
-        self.completionBlock = completion
-        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, cardDetails: cardDetails, paymentToken: paymentToken)
-        vc.delegate = self
+    static public func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
+        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken)
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
-    
-    // MARK: JPayViewDelegate
-    
-    public func payViewControllerDidCancelPayment(controller: JPayViewController) {
-        if let compl = self.completionBlock {
-            compl(nil, JudoError.UserDidCancel as NSError)
-        }
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    public func payViewController(controller: JPayViewController, didPaySuccessfullyWithResponse response: Response) {
-        if let compl = self.completionBlock {
-            compl(response, nil)
-        }
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    public func payViewController(controller: JPayViewController, didFailPaymentWithError error: NSError) {
-        if let compl = self.completionBlock {
-            compl(nil, JudoError.UserDidCancel as NSError)
-        }
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    public func payViewController(controller: JPayViewController, didEncounterError error: NSError) {
-        if let errorHandler = self.errorHandlerBlock {
-            errorHandler(error)
-        }
-    }
-
-
 }

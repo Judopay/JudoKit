@@ -130,7 +130,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     @IBAction func AVSValueChanged(theSwitch: UISwitch) {
-        JudoKit.sharedInstance.avsEnabled = theSwitch.on
+        JudoKit.avsEnabled = theSwitch.on
     }
     
     // TODO: need to think of a way to add or remove certain card type acceptance as samples
@@ -175,7 +175,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: Operations
     
     func paymentOperation() {
-        JudoKit.sharedInstance.payment(judoID, amount: Amount(35.0, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+        JudoKit.payment(judoID, amount: Amount(35.0, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -189,11 +189,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
+            }, errorHandler: { (error) -> () in
+                if error.code == JudoError.UserDidCancel.rawValue {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                // handle other errors that may encounter
         })
     }
     
     func preAuthOperation() {
-        JudoKit.sharedInstance.preAuth(judoID, amount: Amount(40, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+        JudoKit.preAuth(judoID, amount: Amount(40, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -207,11 +212,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
+            }, errorHandler: { (error) -> () in
+                if error.code == JudoError.UserDidCancel.rawValue {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                // handle other errors that may encounter
         })
     }
     
     func createCardTokenOperation() {
-        JudoKit.sharedInstance.registerCard(judoID, amount: Amount(1), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+        JudoKit.registerCard(judoID, amount: Amount(1), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -221,12 +231,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 self.cardDetails = transactionData.cardDetails
                 self.paymentToken = transactionData.paymentToken()
             }
+            }, errorHandler: { (error) -> () in
+                if error.code == JudoError.UserDidCancel.rawValue {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                }
+                // handle other errors that may encounter
         })
     }
     
     func repeatPaymentOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
-            JudoKit.sharedInstance.tokenPayment(judoID, amount: Amount(30), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+            JudoKit.tokenPayment(judoID, amount: Amount(30), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 if let _ = error {
                     self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                     self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -240,6 +255,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
                 viewController.response = response
                 self.navigationController?.pushViewController(viewController, animated: true)
+                }, errorHandler: { (error) -> () in
+                    if error.code == JudoError.UserDidCancel.rawValue {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                    // handle other errors that may encounter
             })
         } else {
             let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .Alert)
@@ -250,7 +270,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func repeatPreAuthOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
-            JudoKit.sharedInstance.tokenPreAuth(judoID, amount: Amount(30), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+            JudoKit.tokenPreAuth(judoID, amount: Amount(30), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 if let _ = error {
                     self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                     self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -264,6 +284,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
                 viewController.response = response
                 self.navigationController?.pushViewController(viewController, animated: true)
+                }, errorHandler: { (error) -> () in
+                    if error.code == JudoError.UserDidCancel.rawValue {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                    // handle other errors that may encounter
             })
         } else {
             let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .Alert)
