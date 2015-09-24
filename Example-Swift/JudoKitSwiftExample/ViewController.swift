@@ -176,6 +176,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func paymentOperation() {
         JudoKit.payment(judoID, amount: Amount(35.0, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+            self.dismissViewControllerAnimated(true, completion: nil)
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -199,6 +200,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func preAuthOperation() {
         JudoKit.preAuth(judoID, amount: Amount(40, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+            self.dismissViewControllerAnimated(true, completion: nil)
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -222,6 +224,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func createCardTokenOperation() {
         JudoKit.registerCard(judoID, amount: Amount(1), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+            self.dismissViewControllerAnimated(true, completion: nil)
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -242,6 +245,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func repeatPaymentOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
             JudoKit.tokenPayment(judoID, amount: Amount(30), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+                self.dismissViewControllerAnimated(true, completion: nil)
                 if let _ = error {
                     self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                     self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
@@ -271,6 +275,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func repeatPreAuthOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
             JudoKit.tokenPreAuth(judoID, amount: Amount(30), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+                self.dismissViewControllerAnimated(true, completion: nil)
                 if let _ = error {
                     self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                     self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
