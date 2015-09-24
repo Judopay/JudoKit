@@ -15,7 +15,7 @@ before_install:
 script:
   - set -o pipefail
   - xcodebuild -version
-  - xcodebuild -project JudoKit.xcodeproj -scheme "$SCHEME" -target "JudoKit" -destination "$DESTINATION" 
+  - xcodebuild -project JudoKit.xcodeproj -target "JudoKit" -destination "$DESTINATION" 
     -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
-  - xcodebuild -project JudoKit.xcodeproj -scheme "$SCHEME" -target "JudoKit" -destination "$DESTINATION" 
+  - xcodebuild -project JudoKit.xcodeproj -target "JudoKit" -destination "$DESTINATION" 
     -configuration Release ONLY_ACTIVE_ARCH=NO test | xcpretty -c
