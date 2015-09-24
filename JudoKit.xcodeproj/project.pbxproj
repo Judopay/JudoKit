@@ -25,8 +25,8 @@
 		DAD13A061B7B8BD6007BB196 /* JudoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA76A5FD1B7B73D30033E553 /* JudoKit.framework */; };
 		DAD13A221B7C9E76007BB196 /* CardInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A211B7C9E76007BB196 /* CardInputField.swift */; };
 		DAD13A241B7CABA7007BB196 /* String+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A231B7CABA7007BB196 /* String+Card.swift */; };
+		DAD503F81BB42674007D5596 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE44E9E1BAB15920007A9FD /* JudoShield.framework */; };
 		DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDB0081B7DF3160073C6F1 /* Judo.framework */; };
-		DAE44E9F1BAB15920007A9FD /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE44E9E1BAB15920007A9FD /* JudoShield.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +76,6 @@
 		DAD13A211B7C9E76007BB196 /* CardInputField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardInputField.swift; sourceTree = "<group>"; };
 		DAD13A231B7CABA7007BB196 /* String+Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = "String+Card.swift"; sourceTree = "<group>"; };
 		DADDB0021B7DF3160073C6F1 /* Judo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Judo.xcodeproj; path = "Judo-Swift/Judo.xcodeproj"; sourceTree = "<group>"; };
-		DADDB00E1B7DF4530073C6F1 /* JudoSecure.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoSecure.framework; path = "Judo-Security/Framework/JudoSecure.framework"; sourceTree = "<group>"; };
 		DAE44E9E1BAB15920007A9FD /* JudoShield.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoShield.framework; path = JudoShield/Framework/JudoShield.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -85,7 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAE44E9F1BAB15920007A9FD /* JudoShield.framework in Frameworks */,
+				DAD503F81BB42674007D5596 /* JudoShield.framework in Frameworks */,
 				DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,7 +147,6 @@
 				DADDB0021B7DF3160073C6F1 /* Judo.xcodeproj */,
 				DA76A5FF1B7B73D30033E553 /* Source */,
 				DAD13A021B7B8BD6007BB196 /* Tests */,
-				DAB261AB1B7B79EE005024FF /* JudoSecure */,
 				DA76A5FE1B7B73D30033E553 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -174,14 +172,6 @@
 				DAB261AC1B7B7A0B005024FF /* JudoKit.swift */,
 			);
 			path = Source;
-			sourceTree = "<group>";
-		};
-		DAB261AB1B7B79EE005024FF /* JudoSecure */ = {
-			isa = PBXGroup;
-			children = (
-				DADDB00E1B7DF4530073C6F1 /* JudoSecure.framework */,
-			);
-			name = JudoSecure;
 			sourceTree = "<group>";
 		};
 		DAC0A3DA1BB1843800EA689D /* View */ = {
@@ -519,7 +509,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Judo-Security/Source/Debug",
+					"$(PROJECT_DIR)/JudoShield/Framework",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -534,7 +524,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Judo-Security/Source/Debug",
+                    "$(PROJECT_DIR)/JudoShield/Framework",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
