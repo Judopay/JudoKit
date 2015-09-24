@@ -91,7 +91,7 @@ $ git submodule add https://github.com/JudoPay/JudoKit
 - In the tab bar at the top of that window, open the "General" panel.
 - Click on the '+' button in 'Embedded Binaries' section
 - Click on 'Add Other...' and Navigate to the JudoShield/Framework Folder and add JudoSecure.Framework 
-- Navigate to your projects folder and add `Judo.framework` and `JudoKit.framework`
+- Navigate to your projects folder and add `JudoKit.framework`
 - in the project navigator
 - Click on the `+` button under the "Linked Frameworks and Libraries" section.
 - Select `Security.framework`, `CoreTelephony.framework` and `CoreLocation.framework` from the list presented
