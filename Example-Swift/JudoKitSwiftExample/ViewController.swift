@@ -7,14 +7,15 @@
 //
 
 import UIKit
+import PassKit
 import Judo
 import JudoKit
 
 enum TableViewContent : Int {
-    case Payment = 0, PreAuth, CreateCardToken, RepeatPayment, TokenPreAuth
+    case Payment = 0, PreAuth, CreateCardToken, RepeatPayment, TokenPreAuth, ApplePayPayment, ApplePayPreAuth
     
     static func count() -> Int {
-        return 5
+        return 7
     }
     
     func title() -> String {
@@ -29,6 +30,10 @@ enum TableViewContent : Int {
             return "Make a repeat payment"
         case .TokenPreAuth:
             return "Make a repeat token"
+        case .ApplePayPayment:
+            return "ApplePay Payment"
+        case .ApplePayPreAuth:
+            return "ApplePay PreAuth"
         }
     }
     
@@ -44,6 +49,10 @@ enum TableViewContent : Int {
             return "with a stored card token"
         case .TokenPreAuth:
             return "with a stored card token"
+        case .ApplePayPayment:
+            return "make a payment using ApplePay"
+        case .ApplePayPreAuth:
+            return "make a preAuth using ApplePay"
         }
     }
     
@@ -53,7 +62,7 @@ let judoID              = "<#YOUR JUDO-ID#>"
 let tokenPayReference   = "<#YOUR REFERENCE#>"
 
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     static let kCellIdentifier = "com.judo.judopaysample.tableviewcellidentifier"
     
@@ -66,6 +75,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var alertController: UIAlertController?
     
     var currentCurrency: String = "GBP"
+    
+    var isTransactingApplePayPreAuth = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,6 +180,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             repeatPaymentOperation()
         case .TokenPreAuth:
             repeatPreAuthOperation()
+        case .ApplePayPayment:
+            applePayPayment()
+        case .ApplePayPreAuth:
+            applePayPreAuth()
         }
     }
     
@@ -301,4 +316,92 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
+    
+    func applePayPayment() {
+        self.isTransactingApplePayPreAuth = false
+        self.initiateApplePay()
+    }
+    
+    func applePayPreAuth() {
+        self.isTransactingApplePayPreAuth = true
+        self.initiateApplePay()
+    }
+    
+    func initiateApplePay() {
+        // Set up our payment request.
+        let paymentRequest = PKPaymentRequest()
+        
+        /*
+        Our merchant identifier needs to match what we previously set up in
+        the Capabilities window (or the developer portal).
+        */
+        paymentRequest.merchantIdentifier = "<#YOUR-MERCHANT-ID#>"
+        
+        /*
+        Both country code and currency code are standard ISO formats. Country
+        should be the region you will process the payment in. Currency should
+        be the currency you would like to charge in.
+        */
+        paymentRequest.countryCode = "GB"
+        paymentRequest.currencyCode = "GBP"
+        
+        // The networks we are able to accept.
+        paymentRequest.supportedNetworks = [PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa]
+        
+        /*
+        we at Judo support 3DS
+        */
+        paymentRequest.merchantCapabilities = PKMerchantCapability.Capability3DS
+        
+        /*
+        An array of `PKPaymentSummaryItems` that we'd like to display on the
+        sheet.
+        */
+        let items = [PKPaymentSummaryItem(label: "Sub-total", amount: NSDecimalNumber(string: "30.00 £"))]
+        
+        paymentRequest.paymentSummaryItems = items;
+        
+        // Request shipping information, in this case just postal address.
+        paymentRequest.requiredShippingAddressFields = .PostalAddress
+        
+        // Display the view controller.
+        let viewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
+        viewController.delegate = self
+        
+        self.presentViewController(viewController, animated: true, completion: nil)
+    }
+    
+    // MARK: PKPaymentAuthorizationViewControllerDelegate
+    
+    func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: (PKPaymentAuthorizationStatus) -> Void) {
+        // WARNING: this can not be properly tested with the sandbox due to restrictions from Apple- if you need to test ApplePay you have to make actual valid transaction and then void them
+        let completionBlock: TransactionBlock = { (response, error) -> () in
+            self.dismissViewControllerAnimated(true, completion: nil)
+            if let _ = error {
+                let alertCont = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
+                alertCont.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                self.presentViewController(alertCont, animated: true, completion: nil)
+                return // BAIL
+            }
+            if let resp = response, transactionData = resp.items.first {
+                self.cardDetails = transactionData.cardDetails
+                self.paymentToken = transactionData.paymentToken()
+            }
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
+            viewController.response = response
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+        if self.isTransactingApplePayPreAuth {
+            JudoKit.applePayPreAuth(judoID, amount: Amount(30), reference: Reference(consumerRef: "consRef", paymentRef: "payRef"), payment: payment, completion: completionBlock)
+        } else {
+            JudoKit.applePayPayment(judoID, amount: Amount(30), reference: Reference(consumerRef: "consRef", paymentRef: "payRef"), payment: payment, completion: completionBlock)
+        }
+    }
+    
+    func paymentAuthorizationViewControllerDidFinish(controller: PKPaymentAuthorizationViewController) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
 }

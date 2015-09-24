@@ -2,9 +2,20 @@
 All notable changes to this project will be documented in this file.
 'Judo' adheres to [Semantic Versioning](http://semver.org/).
 
-- `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501) | [5.1.0](#510) | [5.1.1](#511) | [5.1.2](#512)
+- `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501) | [5.1.0](#510) | [5.1.1](#511) | [5.1.2](#512) | [5.2.0-beta](#520)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
+## [5.2.0-beta](https://github.com/JudoPay/JudoKit/tree/5.2.0-beta)
+not yet released
+
+#### Added
+- ApplePay methods
+- added static accessors
+#### Changed
+- removed SharedInstance
+	- Added by [Hamon Ben Riazy](https://github.com/ryce).
+
+---
 ## [5.1.2](https://github.com/JudoPay/Judo-Swift/tag/5.1.2)
 Released on 2015-09-22
 

@@ -143,10 +143,10 @@
 		DA76A5F31B7B73D30033E553 = {
 			isa = PBXGroup;
 			children = (
-				DAE44E9E1BAB15920007A9FD /* JudoShield.framework */,
 				DADDB0021B7DF3160073C6F1 /* Judo.xcodeproj */,
 				DA76A5FF1B7B73D30033E553 /* Source */,
 				DAD13A021B7B8BD6007BB196 /* Tests */,
+				DAB261AB1B7B79EE005024FF /* JudoShield */,
 				DA76A5FE1B7B73D30033E553 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -172,6 +172,14 @@
 				DAB261AC1B7B7A0B005024FF /* JudoKit.swift */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		DAB261AB1B7B79EE005024FF /* JudoShield */ = {
+			isa = PBXGroup;
+			children = (
+				DAE44E9E1BAB15920007A9FD /* JudoShield.framework */,
+			);
+			name = JudoShield;
 			sourceTree = "<group>";
 		};
 		DAC0A3DA1BB1843800EA689D /* View */ = {

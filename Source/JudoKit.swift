@@ -23,6 +23,7 @@
 //  SOFTWARE.
 
 import Foundation
+import PassKit
 import Judo
 
 public typealias TransactionBlock = (Response?, NSError?) -> ()
@@ -272,6 +273,40 @@ public typealias ErrorHandlerBlock = NSError -> ()
     static public func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken)
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+    }
+    
+    
+    /**
+    executes an applePay payment transaction
+    
+    - parameter judoID:     the judoID of the merchant to receive the payment
+    - parameter amount:     the amount and currency of the payment (default is GBP)
+    - parameter reference:  Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+    - parameter payment:    the PKPayment object that is generated during an ApplePay process
+    */
+    static public func applePayPayment(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: TransactionBlock) {
+        do {
+            try Judo.payment(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
+        } catch {
+            completion(nil, JudoError.ParameterError as NSError)
+        }
+    }
+    
+    
+    /**
+    executes an applePay preAuth transaction
+    
+    - parameter judoID:     the judoID of the merchant to receive the payment
+    - parameter amount:     the amount and currency of the payment (default is GBP)
+    - parameter reference:  Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+    - parameter payment:    the PKPayment object that is generated during an ApplePay process
+    */
+    static public func applePayPreAuth(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: TransactionBlock) {
+        do {
+            try Judo.preAuth(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
+        } catch {
+            completion(nil, JudoError.ParameterError as NSError)
+        }
     }
     
 }

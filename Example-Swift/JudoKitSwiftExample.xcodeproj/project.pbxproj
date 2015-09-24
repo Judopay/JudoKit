@@ -185,6 +185,11 @@
 					DA7A98851B7E3291005754F1 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 95V535S6TQ;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
