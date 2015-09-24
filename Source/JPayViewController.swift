@@ -160,7 +160,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         case .Payment, .PreAuth:
             self.title = "Payment"
         case .RegisterCard:
-            self.title = "Add Card"
+            self.title = "Add card"
         }
         
         var payButtonTitle = "Pay"
