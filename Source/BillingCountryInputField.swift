@@ -28,7 +28,7 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
     }
     
     override func title() -> String {
-        return "Billing Country"
+        return "Billing country"
     }
     
     override func titleWidth() -> Int {

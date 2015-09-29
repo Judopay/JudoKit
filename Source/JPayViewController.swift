@@ -304,8 +304,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
 
     // MARK: CardInputDelegate
     
-    public func cardInput(input: CardInputField, error: ErrorType) {
-        input.errorAnimation()
+    public func cardInput(input: CardInputField, error: JudoError) {
+        input.errorAnimation(error != JudoError.InputLengthMismatchError)
     }
     
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
@@ -322,8 +322,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     
     // MARK: DateInputDelegate
     
-    public func dateInput(input: DateInputField, error: ErrorType) {
-        input.errorAnimation()
+    public func dateInput(input: DateInputField, error: JudoError) {
+        input.errorAnimation(error != JudoError.InputLengthMismatchError)
     }
     
     public func dateInput(input: DateInputField, didFindValidDate date: String) {

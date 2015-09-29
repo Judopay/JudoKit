@@ -28,11 +28,11 @@ import Judo
 public protocol JudoPayInputDelegate {
     func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String)
     
-    func cardInput(input: CardInputField, error: ErrorType)
+    func cardInput(input: CardInputField, error: JudoError)
     func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String)
     func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork)
     
-    func dateInput(input: DateInputField, error: ErrorType)
+    func dateInput(input: DateInputField, error: JudoError)
     func dateInput(input: DateInputField, didFindValidDate date: String)
     
     func judoPayInput(input: JudoPayInputField, isValid: Bool)
@@ -50,6 +50,12 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     public var delegate: JudoPayInputDelegate?
     
+    private let redBlock: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.judoRedColor()
+        return view
+    }()
+    
     // MARK: Initializers
     
     override public init(frame: CGRect) {
@@ -64,6 +70,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     func setupView() {
         self.backgroundColor = .whiteColor()
+        self.clipsToBounds = true
         
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.borderColor = UIColor.judoLightGrayColor().CGColor
@@ -76,6 +83,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         
         self.addSubview(self.textField)
         self.addSubview(self.titleLabel)
+        self.addSubview(self.redBlock)
         
         self.textField.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -119,14 +127,31 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     // MARK: Helpers
     
-    public func errorAnimation() {
-        let animation = CAKeyframeAnimation()
-        animation.keyPath = "position.x"
-        animation.values = [0, 8, -8, 4, 0]
-        animation.keyTimes = [0, (1 / 6.0), (3 / 6.0), (5 / 6.0), 1]
-        animation.duration = 0.4
-        animation.additive = true
-        self.layer.addAnimation(animation, forKey: "wiggle")
+    public func errorAnimation(redBlock: Bool) {
+        // animate the red block on the bottom
+        
+        let blockAnimation = { (didFinish: Bool) -> Void in
+            let contentViewAnimation = CAKeyframeAnimation()
+            contentViewAnimation.keyPath = "position.x"
+            contentViewAnimation.values = [0, 10, -8, 6, -4, 2, 0]
+            contentViewAnimation.keyTimes = [0, (1 / 11.0), (3 / 11.0), (5 / 11.0), (7 / 11.0), (9 / 11.0), 1]
+            contentViewAnimation.duration = 0.4
+            contentViewAnimation.additive = true
+            
+            self.layer.addAnimation(contentViewAnimation, forKey: "wiggle")
+        }
+        
+        if redBlock {
+            self.redBlock.frame = CGRectMake(0, self.bounds.height, self.bounds.width, 4.0)
+            
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+                self.redBlock.frame = CGRectMake(0, self.bounds.height - 4, self.bounds.width, 4.0)
+                self.titleLabel.textColor = UIColor.judoRedColor()
+                self.textField.textColor = UIColor.judoRedColor()
+                }, completion: blockAnimation)
+        } else {
+            blockAnimation(true)
+        }
     }
     
     public func updateCardLogo() {
@@ -141,7 +166,18 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     }
     
     public func setActive(isActive: Bool) {
-        self.alpha = isActive ? 1.0 : 0.5
+        self.textField.alpha = isActive ? 1.0 : 0.5
+        self.titleLabel.alpha = isActive ? 1.0 : 0.5
+    }
+    
+    public func dismissError() {
+        if self.redBlock.bounds.size.height > 0 {
+            UIView.animateWithDuration(0.4) { () -> Void in
+                self.redBlock.frame = CGRectMake(0.0, self.bounds.height, self.bounds.width, 4.0)
+                self.titleLabel.textColor = .judoDarkGrayColor()
+                self.textField.textColor = .judoDarkGrayColor()
+            }
+        }
     }
     
     public func textFieldDidBeginEditing(textField: UITextField) {
@@ -155,6 +191,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     // MARK: Custom methods
     
     func textFieldDidChangeValue(textField: UITextField) {
+        self.dismissError()
         // method for subclassing
     }
     

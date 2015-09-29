@@ -47,4 +47,8 @@ public extension UIColor {
         return UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 0.8)
     }
     
+    public static func judoRedColor() -> UIColor {
+        return UIColor(red: 235/255, green: 55/255, blue: 45/255, alpha: 1.0)
+    }
+    
 }
