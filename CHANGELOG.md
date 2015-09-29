@@ -2,16 +2,20 @@
 All notable changes to this project will be documented in this file.
 'Judo' adheres to [Semantic Versioning](http://semver.org/).
 
-- `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501) | [5.1.0](#510) | [5.1.1](#511) | [5.1.2](#512) | [5.2.0-beta](#520)
+- `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501) | [5.1.0](#510) | [5.1.1](#511) | [5.1.2](#512) | [5.2.0](#520)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
-## [5.2.0-beta](https://github.com/JudoPay/JudoKit/tree/5.2.0-beta)
+## [5.2.0](https://github.com/JudoPay/JudoKit/tree/5.2.0)
 not yet released
 
 #### Added
 - ApplePay methods
 - added static accessors
+- different widths per inputView
+- greyed out input for fields that have not been entered or activated
+- red flash when entered wrong details
 #### Changed
+- switched to stacked view for AVS
 - removed SharedInstance
 	- Added by [Hamon Ben Riazy](https://github.com/ryce).
 
