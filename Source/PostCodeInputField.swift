@@ -88,5 +88,9 @@ public class PostCodeInputField: JudoPayInputField {
     override func title() -> String {
         return self.billingCountry.titleDescription()
     }
+    
+    override func titleWidth() -> Int {
+        return 120
+    }
 
 }

@@ -92,7 +92,11 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.textField.placeholder = self.placeholder()
         self.textField.addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
         
-        var visualFormat = "|-12-[title(50)][text]-12-|"
+        let titleWidth = self.titleWidth()
+        
+        self.setActive(false)
+        
+        var visualFormat = "|-12-[title(\(titleWidth))][text]-12-|"
         var views = ["title":titleLabel, "text":textField]
         if self.containsLogo() {
             let logoView = self.logoView()!
@@ -103,7 +107,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             self.logoContainerView.layer.cornerRadius = 2
             self.logoContainerView.addSubview(logoView)
             
-            visualFormat = "|-12-[title(50)][text][logo(38)]-12-|"
+            visualFormat = "|-12-[title(\(titleWidth))][text][logo(38)]-12-|"
             views["logo"] = self.logoContainerView
             
             self.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
@@ -136,6 +140,18 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.textField.placeholder = self.placeholder()
     }
     
+    public func setActive(isActive: Bool) {
+        self.alpha = isActive ? 1.0 : 0.5
+    }
+    
+    public func textFieldDidBeginEditing(textField: UITextField) {
+        self.setActive(true)
+    }
+    
+    public func textFieldDidEndEditing(textField: UITextField) {
+        self.setActive(textField.text?.characters.count > 0)
+    }
+    
     // MARK: Custom methods
     
     func textFieldDidChangeValue(textField: UITextField) {
@@ -156,6 +172,10 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     func title() -> String {
         return ""
+    }
+    
+    func titleWidth() -> Int {
+        return 50
     }
     
 }
