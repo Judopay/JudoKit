@@ -58,6 +58,7 @@ public class PostCodeInputField: JudoPayInputField {
     // MARK: Custom methods
     
     override func textFieldDidChangeValue(textField: UITextField) {
+        super.textFieldDidChangeValue(textField)
         
         guard let newString = self.textField.text else { return }
         
@@ -81,12 +82,12 @@ public class PostCodeInputField: JudoPayInputField {
         self.delegate?.judoPayInput(self, isValid: isValid)
     }
     
-    override func placeholder() -> String? {
-        return "000000"
-    }
-    
     override func title() -> String {
         return self.billingCountry.titleDescription()
+    }
+    
+    override func titleWidth() -> Int {
+        return 120
     }
 
 }

@@ -23,12 +23,17 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
         
         self.textField.text = "UK"
         self.textField.inputView = self.countryPicker
+        
+        self.setActive(true)
     }
     
     override func title() -> String {
-        return "Billing"
+        return "Billing country"
     }
-
+    
+    override func titleWidth() -> Int {
+        return 120
+    }
     
     // MARK: UITextFieldDelegate Methods
     

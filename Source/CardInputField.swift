@@ -47,8 +47,9 @@ public class CardInputField: JudoPayInputField {
         do {
             textField.text = try newString.cardPresentationString(self.acceptedCardNetworks)
             self.delegate?.cardInput(self, didDetectNetwork: textField.text!.cardNetwork())
+            self.dismissError()
         } catch let error {
-            self.delegate?.cardInput(self, error: error)
+            self.delegate?.cardInput(self, error: error as! JudoError)
         }
         
         var cardConfigs = defaultCardConfigurations
@@ -64,6 +65,7 @@ public class CardInputField: JudoPayInputField {
         if let textCount = textField.text?.stripped.characters.count where textCount == lowestNumber.first?.cardLength {
             if textField.text!.isCardNumberValid() {
                 self.delegate?.cardInput(self, didFindValidNumber: textField.text!)
+                self.dismissError()
             } else {
                 self.delegate?.cardInput(self, error: JudoError.InvalidCardNumber)
             }
