@@ -71,7 +71,7 @@ public typealias ErrorHandlerBlock = NSError -> ()
     - parameter completion:   the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc static public func payment(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
+    @objc static public func payment(judoID: String, amount: NSDecimalNumber, currency: String, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {
@@ -112,7 +112,7 @@ public typealias ErrorHandlerBlock = NSError -> ()
     - parameter completion:   the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc static public func preAuth(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
+    @objc static public func preAuth(judoID: String, amount: NSDecimalNumber, currency: String, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {
@@ -155,7 +155,7 @@ public typealias ErrorHandlerBlock = NSError -> ()
     - parameter completion:   the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc static public func registerCard(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
+    @objc static public func registerCard(judoID: String, amount: NSDecimalNumber, currency: String, payRef: String, consRef: String, metaData: [String:String]?, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {
@@ -200,7 +200,7 @@ public typealias ErrorHandlerBlock = NSError -> ()
     - parameter completion:     the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler:   arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc static public func tokenPayment(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
+    @objc static public func tokenPayment(judoID: String, amount: NSDecimalNumber, currency: String, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {
@@ -245,7 +245,7 @@ public typealias ErrorHandlerBlock = NSError -> ()
     - parameter completion:     the completion handler which will respond with a JSON Dictionary or an NSError
     - parameter errorHandler:   arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc static public func tokenPreAuth(judoID: String, amount: NSDecimalNumber, currency: String? = nil, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
+    @objc static public func tokenPreAuth(judoID: String, amount: NSDecimalNumber, currency: String, payRef: String, consRef: String, metaData: [String:String]?, cardDetails: [String:String], consumerToken: String, completion: (([AnyObject]?, NSError?) -> ()), errorHandler: ErrorHandlerBlock) {
         let complBlock: TransactionBlock = { (response, error) in
             var respArray: [AnyObject]? = nil
             if let response = response {

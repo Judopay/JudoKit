@@ -15,6 +15,7 @@ not yet released
 - greyed out input for fields that have not been entered or activated
 - red flash when entered wrong details
 #### Changed
+- Amount now only creates an object when an amount and a currency string has been passed
 - switched to stacked view for AVS
 - removed SharedInstance
 	- Added by [Hamon Ben Riazy](https://github.com/ryce).
