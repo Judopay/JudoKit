@@ -532,7 +532,7 @@
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-                    "$(PROJECT_DIR)/JudoShield/Framework",
+					"$(PROJECT_DIR)/JudoShield/Framework",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
