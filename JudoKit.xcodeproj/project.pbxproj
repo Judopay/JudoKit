@@ -486,7 +486,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/JudoShield/Framework";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $SRCROOT/JudoShield/Framework";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks $SRCROOT/JudoShield/Framework";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -505,7 +505,7 @@
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/JudoShield/Framework";
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $SRCROOT/JudoShield/Framework";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @loader_path/Frameworks $SRCROOT/JudoShield/Framework";
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
