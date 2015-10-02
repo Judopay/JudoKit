@@ -15,6 +15,9 @@ not yet released
 - greyed out input for fields that have not been entered or activated
 - red flash when entered wrong details
 #### Changed
+- Fixed Obj-C Sample App
+- Fixed some bugs in the sample apps
+- errorhandler now returns JudoErrors instead of NSErrors for easier handling in Swift
 - Amount now only creates an object when an amount and a currency string has been passed
 - switched to stacked view for AVS
 - removed SharedInstance
@@ -34,7 +37,7 @@ Released on 2015-09-22
 - moved error animation to view class
 - created 3DS specific class for handling WebView
 - created specific pay button
-	- Changed by [Hamon Ben Riazy](https://github.com/ryce).
+	- Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---
 ## [5.1.1](https://github.com/JudoPay/Judo-Swift/tag/5.1.1)

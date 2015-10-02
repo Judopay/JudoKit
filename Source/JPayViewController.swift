@@ -258,8 +258,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         super.viewDidAppear(animated)
         
         self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
-            if let error = error {
-                self.encounterErrorBlock?(error)
+            if let _ = error {
+//                self.encounterErrorBlock?(error as JudoError)
+                // FIXME: think about error handling here
             } else {
                 self.currentLocation = coordinate
             }
@@ -378,7 +379,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         if let urlString = urlString where urlString.rangeOfString("threedsecurecallback") != nil {
             guard let body = request.HTTPBody,
                 let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
-                    self.encounterErrorBlock?(JudoError.Failed3DSError as NSError)
+                    self.encounterErrorBlock?(JudoError.Failed3DSError)
                     return false
             }
             
@@ -513,7 +514,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     }
     
     func doneButtonAction(sender: UIBarButtonItem) {
-        self.encounterErrorBlock?(JudoError.UserDidCancel as NSError)
+        self.encounterErrorBlock?(JudoError.UserDidCancel)
     }
     
     // MARK: Helpers

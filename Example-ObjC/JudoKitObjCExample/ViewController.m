@@ -168,7 +168,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     NSDecimalNumber *amount = [NSDecimalNumber decimalNumberWithString:@"25.0"];
     [JudoKit payment:judoID
               amount:amount
-            currency:nil
+            currency:@"GBP"
               payRef:@"payment reference"
              consRef:@"consumer reference"
             metaData:nil
@@ -187,8 +187,8 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
               viewController.infoDict = JSON;
               [self.navigationController pushViewController:viewController animated:YES];
           } errorHandler:^(NSError * error) {
-              // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+              // unfortunately due to restrictions an enum that conforms to ErrorType can not be exposed to objective C, so we have to use the int directly
+              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
                   [self dismissViewControllerAnimated:YES completion:nil];
               }
               // handle non-fatal error
@@ -199,7 +199,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     NSDecimalNumber *amount = [NSDecimalNumber decimalNumberWithString:@"25.0"];
     [JudoKit preAuth:judoID
               amount:amount
-            currency:nil
+            currency:@"GBP"
               payRef:@"payment reference"
              consRef:@"consumer reference"
             metaData:nil
@@ -219,7 +219,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
               [self.navigationController pushViewController:viewController animated:YES];
           } errorHandler:^(NSError * error) {
               // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
                   [self dismissViewControllerAnimated:YES completion:nil];
               }
               // handle non-fatal error
@@ -227,7 +227,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (void)createCardTokenOperation {
-    [JudoKit registerCard:judoID amount:[NSDecimalNumber decimalNumberWithString:@"1.01"] currency:nil payRef:@"payRef" consRef:@"consRef" metaData:nil completion:^(NSArray * response, NSError * error) {
+    [JudoKit registerCard:judoID amount:[NSDecimalNumber decimalNumberWithString:@"1.01"] currency:@"GBP" payRef:@"payRef" consRef:@"consRef" metaData:nil completion:^(NSArray * response, NSError * error) {
         if (error && response.count == 0) {
             _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
@@ -239,7 +239,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
         }
     } errorHandler:^(NSError * error) {
         // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-        if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+        if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         // handle non-fatal error
@@ -251,7 +251,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
         NSDecimalNumber *amount = [NSDecimalNumber decimalNumberWithString:@"25.0"];
         [JudoKit tokenPayment:judoID
                        amount:amount
-                     currency:nil
+                     currency:@"GBP"
                        payRef:@"payment reference"
                       consRef:@"consumer reference"
                      metaData:nil
@@ -273,7 +273,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                        [self.navigationController pushViewController:viewController animated:YES];
                    } errorHandler:^(NSError * error) {
                        // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
                            [self dismissViewControllerAnimated:YES completion:nil];
                        }
                        // handle non-fatal error
@@ -290,7 +290,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
         NSDecimalNumber *amount = [NSDecimalNumber decimalNumberWithString:@"25.0"];
         [JudoKit tokenPreAuth:judoID
                        amount:amount
-                     currency:nil
+                     currency:@"GBP"
                        payRef:@"payment reference"
                       consRef:@"consumer reference"
                      metaData:nil
@@ -312,7 +312,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                        [self.navigationController pushViewController:viewController animated:YES];
                    } errorHandler:^(NSError * error) {
                        // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
+                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
                            [self dismissViewControllerAnimated:YES completion:nil];
                        }
                        // handle non-fatal error

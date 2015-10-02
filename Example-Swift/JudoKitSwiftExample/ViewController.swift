@@ -206,7 +206,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
             }, errorHandler: { (error) -> () in
-                if error.code == JudoError.UserDidCancel.rawValue {
+                if error == JudoError.UserDidCancel {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
                 // handle other errors that may encounter
@@ -230,7 +230,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
             }, errorHandler: { (error) -> () in
-                if error.code == JudoError.UserDidCancel.rawValue {
+                if error == JudoError.UserDidCancel {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
                 // handle other errors that may encounter
@@ -250,7 +250,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 self.paymentToken = transactionData.paymentToken()
             }
             }, errorHandler: { (error) -> () in
-                if error.code == JudoError.UserDidCancel.rawValue {
+                if error == JudoError.UserDidCancel {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
                 // handle other errors that may encounter
@@ -275,7 +275,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 viewController.response = response
                 self.navigationController?.pushViewController(viewController, animated: true)
                 }, errorHandler: { (error) -> () in
-                    if error.code == JudoError.UserDidCancel.rawValue {
+                    if error == JudoError.UserDidCancel {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
                     // handle other errors that may encounter
@@ -305,7 +305,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 viewController.response = response
                 self.navigationController?.pushViewController(viewController, animated: true)
                 }, errorHandler: { (error) -> () in
-                    if error.code == JudoError.UserDidCancel.rawValue {
+                    if error == JudoError.UserDidCancel {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
                     // handle other errors that may encounter
