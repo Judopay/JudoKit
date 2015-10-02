@@ -50,6 +50,7 @@ public class SecurityInputField: JudoPayInputField {
     // MARK: Custom methods
     
     override func textFieldDidChangeValue(textField: UITextField) {
+        super.textFieldDidChangeValue(textField)
         guard let text = textField.text else { return }
         
         self.delegate?.judoPayInput(self, isValid: text.characters.count == self.cardNetwork.securityCodeLength())

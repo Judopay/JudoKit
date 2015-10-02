@@ -189,6 +189,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     // MARK: Custom methods
     
     override func textFieldDidChangeValue(textField: UITextField) {
+        super.textFieldDidChangeValue(textField)
         
         guard let text = textField.text where text.characters.count == 5 else { return }
         

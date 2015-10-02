@@ -2,9 +2,25 @@
 //  PostCodeInputField.swift
 //  JudoKit
 //
-//  Created by Hamon Riazy on 09/09/2015.
-//  Copyright © 2015 Judo Payments. All rights reserved.
+//  Copyright (c) 2015 Alternative Payments Ltd
 //
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
 
 import UIKit
 import Judo
@@ -58,9 +74,10 @@ public class PostCodeInputField: JudoPayInputField {
     // MARK: Custom methods
     
     override func textFieldDidChangeValue(textField: UITextField) {
-        
-        guard let newString = self.textField.text else { return }
-        
+        super.textFieldDidChangeValue(textField)
+
+        guard let newString = self.textField.text?.uppercaseString else { return }
+
         let usaRegex = try! NSRegularExpression(pattern: "(^\\d{5}$)|(^\\d{5}-\\d{4}$)", options: .AnchorsMatchLines)
         let ukRegex = try! NSRegularExpression(pattern: "(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})", options: .AnchorsMatchLines)
         let canadaRegex = try! NSRegularExpression(pattern: "[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]", options: .AnchorsMatchLines)
@@ -81,12 +98,12 @@ public class PostCodeInputField: JudoPayInputField {
         self.delegate?.judoPayInput(self, isValid: isValid)
     }
     
-    override func placeholder() -> String? {
-        return "000000"
-    }
-    
     override func title() -> String {
         return self.billingCountry.titleDescription()
+    }
+    
+    override func titleWidth() -> Int {
+        return 120
     }
 
 }

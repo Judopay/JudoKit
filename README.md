@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/cocoapods/l/JudoKit.svg)](http://http://cocoadocs.org/docsets/Judo)
 [![Platform](https://img.shields.io/cocoapods/p/JudoKit.svg)](http://http://cocoadocs.org/docsets/Judo)
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
+[![Build Status](https://travis-ci.org/JudoPay/JudoKit.svg)](http://travis-ci.org/JudoPay/JudoKit)
 
 # JudoKit #
 
@@ -36,7 +37,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 5.1.0'
+pod 'JudoKit', '~> 5.2.0'
 ```
 
 Then, run the following command:
@@ -60,7 +61,7 @@ $ brew install carthage
 - To integrate Judo into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "JudoPay/JudoKit" >= 5.1.0
+github "JudoPay/JudoKit" >= 5.2.0
 ```
 
 - On your application targets’ “General” settings tab, in the “Linked Frameworks and Libraries” section, drag and drop each framework you want to use from the Carthage/Build folder on disk.
@@ -91,7 +92,7 @@ $ git submodule add https://github.com/JudoPay/JudoKit
 - In the tab bar at the top of that window, open the "General" panel.
 - Click on the '+' button in 'Embedded Binaries' section
 - Click on 'Add Other...' and Navigate to the JudoShield/Framework Folder and add JudoSecure.Framework 
-- Navigate to your projects folder and add `Judo.framework` and `JudoKit.framework`
+- Navigate to your projects folder and add `JudoKit.framework`
 - in the project navigator
 - Click on the `+` button under the "Linked Frameworks and Libraries" section.
 - Select `Security.framework`, `CoreTelephony.framework` and `CoreLocation.framework` from the list presented

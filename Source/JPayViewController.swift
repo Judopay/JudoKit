@@ -61,7 +61,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     var keyboardHeightConstraint: NSLayoutConstraint?
     
     var maestroFieldsHeightConstraint: NSLayoutConstraint?
-    var avsHeightConstraint: NSLayoutConstraint?
+    var billingHeightConstraint: NSLayoutConstraint?
+    var postHeightConstraint: NSLayoutConstraint?
 
     let cardInputField = CardInputField()
     let expiryDateInputField = DateInputField()
@@ -160,7 +161,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         case .Payment, .PreAuth:
             self.title = "Payment"
         case .RegisterCard:
-            self.title = "Add Card"
+            self.title = "Add card"
         }
         
         var payButtonTitle = "Pay"
@@ -171,7 +172,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.paymentButton.setTitle(payButtonTitle, forState: .Normal)
         
         self.startDateInputField.isStartDate = true
-        
+
         // view
         self.view.addSubview(contentView)
         self.contentView.contentSize = self.view.bounds.size
@@ -201,33 +202,37 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.threeDSecureWebView.delegate = self
         
         // layout constraints
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[scrollView]|", options: .AlignAllBaseline, metrics: nil, views: ["scrollView":contentView]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollView]-1-[button]", options: .AlignAllLeading, metrics: nil, views: ["scrollView":contentView, "button":paymentButton]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[scrollView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollView]-1-[button]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView, "button":paymentButton]))
         
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[loadingView]|", options: .AlignAllBaseline, metrics: nil, views: ["loadingView":loadingView]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[loadingView]|", options: .AlignAllLeading, metrics: nil, views: ["loadingView":loadingView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[loadingView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["loadingView":loadingView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[loadingView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["loadingView":loadingView]))
 
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[tdsecure]-|", options: .AlignAllBaseline, metrics: nil, views: ["tdsecure":threeDSecureWebView]))
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(68)-[tdsecure]-(30)-|", options: .AlignAllLeading, metrics: nil, views: ["tdsecure":threeDSecureWebView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[tdsecure]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["tdsecure":threeDSecureWebView]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(68)-[tdsecure]-(30)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["tdsecure":threeDSecureWebView]))
 
-        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: .AlignAllBaseline, metrics: nil, views: ["button":paymentButton]))
+        self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["button":paymentButton]))
         
         self.keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
         self.view.addConstraint(keyboardHeightConstraint!)
         self.paymentButton.addConstraint(NSLayoutConstraint(item: paymentButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-(-1)-[card(viewWidth)]-(-1)-|", options: .AlignAllBaseline, metrics: ["viewWidth" : self.view.bounds.width + 2], views: ["card":cardInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[expiry(halfViewWidth)]-(-1)-[security(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[start(halfViewWidth)]-(-1)-[issue(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["start":startDateInputField, "issue":issueNumberInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("[billing(halfViewWidth)]-(-1)-[post(halfViewWidth)]", options: .AlignAllBaseline, metrics: ["halfViewWidth" : (self.view.bounds.width + 3)/2.0], views: ["billing":billingCountryInputField, "post":postCodeInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]-(15)-|", options: .AlignAllLeft, metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[issue(==start)]-(-1)-[security(44)]-(-1)-[post(==billing)]-(15)-|", options: .AlignAllRight, metrics: nil, views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[card]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["card":cardInputField]))
+        self.contentView.addConstraint(NSLayoutConstraint(item: cardInputField, attribute: NSLayoutAttribute.Width, relatedBy: .Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 2))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[start]-(-1)-[issue]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["start":startDateInputField, "issue":issueNumberInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[billing]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["billing":billingCountryInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[post]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["post":postCodeInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]-(-1)-[post]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "post":postCodeInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[issue(==start)]-(-1)-[security(44)]-(-1)-[billing]-(-1)-[post]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField]))
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
-        self.avsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
+        self.billingHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
+        self.postHeightConstraint = NSLayoutConstraint(item: postCodeInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         
         self.startDateInputField.addConstraint(maestroFieldsHeightConstraint!)
-        self.billingCountryInputField.addConstraint(avsHeightConstraint!)
+        self.billingCountryInputField.addConstraint(billingHeightConstraint!)
+        self.postCodeInputField.addConstraint(postHeightConstraint!)
         
         // button actions
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: Selector("doneButtonAction:"))
@@ -253,8 +258,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         super.viewDidAppear(animated)
         
         self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
-            if let error = error {
-                self.encounterErrorBlock?(error)
+            if let _ = error {
+//                self.encounterErrorBlock?(error as JudoError)
+                // FIXME: think about error handling here
             } else {
                 self.currentLocation = coordinate
             }
@@ -282,7 +288,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     }
 
     public func toggleAVSVisibility(isVisible: Bool, completion: (() -> ())? = nil) {
-        self.avsHeightConstraint?.constant = isVisible ? 44 : 0
+        self.billingHeightConstraint?.constant = isVisible ? 44 : 0
+        self.postHeightConstraint?.constant = isVisible ? 44 : 0
         self.billingCountryInputField.setNeedsUpdateConstraints()
         self.postCodeInputField.setNeedsUpdateConstraints()
         
@@ -298,8 +305,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
 
     // MARK: CardInputDelegate
     
-    public func cardInput(input: CardInputField, error: ErrorType) {
-        input.errorAnimation()
+    public func cardInput(input: CardInputField, error: JudoError) {
+        input.errorAnimation(error != JudoError.InputLengthMismatchError)
     }
     
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
@@ -316,8 +323,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     
     // MARK: DateInputDelegate
     
-    public func dateInput(input: DateInputField, error: ErrorType) {
-        input.errorAnimation()
+    public func dateInput(input: DateInputField, error: JudoError) {
+        input.errorAnimation(error != JudoError.InputLengthMismatchError)
     }
     
     public func dateInput(input: DateInputField, didFindValidDate date: String) {
@@ -372,7 +379,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         if let urlString = urlString where urlString.rangeOfString("threedsecurecallback") != nil {
             guard let body = request.HTTPBody,
                 let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
-                    self.encounterErrorBlock?(JudoError.Failed3DSError as NSError)
+                    self.encounterErrorBlock?(JudoError.Failed3DSError)
                     return false
             }
             
@@ -507,7 +514,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     }
     
     func doneButtonAction(sender: UIBarButtonItem) {
-        self.encounterErrorBlock?(JudoError.UserDidCancel as NSError)
+        self.encounterErrorBlock?(JudoError.UserDidCancel)
     }
     
     // MARK: Helpers
