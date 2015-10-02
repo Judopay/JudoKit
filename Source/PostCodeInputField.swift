@@ -75,9 +75,9 @@ public class PostCodeInputField: JudoPayInputField {
     
     override func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
-        
-        guard let newString = self.textField.text else { return }
-        
+
+        guard let newString = self.textField.text?.uppercaseString else { return }
+
         let usaRegex = try! NSRegularExpression(pattern: "(^\\d{5}$)|(^\\d{5}-\\d{4}$)", options: .AnchorsMatchLines)
         let ukRegex = try! NSRegularExpression(pattern: "(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})", options: .AnchorsMatchLines)
         let canadaRegex = try! NSRegularExpression(pattern: "[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]", options: .AnchorsMatchLines)
