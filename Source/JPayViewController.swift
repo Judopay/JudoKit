@@ -172,7 +172,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.paymentButton.setTitle(payButtonTitle, forState: .Normal)
         
         self.startDateInputField.isStartDate = true
-        
+
         // view
         self.view.addSubview(contentView)
         self.contentView.contentSize = self.view.bounds.size

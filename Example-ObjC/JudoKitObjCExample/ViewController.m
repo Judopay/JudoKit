@@ -176,6 +176,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
               if (error || response.count == 0) {
                   _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
                   [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                  [self dismissViewControllerAnimated:YES completion:nil];
                   return; // BAIL
               }
               NSDictionary *JSON = response[0];
@@ -191,6 +192,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
               if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
                   [self dismissViewControllerAnimated:YES completion:nil];
               }
+              
               // handle non-fatal error
           }];
 }
@@ -207,6 +209,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
               if (error || response.count == 0) {
                   _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
                   [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                  [self dismissViewControllerAnimated:YES completion:nil];
                   return; // BAIL
               }
               NSDictionary *JSON = response[0];
@@ -231,6 +234,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
         if (error && response.count == 0) {
             _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+            [self dismissViewControllerAnimated:YES completion:nil];
             return; // BAIL
         }
         NSDictionary *JSON = response[0];
@@ -261,6 +265,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                        if (error || response.count == 0) {
                            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
                            [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                           [self dismissViewControllerAnimated:YES completion:nil];
                            return; // BAIL
                        }
                        NSDictionary *JSON = response[0];
@@ -300,6 +305,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                        if (error || response.count == 0) {
                            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
                            [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+                           [self dismissViewControllerAnimated:YES completion:nil];
                            return; // BAIL
                        }
                        NSDictionary *JSON = response[0];

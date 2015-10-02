@@ -195,6 +195,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                self.dismissViewControllerAnimated(true, completion:nil)
                 return // BAIL
             }
             if let resp = response, transactionData = resp.items.first {
@@ -219,6 +220,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                self.dismissViewControllerAnimated(true, completion:nil)
                 return // BAIL
             }
             if let resp = response, transactionData = resp.items.first {
