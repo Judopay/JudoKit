@@ -14,9 +14,11 @@ Pod::Spec.new do |s|
   s.dependency 'Judo'
   s.dependency 'JudoShield'
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony'
-  s.xcconfig              = { 'FRAMEWORK_SEARCH_PATHS'   => '"${PODS_ROOT}/JudoShield/Framework"' }
+  s.pod_target_xcconfig              = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/JudoShield/Framework',
+                              'OTHER_LDFLAGS'            => '$(inherited) -undefined dynamic_lookup'
+ }
 
-  s.vendored_frameworks = 'JudoKit.embeddedframework/JudoShield.framework'
+#  s.vendored_frameworks = 'JudoKit.embeddedframework/JudoShield.framework'
 
 
 end
