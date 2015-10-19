@@ -52,14 +52,14 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         Our merchant identifier needs to match what we previously set up in
         the Capabilities window (or the developer portal).
         */
-        paymentRequest.merchantIdentifier = "merchant.com.judo.testing"
+        paymentRequest.merchantIdentifier = "merchant.com.judo.demo1"
         
         /*
         Both country code and currency code are standard ISO formats. Country
         should be the region you will process the payment in. Currency should
         be the currency you would like to charge in.
         */
-        paymentRequest.countryCode = "UK"
+        paymentRequest.countryCode = "GB"
         paymentRequest.currencyCode = "GBP"
         
         // The networks we are able to accept.
