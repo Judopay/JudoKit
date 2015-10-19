@@ -59,8 +59,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         should be the region you will process the payment in. Currency should
         be the currency you would like to charge in.
         */
-        paymentRequest.countryCode = "US"
-        paymentRequest.currencyCode = "USD"
+        paymentRequest.countryCode = "UK"
+        paymentRequest.currencyCode = "GBP"
         
         // The networks we are able to accept.
         paymentRequest.supportedNetworks = [PKPaymentNetworkAmex, PKPaymentNetworkMasterCard, PKPaymentNetworkVisa]
