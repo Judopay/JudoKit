@@ -12,6 +12,8 @@ Released on 2015-10-20
 
 #### Added
 - ApplePay Example App
+#### Changed
+- big buttom payment button is not visible initially and pops up only when the payment is enabled
   - Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---

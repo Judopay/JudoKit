@@ -58,6 +58,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     private var pending3DSReceiptID: String?
     
     // MARK: UI properties
+    private var paymentEnabled = false
+    private var currentKeyboardHeight = CGFloat(0.0)
+    
     var keyboardHeightConstraint: NSLayoutConstraint?
     
     var maestroFieldsHeightConstraint: NSLayoutConstraint?
@@ -130,7 +133,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         
         guard let keyboardRect = info[UIKeyboardFrameEndUserInfoKey]?.CGRectValue else { return } // BAIL
         
-        self.keyboardHeightConstraint!.constant = -1 * keyboardRect.height
+        self.currentKeyboardHeight = keyboardRect.height
+        
+        self.keyboardHeightConstraint!.constant = -1 * keyboardRect.height + (paymentEnabled ? 0 : self.paymentButton.bounds.height)
         self.paymentButton.setNeedsUpdateConstraints()
         
         UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
@@ -144,7 +149,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
             let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else { return } // BAIL
         
-        self.keyboardHeightConstraint!.constant = 0.0
+        self.currentKeyboardHeight = 0.0
+
+        self.keyboardHeightConstraint!.constant = 0.0 + (paymentEnabled ? 0 : self.paymentButton.bounds.height)
         self.paymentButton.setNeedsUpdateConstraints()
 
         UIView.animateWithDuration(animationDuration.doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
@@ -213,7 +220,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
 
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["button":paymentButton]))
         
-        self.keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 0.0)
+        self.keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: paymentEnabled ? 0 : 50)
         self.view.addConstraint(keyboardHeightConstraint!)
         self.paymentButton.addConstraint(NSLayoutConstraint(item: paymentButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50))
         
@@ -520,7 +527,15 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     // MARK: Helpers
     
     func paymentEnabled(enabled: Bool) {
-        self.paymentButton.paymentEnabled(enabled)
+        self.paymentEnabled = enabled
+        self.keyboardHeightConstraint?.constant = -self.currentKeyboardHeight + (paymentEnabled ? 0 : self.paymentButton.bounds.height)
+
+        self.paymentButton.setNeedsUpdateConstraints()
+        
+        UIView.animateWithDuration(0.25, delay: 0.0, options:enabled ? .CurveEaseOut : .CurveEaseIn, animations: { () -> Void in
+            self.paymentButton.layoutIfNeeded()
+            }, completion: nil)
+
         self.paymentNavBarButton!.enabled = enabled
     }
     
