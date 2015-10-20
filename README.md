@@ -24,7 +24,7 @@ The JudoKit is a framework for creating easy payments inside your app with [Judo
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
-CocoaPods 0.36 adds supports for Swift and embedded frameworks. You can install it with the following command:
+CocoaPods 0.39 supports Swift and embedded frameworks. You can install it with the following command:
 
 ```bash
 $ gem install cocoapods
@@ -37,7 +37,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 5.2.0'
+pod 'JudoKit', '~> 5.2.1'
 ```
 
 Then, run the following command:
@@ -61,7 +61,7 @@ $ brew install carthage
 - To integrate Judo into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "JudoPay/JudoKit" >= 5.2.0
+github "JudoPay/JudoKit" >= 5.2.1
 ```
 
 - On your application targets’ “General” settings tab, in the “Linked Frameworks and Libraries” section, drag and drop each framework you want to use from the Carthage/Build folder on disk.
