@@ -51,17 +51,6 @@ public class PayButton: UIButton {
         self.setTitle("Pay", forState: .Normal)
         self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         self.titleLabel?.font = UIFont.boldSystemFontOfSize(22)
-        self.enabled = false
-        self.alpha = 0.25
-        self.titleLabel?.alpha = 0.5
     }
     
-    // MARK: configuration
-    
-    public func paymentEnabled(enabled: Bool) {
-        self.enabled = enabled
-        self.alpha = enabled ? 1.0 : 0.25
-        self.titleLabel?.alpha = enabled ? 1.0 : 0.5
-    }
-
 }
