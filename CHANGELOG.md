@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [5.2.1](https://github.com/JudoPay/JudoKit/tag/5.2.1)
-Released on 2015-10-01
+Released on 2015-10-20
 
 #### Added
 - ApplePay Example App
