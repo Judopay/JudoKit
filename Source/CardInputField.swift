@@ -34,7 +34,7 @@ public class CardInputField: JudoPayInputField {
     @objc public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField else { return false }
+        guard textField == self.textField() else { return false }
         
         // get old and new text
         let oldString = textField.text!
@@ -78,6 +78,9 @@ public class CardInputField: JudoPayInputField {
     // MARK: Custom methods
     
     override func placeholder() -> String? {
+        if self.layoutType == .Above {
+            return self.title()
+        }
         if let acceptedCardNetworks = self.acceptedCardNetworks {
             return acceptedCardNetworks.first?.placeholderString()
         } else {
@@ -91,7 +94,7 @@ public class CardInputField: JudoPayInputField {
     
     override func logoView() -> CardLogoView? {
         var type: CardLogoType = .Unknown
-        switch self.textField.text!.cardNetwork() {
+        switch self.textField().text!.cardNetwork() {
         case .Visa(.Credit), .Visa(.Debit), .Visa(.Unknown):
             type = .Visa
         case .MasterCard(.Credit), .MasterCard(.Debit), .MasterCard(.Unknown):
@@ -107,6 +110,9 @@ public class CardInputField: JudoPayInputField {
     }
     
     override func title() -> String {
+        if self.layoutType == .Above {
+            return "Card number"
+        }
         return "Card"
     }
 
