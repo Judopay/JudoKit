@@ -42,9 +42,12 @@ public protocol JudoPayInputDelegate {
 
 public class JudoPayInputField: UIView, UITextFieldDelegate {
 
-    let textField: UITextField = UITextField()
+    let floatingTextField: FloatingTextField = FloatingTextField()
+    let asideTextField: UITextField = UITextField()
     
     let titleLabel: UILabel = UILabel()
+    
+    var layoutType: LayoutType = .Above
     
     lazy var logoContainerView: UIView = UIView()
     
@@ -57,6 +60,12 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     }()
     
     // MARK: Initializers
+    
+    public init(layoutType: LayoutType) {
+        self.layoutType = layoutType
+        super.init(frame: CGRectZero)
+        self.setupView()
+    }
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,36 +85,39 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.layer.borderColor = UIColor.judoLightGrayColor().CGColor
         self.layer.borderWidth = 1.0
         
-        self.titleLabel.text = self.title()
-
-        self.textField.delegate = self
-        self.textField.keyboardType = .NumberPad
+        self.textField().delegate = self
+        self.textField().keyboardType = .NumberPad
         
-        self.addSubview(self.textField)
-        self.addSubview(self.titleLabel)
+        self.addSubview(self.textField())
         self.addSubview(self.redBlock)
         
-        self.textField.translatesAutoresizingMaskIntoConstraints = false
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.textField().translatesAutoresizingMaskIntoConstraints = false
         
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[title]|", options: .AlignAllBaseline, metrics: nil, views: ["title":titleLabel]))
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField]))
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField()]))
         
-        self.titleLabel.textColor = .judoDarkGrayColor()
-        self.textField.textColor = .judoDarkGrayColor()
+        self.textField().textColor = .judoDarkGrayColor()
         
-        self.titleLabel.font = UIFont.systemFontOfSize(14)
-        self.textField.font = UIFont.boldSystemFontOfSize(14)
+        self.textField().font = UIFont.boldSystemFontOfSize(14)
         
-        self.textField.placeholder = self.placeholder()
-        self.textField.addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
+        self.textField().addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
         
         let titleWidth = self.titleWidth()
         
         self.setActive(false)
+
+        if self.layoutType == .Aside {
+            self.titleLabel.text = self.title()
+            self.addSubview(self.titleLabel)
+            self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[title]|", options: .AlignAllBaseline, metrics: nil, views: ["title":titleLabel]))
+            self.titleLabel.textColor = .judoDarkGrayColor()
+            self.titleLabel.font = UIFont.systemFontOfSize(14)
+            self.textField().placeholder = self.placeholder()
+        } else {
+            self.titleLabel.removeFromSuperview()
+            self.textField().placeholder = self.title()
+        }
         
-        var visualFormat = "|-12-[title(\(titleWidth))][text]-12-|"
-        var views = ["title":titleLabel, "text":textField]
         if self.containsLogo() {
             let logoView = self.logoView()!
             logoView.frame = CGRectMake(0, 0, 38, 25)
@@ -115,11 +127,28 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             self.logoContainerView.layer.cornerRadius = 2
             self.logoContainerView.addSubview(logoView)
             
-            visualFormat = "|-12-[title(\(titleWidth))][text][logo(38)]-12-|"
-            views["logo"] = self.logoContainerView
-            
             self.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
             self.logoContainerView.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 25.0))
+        }
+        
+        var visualFormat = "|-12-[text]-12-|"
+        var views: [String:UIView] = ["text":textField()]
+        
+        switch self.layoutType {
+        case .Aside where self.containsLogo():
+            visualFormat = "|-12-[title(\(titleWidth))][text][logo(38)]-12-|"
+            views["title"] = self.titleLabel
+            views["logo"] = self.logoContainerView
+        case .Above where self.containsLogo():
+            visualFormat = "|-12-[text][logo(38)]-12-|"
+            views["logo"] = self.logoContainerView
+        case .Aside where !self.containsLogo():
+            visualFormat = "|-12-[title(\(titleWidth))][text]-12-|"
+            views["title"] = self.titleLabel
+        case .Above where !self.containsLogo():
+            visualFormat = "|-12-[text]-12-|"
+        default:
+            return
         }
         
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(visualFormat, options: .DirectionLeftToRight, metrics: nil, views: views))
@@ -147,7 +176,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.redBlock.frame = CGRectMake(0, self.bounds.height - 4, self.bounds.width, 4.0)
                 self.titleLabel.textColor = UIColor.judoRedColor()
-                self.textField.textColor = UIColor.judoRedColor()
+                self.textField().textColor = UIColor.judoRedColor()
                 }, completion: blockAnimation)
         } else {
             blockAnimation(true)
@@ -162,11 +191,11 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
                 UIView.transitionFromView(self.logoContainerView.subviews.first!, toView: logoView, duration: 0.3, options: .TransitionFlipFromBottom, completion: nil)
             }
         }
-        self.textField.placeholder = self.placeholder()
+        self.textField().placeholder = self.placeholder()
     }
     
     public func setActive(isActive: Bool) {
-        self.textField.alpha = isActive ? 1.0 : 0.5
+        self.textField().alpha = isActive ? 1.0 : 0.5
         self.titleLabel.alpha = isActive ? 1.0 : 0.5
     }
     
@@ -175,7 +204,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             UIView.animateWithDuration(0.4) { () -> Void in
                 self.redBlock.frame = CGRectMake(0.0, self.bounds.height, self.bounds.width, 4.0)
                 self.titleLabel.textColor = .judoDarkGrayColor()
-                self.textField.textColor = .judoDarkGrayColor()
+                self.textField().textColor = .judoDarkGrayColor()
             }
         }
     }
@@ -188,6 +217,13 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.setActive(textField.text?.characters.count > 0)
     }
     
+    public func textField() -> UITextField {
+        if self.layoutType == .Aside {
+            return self.asideTextField
+        }
+        return self.floatingTextField
+    }
+    
     // MARK: Custom methods
     
     func textFieldDidChangeValue(textField: UITextField) {
@@ -196,6 +232,9 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     }
     
     func placeholder() -> String? {
+        if self.layoutType == .Above {
+            return nil
+        }
         return nil
     }
     

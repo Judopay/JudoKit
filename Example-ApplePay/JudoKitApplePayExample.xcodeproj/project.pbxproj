@@ -13,8 +13,8 @@
 		DA44EA9D1BD4DBE4003B302A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA44EA9C1BD4DBE4003B302A /* Assets.xcassets */; };
 		DA44EAA01BD4DBE4003B302A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA44EA9E1BD4DBE4003B302A /* LaunchScreen.storyboard */; };
 		DA44EAB21BD4E3B4003B302A /* JudoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA44EAAF1BD4E3A8003B302A /* JudoKit.framework */; };
-		DAC7E6FB1BD5355500054AF1 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC7E6FA1BD5355500054AF1 /* Judo.framework */; };
-		DAC7E6FC1BD5355D00054AF1 /* Judo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAC7E6FA1BD5355500054AF1 /* Judo.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DAB051321BD7835D00888E06 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC7E6FA1BD5355500054AF1 /* Judo.framework */; };
+		DAB051331BD7835D00888E06 /* Judo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAC7E6FA1BD5355500054AF1 /* Judo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DAC7E6FD1BD5357D00054AF1 /* JudoKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA44EAAF1BD4E3A8003B302A /* JudoKit.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DAC7E7001BD535AF00054AF1 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC7E6FE1BD535A100054AF1 /* JudoShield.framework */; };
 		DAC7E7011BD535AF00054AF1 /* JudoShield.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAC7E6FE1BD535A100054AF1 /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -47,9 +47,9 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				DAB051331BD7835D00888E06 /* Judo.framework in CopyFiles */,
 				DAC7E7011BD535AF00054AF1 /* JudoShield.framework in CopyFiles */,
 				DAC7E6FD1BD5357D00054AF1 /* JudoKit.framework in CopyFiles */,
-				DAC7E6FC1BD5355D00054AF1 /* Judo.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,10 +77,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAB051321BD7835D00888E06 /* Judo.framework in Frameworks */,
 				DAC7E7081BD5361400054AF1 /* Security.framework in Frameworks */,
 				DAC7E7061BD5361100054AF1 /* CoreLocation.framework in Frameworks */,
 				DAC7E7041BD5360C00054AF1 /* CoreTelephony.framework in Frameworks */,
-				DAC7E6FB1BD5355500054AF1 /* Judo.framework in Frameworks */,
 				DA44EAB21BD4E3B4003B302A /* JudoKit.framework in Frameworks */,
 				DAC7E7001BD535AF00054AF1 /* JudoShield.framework in Frameworks */,
 			);

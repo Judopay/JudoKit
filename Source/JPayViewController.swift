@@ -26,6 +26,10 @@ import UIKit
 import Judo
 import JudoShield
 
+public enum LayoutType {
+    case Aside, Above
+}
+
 public enum TransactionType {
     case Payment, PreAuth, RegisterCard
 }
@@ -56,6 +60,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     // MARK: 3DS variables
     private var pending3DSTransaction: Transaction?
     private var pending3DSReceiptID: String?
+    
+    // MARK: TextField Layout
+    var layout: LayoutType = .Above
     
     // MARK: UI properties
     private var paymentEnabled = false
@@ -179,7 +186,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.paymentButton.setTitle(payButtonTitle, forState: .Normal)
         
         self.startDateInputField.isStartDate = true
-
+        
         // view
         self.view.addSubview(contentView)
         self.contentView.contentSize = self.view.bounds.size
@@ -227,7 +234,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[card]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["card":cardInputField]))
         self.contentView.addConstraint(NSLayoutConstraint(item: cardInputField, attribute: NSLayoutAttribute.Width, relatedBy: .Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 2))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[start]-(-1)-[issue]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["start":startDateInputField, "issue":issueNumberInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[start]-(-1)-[issue(==start)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["start":startDateInputField, "issue":issueNumberInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[billing]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["billing":billingCountryInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[post]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["post":postCodeInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]-(-1)-[post]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "post":postCodeInputField]))
@@ -256,8 +263,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         if let cardDetails = self.cardDetails,
             let cardLastFour = cardDetails.cardLastFour,
             let expiryDate = cardDetails.endDate {
-            self.cardInputField.textField.text = "**** " + cardLastFour
-            self.expiryDateInputField.textField.text = expiryDate
+            self.cardInputField.textField().text = "**** " + cardLastFour
+            self.expiryDateInputField.textField().text = expiryDate
         }
     }
     
@@ -273,10 +280,10 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             }
         }
         
-        if self.cardInputField.textField.text?.characters.count > 0 {
-            self.secureCodeInputField.textField.becomeFirstResponder()
+        if self.cardInputField.textField().text?.characters.count > 0 {
+            self.secureCodeInputField.textField().becomeFirstResponder()
         } else {
-            self.cardInputField.textField.becomeFirstResponder()
+            self.cardInputField.textField().becomeFirstResponder()
         }
     }
     
@@ -317,7 +324,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     }
     
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
-        self.expiryDateInputField.textField.becomeFirstResponder()
+        self.expiryDateInputField.textField().becomeFirstResponder()
     }
     
     public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
@@ -336,9 +343,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     
     public func dateInput(input: DateInputField, didFindValidDate date: String) {
         if input == self.startDateInputField {
-            self.issueNumberInputField.textField.becomeFirstResponder()
+            self.issueNumberInputField.textField().becomeFirstResponder()
         } else {
-            self.secureCodeInputField.textField.becomeFirstResponder()
+            self.secureCodeInputField.textField().becomeFirstResponder()
         }
     }
     
@@ -346,7 +353,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     
     public func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String) {
         if issueNumber.characters.count == 3 {
-            self.expiryDateInputField.textField.becomeFirstResponder()
+            self.expiryDateInputField.textField().becomeFirstResponder()
         }
     }
     
@@ -355,7 +362,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
         self.postCodeInputField.billingCountry = billingCountry
         // FIXME: maybe check if the postcode is still valid and then delete if nessecary
-        self.postCodeInputField.textField.text = ""
+        self.postCodeInputField.textField().text = ""
         self.paymentEnabled(false)
     }
     
@@ -367,7 +374,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         } else if input == self.secureCodeInputField {
             if JudoKit.avsEnabled {
                 if isValid {
-                    self.postCodeInputField.textField.becomeFirstResponder()
+                    self.postCodeInputField.textField().becomeFirstResponder()
                     self.toggleAVSVisibility(true, completion: { () -> () in
                         self.contentView.scrollRectToVisible(self.postCodeInputField.frame, animated: true)
                     })
@@ -447,10 +454,10 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                 return // BAIL
         }
         
-        if self.secureCodeInputField.textField.isFirstResponder() {
-            self.secureCodeInputField.textField.resignFirstResponder()
-        } else if self.postCodeInputField.textField.isFirstResponder() {
-            self.postCodeInputField.textField.resignFirstResponder()
+        if self.secureCodeInputField.textField().isFirstResponder() {
+            self.secureCodeInputField.textField().resignFirstResponder()
+        } else if self.postCodeInputField.textField().isFirstResponder() {
+            self.postCodeInputField.textField().resignFirstResponder()
         }
         
         self.loadingView.startAnimating()
@@ -471,7 +478,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                 // I expect that all the texts are available because the Pay Button would not be active otherwise
                 var address: Address? = nil
                 if JudoKit.avsEnabled {
-                    guard let postCode = self.postCodeInputField.textField.text else { return }
+                    guard let postCode = self.postCodeInputField.textField().text else { return }
                     
                     address = Address(postCode: postCode, country: self.billingCountryInputField.selectedCountry)
                 }
@@ -479,12 +486,12 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                 var issueNumber: String? = nil
                 var startDate: String? = nil
                 
-                if self.cardInputField.textField.text?.cardNetwork() == .Maestro {
-                    issueNumber = self.issueNumberInputField.textField.text
-                    startDate = self.startDateInputField.textField.text
+                if self.cardInputField.textField().text?.cardNetwork() == .Maestro {
+                    issueNumber = self.issueNumberInputField.textField().text
+                    startDate = self.startDateInputField.textField().text
                 }
                 
-                transaction = transaction?.card(Card(number: self.cardInputField.textField.text!.stripped, expiryDate: self.expiryDateInputField.textField.text!, cv2: self.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
+                transaction = transaction?.card(Card(number: self.cardInputField.textField().text!.stripped, expiryDate: self.expiryDateInputField.textField().text!, cv2: self.secureCodeInputField.textField().text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
             
             // if location was fetched until now, get it

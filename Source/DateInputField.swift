@@ -51,7 +51,11 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     
     public var isStartDate: Bool = false {
         didSet {
-            self.titleLabel.text = isStartDate ? "Start" : "Expiry"
+            if self.layoutType == .Aside {
+                self.titleLabel.text = self.title()
+            } else {
+                self.textField().placeholder = self.title()
+            }
         }
     }
     
@@ -59,15 +63,15 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         didSet {
             switch dateInputType {
             case .Picker:
-                self.textField.inputView = self.datePicker
+                self.textField().inputView = self.datePicker
                 let month = NSString(format: "%02i", currentMonth)
                 let year = NSString(format: "%02i", currentYear - 2000) // FIXME: not quite happy with this, must be a better way
-                self.textField.text = "\(month)/\(year)"
+                self.textField().text = "\(month)/\(year)"
                 self.datePicker.selectRow(currentMonth - 1, inComponent: 0, animated: false)
                 break
             case .Text:
-                self.textField.inputView = nil
-                self.textField.keyboardType = .NumberPad
+                self.textField().inputView = nil
+                self.textField().keyboardType = .NumberPad
             }
         }
     }
@@ -84,13 +88,13 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         
         switch self.dateInputType {
         case .Picker:
-            self.textField.inputView = self.datePicker
+            self.textField().inputView = self.datePicker
             let month = NSString(format: "%02i", currentMonth)
             let year = NSString(format: "%02i", currentYear - 2000)
-            self.textField.text = "\(month)/\(year)"
+            self.textField().text = "\(month)/\(year)"
             self.datePicker.selectRow(currentMonth - 1, inComponent: 0, animated: false)
         case .Text:
-            self.textField.keyboardType = .NumberPad
+            self.textField().keyboardType = .NumberPad
         }
     }
     
@@ -102,7 +106,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         guard self.dateInputType == .Text else { return true }
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField else { return false }
+        guard textField == self.textField() else { return false }
         
         // get old and new text
         let oldString = textField.text!
@@ -122,7 +126,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
                 return false
             }
             
-            self.textField.text = newString + "/"
+            self.textField().text = newString + "/"
             return false
 
         } else if newString.characters.count == 3 {
@@ -175,14 +179,14 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         // need to use NSString because Precision String Format Specifier is easier this way
         if component == 0 {
             let month = NSString(format: "%02i", row + 1)
-            let oldDateString = self.textField.text!
+            let oldDateString = self.textField().text!
             let year = oldDateString.substringFromIndex(oldDateString.endIndex.advancedBy(-2))
-            self.textField.text = "\(month)/\(year)"
+            self.textField().text = "\(month)/\(year)"
         } else if component == 1 {
-            let oldDateString = self.textField.text!
+            let oldDateString = self.textField().text!
             let month = oldDateString.substringToIndex(oldDateString.startIndex.advancedBy(2))
             let year = NSString(format: "%02i", (self.isStartDate ? currentYear - row : currentYear + row) - 2000)
-            self.textField.text = "\(month)/\(year)"
+            self.textField().text = "\(month)/\(year)"
         }
     }
     
@@ -210,14 +214,18 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     }
     
     override func placeholder() -> String? {
+        if self.layoutType == .Above {
+            return self.title()
+        }
         return "MM/YY"
     }
     
     override func title() -> String {
-        if isStartDate {
-            return "Start"
+        var title = isStartDate ? "Start" : "Expiry"
+        if self.layoutType == .Above {
+            title += " Date"
         }
-        return "Expiry"
+        return title
     }
 
 }

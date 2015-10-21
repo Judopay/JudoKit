@@ -65,7 +65,6 @@
 		DA1B9CC31B84AA0C003FBAA5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		DA3902421B972374001A703C /* Judo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; name = Judo.framework; path = "/Users/hamonriazy/Library/Developer/Xcode/DerivedData/JudoKitExampleApp-goxonsoimxpftuaneqlmishpsnak/Build/Products/Debug-iphoneos/Judo.framework"; sourceTree = "<absolute>"; };
 		DA6259FD1BAB149A00E38892 /* JudoShield.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoShield.framework; path = ../JudoShield/Framework/JudoShield.framework; sourceTree = "<group>"; };
 		DA7418C01BA0226000C4D323 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DA7A98861B7E3291005754F1 /* JudoKitSwiftExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JudoKitSwiftExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,7 +75,6 @@
 		DA7A98931B7E3291005754F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA7A98951B7E3291005754F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA7A989B1B7E32A7005754F1 /* JudoKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JudoKit.xcodeproj; path = ../JudoKit.xcodeproj; sourceTree = "<group>"; };
-		DAD504001BB4346B007D5596 /* Judo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Judo.framework; path = "../Judo-Swift/build/Debug-iphoneos/Judo.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +96,6 @@
 		DA1B9CC61B84AA13003FBAA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DAD504001BB4346B007D5596 /* Judo.framework */,
-				DA3902421B972374001A703C /* Judo.framework */,
 				DA6259FD1BAB149A00E38892 /* JudoShield.framework */,
 				DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */,
 				DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */,
