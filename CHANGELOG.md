@@ -2,11 +2,17 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
+- `5.3.x` Releases - [5.3.0](#530)
 - `5.2.x` Releases - [5.2.0](#520) | [5.2.1](#521)
 - `5.1.x` Releases - [5.1.0](#510) | [5.1.1](#511) | [5.1.2](#512)
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
+#### Added
+- Ability to set side by side or animated floating atop titles
+  - Added by [Hamon Ben Riazy](https://github.com/ryce).
+
+---
 ## [5.2.1](https://github.com/JudoPay/JudoKit/tag/5.2.1)
 Released on 2015-10-20
 
