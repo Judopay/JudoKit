@@ -223,7 +223,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     override func title() -> String {
         var title = isStartDate ? "Start" : "Expiry"
         if self.layoutType == .Above {
-            title += " Date"
+            title += " date"
         }
         return title
     }
