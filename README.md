@@ -126,7 +126,7 @@ JudoKit.setToken(token, secret: secret)
 #### Make a simple Payment
 
 ```swift
-JudoKit.sharedInstance.payment(judoID, amount: Amount(35.0, currentCurrency), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), completion: { (response, error) -> () in
+JudoKit.payment(judoID, amount: Amount(35.0, currentCurrency), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), completion: { (response, error) -> () in
     if let _ = error {
     	// handle error
     } else {
