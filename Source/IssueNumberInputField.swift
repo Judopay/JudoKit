@@ -66,5 +66,9 @@ public class IssueNumberInputField: JudoPayInputField {
         }
         return "Issue"
     }
+    
+    override func hintLabelText() -> String {
+        return "Issue number on front of card"
+    }
 
 }

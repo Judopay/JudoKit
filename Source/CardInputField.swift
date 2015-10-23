@@ -115,5 +115,9 @@ public class CardInputField: JudoPayInputField {
         }
         return "Card"
     }
+    
+    override func hintLabelText() -> String {
+        return "Enter Your Credit Card number"
+    }
 
 }

@@ -79,5 +79,9 @@ public class SecurityInputField: JudoPayInputField {
     override func title() -> String {
         return self.cardNetwork.securityCodeTitle()
     }
+    
+    override func hintLabelText() -> String {
+        return "Security code"
+    }
 
 }

@@ -227,5 +227,9 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         }
         return title
     }
+    
+    override func hintLabelText() -> String {
+        return "MM/YY"
+    }
 
 }

@@ -254,4 +254,8 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         return 50
     }
     
+    func hintLabelText() -> String {
+        return ""
+    }
+    
 }

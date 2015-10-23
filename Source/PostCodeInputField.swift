@@ -25,6 +25,10 @@
 import UIKit
 import Judo
 
+let kUSARegexString = "(^\\d{5}$)|(^\\d{5}-\\d{4}$)"
+let kUKRegexString = "(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})"
+let kCanadaRegexString = "[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]"
+
 public class PostCodeInputField: JudoPayInputField {
     
     var billingCountry: BillingCountry = .UK {
@@ -78,9 +82,9 @@ public class PostCodeInputField: JudoPayInputField {
 
         guard let newString = self.textField().text?.uppercaseString else { return }
 
-        let usaRegex = try! NSRegularExpression(pattern: "(^\\d{5}$)|(^\\d{5}-\\d{4}$)", options: .AnchorsMatchLines)
-        let ukRegex = try! NSRegularExpression(pattern: "(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})", options: .AnchorsMatchLines)
-        let canadaRegex = try! NSRegularExpression(pattern: "[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]", options: .AnchorsMatchLines)
+        let usaRegex = try! NSRegularExpression(pattern: kUSARegexString, options: .AnchorsMatchLines)
+        let ukRegex = try! NSRegularExpression(pattern: kUKRegexString, options: .AnchorsMatchLines)
+        let canadaRegex = try! NSRegularExpression(pattern: kCanadaRegexString, options: .AnchorsMatchLines)
         
         var isValid = false
         
@@ -104,6 +108,10 @@ public class PostCodeInputField: JudoPayInputField {
     
     override func titleWidth() -> Int {
         return 120
+    }
+    
+    override func hintLabelText() -> String {
+        return "Post Code Input Hinttext"
     }
 
 }

@@ -95,6 +95,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     let issueNumberInputField = IssueNumberInputField()
     let billingCountryInputField = BillingCountryInputField()
     let postCodeInputField = PostCodeInputField()
+    
+    let hintLabel = UILabel(frame: CGRectZero)
 
     // can not initialize because self is not available at this point
     // must be var? because can also not be initialized in init before self is available
@@ -217,6 +219,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.contentView.addSubview(secureCodeInputField)
         self.contentView.addSubview(billingCountryInputField)
         self.contentView.addSubview(postCodeInputField)
+        self.contentView.addSubview(hintLabel)
         
         self.view.addSubview(paymentButton)
         self.view.addSubview(threeDSecureWebView)
@@ -232,6 +235,12 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.postCodeInputField.delegate = self
         self.threeDSecureWebView.delegate = self
         
+        self.hintLabel.font = UIFont.systemFontOfSize(14)
+        self.hintLabel.textColor = UIColor.judoDarkGrayColor()
+        self.hintLabel.numberOfLines = 3
+        self.hintLabel.alpha = 0.0
+        self.hintLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         // layout constraints
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[scrollView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollView]-1-[button]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView, "button":paymentButton]))
@@ -243,7 +252,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(68)-[tdsecure]-(30)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["tdsecure":threeDSecureWebView]))
 
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["button":paymentButton]))
-        
+
         self.keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: paymentEnabled ? 0 : 50)
         self.view.addConstraint(keyboardHeightConstraint!)
         self.paymentButton.addConstraint(NSLayoutConstraint(item: paymentButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50))
@@ -253,9 +262,12 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[start]-(-1)-[issue(==start)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["start":startDateInputField, "issue":issueNumberInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[billing]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["billing":billingCountryInputField]))
+
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[hint]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["hint":hintLabel]))
+        
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[post]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["post":postCodeInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]-(-1)-[post]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "post":postCodeInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[issue(==start)]-(-1)-[security(44)]-(-1)-[billing]-(-1)-[post]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[start]-(-1)-[expiry(44)]-(-1)-[billing]-(-1)-[post]-[hint(40)]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "post":postCodeInputField, "hint":hintLabel]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-15-[card(44)]-(-1)-[issue(==start)]-(-1)-[security(44)]-(-1)-[billing]-(-1)-[post]-[hint]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField, "hint":hintLabel]))
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.billingHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
