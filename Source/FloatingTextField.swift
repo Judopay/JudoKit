@@ -8,12 +8,12 @@
 
 import UIKit
 
-@IBDesignable class FloatingTextField: UITextField {
+class FloatingTextField: UITextField {
     let animationDuration = 0.3
     var title = UILabel()
     
     // MARK:- Properties
-    override var accessibilityLabel:String! {
+    override var accessibilityLabel: String! {
         get {
             if text!.isEmpty {
                 return title.text
@@ -26,30 +26,30 @@ import UIKit
         }
     }
     
-    override var placeholder:String? {
+    override var placeholder: String? {
         didSet {
             title.text = placeholder
             title.sizeToFit()
         }
     }
     
-    override var attributedPlaceholder:NSAttributedString? {
+    override var attributedPlaceholder: NSAttributedString? {
         didSet {
             title.text = attributedPlaceholder?.string
             title.sizeToFit()
         }
     }
     
-    var titleFont:UIFont = UIFont.systemFontOfSize(12.0) {
+    var titleFont: UIFont = .systemFontOfSize(12.0) {
         didSet {
             title.font = titleFont
             title.sizeToFit()
         }
     }
     
-    @IBInspectable var hintYPadding:CGFloat = -2.0
+    var hintYPadding: CGFloat = -2.0
     
-    @IBInspectable var titleYPadding:CGFloat = 4.0 {
+    var titleYPadding: CGFloat = 4.0 {
         didSet {
             var r = title.frame
             r.origin.y = titleYPadding
@@ -57,7 +57,7 @@ import UIKit
         }
     }
     
-    @IBInspectable var titleTextColour:UIColor = UIColor.grayColor() {
+    var titleTextColour: UIColor = .grayColor() {
         didSet {
             if !isFirstResponder() {
                 title.textColor = titleTextColour
@@ -65,7 +65,7 @@ import UIKit
         }
     }
     
-    @IBInspectable var titleActiveTextColour:UIColor! {
+    var titleActiveTextColour: UIColor! {
         didSet {
             if isFirstResponder() {
                 title.textColor = titleActiveTextColour
@@ -74,13 +74,13 @@ import UIKit
     }
     
     // MARK:- Init
-    required init?(coder aDecoder:NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder:aDecoder)
         setup()
     }
     
-    override init(frame:CGRect) {
-        super.init(frame:frame)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
     
@@ -104,7 +104,7 @@ import UIKit
         }
     }
     
-    override func textRectForBounds(bounds:CGRect) -> CGRect {
+    override func textRectForBounds(bounds: CGRect) -> CGRect {
         var r = super.textRectForBounds(bounds)
         if !text!.isEmpty {
             var top = ceil(title.font.lineHeight + hintYPadding)
@@ -114,7 +114,7 @@ import UIKit
         return CGRectIntegral(r)
     }
     
-    override func editingRectForBounds(bounds:CGRect) -> CGRect {
+    override func editingRectForBounds(bounds: CGRect) -> CGRect {
         var r = super.editingRectForBounds(bounds)
         if !text!.isEmpty {
             var top = ceil(title.font.lineHeight + hintYPadding)
@@ -124,7 +124,7 @@ import UIKit
         return CGRectIntegral(r)
     }
     
-    override func clearButtonRectForBounds(bounds:CGRect) -> CGRect {
+    override func clearButtonRectForBounds(bounds: CGRect) -> CGRect {
         var r = super.clearButtonRectForBounds(bounds)
         if !text!.isEmpty {
             var top = ceil(title.font.lineHeight + hintYPadding)
@@ -133,8 +133,6 @@ import UIKit
         }
         return CGRectIntegral(r)
     }
-    
-    // MARK:- Public Methods
     
     // MARK:- Private Methods
     private func setup() {
@@ -168,7 +166,7 @@ import UIKit
         title.frame = CGRect(x:x, y:title.frame.origin.y, width:title.frame.size.width, height:title.frame.size.height)
     }
     
-    private func showTitle(animated:Bool) {
+    private func showTitle(animated: Bool) {
         let dur = animated ? animationDuration : 0
         UIView.animateWithDuration(dur, delay:0, options: UIViewAnimationOptions.BeginFromCurrentState.union(UIViewAnimationOptions.CurveEaseOut), animations:{
             // Animation
@@ -179,7 +177,7 @@ import UIKit
             }, completion:nil)
     }
     
-    private func hideTitle(animated:Bool) {
+    private func hideTitle(animated: Bool) {
         let dur = animated ? animationDuration : 0
         UIView.animateWithDuration(dur, delay:0, options: UIViewAnimationOptions.BeginFromCurrentState.union(UIViewAnimationOptions.CurveEaseIn), animations:{
             // Animation

@@ -42,13 +42,25 @@ public extension UIColor {
     public static func judoButtonColor() -> UIColor {
         return UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
     }
-    
+
+    public static func judoButtonTitleColor() -> UIColor {
+        return .whiteColor()
+    }
+
     public static func judoLoadingBackgroundColor() -> UIColor {
         return UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 0.8)
     }
     
     public static func judoRedColor() -> UIColor {
         return UIColor(red: 235/255, green: 55/255, blue: 45/255, alpha: 1.0)
+    }
+    
+    public static func judoLoadingBlockViewColor() -> UIColor {
+        return .whiteColor()
+    }
+    
+    public static func judoInputFieldBackgroundColor() -> UIColor {
+        return .whiteColor()
     }
     
 }

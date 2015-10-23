@@ -55,11 +55,9 @@ public class LoadingView: UIView {
         self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         self.actionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.blockView.backgroundColor = UIColor.whiteColor()
+        self.blockView.backgroundColor = .judoLoadingBlockViewColor()
         self.activityIndicatorView.activityIndicatorViewStyle = .Gray
         self.actionLabel.textColor = .judoDarkGrayColor()
-        
-        self.actionLabel.text = "Processing payment..."
         
         self.blockView.clipsToBounds = true
         self.blockView.layer.cornerRadius = 5.0

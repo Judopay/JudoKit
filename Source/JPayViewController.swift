@@ -26,8 +26,30 @@ import UIKit
 import Judo
 import JudoShield
 
+// MARK: Constants
+
+// Buttons
+let kPaymentButtonTitle = "Pay"
+let kRegisterCardButtonTitle = "Add"
+
+let kBackButtonTitle = "Back"
+
+// Titles
+let kPaymentTitle = "Payment"
+let kRegisterCardTitle = "Add card"
+let kRedirecting3DSTitle = "Redirecting..."
+let kAuthenticationTitle = "Authentication"
+
+// Loading
+let kLoadingIndicatorRegisterCardTitle = "Registering Card..."
+let kLoadingIndicatorProcessingTitle = "Processing payment..."
+
 public enum LayoutType {
     case Aside, Above
+    
+    func autoLayout(containsLogo: Bool, titleWidth: CGFloat) -> String {
+        // TODO:
+    }
 }
 
 public enum TransactionType {
@@ -173,14 +195,17 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         
         switch self.transactionType {
         case .Payment, .PreAuth:
-            self.title = "Payment"
+            self.title = kPaymentTitle
         case .RegisterCard:
-            self.title = "Add card"
+            self.title = kRegisterCardTitle
         }
         
-        var payButtonTitle = "Pay"
+        var payButtonTitle = kPaymentButtonTitle
+        self.loadingView.actionLabel.text = kLoadingIndicatorProcessingTitle
+
         if self.transactionType == .RegisterCard {
-            payButtonTitle = "Add"
+            payButtonTitle = kRegisterCardButtonTitle
+            self.loadingView.actionLabel.text = kLoadingIndicatorRegisterCardTitle
         }
         
         self.paymentButton.setTitle(payButtonTitle, forState: .Normal)
@@ -249,7 +274,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.postCodeInputField.addConstraint(postHeightConstraint!)
         
         // button actions
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .Plain, target: self, action: Selector("doneButtonAction:"))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: .Plain, target: self, action: Selector("doneButtonAction:"))
         self.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .Done, target: self, action: Selector("payButtonAction:"))
         self.paymentNavBarButton!.enabled = false
         self.navigationItem.rightBarButtonItem = self.paymentNavBarButton
@@ -510,8 +535,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                         } catch let error as NSError {
                             self.completionBlock?(nil, error)
                         }
-                        self.loadingView.actionLabel.text = "Redirecting..."
-                        self.title = "Authentication"
+                        self.loadingView.actionLabel.text = kRedirecting3DSTitle
+                        self.title = kAuthenticationTitle
                         self.paymentEnabled(false)
                     } else {
                         self.completionBlock?(nil, error)

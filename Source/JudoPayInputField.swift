@@ -78,7 +78,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     }
     
     func setupView() {
-        self.backgroundColor = .whiteColor()
+        self.backgroundColor = .judoInputFieldBackgroundColor()
         self.clipsToBounds = true
         
         self.translatesAutoresizingMaskIntoConstraints = false

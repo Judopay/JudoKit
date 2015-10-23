@@ -49,7 +49,7 @@ public class PayButton: UIButton {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .judoButtonColor()
         self.setTitle("Pay", forState: .Normal)
-        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.setTitleColor(.judoButtonTitleColor(), forState: .Normal)
         self.titleLabel?.font = UIFont.boldSystemFontOfSize(22)
     }
     
