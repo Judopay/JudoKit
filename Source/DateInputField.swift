@@ -54,7 +54,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
             if self.layoutType == .Aside {
                 self.titleLabel.text = self.title()
             } else {
-                self.textField().placeholder = self.title()
+                self.textField().attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
             }
         }
     }
@@ -213,11 +213,11 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         }
     }
     
-    override func placeholder() -> String? {
+    override func placeholder() -> NSAttributedString? {
         if self.layoutType == .Above {
-            return self.title()
+            return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         }
-        return "MM/YY"
+        return NSAttributedString(string: "MM/YY", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
     }
     
     override func title() -> String {

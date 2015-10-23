@@ -77,14 +77,14 @@ public class CardInputField: JudoPayInputField {
     
     // MARK: Custom methods
     
-    override func placeholder() -> String? {
+    override func placeholder() -> NSAttributedString? {
         if self.layoutType == .Above {
-            return self.title()
+            return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         }
         if let acceptedCardNetworks = self.acceptedCardNetworks {
-            return acceptedCardNetworks.first?.placeholderString()
+            return NSAttributedString(string: acceptedCardNetworks.first?.placeholderString() ?? "", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         } else {
-            return defaultCardConfigurations.first?.placeholderString()
+            return NSAttributedString(string: defaultCardConfigurations.first?.placeholderString() ?? "", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         }
     }
     

@@ -44,14 +44,6 @@ let kAuthenticationTitle = "Authentication"
 let kLoadingIndicatorRegisterCardTitle = "Registering Card..."
 let kLoadingIndicatorProcessingTitle = "Processing payment..."
 
-public enum LayoutType {
-    case Aside, Above
-    
-    func autoLayout(containsLogo: Bool, titleWidth: CGFloat) -> String {
-        // TODO:
-    }
-}
-
 public enum TransactionType {
     case Payment, PreAuth, RegisterCard
 }
@@ -282,6 +274,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.paymentButton.addTarget(self, action: Selector("payButtonAction:"), forControlEvents: .TouchUpInside)
         
         self.navigationController?.navigationBar.tintColor = .judoDarkGrayColor()
+        if !UIColor.colorMode() {
+            self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        }
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor()]
         
         // if card details are available, fill out the fields
@@ -297,9 +292,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         super.viewDidAppear(animated)
         
         self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
-            if let _ = error {
-//                self.encounterErrorBlock?(error as JudoError)
-                // FIXME: think about error handling here
+            if let err = error {
+                self.encounterErrorBlock?(err as! JudoError)
             } else {
                 self.currentLocation = coordinate
             }

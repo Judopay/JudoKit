@@ -31,6 +31,8 @@ public typealias ErrorHandlerBlock = JudoError -> ()
 
 @objc public class JudoKit: NSObject {
     
+    public static var tintColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
+    
     /// set the address verification service to true to prompt the user to input his country and post code information
     public static var avsEnabled: Bool = false
     

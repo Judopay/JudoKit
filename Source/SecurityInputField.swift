@@ -56,14 +56,14 @@ public class SecurityInputField: JudoPayInputField {
         self.delegate?.judoPayInput(self, isValid: text.characters.count == self.cardNetwork.securityCodeLength())
     }
     
-    override func placeholder() -> String? {
+    override func placeholder() -> NSAttributedString? {
         if self.layoutType == .Above {
-            return self.title()
+            return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         }
         if self.cardNetwork == .AMEX {
-            return "0000"
+            return NSAttributedString(string: "0000", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         } else {
-            return "000"
+            return NSAttributedString(string: "000", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         }
     }
     

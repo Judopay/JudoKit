@@ -27,28 +27,72 @@ import Foundation
 
 public extension UIColor {
     
+    public func inverseColor() -> UIColor {
+        var r: CGFloat = 0.0
+        var g: CGFloat = 0.0
+        var b: CGFloat = 0.0
+        var a: CGFloat = 0.0
+        self.getRed(&r, green:&g, blue:&b, alpha:&a)
+        return UIColor(red: 1 - r, green: 1 - g, blue: 1 - b, alpha: a)
+    }
+    
+    public static func colorMode() -> Bool {
+        // 0.299r + 0.587g + 0.114b
+        var r: CGFloat = 0.0
+        var g: CGFloat = 0.0
+        var b: CGFloat = 0.0
+        var a: CGFloat = 0.0
+        JudoKit.tintColor.getRed(&r, green:&g, blue:&b, alpha:&a)
+        let newValue: CGFloat = (0.299 * r + 0.587 * g + 0.114 * b)
+        return newValue < 0.5
+    }
+    
     public static func judoDarkGrayColor() -> UIColor {
-        return UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        let dgc = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        if self.colorMode() {
+            return dgc
+        } else {
+            return dgc.inverseColor()
+        }
     }
     
     public static func judoLightGrayColor() -> UIColor {
-        return UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
+        let lgc = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
+        if self.colorMode() {
+            return lgc
+        } else {
+            return lgc.inverseColor()
+        }
     }
     
     public static func judoGrayColor() -> UIColor {
-        return UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        let gc = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        if self.colorMode() {
+            return gc
+        } else {
+            return gc.inverseColor()
+        }
     }
     
     public static func judoButtonColor() -> UIColor {
-        return UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
+        return JudoKit.tintColor
     }
 
     public static func judoButtonTitleColor() -> UIColor {
-        return .whiteColor()
+        if self.colorMode() {
+            return .whiteColor()
+        } else {
+            return .blackColor()
+        }
     }
 
     public static func judoLoadingBackgroundColor() -> UIColor {
-        return UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 0.8)
+        let lbc = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 0.8)
+        if self.colorMode() {
+            return lbc
+        } else {
+            return lbc.inverseColor()
+        }
     }
     
     public static func judoRedColor() -> UIColor {
@@ -56,11 +100,19 @@ public extension UIColor {
     }
     
     public static func judoLoadingBlockViewColor() -> UIColor {
-        return .whiteColor()
+        if self.colorMode() {
+            return .whiteColor()
+        } else {
+            return .blackColor()
+        }
     }
     
     public static func judoInputFieldBackgroundColor() -> UIColor {
-        return .whiteColor()
+        if self.colorMode() {
+            return .whiteColor()
+        } else {
+            return .blackColor()
+        }
     }
     
 }

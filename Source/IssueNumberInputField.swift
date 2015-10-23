@@ -53,11 +53,11 @@ public class IssueNumberInputField: JudoPayInputField {
         self.delegate?.issueNumberInputDidEnterCode(self, issueNumber: text)
     }
 
-    override func placeholder() -> String? {
+    override func placeholder() -> NSAttributedString? {
         if self.layoutType == .Above {
-            return self.title()
+            return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         }
-        return "00"
+        return NSAttributedString(string: "00", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
     }
     
     override func title() -> String {

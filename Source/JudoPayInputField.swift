@@ -25,6 +25,23 @@
 import UIKit
 import Judo
 
+public enum LayoutType {
+    case Aside, Above
+    
+    func autoLayout(containsLogo: Bool, titleWidth: Int) -> String {
+        switch self {
+        case .Aside where containsLogo:
+            return "|-12-[title(\(titleWidth))][text][logo(38)]-12-|"
+        case .Above where containsLogo:
+            return "|-12-[text][logo(38)]-12-|"
+        case .Aside where !containsLogo:
+            return "|-12-[title(\(titleWidth))][text]-12-|"
+        default: // .Above where !containsLogo:
+            return "|-12-[text]-12-|"
+        }
+    }
+}
+
 public protocol JudoPayInputDelegate {
     func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String)
     
@@ -97,11 +114,11 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         
         self.textField().textColor = .judoDarkGrayColor()
         
+        self.textField().tintColor = JudoKit.tintColor
+        
         self.textField().font = UIFont.boldSystemFontOfSize(14)
         
         self.textField().addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
-        
-        let titleWidth = self.titleWidth()
         
         self.setActive(false)
 
@@ -112,10 +129,10 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[title]|", options: .AlignAllBaseline, metrics: nil, views: ["title":titleLabel]))
             self.titleLabel.textColor = .judoDarkGrayColor()
             self.titleLabel.font = UIFont.systemFontOfSize(14)
-            self.textField().placeholder = self.placeholder()
+            self.textField().attributedPlaceholder = self.placeholder()
         } else {
             self.titleLabel.removeFromSuperview()
-            self.textField().placeholder = self.title()
+            self.textField().attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName: UIColor.judoLightGrayColor()])
         }
         
         if self.containsLogo() {
@@ -131,25 +148,8 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             self.logoContainerView.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 25.0))
         }
         
-        var visualFormat = "|-12-[text]-12-|"
-        var views: [String:UIView] = ["text":textField()]
-        
-        switch self.layoutType {
-        case .Aside where self.containsLogo():
-            visualFormat = "|-12-[title(\(titleWidth))][text][logo(38)]-12-|"
-            views["title"] = self.titleLabel
-            views["logo"] = self.logoContainerView
-        case .Above where self.containsLogo():
-            visualFormat = "|-12-[text][logo(38)]-12-|"
-            views["logo"] = self.logoContainerView
-        case .Aside where !self.containsLogo():
-            visualFormat = "|-12-[title(\(titleWidth))][text]-12-|"
-            views["title"] = self.titleLabel
-        case .Above where !self.containsLogo():
-            visualFormat = "|-12-[text]-12-|"
-        default:
-            return
-        }
+        let visualFormat = self.layoutType.autoLayout(self.containsLogo(), titleWidth: self.titleWidth())
+        let views: [String:UIView] = ["text": textField(), "title": self.titleLabel, "logo": self.logoContainerView]
         
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(visualFormat, options: .DirectionLeftToRight, metrics: nil, views: views))
     }
@@ -191,7 +191,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
                 UIView.transitionFromView(self.logoContainerView.subviews.first!, toView: logoView, duration: 0.3, options: .TransitionFlipFromBottom, completion: nil)
             }
         }
-        self.textField().placeholder = self.placeholder()
+        self.textField().attributedPlaceholder = self.placeholder()
     }
     
     public func setActive(isActive: Bool) {
@@ -231,7 +231,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         // method for subclassing
     }
     
-    func placeholder() -> String? {
+    func placeholder() -> NSAttributedString? {
         if self.layoutType == .Above {
             return nil
         }
