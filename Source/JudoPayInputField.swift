@@ -209,6 +209,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     public func textFieldDidBeginEditing(textField: UITextField) {
         self.setActive(true)
+        self.delegate?.judoPayInputDidChangeText(self)
     }
     
     public func textFieldDidEndEditing(textField: UITextField) {
