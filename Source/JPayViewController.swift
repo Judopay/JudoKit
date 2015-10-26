@@ -44,10 +44,27 @@ let kAuthenticationTitle = "Authentication"
 let kLoadingIndicatorRegisterCardTitle = "Registering Card..."
 let kLoadingIndicatorProcessingTitle = "Processing payment..."
 
+/**
+ enum defining all the types of transactions
+ 
+ - Payment:      Payment
+ - PreAuth:      PreAuth
+ - RegisterCard: Register a Card
+ */
 public enum TransactionType {
-    case Payment, PreAuth, RegisterCard
+    /// TransactionTypePayment for a Payment
+    case Payment
+    /// TransactionTypePreAuth for a Pre-authorisation
+    case PreAuth
+    /// TransactionTypeRegisterCard for registering a card for a later transaction
+    case RegisterCard
 }
 
+/** 
+ 
+ the JPayViewController is the one solution build to guide a user through the journey of entering their card details.
+ 
+ */
 public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInputDelegate {
     
     private let contentView: UIScrollView = {
@@ -118,7 +135,22 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
-
+    
+    
+    /**
+     Initialiser to start a payment journey
+     
+     - parameter judoID:           the judoID of the recipient
+     - parameter amount:           an amount and currency for the transaction
+     - parameter reference:        a Reference for the transaction
+     - parameter transactionType:  the type of the transaction
+     - parameter completion:       completion block called when transaction has been finished
+     - parameter encounteredError: a block that is called when non-fatal errors occured
+     - parameter cardDetails:      an object containing all card information - default: nil
+     - parameter paymentToken:     a payment token if a payment by token is to be made - default: nil
+     
+     - returns: a JPayViewController object for presentation on a view stack
+     */
     public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: TransactionBlock, encounteredError: ErrorHandlerBlock, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
         self.judoID = judoID
         self.amount = amount
@@ -138,7 +170,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         self.transactionType = .Payment
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }

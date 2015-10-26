@@ -29,8 +29,10 @@ import Judo
 public typealias TransactionBlock = (Response?, NSError?) -> ()
 public typealias ErrorHandlerBlock = JudoError -> ()
 
+/// Entry point for interacting with the JudoKit
 @objc public class JudoKit: NSObject {
     
+    /// a tintColor that is used to generate a theme for the Judo payment-form Solution
     public static var tintColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
     
     /// set the address verification service to true to prompt the user to input his country and post code information

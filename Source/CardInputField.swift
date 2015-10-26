@@ -1,5 +1,5 @@
 //
-//  Payment.swift
+//  CardInputField.swift
 //  JudoKit
 //
 //  Copyright (c) 2015 Alternative Payments Ltd
@@ -25,11 +25,19 @@
 import UIKit
 import Judo
 
+
+/**
+ 
+ The CardInputField is an input field configured to detect, validate and present card numbers of various types of credit cards.
+ 
+ */
 public class CardInputField: JudoPayInputField {
     
+    /// the input field will validate a set of given card configurations
     public var acceptedCardNetworks: [Card.Configuration]?
     
     // MARK: UITextFieldDelegate
+    
     
     @objc public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         

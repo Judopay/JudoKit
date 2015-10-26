@@ -33,9 +33,17 @@ The DateTextField allows two different modes of input.
 - Text:   use a common Numpad Keyboard as text input method
 */
 public enum DateInputType {
-    case Picker, Text
+    /// DateInputTypePicker using a UIPicker as an input method
+    case Picker
+    /// DateInputTypeText using a Keyboard as an input method
+    case Text
 }
 
+/**
+ 
+ The DateInputField is an input field configured to detect, validate and dates that are set to define a start or end date of various types of credit cards.
+ 
+ */
 public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let datePicker = UIPickerView()
@@ -49,6 +57,8 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     private let currentYear = NSCalendar.currentCalendar().component(.Year, fromDate: NSDate())
     private let currentMonth = NSCalendar.currentCalendar().component(.Month, fromDate: NSDate())
     
+    
+    /// boolean stating wether input field should identify as a start or end date
     public var isStartDate: Bool = false {
         didSet {
             if self.layoutType == .Aside {
@@ -59,6 +69,8 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         }
     }
     
+    
+    /// variable defining the input type (text or picker)
     public var dateInputType: DateInputType = .Text {
         didSet {
             switch dateInputType {

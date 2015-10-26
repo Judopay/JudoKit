@@ -29,6 +29,11 @@ let kUSARegexString = "(^\\d{5}$)|(^\\d{5}-\\d{4}$)"
 let kUKRegexString = "(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})"
 let kCanadaRegexString = "[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]"
 
+/**
+ 
+ The PostCodeInputField is an input field configured to detect, validate and present post codes of various countries.
+ 
+ */
 public class PostCodeInputField: JudoPayInputField {
     
     var billingCountry: BillingCountry = .UK {

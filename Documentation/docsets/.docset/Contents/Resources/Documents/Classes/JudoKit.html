@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>JudoKit Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/JudoKit" class="dashAnchor"></a>
+    <a title="JudoKit Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html"> Docs</a> (46% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html"> Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        JudoKit Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+          <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BillingCountryInputField.html">BillingCountryInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardInputField.html">CardInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardLogoView.html">CardLogoView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DateInputField.html">DateInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IssueNumberInputField.html">IssueNumberInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JPayViewController.html">JPayViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoKit.html">JudoKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayInputField.html">JudoPayInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LoadingView.html">LoadingView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayButton.html">PayButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PostCodeInputField.html">PostCodeInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SecurityInputField.html">SecurityInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/_DSWebView.html">_DSWebView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/CardLogoType.html">CardLogoType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DateInputType.html">DateInputType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LayoutType.html">LayoutType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionType.html">TransactionType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardAmexFT_T_">drawCardAmex()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardCIDVFT_T_">drawCardCIDV()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit11drawCardCVCFT_T_">drawCardCVC()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardMaestroFT_T_">drawCardMaestro()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit18drawCardMasterCardFT_T_">drawCardMasterCard()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardUnknownFT_T_">drawCardUnknown()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardVisaFT_T_">drawCardVisa()</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+          <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/JudoPayInputDelegate.html">JudoPayInputDelegate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>JudoKit</h1>
+              <div class="declaration">
+                <div class="Swift">
+                  <pre class="highlight"><code><span class="k">@objc</span> <span class="kd">public</span> <span class="kd">class</span> <span class="kt">JudoKit</span><span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+
+                </div>
+              </div>
+            <p>Entry point for interacting with the JudoKit</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvC7JudoKit7JudoKit9tintColorCSo7UIColor"></a>
+                    <a name="//apple_ref/swift/Variable/tintColor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvC7JudoKit7JudoKit9tintColorCSo7UIColor">tintColor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>a tintColor that is used to generate a theme for the Judo payment-form Solution</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">tintColor</span><span class="p">:</span> <span class="kt">UIColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="p">(</span><span class="nv">red</span><span class="p">:</span> <span class="mi">30</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="nv">green</span><span class="p">:</span> <span class="mi">120</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="nv">blue</span><span class="p">:</span> <span class="mi">160</span><span class="o">/</span><span class="mi">255</span><span class="p">,</span> <span class="nv">alpha</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvC7JudoKit7JudoKit10avsEnabledSb"></a>
+                    <a name="//apple_ref/swift/Variable/avsEnabled" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvC7JudoKit7JudoKit10avsEnabledSb">avsEnabled</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>set the address verification service to true to prompt the user to input his country and post code information</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">avsEnabled</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit8setTokenFMS0_FTSS9andSecretSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/setToken(_:andSecret:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit8setTokenFMS0_FTSS9andSecretSS_T_">setToken(_:andSecret:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>a mandatory method that sets the token and secret for making payments with Judo</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">setToken</span><span class="p">(</span><span class="nv">token</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">andSecret</span> <span class="nv">secret</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>token</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a string object representing the token</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>secret</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a string object representing the secret</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit9sandboxedFMS0_FSbT_"></a>
+                    <a name="//apple_ref/swift/Method/sandboxed(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit9sandboxedFMS0_FSbT_">sandboxed(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>set the app to sandboxed mode</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">sandboxed</span><span class="p">(</span><span class="nv">enabled</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>enabled</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>true to set the SDK to sandboxed mode</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Transactions"></a>
+                  <a name="//apple_ref/swift/Section/Transactions" class="dashAnchor"></a>
+                  <a href="#/Transactions">
+                    <h3 class="section-name">Transactions</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit7paymentFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_"></a>
+                    <a name="//apple_ref/swift/Method/payment(_:amount:currency:payRef:consRef:metaData:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit7paymentFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_">payment(_:amount:currency:payRef:consRef:metaData:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Objective C accessible method to make a payment</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">@objc</span> <span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">payment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="p">,</span> <span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">payRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">consRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">metaData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(([</span><span class="kt">AnyObject</span><span class="p">]?,</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">()),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount of the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>currency</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the currency in which the payment should be made (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>payRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the payment reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>consRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the consumer reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>metaData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary dictionary that can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a JSON Dictionary or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit7paymentERR"></a>
+                    <a name="//apple_ref/swift/Method/payment(_:amount:reference:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit7paymentERR">payment(_:amount:reference:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Main payment method</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">payment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">TransactionBlock</span><span class="p">,</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">ErrorHandlerBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount and currency of the payment (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a Response Object or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit7preAuthFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_"></a>
+                    <a name="//apple_ref/swift/Method/preAuth(_:amount:currency:payRef:consRef:metaData:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit7preAuthFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_">preAuth(_:amount:currency:payRef:consRef:metaData:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Objective C accessible method to make a preAuth</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">@objc</span> <span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">preAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="p">,</span> <span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">payRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">consRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">metaData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(([</span><span class="kt">AnyObject</span><span class="p">]?,</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">()),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount of the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>currency</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the currency in which the payment should be made (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>payRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the payment reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>consRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the consumer reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>metaData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary dictionary that can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a JSON Dictionary or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit7preAuthERR"></a>
+                    <a name="//apple_ref/swift/Method/preAuth(_:amount:reference:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit7preAuthERR">preAuth(_:amount:reference:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Make a preAuth using this method</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">preAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">TransactionBlock</span><span class="p">,</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">ErrorHandlerBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount and currency of the payment (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a Response Object or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Register%20Card"></a>
+                  <a name="//apple_ref/swift/Section/Register Card" class="dashAnchor"></a>
+                  <a href="#/Register%20Card">
+                    <h3 class="section-name">Register Card</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit12registerCardFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_"></a>
+                    <a name="//apple_ref/swift/Method/registerCard(_:amount:currency:payRef:consRef:metaData:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12registerCardFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_">registerCard(_:amount:currency:payRef:consRef:metaData:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Objective C accessible method to initiate a card registration</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">@objc</span> <span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerCard</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="p">,</span> <span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">payRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">consRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">metaData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(([</span><span class="kt">AnyObject</span><span class="p">]?,</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">()),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount of the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>currency</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the currency in which the payment should be made (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>payRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the payment reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>consRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the consumer reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>metaData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary dictionary that can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a JSON Dictionary or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit12registerCardERR"></a>
+                    <a name="//apple_ref/swift/Method/registerCard(_:amount:reference:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12registerCardERR">registerCard(_:amount:reference:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initiates a card registration</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerCard</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">TransactionBlock</span><span class="p">,</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">ErrorHandlerBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount and currency of the payment (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a Response Object or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+                <div class="task-name-container">
+                  <a name="/Token%20Transactions"></a>
+                  <a name="//apple_ref/swift/Section/Token Transactions" class="dashAnchor"></a>
+                  <a href="#/Token%20Transactions">
+                    <h3 class="section-name">Token Transactions</h3>
+                  </a>
+                </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit12tokenPaymentFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__11cardDetailsGS2_SSSS_13consumerTokenSS10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_"></a>
+                    <a name="//apple_ref/swift/Method/tokenPayment(_:amount:currency:payRef:consRef:metaData:cardDetails:consumerToken:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12tokenPaymentFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__11cardDetailsGS2_SSSS_13consumerTokenSS10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_">tokenPayment(_:amount:currency:payRef:consRef:metaData:cardDetails:consumerToken:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Objective C accessible method to initiate a token payment</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">@objc</span> <span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">tokenPayment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="p">,</span> <span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">payRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">consRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">metaData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">],</span> <span class="nv">consumerToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(([</span><span class="kt">AnyObject</span><span class="p">]?,</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">()),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount of the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>currency</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the currency in which the payment should be made (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>payRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the payment reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>consRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the consumer reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>metaData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary dictionary that can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cardDetails</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a Dictionary containing the last four numbers of the card, the expiry date String and the card token</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>consumerToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the consumer token that has been returned from a card registration response</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a JSON Dictionary or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit12tokenPaymentERR"></a>
+                    <a name="//apple_ref/swift/Method/tokenPayment(_:amount:reference:cardDetails:paymentToken:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12tokenPaymentERR">tokenPayment(_:amount:reference:cardDetails:paymentToken:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initiates the token payment process</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">tokenPayment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">TransactionBlock</span><span class="p">,</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">ErrorHandlerBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount and currency of the payment (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cardDetails</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the card details to present in the input fields</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>paymentToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the consumer and card token to make a token payment with</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a Response Object or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit12tokenPreAuthFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__11cardDetailsGS2_SSSS_13consumerTokenSS10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_"></a>
+                    <a name="//apple_ref/swift/Method/tokenPreAuth(_:amount:currency:payRef:consRef:metaData:cardDetails:consumerToken:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12tokenPreAuthFMS0_FTSS6amountCSo15NSDecimalNumber8currencySS6payRefSS7consRefSS8metaDataGSqGVSs10DictionarySSSS__11cardDetailsGS2_SSSS_13consumerTokenSS10completionFTGSqGSaPSs9AnyObject___GSqCSo7NSError__T_12errorHandlerFS4_T__T_">tokenPreAuth(_:amount:currency:payRef:consRef:metaData:cardDetails:consumerToken:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Objective C accessible method to initiate a token pre auth</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">@objc</span> <span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">tokenPreAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">NSDecimalNumber</span><span class="p">,</span> <span class="nv">currency</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">payRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">consRef</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">metaData</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">]?,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span><span class="kt">String</span><span class="p">],</span> <span class="nv">consumerToken</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(([</span><span class="kt">AnyObject</span><span class="p">]?,</span> <span class="kt">NSError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">()),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="p">(</span><span class="kt">NSError</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount of the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>currency</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the currency in which the payment should be made (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>payRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the payment reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>consRef</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the consumer reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>metaData</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary dictionary that can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cardDetails</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a Dictionary containing the last four numbers of the card, the expiry date String and the card token</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>consumerToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the consumer token that has been returned from a card registration response</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a JSON Dictionary or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit12tokenPreAuthERR"></a>
+                    <a name="//apple_ref/swift/Method/tokenPreAuth(_:amount:reference:cardDetails:paymentToken:completion:errorHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12tokenPreAuthERR">tokenPreAuth(_:amount:reference:cardDetails:paymentToken:completion:errorHandler:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Initiates the token pre auth process</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">tokenPreAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">TransactionBlock</span><span class="p">,</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">ErrorHandlerBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount and currency of the payment (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cardDetails</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the card details to present in the input fields</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>paymentToken</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the consumer and card token to make a token payment with</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the completion handler which will respond with a Response Object or an NSError</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>errorHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit15applePayPaymentERR"></a>
+                    <a name="//apple_ref/swift/Method/applePayPayment(_:amount:reference:payment:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit15applePayPaymentERR">applePayPayment(_:amount:reference:payment:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>executes an applePay payment transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">applePayPayment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">payment</span><span class="p">:</span> <span class="kt">PKPayment</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">TransactionBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount and currency of the payment (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>payment</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the PKPayment object that is generated during an ApplePay process</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZFC7JudoKit7JudoKit15applePayPreAuthERR"></a>
+                    <a name="//apple_ref/swift/Method/applePayPreAuth(_:amount:reference:payment:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit15applePayPreAuthERR">applePayPreAuth(_:amount:reference:payment:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>executes an applePay preAuth transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="Swift">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">static</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">applePayPreAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">payment</span><span class="p">:</span> <span class="kt">PKPayment</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kt">TransactionBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the judoID of the merchant to receive the payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the amount and currency of the payment (default is GBP)</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>payment</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the PKPayment object that is generated during an ApplePay process</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2015-10-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.3.2</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

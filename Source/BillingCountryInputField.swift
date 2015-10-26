@@ -25,6 +25,12 @@
 import UIKit
 import Judo
 
+
+/**
+ 
+ The BillingCountryInputField is an input field configured to select a billing country out of a selected set of countries that we currently support.
+ 
+ */
 public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource, UIPickerViewDelegate {
     
     let countryPicker = UIPickerView()

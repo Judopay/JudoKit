@@ -25,8 +25,14 @@
 import UIKit
 import Judo
 
+/**
+ 
+ The SecurityInputField is an input field configured to detect, validate and present security numbers of various types of credit cards.
+ 
+ */
 public class SecurityInputField: JudoPayInputField {
     
+    /// the card network for the security input field
     public var cardNetwork: CardNetwork = .Unknown
     
     // MARK: UITextFieldDelegate Methods

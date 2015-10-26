@@ -173,6 +173,11 @@ public extension String {
     }
     
     
+    /**
+     method to check if a string is luhn valid
+     
+     - returns: true if given string is luhn valid
+     */
     func isLuhnValid() -> Bool {
         guard self.isNumeric() else {
             return false
@@ -185,11 +190,21 @@ public extension String {
     }
     
     
+    /**
+     method to check wether string contains only numbers
+     
+     - returns: true if string only contains numbers
+     */
     func isNumeric() -> Bool {
         return Double(self) != nil
     }
     
     
+    /**
+     method to check wether string contains only numbers and letters
+     
+     - returns: true if string consists of numbers and letters
+     */
     func isAlphaNumeric() -> Bool {
         let nonAlphaNum = NSCharacterSet.alphanumericCharacterSet().invertedSet
         return self.rangeOfCharacterFromSet(nonAlphaNum) == nil
