@@ -112,8 +112,4 @@ public class PostCodeInputField: JudoPayInputField {
         return 120
     }
     
-    override func hintLabelText() -> String {
-        return "Post Code Input Hinttext"
-    }
-
 }
