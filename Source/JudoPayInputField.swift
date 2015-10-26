@@ -31,13 +31,13 @@ public enum LayoutType {
     func autoLayout(containsLogo: Bool, titleWidth: Int) -> String {
         switch self {
         case .Aside where containsLogo:
-            return "|-12-[title(\(titleWidth))][text][logo(38)]-12-|"
+            return "|-13-[title(\(titleWidth))][text][logo(38)]-13-|"
         case .Above where containsLogo:
-            return "|-12-[text][logo(38)]-12-|"
+            return "|-13-[text][logo(38)]-13-|"
         case .Aside where !containsLogo:
-            return "|-12-[title(\(titleWidth))][text]-12-|"
+            return "|-13-[title(\(titleWidth))][text]-13-|"
         default: // .Above where !containsLogo:
-            return "|-12-[text]-12-|"
+            return "|-13-[text]-13-|"
         }
     }
 }
@@ -66,7 +66,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     let titleLabel: UILabel = UILabel()
     
-    var layoutType: LayoutType = .Above
+    var layoutType: LayoutType = .Aside
     
     lazy var logoContainerView: UIView = UIView()
     
