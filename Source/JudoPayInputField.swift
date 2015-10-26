@@ -66,7 +66,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     let titleLabel: UILabel = UILabel()
     
-    var layoutType: LayoutType = .Aside
+    var layoutType: LayoutType = .Above
     
     lazy var logoContainerView: UIView = UIView()
     

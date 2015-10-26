@@ -92,10 +92,8 @@ public extension String {
             throw JudoError.InvalidCardNumber
         }
         
-        print("patterns: \(patterns)")
         // retrieve the shortest pattern that is left and start moving the characters across
         let patternString = patterns.sort({ $0.characters.count < $1.characters.count })[0]
-        print("pattern: \(patternString)")
         
         var patternIndex = patternString.startIndex
         
