@@ -13,6 +13,16 @@ Released on 2015-10-29
 
 #### Added
 - Ability to set side by side or animated floating atop titles
+- Documentation in code and generated html
+- Hint label that fades in when user is idle for 3 seconds
+- tintColor that generates a theme for Judo Journey
+#### Updated
+- collected all constant strings in one place for easier title customisation
+- payment snippet in readme
+#### Fixed
+- margins for Card Information Input Fields
+#### Removed
+- card number pattern detection logging onto the console
   - Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---
