@@ -71,6 +71,8 @@ public class CardInputField: JudoPayInputField {
             }
         }
         
+        self.didChangeInputText()
+
         return false
         
     }

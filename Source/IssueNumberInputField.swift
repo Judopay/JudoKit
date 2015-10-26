@@ -41,6 +41,8 @@ public class IssueNumberInputField: JudoPayInputField {
             return true
         }
         
+        self.didChangeInputText()
+        
         return newString.isNumeric() && newString.characters.count <= 3
     }
     

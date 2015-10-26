@@ -112,6 +112,8 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
+        self.didChangeInputText()
+        
         if newString.characters.count == 0 {
             return true
         } else if newString.characters.count == 1 {

@@ -59,6 +59,8 @@ public class PostCodeInputField: JudoPayInputField {
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
+        self.didChangeInputText()
+        
         if newString.characters.count == 0 {
             return true
         }

@@ -109,6 +109,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     private var completionBlock: TransactionBlock?
     private var encounterErrorBlock: ErrorHandlerBlock?
     
+    // MARK: hint label
+    private var timer: NSTimer?
+    
     // MARK: Keyboard notification configuration
     
     deinit {
@@ -416,6 +419,10 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         }
     }
     
+    public func judoPayInputDidChangeText(input: JudoPayInputField) {
+        self.resetTimerWithInput(input)
+    }
+    
     // MARK: UIWebViewDelegate
     
     public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
@@ -573,8 +580,22 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         UIView.animateWithDuration(0.25, delay: 0.0, options:enabled ? .CurveEaseOut : .CurveEaseIn, animations: { () -> Void in
             self.paymentButton.layoutIfNeeded()
             }, completion: nil)
-
+        
         self.paymentNavBarButton!.enabled = enabled
     }
     
+    func resetTimerWithInput(input: JudoPayInputField) {
+        UIView.animateWithDuration(0.5) { () -> Void in
+            self.hintLabel.alpha = 0.0
+        }
+        self.timer?.invalidate()
+        self.timer = NSTimer.schedule(3.0, handler: { (timer) -> Void in
+            self.hintLabel.text = input.hintLabelText()
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.hintLabel.alpha = 1.0
+            })
+        })
+    }
+    
 }
+

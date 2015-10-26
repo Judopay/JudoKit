@@ -55,6 +55,8 @@ public protocol JudoPayInputDelegate {
     func judoPayInput(input: JudoPayInputField, isValid: Bool)
     
     func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry)
+    
+    func judoPayInputDidChangeText(input: JudoPayInputField)
 }
 
 public class JudoPayInputField: UIView, UITextFieldDelegate {
@@ -109,16 +111,12 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.addSubview(self.redBlock)
         
         self.textField().translatesAutoresizingMaskIntoConstraints = false
+        self.textField().textColor = .judoDarkGrayColor()
+        self.textField().tintColor = JudoKit.tintColor
+        self.textField().font = UIFont.boldSystemFontOfSize(14)
+        self.textField().addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
         
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField()]))
-        
-        self.textField().textColor = .judoDarkGrayColor()
-        
-        self.textField().tintColor = JudoKit.tintColor
-        
-        self.textField().font = UIFont.boldSystemFontOfSize(14)
-        
-        self.textField().addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
         
         self.setActive(false)
 
@@ -225,6 +223,10 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     }
     
     // MARK: Custom methods
+    
+    func didChangeInputText() {
+        self.delegate?.judoPayInputDidChangeText(self)
+    }
     
     func textFieldDidChangeValue(textField: UITextField) {
         self.dismissError()
