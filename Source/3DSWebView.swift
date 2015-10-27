@@ -25,27 +25,55 @@
 import UIKit
 import Judo
 
+
+/**
+ 
+ The 3DSWebView is a UIWebView subclass that is configured to detect the execution of a 3DS validation page.
+ 
+ */
 public class _DSWebView: UIWebView {
     
     // MARK: initialization
     
+    /**
+    designated initialiser
+    
+    - returns: a 3DSWebView object
+    */
     public init() {
         super.init(frame: CGRectZero)
         self.setupView()
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
+    
+    /**
+     convenience initialiser
+     
+     - parameter frame: ignored
+     
+     - returns: a 3DSWebView object
+     */
+    convenience override init(frame: CGRect) {
+        self.init()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.setupView()
+    
+    /**
+     convenience initialiser
+     
+     - parameter aDecoder: ignored
+     
+     - returns: a 3DSWebView object
+     */
+    convenience required public init?(coder aDecoder: NSCoder) {
+        self.init()
     }
     
     // MARK: View Setup
     
+    /**
+    Helper method to setup the view
+    */
     public func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.alpha = 0.0
@@ -53,6 +81,15 @@ public class _DSWebView: UIWebView {
     
     // MARK: configuration
     
+    /**
+    This method initiates the webview to load the 3DS website.
+    
+    - parameter payload: the payload that contains the 3DS information to be loaded
+    
+    - throws: `Failed3DSError` when payload contains faulty information
+    
+    - returns: the receiptID of the transaction
+    */
     public func load3DSWithPayload(payload: [String : AnyObject]) throws -> String {
         let allowedCharacterSet = NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet
         

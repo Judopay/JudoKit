@@ -19,6 +19,7 @@ Released on 2015-10-29
 #### Updated
 - collected all constant strings in one place for easier title customisation
 - payment snippet in readme
+- more convenience inits instead of multiple designated inits in one class
 #### Fixed
 - margins for Card Information Input Fields
 #### Removed

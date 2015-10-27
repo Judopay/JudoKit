@@ -76,10 +76,16 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     }()
     
     // MARK: Transaction variables
+    
+    /// The amount and currency to process, amount to two decimal places and currency in string
     public private (set) var amount: Amount?
+    /// the number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
     public private (set) var judoID: String?
+    /// Your reference for this consumer, this payment and An object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
     public private (set) var reference: Reference?
+    /// The card details object
     public private (set) var cardDetails: CardDetails?
+    /// Card token and Consumer token
     public private (set) var paymentToken: PaymentToken?
     
     private let transactionType: TransactionType
@@ -93,32 +99,48 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     private var pending3DSReceiptID: String?
     
     // MARK: TextField Layout
+    /// the layout type for the input fields
     var layout: LayoutType = .Above
     
     // MARK: UI properties
     private var paymentEnabled = false
     private var currentKeyboardHeight = CGFloat(0.0)
     
+    /// the phantom keyboard height constraint
     var keyboardHeightConstraint: NSLayoutConstraint?
     
+    /// the maestro card fields (issue number and start date) height constraint)
     var maestroFieldsHeightConstraint: NSLayoutConstraint?
+    /// the billing country field height constraint
     var billingHeightConstraint: NSLayoutConstraint?
+    /// the postal code field height constraint
     var postHeightConstraint: NSLayoutConstraint?
-
+    
+    /// the card input field object
     let cardInputField = CardInputField()
+    /// the expiry date input field object
     let expiryDateInputField = DateInputField()
+    /// the secure code input field object
     let secureCodeInputField = SecurityInputField()
+    /// the start date input field object
     let startDateInputField = DateInputField()
+    /// the issue number input field object
     let issueNumberInputField = IssueNumberInputField()
+    /// the billing country input field object
     let billingCountryInputField = BillingCountryInputField()
+    /// the post code input field object
     let postCodeInputField = PostCodeInputField()
     
+    /// the hint label object
     let hintLabel = UILabel(frame: CGRectZero)
 
-    // can not initialize because self is not available at this point
+    // can not initialize because self is not available at this point to set the target
     // must be var? because can also not be initialized in init before self is available
+    /// payment navbar button
     var paymentNavBarButton: UIBarButtonItem?
+    /// the payment button object
     let paymentButton = PayButton()
+    
     private let loadingView = LoadingView()
     private let threeDSecureWebView = _DSWebView()
     
@@ -167,22 +189,36 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    
+    /**
+     designated initialiser that will fail if called
+     
+     - parameter nibNameOrNil:   nib name or nil
+     - parameter nibBundleOrNil: bundle or nil
+     
+     - returns: will crash if executed
+     */
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        self.transactionType = .Payment
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        fatalError("This class should not be initialised with initWithNibName:Bundle:")
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        self.transactionType = .Payment
-        super.init(coder: aDecoder)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+    /**
+     designated initialiser that will fail if called
+     
+     - parameter aDecoder: a decoder
+     
+     - returns: will crash if executed
+     */
+    convenience required public init?(coder aDecoder: NSCoder) {
+        fatalError("This class should not be initialised with initWithCoder:")
     }
     
+    
+    /**
+     this method will receive the height of the keyboard when the keyboard will appear to fit the size of the contentview accordingly
+     
+     - parameter note: the notification that calls this method
+     */
     func keyboardWillShow(note: NSNotification) {
         guard let info = note.userInfo else { return } // BAIL
         
@@ -201,6 +237,12 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         }, completion: nil)
     }
     
+    
+    /**
+     this method will receive the keyboard will disappear notification to fit the size of the contentview accordingly
+     
+     - parameter note: the notification that calls this method
+     */
     func keyboardWillHide(note: NSNotification) {
         guard let info = note.userInfo else { return } // BAIL
         
@@ -353,6 +395,14 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         }
     }
     
+    
+    /**
+     This method is intended to toggle the start date and issue number fields visibility when a Card has been identified.
+     
+     - Discussion: Maestro cards need a start date or an issue number to be entered for making any transaction
+     
+     - parameter isVisible: wether start date and issue number fields should be visible
+     */
     public func toggleStartDateVisibility(isVisible: Bool) {
         self.maestroFieldsHeightConstraint?.constant = isVisible ? 44 : 0
         self.issueNumberInputField.setNeedsUpdateConstraints()
@@ -366,7 +416,16 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             self.secureCodeInputField.layoutIfNeeded()
             }, completion: nil)
     }
-
+    
+    
+    /**
+     This method toggles the visibility of address fields (billing country and post code).
+     
+     - Discussion: if AVS is necessary, this should be activated. AVS only needs Postcode to verify
+     
+     - parameter isVisible:  wether post code and billing country fields should be visible
+     - parameter completion: block that is called when animation was finished
+     */
     public func toggleAVSVisibility(isVisible: Bool, completion: (() -> ())? = nil) {
         self.billingHeightConstraint?.constant = isVisible ? 44 : 0
         self.postHeightConstraint?.constant = isVisible ? 44 : 0
@@ -516,6 +575,12 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     
     // MARK: Button Actions
     
+    
+    /**
+    When the user hits the pay button, the information is collected from the fields and passed to the backend. The transaction will then be executed
+    
+    - parameter sender: the payment button
+    */
     func payButtonAction(sender: AnyObject) {
         guard let reference = self.reference,
             let amount = self.amount,
@@ -597,12 +662,24 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         }
     }
     
+    
+    /**
+     executed if the user hits the "Back" button
+     
+     - parameter sender: the button
+     */
     func doneButtonAction(sender: UIBarButtonItem) {
         self.encounterErrorBlock?(JudoError.UserDidCancel)
     }
     
     // MARK: Helpers
     
+    
+    /**
+    Helper method to enable the payment after all fields have been validated and entered
+    
+    - parameter enabled: <#enabled description#>
+    */
     func paymentEnabled(enabled: Bool) {
         self.paymentEnabled = enabled
         self.keyboardHeightConstraint?.constant = -self.currentKeyboardHeight + (paymentEnabled ? 0 : self.paymentButton.bounds.height)
@@ -616,6 +693,12 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.paymentNavBarButton!.enabled = enabled
     }
     
+    
+    /**
+     The hint label has a timer that executes the visibility.
+     
+     - parameter input: the input field which the user is currently idling
+     */
     func resetTimerWithInput(input: JudoPayInputField) {
         UIView.animateWithDuration(0.5) { () -> Void in
             self.hintLabel.alpha = 0.0

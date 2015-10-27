@@ -24,6 +24,11 @@
 
 import UIKit
 
+/**
+ 
+ The IssueNumberInputField is an input field configured to detect, validate and present issue numbers for maestro cards.
+ 
+ */
 public class IssueNumberInputField: JudoPayInputField {
     
     // MARK: UITextFieldDelegate Methods
