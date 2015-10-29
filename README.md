@@ -47,7 +47,7 @@ $ pod install
 ```
 
 
-#### ~~Carthage~~
+#### Carthage
 
 [Carthage](https://github.com/Carthage/Carthage) - decentralized dependency management.
 
@@ -70,7 +70,7 @@ github "JudoPay/JudoKit" >= 5.3
 $ carthage bootstrap
 ```
 
-- On your application targets’ “General” settings tab, in the “Linked Frameworks and Libraries” section, drag and drop each framework you want to use from the Carthage/Build folder on disk.
+- On your application targets’ “General” settings tab, in the “Linked Frameworks and Libraries” section, drag and drop `Judo.framework` and `JudoKit.framework` from the Carthage/Build folder and `JudoShield.framework` from the Carthage/Checkouts folder on disk.
 - On your application targets’ “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script with the following contents:
 
 ```sh
@@ -81,6 +81,8 @@ and add the paths to the frameworks you want to use under “Input Files”, e.g
 
 ```
 $(SRCROOT)/Carthage/Build/iOS/JudoKit.framework
+$(SRCROOT)/Carthage/Build/iOS/Judo.framework
+$(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 ```
 ### Manual Integration
 
