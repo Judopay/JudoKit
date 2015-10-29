@@ -75,7 +75,7 @@ public class IssueNumberInputField: JudoPayInputField {
     }
     
     override func hintLabelText() -> String {
-        return "Issue on front of card"
+        return "Issue number on front of card"
     }
 
 }
