@@ -64,6 +64,12 @@ $ brew install carthage
 github "JudoPay/JudoKit" >= 5.3
 ```
 
+- execute the following command in your project folder. This should clone the project and build the JudoKit scheme
+
+```bash
+$ carthage bootstrap
+```
+
 - On your application targets’ “General” settings tab, in the “Linked Frameworks and Libraries” section, drag and drop each framework you want to use from the Carthage/Build folder on disk.
 - On your application targets’ “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script with the following contents:
 
@@ -74,7 +80,7 @@ github "JudoPay/JudoKit" >= 5.3
 and add the paths to the frameworks you want to use under “Input Files”, e.g.:
 
 ```
-$(SRCROOT)/Carthage/Build/iOS/Judo.framework
+$(SRCROOT)/Carthage/Build/iOS/JudoKit.framework
 ```
 ### Manual Integration
 
