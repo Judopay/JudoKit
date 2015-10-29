@@ -183,11 +183,7 @@ public extension UIColor {
      - returns: a UIColor object
      */
     public static func judoInputFieldBackgroundColor() -> UIColor {
-        if self.colorMode() {
-            return .whiteColor()
-        } else {
-            return .blackColor()
-        }
+        return .whiteColor()
     }
     
 }

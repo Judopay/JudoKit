@@ -220,6 +220,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
      - parameter note: the notification that calls this method
      */
     func keyboardWillShow(note: NSNotification) {
+        guard self.navigationController?.traitCollection.userInterfaceIdiom == .Phone else { return } // BAIL
+        
         guard let info = note.userInfo else { return } // BAIL
         
         guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
@@ -244,6 +246,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
      - parameter note: the notification that calls this method
      */
     func keyboardWillHide(note: NSNotification) {
+        guard self.navigationController?.traitCollection.userInterfaceIdiom == .Phone else { return } // BAIL
+        
         guard let info = note.userInfo else { return } // BAIL
         
         guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
@@ -682,13 +686,18 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     */
     func paymentEnabled(enabled: Bool) {
         self.paymentEnabled = enabled
+        if enabled {
+            self.paymentButton.hidden = false
+        }
         self.keyboardHeightConstraint?.constant = -self.currentKeyboardHeight + (paymentEnabled ? 0 : self.paymentButton.bounds.height)
         
         self.paymentButton.setNeedsUpdateConstraints()
         
         UIView.animateWithDuration(0.25, delay: 0.0, options:enabled ? .CurveEaseOut : .CurveEaseIn, animations: { () -> Void in
             self.paymentButton.layoutIfNeeded()
-            }, completion: nil)
+            }) { (didFinish) -> Void in
+                self.paymentButton.hidden = !enabled
+        }
         
         self.paymentNavBarButton!.enabled = enabled
     }

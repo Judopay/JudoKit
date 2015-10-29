@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         JudoKit.setToken(token, andSecret: secret)
         
         JudoKit.sandboxed(true)
+        
+        JudoKit.tintColor = UIColor.yellowColor()
         // Override point for customization after application launch.
         return true
     }
