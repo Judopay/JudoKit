@@ -678,7 +678,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     /**
     Helper method to enable the payment after all fields have been validated and entered
     
-    - parameter enabled: <#enabled description#>
+    - parameter enabled: pass true to enable the payment buttons
     */
     func paymentEnabled(enabled: Bool) {
         self.paymentEnabled = enabled
