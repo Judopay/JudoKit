@@ -85,6 +85,16 @@ public extension UIColor {
     
     
     /**
+     dark gray color
+     
+     - returns: a UIColor object
+     */
+    public static func judoInputFieldTextColor() -> UIColor {
+        return UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+    }
+    
+    
+    /**
      light dark gray color
      
      - returns: a UIColor object
@@ -100,16 +110,26 @@ public extension UIColor {
     
     
     /**
+     light dark gray color
+     
+     - returns: a UIColor object
+     */
+    public static func judoInputFieldBorderColor() -> UIColor {
+        return UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
+    }
+    
+    
+    /**
      gray color
      
      - returns: a UIColor object
      */
-    public static func judoGrayColor() -> UIColor {
+    public static func judoContentViewBackgroundColor() -> UIColor {
         let gc = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         if self.colorMode() {
             return gc
         } else {
-            return gc.inverseColor()
+            return UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1)
         }
     }
     

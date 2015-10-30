@@ -24,8 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         JudoKit.sandboxed(true)
         
-        JudoKit.tintColor = UIColor.yellowColor()
-        // Override point for customization after application launch.
         return true
     }
 

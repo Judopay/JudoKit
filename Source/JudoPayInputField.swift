@@ -232,7 +232,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.clipsToBounds = true
         
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.borderColor = UIColor.judoLightGrayColor().CGColor
+        self.layer.borderColor = UIColor.judoInputFieldBorderColor().CGColor
         self.layer.borderWidth = 1.0
         
         self.textField().delegate = self
@@ -242,7 +242,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.addSubview(self.redBlock)
         
         self.textField().translatesAutoresizingMaskIntoConstraints = false
-        self.textField().textColor = .judoDarkGrayColor()
+        self.textField().textColor = .judoInputFieldTextColor()
         self.textField().tintColor = JudoKit.tintColor
         self.textField().font = UIFont.boldSystemFontOfSize(14)
         self.textField().addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)

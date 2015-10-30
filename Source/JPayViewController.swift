@@ -291,7 +291,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.view.addSubview(contentView)
         self.contentView.contentSize = self.view.bounds.size
         
-        self.view.backgroundColor = .judoGrayColor()
+        self.view.backgroundColor = .judoContentViewBackgroundColor()
         
         self.contentView.addSubview(cardInputField)
         self.contentView.addSubview(startDateInputField)
