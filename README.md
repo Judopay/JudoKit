@@ -90,13 +90,20 @@ You can integrate Judo into your project manually if you prefer not to use depen
 
 #### Adding the Framework
 
-- Add JudoSecure as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, changing into your project directory, and entering the following command:
+- Add JudoKit as a [submodule](http://git-scm.com/docs/git-submodule) by opening the Terminal, changing into your project directory, and entering the following command:
 
 ```bash
 $ git submodule add https://github.com/JudoPay/JudoKit
 ```
 
-- Select your application project the Project Navigator (blue project icon) to navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
+- as JudoKit has submodules you need to initialise them as well by cd-ing into the `JudoKit` folder and executing the following command
+
+```bash
+$ cd JudKit
+$ git submodule update
+```
+- open your project and select your application in the Project Navigator (blue project icon)
+- Navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
 - In the tab bar at the top of that window, open the "General" panel.
 - Click on the '+' button in 'Embedded Binaries' section
 - Click on 'Add Other...' and Navigate to the JudoShield/Framework Folder and add JudoSecure.Framework 
@@ -105,7 +112,7 @@ $ git submodule add https://github.com/JudoPay/JudoKit
 - Click on the `+` button under the "Linked Frameworks and Libraries" section.
 - Select `Security.framework`, `CoreTelephony.framework` and `CoreLocation.framework` from the list presented
 - Open the "Build Settings" panel.
-- Search for 'Framework Search Paths' and add `$(PROJECT_DIR)/JudoShield/Framework`
+- Search for 'Framework Search Paths' and add `$(PROJECT_DIR)/JudoKit/JudoShield/Framework`
 - Search for 'Runpath Search Paths' and make sure it contains '@executable_path/Frameworks'
 
 
@@ -131,16 +138,124 @@ JudoKit.setToken(token, secret: secret)
 
 ```
 
+For testing purposes you should set the app into sandboxed mode by calling the function `sandboxed(value: Bool)` on `JudoKit`
+
+```swift
+JudoKit.sandboxed(true)
+```
+
+When delivering your App to the AppStore make sure to remove the line.
+
 #### Make a simple Payment
 
 ```swift
-JudoKit.payment(judoID, amount: Amount(35.0, currentCurrency), reference: Reference(yourConsumerReference: "payment reference", yourPaymentReference: "consumer reference"), completion: { (response, error) -> () in
+JudoKit.payment(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+    self.dismissViewControllerAnimated(true, completion: nil)
     if let _ = error {
-    	// handle error
-    } else {
-        // handle success
-	}
+        // handle error
+        return // BAIL
+    }
+    if let resp = response, transactionData = resp.items.first {
+    // handle successful transaction
+    }
+    }, errorHandler: { (error) -> () in
+        // if the user cancelled, this error is called
+        if error == JudoError.UserDidCancel {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        // handle other errors that may encounter
+})
+```
+
+#### Make a simple PreAuth
+
+```swift
+JudoKit.preAuth(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+    self.dismissViewControllerAnimated(true, completion: nil)
+    if let _ = error {
+        // handle error
+        return // BAIL
+    }
+    if let resp = response, transactionData = resp.items.first {
+    // handle successful transaction
+    }
+    }, errorHandler: { (error) -> () in
+        // if the user cancelled, this error is called
+        if error == JudoError.UserDidCancel {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        // handle other errors that may encounter
 })
 ```
 
 
+#### Register a card
+
+```swift
+JudoKit.registerCard(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+    self.dismissViewControllerAnimated(true, completion: nil)
+    if let _ = error {
+        // handle error
+        return // BAIL
+    }
+    if let resp = response, transactionData = resp.items.first {
+    // handle successful transaction
+    }
+    }, errorHandler: { (error) -> () in
+        // if the user cancelled, this error is called
+        if error == JudoError.UserDidCancel {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        // handle other errors that may encounter
+})
+```
+
+#### Make a repeat payment
+
+```swift
+if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
+    JudoKit.tokenPayment(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+        self.dismissViewControllerAnimated(true, completion: nil)
+        if let _ = error {
+            // handle error
+            return // BAIL
+        }
+        if let resp = response, transactionData = resp.items.first {
+            // handle successful transaction
+        }
+        }, errorHandler: { (error) -> () in
+            // if the user cancelled, this error is called
+            if error == JudoError.UserDidCancel {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+            // handle other errors that may encounter
+        })
+} else {
+    // no card details available
+}
+```
+
+#### Make a repeat preauth
+
+```swift
+if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
+    JudoKit.tokenPreAuth(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+        self.dismissViewControllerAnimated(true, completion: nil)
+        if let _ = error {
+            // handle error
+            return // BAIL
+        }
+        if let resp = response, transactionData = resp.items.first {
+            // handle successful transaction
+        }
+        }, errorHandler: { (error) -> () in
+            // if the user cancelled, this error is called
+            if error == JudoError.UserDidCancel {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+            // handle other errors that may encounter
+        })
+} else {
+    // no card details available
+}
+```
