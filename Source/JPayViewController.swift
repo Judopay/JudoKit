@@ -387,7 +387,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
             if let err = error as? JudoError {
                 self.encounterErrorBlock?(err)
-            } else {
+            } else if coordinate.latitude != CLLocationDegrees(NSIntegerMax) {
                 self.currentLocation = coordinate
             }
         }
