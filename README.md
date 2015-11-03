@@ -259,3 +259,16 @@ if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
     // no card details available
 }
 ```
+
+#### Theme Customisation
+
+The JudoKit integrated UI Solution for making transactions has a simple method to customise the theme. The `JudoKit` class has a property that takes a `UIColor` instance and automatically adjusts the general look and feel for this color based on a light or dark theme.
+
+```swift
+JudoKit.tintColor = UIColor.greenColor()
+```
+
+This way you can achieve a number of very different looks in an instant
+
+![Light Theme Image](ressources/theme01.png)
+![Dark Theme Image](ressources/theme02.png)
