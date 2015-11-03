@@ -99,7 +99,7 @@ $ git submodule add https://github.com/JudoPay/JudoKit
 - as JudoKit has submodules you need to initialise them as well by cd-ing into the `JudoKit` folder and executing the following command
 
 ```bash
-$ cd JudKit
+$ cd JudoKit
 $ git submodule update
 ```
 - open your project and select your application in the Project Navigator (blue project icon)
