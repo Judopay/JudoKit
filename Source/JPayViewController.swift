@@ -385,8 +385,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         super.viewDidAppear(animated)
         
         self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
-            if let err = error {
-                self.encounterErrorBlock?(err as! JudoError)
+            if let err = error as? JudoError {
+                self.encounterErrorBlock?(err)
             } else {
                 self.currentLocation = coordinate
             }
@@ -449,7 +449,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     // MARK: CardInputDelegate
     
     public func cardInput(input: CardInputField, error: JudoError) {
-        input.errorAnimation(error != JudoError.InputLengthMismatchError)
+        input.errorAnimation(error.judoCode != .InputLengthMismatchError)
     }
     
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
@@ -467,7 +467,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     // MARK: DateInputDelegate
     
     public func dateInput(input: DateInputField, error: JudoError) {
-        input.errorAnimation(error != JudoError.InputLengthMismatchError)
+        input.errorAnimation(error.judoCode != .InputLengthMismatchError)
     }
     
     public func dateInput(input: DateInputField, didFindValidDate date: String) {
@@ -526,7 +526,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         if let urlString = urlString where urlString.rangeOfString("threedsecurecallback") != nil {
             guard let body = request.HTTPBody,
                 let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
-                    self.encounterErrorBlock?(JudoError.Failed3DSError)
+                    self.encounterErrorBlock?(JudoError(.Failed3DSError))
                     return false
             }
             
@@ -550,11 +550,11 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                     } else if let resp = resp {
                         self.completionBlock?(resp, nil)
                     } else {
-                        self.completionBlock?(nil, JudoError.Unknown as NSError)
+                        self.completionBlock?(nil, JudoError(.Unknown))
                     }
                 })
             } else {
-                self.completionBlock?(nil, JudoError.Unknown as NSError)
+                self.completionBlock?(nil, JudoError(.Unknown))
             }
             
             UIView.animateWithDuration(0.3, animations: { () -> Void in
@@ -585,11 +585,11 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     
     - parameter sender: the payment button
     */
-    func payButtonAction(sender: AnyObject) {
+    func payButtonAction(sender: AnyObject) throws {
         guard let reference = self.reference,
             let amount = self.amount,
             let judoID = self.judoID else {
-                self.completionBlock?(nil, JudoError.ParameterError as NSError)
+                self.completionBlock?(nil, JudoError(.ParameterError))
                 return // BAIL
         }
         
@@ -640,14 +640,18 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             
             let deviceSignal = self.judoShield.deviceSignal() as JSONDictionary
             
-            self.pending3DSTransaction = try transaction?.deviceSignal(deviceSignal).completion { (response, error) -> () in
+            self.pending3DSTransaction = try transaction?.deviceSignal(deviceSignal).completion({ (response, error) -> () in
                 if let error = error {
-                    // check for 3ds error
-                    if error.domain == JudoErrorDomain && error.code == JudoError.ThreeDSAuthRequest.rawValue {
+                    if error.domain == JudoErrorDomain && error.judoCode == .ThreeDSAuthRequest {
+                        guard let userInfo = error.userInfo else {
+                            self.completionBlock?(nil, JudoError(.ResponseParseError))
+                            return // BAIL
+                        }
+                        
                         do {
-                            self.pending3DSReceiptID = try self.threeDSecureWebView.load3DSWithPayload(error.userInfo as! JSONDictionary)
-                        } catch let error as NSError {
-                            self.completionBlock?(nil, error)
+                            self.pending3DSReceiptID = try self.threeDSecureWebView.load3DSWithPayload(userInfo)
+                        } catch {
+                            self.completionBlock?(nil, error as? JudoError)
                         }
                         self.loadingView.actionLabel.text = kRedirecting3DSTitle
                         self.title = kAuthenticationTitle
@@ -659,8 +663,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                     self.completionBlock?(response, nil)
                 }
                 self.loadingView.stopAnimating()
-            }
-        } catch let error as NSError {
+            })
+            
+        } catch let error as JudoError {
             self.completionBlock?(nil, error)
             self.loadingView.stopAnimating()
         }
@@ -673,7 +678,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
      - parameter sender: the button
      */
     func doneButtonAction(sender: UIBarButtonItem) {
-        self.encounterErrorBlock?(JudoError.UserDidCancel)
+        self.encounterErrorBlock?(JudoError(.UserDidCancel))
     }
     
     // MARK: Helpers

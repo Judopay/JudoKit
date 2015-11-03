@@ -100,7 +100,7 @@ public class _DSWebView: UIWebView {
             let paReqString = payload["paReq"],
             let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet),
             let termURLString = "judo1234567890://threedsecurecallback".stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) else {
-                throw JudoError.Failed3DSError
+                throw JudoError(.Failed3DSError)
         }
         
         if let postData = "MD=\(md)&PaReq=\(paReqEscapedString)&TermUrl=\(termURLString)".dataUsingEncoding(NSUTF8StringEncoding) {
@@ -111,7 +111,7 @@ public class _DSWebView: UIWebView {
             
             self.loadRequest(request)
         } else {
-            throw JudoError.Failed3DSError
+            throw JudoError(.Failed3DSError)
         }
         
         return receiptID // save it for later

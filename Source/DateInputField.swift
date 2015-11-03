@@ -159,7 +159,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         } else if newString.characters.count == 5 {
             return true
         } else {
-            self.delegate?.dateInput(self, error: JudoError.InputLengthMismatchError)
+            self.delegate?.dateInput(self, error: JudoError(.InputLengthMismatchError))
             return false
         }
     }
@@ -216,13 +216,13 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
             if date?.compare(NSDate()) == .OrderedDescending {
                 self.delegate?.dateInput(self, didFindValidDate: text)
             } else {
-                self.delegate?.dateInput(self, error: JudoError.InvalidEntry)
+                self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
             }
         } else {
             if date?.compare(NSDate()) != .OrderedAscending {
                 self.delegate?.dateInput(self, didFindValidDate: text)
             } else {
-                self.delegate?.dateInput(self, error: JudoError.InvalidEntry)
+                self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
             }
         }
     }

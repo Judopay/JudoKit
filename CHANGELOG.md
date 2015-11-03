@@ -22,6 +22,8 @@ Released on 2015-10-29
 - more convenience inits instead of multiple designated inits in one class
 #### Fixed
 - margins for Card Information Input Fields
+#### Changed
+- updated Error Handling model and adjusted changes from Judo-Swift
 #### Removed
 - card number pattern detection logging onto the console
   - Added by [Hamon Ben Riazy](https://github.com/ryce).

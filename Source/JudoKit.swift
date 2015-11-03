@@ -26,7 +26,7 @@ import Foundation
 import PassKit
 import Judo
 
-public typealias TransactionBlock = (Response?, NSError?) -> ()
+public typealias TransactionBlock = (Response?, JudoError?) -> ()
 public typealias ErrorHandlerBlock = JudoError -> ()
 
 /// Entry point for interacting with the JudoKit
@@ -81,11 +81,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
         
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -127,11 +127,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
 
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -176,11 +176,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
 
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -227,11 +227,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
 
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -279,11 +279,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
 
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -323,7 +323,7 @@ public typealias ErrorHandlerBlock = JudoError -> ()
         do {
             try Judo.payment(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {
-            completion(nil, JudoError.ParameterError as NSError)
+            completion(nil, JudoError(.ParameterError))
         }
     }
     
@@ -340,7 +340,7 @@ public typealias ErrorHandlerBlock = JudoError -> ()
         do {
             try Judo.preAuth(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {
-            completion(nil, JudoError.ParameterError as NSError)
+            completion(nil, JudoError(.ParameterError))
         }
     }
     
