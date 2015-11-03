@@ -585,7 +585,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     
     - parameter sender: the payment button
     */
-    func payButtonAction(sender: AnyObject) throws {
+    func payButtonAction(sender: AnyObject) {
         guard let reference = self.reference,
             let amount = self.amount,
             let judoID = self.judoID else {
@@ -667,6 +667,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             
         } catch let error as JudoError {
             self.completionBlock?(nil, error)
+            self.loadingView.stopAnimating()
+        } catch {
+            self.completionBlock?(nil, JudoError(.Unknown))
             self.loadingView.stopAnimating()
         }
     }
