@@ -219,7 +219,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
                 self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
             }
         } else {
-            if date?.compare(NSDate()) != .OrderedAscending {
+            if date?.compare(NSDate()) == .OrderedDescending {
                 self.delegate?.dateInput(self, didFindValidDate: text)
             } else {
                 self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
