@@ -213,7 +213,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         
         let date = self.dateFormatter.dateFromString(text)
         if self.isStartDate {
-            if date?.compare(NSDate()) == .OrderedDescending {
+            if date?.compare(NSDate()) == .OrderedAscending {
                 self.delegate?.dateInput(self, didFindValidDate: text)
             } else {
                 self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
