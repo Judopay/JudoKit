@@ -611,7 +611,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                 transaction = try Judo.preAuth(judoID, amount: amount, reference: reference)
             }
             
-            if let payToken = self.paymentToken {
+            if var payToken = self.paymentToken {
+                payToken.cv2 = self.secureCodeInputField.textField().text
                 transaction = transaction?.paymentToken(payToken)
             } else {
                 // I expect that all the texts are available because the Pay Button would not be active otherwise
