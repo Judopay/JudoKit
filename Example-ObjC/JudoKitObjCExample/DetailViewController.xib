@@ -69,9 +69,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WWu-ea-bHu">
-                    <rect key="frame" x="277" y="562" width="46" height="30"/>
+                    <rect key="frame" x="280" y="562" width="41" height="30"/>
                     <animations/>
-                    <state key="normal" title="Button"/>
+                    <state key="normal" title="Home"/>
                     <connections>
                         <action selector="homeButtonHandler:" destination="-1" eventType="touchUpInside" id="H0x-o2-OeR"/>
                     </connections>

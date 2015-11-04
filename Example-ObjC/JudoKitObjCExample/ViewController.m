@@ -233,10 +233,10 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)createCardTokenOperation {
     [JudoKit registerCard:judoID amount:[NSDecimalNumber decimalNumberWithString:@"1.01"] currency:@"GBP" payRef:@"payRef" consRef:@"consRef" metaData:nil completion:^(NSArray * response, NSError * error) {
+        [self dismissViewControllerAnimated:YES completion:nil];
         if (error && response.count == 0) {
             _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
-            [self dismissViewControllerAnimated:YES completion:nil];
             return; // BAIL
         }
         NSDictionary *JSON = response[0];
