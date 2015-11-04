@@ -18,7 +18,6 @@ Pod::Spec.new do |s|
                               'OTHER_LDFLAGS'            => '$(inherited) -undefined dynamic_lookup'
  }
 
-#  s.vendored_frameworks = 'JudoKit.embeddedframework/JudoShield.framework'
 
 
 end
