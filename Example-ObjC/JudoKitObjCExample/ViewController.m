@@ -183,13 +183,14 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
               if (JSON[@"cardDetails"]) {
                   self.cardDetails = JSON[@"cardDetails"];
               }
-              UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-              DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
+              DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
               viewController.infoDict = JSON;
-              [self.navigationController pushViewController:viewController animated:YES];
+              [self dismissViewControllerAnimated:YES completion:^{
+                  [self.navigationController pushViewController:viewController animated:YES];
+              }];
           } errorHandler:^(NSError * error) {
               // unfortunately due to restrictions an enum that conforms to ErrorType can not be exposed to objective C, so we have to use the int directly
-              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
+              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
                   [self dismissViewControllerAnimated:YES completion:nil];
               }
               
@@ -216,13 +217,14 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
               if (JSON[@"cardDetails"]) {
                   self.cardDetails = JSON[@"cardDetails"];
               }
-              UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-              DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
+              DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
               viewController.infoDict = JSON;
-              [self.navigationController pushViewController:viewController animated:YES];
+              [self dismissViewControllerAnimated:YES completion:^{
+                  [self.navigationController pushViewController:viewController animated:YES];
+              }];
           } errorHandler:^(NSError * error) {
               // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
+              if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
                   [self dismissViewControllerAnimated:YES completion:nil];
               }
               // handle non-fatal error
@@ -243,7 +245,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
         }
     } errorHandler:^(NSError * error) {
         // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-        if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
+        if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }
         // handle non-fatal error
@@ -272,13 +274,14 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                        if (JSON[@"cardDetails"]) {
                            self.cardDetails = JSON[@"cardDetails"];
                        }
-                       UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                       DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
+                       DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
                        viewController.infoDict = JSON;
-                       [self.navigationController pushViewController:viewController animated:YES];
+                       [self dismissViewControllerAnimated:YES completion:^{
+                           [self.navigationController pushViewController:viewController animated:YES];
+                       }];
                    } errorHandler:^(NSError * error) {
                        // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
+                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
                            [self dismissViewControllerAnimated:YES completion:nil];
                        }
                        // handle non-fatal error
@@ -312,13 +315,14 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
                        if (JSON[@"cardDetails"]) {
                            self.cardDetails = JSON[@"cardDetails"];
                        }
-                       UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-                       DetailViewController *viewController = [sb instantiateViewControllerWithIdentifier:@"detailviewcontroller"];
+                       DetailViewController *viewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
                        viewController.infoDict = JSON;
-                       [self.navigationController pushViewController:viewController animated:YES];
+                       [self dismissViewControllerAnimated:YES completion:^{
+                           [self.navigationController pushViewController:viewController animated:YES];
+                       }];
                    } errorHandler:^(NSError * error) {
                        // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
-                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == 17) {
+                       if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
                            [self dismissViewControllerAnimated:YES completion:nil];
                        }
                        // handle non-fatal error
