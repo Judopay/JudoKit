@@ -634,7 +634,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                     startDate = self.startDateInputField.textField().text
                 }
                 
-                transaction = transaction?.card(Card(number: self.cardInputField.textField().text!.stripped, expiryDate: self.expiryDateInputField.textField().text!, cv2: self.secureCodeInputField.textField().text!, address: address, startDate: startDate, issueNumber: issueNumber))
+                transaction = transaction?.card(Card(number: self.cardInputField.textField().text!.strippedWhitespaces, expiryDate: self.expiryDateInputField.textField().text!, cv2: self.secureCodeInputField.textField().text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
             
             // if location was fetched until now, get it

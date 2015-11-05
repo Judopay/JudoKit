@@ -52,7 +52,7 @@ public extension String {
             config = configurations
         }
         
-        let strippedSelf = self.stripped
+        let strippedSelf = self.strippedWhitespaces
         
         // do not continue if the string is empty or out of range
         if strippedSelf.characters.count == 0 {
@@ -75,7 +75,7 @@ public extension String {
         // 1. filter out networks that dont match the entered card numbers
         // 2. map all remaining strings while removing all optional values
         // 3. check if the current string has already passed any valid Card number lengths
-        let patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.stripped.characters.count >= strippedSelf.characters.count })
+        let patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.strippedWhitespaces.characters.count >= strippedSelf.characters.count })
         
         if patterns.count == 0 {
             // if no patterns are left - the entered number is invalid
@@ -113,7 +113,7 @@ public extension String {
     */
     func cardNetwork(constrainedToConfigurations configurations: [Card.Configuration]) -> CardNetwork? {
         let constrainedNetworks = configurations.map { $0.cardNetwork }
-        return CardNetwork.networkForString(self.stripped, constrainedToNetworks: constrainedNetworks)
+        return CardNetwork.networkForString(self.strippedWhitespaces, constrainedToNetworks: constrainedNetworks)
     }
     
     
@@ -124,7 +124,7 @@ public extension String {
     - Returns: CardNetwork object
     */
     func cardNetwork() -> CardNetwork {
-        return CardNetwork.networkForString(self.stripped)
+        return CardNetwork.networkForString(self.strippedWhitespaces)
     }
     
     
@@ -136,7 +136,7 @@ public extension String {
     func isCardNumberValid() -> Bool {
         
         let network = self.cardNetwork()
-        let strippedSelf = self.stripped
+        let strippedSelf = self.strippedWhitespaces
         
         if strippedSelf.isLuhnValid() {
             let strippedSelfCount = strippedSelf.characters.count
