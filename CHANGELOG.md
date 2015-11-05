@@ -9,7 +9,7 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [5.3.0](https://github.com/JudoPay/JudoKit/tag/5.3.0)
-Released on 2015-10-29
+Released on 2015-11-05
 
 #### Added
 - Ability to set side by side or animated floating atop titles
