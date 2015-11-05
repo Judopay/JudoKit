@@ -33,16 +33,6 @@ let defaultCardConfigurations = [Card.Configuration(.Visa(.Unknown), 16),
 
 public extension String {
     
-    /// string by stripping whitespaces
-    public var stripped: String {
-        get {
-            return self.stringByReplacingOccurrencesOfString(" ", withString: "")
-        }
-        set {
-            // do nothing
-        }
-    }
-    
     
     /**
     returns a string that matches the format of the number on the card itself based on the spacing pattern
@@ -171,44 +161,5 @@ public extension String {
         return false
 
     }
-    
-    
-    /**
-     method to check if a string is luhn valid
-     
-     - returns: true if given string is luhn valid
-     */
-    func isLuhnValid() -> Bool {
-        guard self.isNumeric() else {
-            return false
-        }
-        let reversedInts = self.characters.reverse().map { Int(String($0)) }
-        return reversedInts.enumerate().reduce(0) { (sum, val) in
-            let odd = val.index % 2 == 1
-            return sum + (odd ? (val.element! == 9 ? 9 : (val.element! * 2) % 9) : val.element!)
-            } % 10 == 0
-    }
-    
-    
-    /**
-     method to check wether string contains only numbers
-     
-     - returns: true if string only contains numbers
-     */
-    func isNumeric() -> Bool {
-        return Double(self) != nil
-    }
-    
-    
-    /**
-     method to check wether string contains only numbers and letters
-     
-     - returns: true if string consists of numbers and letters
-     */
-    func isAlphaNumeric() -> Bool {
-        let nonAlphaNum = NSCharacterSet.alphanumericCharacterSet().invertedSet
-        return self.rangeOfCharacterFromSet(nonAlphaNum) == nil
-    }
-    
     
 }
