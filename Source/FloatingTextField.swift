@@ -63,9 +63,9 @@ class FloatingTextField: UITextField {
         }
     }
     
-    var hintYPadding: CGFloat = -2.0
+    var hintYPadding: CGFloat = 0.0
     
-    var titleYPadding: CGFloat = 4.0 {
+    var titleYPadding: CGFloat = 6.0 {
         didSet {
             var r = title.frame
             r.origin.y = titleYPadding

@@ -233,7 +233,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.borderColor = UIColor.judoInputFieldBorderColor().CGColor
-        self.layer.borderWidth = 1.0
+        self.layer.borderWidth = 0.5
         
         self.textField().delegate = self
         self.textField().keyboardType = .NumberPad
