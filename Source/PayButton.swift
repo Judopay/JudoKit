@@ -24,32 +24,59 @@
 
 import UIKit
 
+/**
+ 
+ The PayButton is a button that is configured to layout a JudoPay button for the Transaction journey
+ 
+ */
 public class PayButton: UIButton {
     
     // MARK: initialization
     
+    /**
+    designated initialiser
+    
+    - returns: a PayButton object
+    */
     public init() {
         super.init(frame: CGRectZero)
         self.setupView()
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
+    
+    /**
+     convenience initialiser
+     
+     - parameter frame: this value is ignored - view is sized via autolayout
+     
+     - returns: a PayButton object
+     */
+    convenience override public init(frame: CGRect) {
+        self.init()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.setupView()
+    
+    /**
+     convenience initialiser
+     
+     - parameter aDecoder: ignored parameter
+     
+     - returns: a PayButton object
+     */
+    convenience required public init?(coder aDecoder: NSCoder) {
+        self.init()
     }
     
     // MARK: View Setup
     
+    /**
+    Helper method to setup the view
+    */
     public func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .judoButtonColor()
         self.setTitle("Pay", forState: .Normal)
-        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.setTitleColor(.judoButtonTitleColor(), forState: .Normal)
         self.titleLabel?.font = UIFont.boldSystemFontOfSize(22)
     }
     

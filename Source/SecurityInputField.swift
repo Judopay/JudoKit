@@ -25,8 +25,14 @@
 import UIKit
 import Judo
 
+/**
+ 
+ The SecurityInputField is an input field configured to detect, validate and present security numbers of various types of credit cards.
+ 
+ */
 public class SecurityInputField: JudoPayInputField {
     
+    /// the card network for the security input field
     public var cardNetwork: CardNetwork = .Unknown
     
     // MARK: UITextFieldDelegate Methods
@@ -34,11 +40,13 @@ public class SecurityInputField: JudoPayInputField {
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField else { return false }
+        guard textField == self.textField() else { return false }
         
         // get old and new text
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        
+        self.didChangeInputText()
         
         if newString.characters.count == 0 {
             return true
@@ -56,11 +64,14 @@ public class SecurityInputField: JudoPayInputField {
         self.delegate?.judoPayInput(self, isValid: text.characters.count == self.cardNetwork.securityCodeLength())
     }
     
-    override func placeholder() -> String? {
+    override func placeholder() -> NSAttributedString? {
+        if self.layoutType == .Above {
+            return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
+        }
         if self.cardNetwork == .AMEX {
-            return "0000"
+            return NSAttributedString(string: "0000", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         } else {
-            return "000"
+            return NSAttributedString(string: "000", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
         }
     }
     
@@ -75,6 +86,10 @@ public class SecurityInputField: JudoPayInputField {
     
     override func title() -> String {
         return self.cardNetwork.securityCodeTitle()
+    }
+    
+    override func hintLabelText() -> String {
+        return "Security code"
     }
 
 }

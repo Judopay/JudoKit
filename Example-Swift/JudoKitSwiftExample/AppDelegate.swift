@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         JudoKit.setToken(token, andSecret: secret)
         
         JudoKit.sandboxed(true)
-        // Override point for customization after application launch.
+        
         return true
     }
 

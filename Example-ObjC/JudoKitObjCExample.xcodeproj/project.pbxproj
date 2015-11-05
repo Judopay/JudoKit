@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		DA5506491BBE86B200B85C9B /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA5506481BBE86B200B85C9B /* Judo.framework */; };
+		DA685C541BEA16DD00085D32 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA685C531BEA16DD00085D32 /* DetailViewController.xib */; };
 		DAC0A39E1BAC715000EA689D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A39D1BAC715000EA689D /* main.m */; };
 		DAC0A3A11BAC715000EA689D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A3A01BAC715000EA689D /* AppDelegate.m */; };
 		DAC0A3A41BAC715000EA689D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A3A31BAC715000EA689D /* ViewController.m */; };
 		DAC0A3A71BAC715000EA689D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC0A3A51BAC715000EA689D /* Main.storyboard */; };
 		DAC0A3A91BAC715000EA689D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAC0A3A81BAC715000EA689D /* Assets.xcassets */; };
 		DAC0A3AC1BAC715000EA689D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAC0A3AA1BAC715000EA689D /* LaunchScreen.storyboard */; };
-		DAC0A3B51BAC718B00EA689D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A3B41BAC718B00EA689D /* DetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		DAC0A3B51BAC718B00EA689D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A3B41BAC718B00EA689D /* DetailViewController.m */; };
 		DAC0A3C01BAC71D500EA689D /* JudoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC0A3BD1BAC71CF00EA689D /* JudoKit.framework */; };
 		DAC0A3C41BAC71DE00EA689D /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC0A3C31BAC71DE00EA689D /* JudoShield.framework */; };
 		DAC0A3C61BAC71E500EA689D /* JudoShield.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAC0A3C31BAC71DE00EA689D /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -62,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		DA5506481BBE86B200B85C9B /* Judo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Judo.framework; path = "../Judo-Swift/build/Debug-iphoneos/Judo.framework"; sourceTree = "<group>"; };
+		DA685C531BEA16DD00085D32 /* DetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		DAC0A3991BAC715000EA689D /* JudoKitObjCExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JudoKitObjCExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAC0A39D1BAC715000EA689D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DAC0A39F1BAC715000EA689D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				DAC0A3A31BAC715000EA689D /* ViewController.m */,
 				DAC0A3B31BAC718B00EA689D /* DetailViewController.h */,
 				DAC0A3B41BAC718B00EA689D /* DetailViewController.m */,
+				DA685C531BEA16DD00085D32 /* DetailViewController.xib */,
 				DAC0A3A51BAC715000EA689D /* Main.storyboard */,
 				DAC0A3A81BAC715000EA689D /* Assets.xcassets */,
 				DAC0A3AA1BAC715000EA689D /* LaunchScreen.storyboard */,
@@ -231,6 +234,7 @@
 				DAC0A3AC1BAC715000EA689D /* LaunchScreen.storyboard in Resources */,
 				DAC0A3A91BAC715000EA689D /* Assets.xcassets in Resources */,
 				DAC0A3A71BAC715000EA689D /* Main.storyboard in Resources */,
+				DA685C541BEA16DD00085D32 /* DetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

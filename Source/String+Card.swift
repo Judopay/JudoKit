@@ -68,9 +68,9 @@ public extension String {
         if strippedSelf.characters.count == 0 {
             return ""
         } else if strippedSelf.characters.count > Card.maximumLength {
-            throw JudoError.CardLengthMismatchError
+            throw JudoError(.CardLengthMismatchError)
         } else if !strippedSelf.isNumeric() {
-            throw JudoError.InvalidEntry
+            throw JudoError(.InvalidEntry)
         }
         
         // make sure to only check validity for the necessary networks
@@ -89,13 +89,11 @@ public extension String {
         
         if patterns.count == 0 {
             // if no patterns are left - the entered number is invalid
-            throw JudoError.InvalidCardNumber
+            throw JudoError(.InvalidCardNumber)
         }
         
-        print("patterns: \(patterns)")
         // retrieve the shortest pattern that is left and start moving the characters across
         let patternString = patterns.sort({ $0.characters.count < $1.characters.count })[0]
-        print("pattern: \(patternString)")
         
         var patternIndex = patternString.startIndex
         
@@ -175,6 +173,11 @@ public extension String {
     }
     
     
+    /**
+     method to check if a string is luhn valid
+     
+     - returns: true if given string is luhn valid
+     */
     func isLuhnValid() -> Bool {
         guard self.isNumeric() else {
             return false
@@ -187,11 +190,21 @@ public extension String {
     }
     
     
+    /**
+     method to check wether string contains only numbers
+     
+     - returns: true if string only contains numbers
+     */
     func isNumeric() -> Bool {
         return Double(self) != nil
     }
     
     
+    /**
+     method to check wether string contains only numbers and letters
+     
+     - returns: true if string consists of numbers and letters
+     */
     func isAlphaNumeric() -> Bool {
         let nonAlphaNum = NSCharacterSet.alphanumericCharacterSet().invertedSet
         return self.rangeOfCharacterFromSet(nonAlphaNum) == nil

@@ -24,27 +24,58 @@
 
 import UIKit
 
+/**
+ 
+ The LoadingView is a convenience class that is configured to show a block with a activityIndicator and a description text
+ 
+ */
 public class LoadingView: UIView {
     
     private let blockView = UIView()
     private let activityIndicatorView = UIActivityIndicatorView()
+    
+    /// the label that shows a description text
     let actionLabel = UILabel()
     
+    
+    /**
+     designated initialiser
+     
+     - returns: a LoadingView object
+     */
     public init() {
         super.init(frame: CGRectZero)
         self.setupView()
     }
     
-    override public init(frame: CGRect) {
-        super.init(frame: frame)
-        self.setupView()
+    
+    /**
+     convenience initialiser
+     
+     - parameter frame: this value is ignored - view is sized via autolayout
+     
+     - returns: a LoadingView object
+     */
+    convenience override public init(frame: CGRect) {
+        self.init()
     }
     
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.setupView()
+    
+    /**
+     convenience initialiser
+     
+     - parameter aDecoder: this value is ignored
+     
+     - returns: a LoadingView object
+     */
+    convenience required public init?(coder aDecoder: NSCoder) {
+        self.init()
     }
     
+    
+    /**
+     Helper method to setup the view
+     */
     func setupView() {
         self.backgroundColor = .judoLoadingBackgroundColor()
 
@@ -55,11 +86,9 @@ public class LoadingView: UIView {
         self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         self.actionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.blockView.backgroundColor = UIColor.whiteColor()
+        self.blockView.backgroundColor = .judoLoadingBlockViewColor()
         self.activityIndicatorView.activityIndicatorViewStyle = .Gray
         self.actionLabel.textColor = .judoDarkGrayColor()
-        
-        self.actionLabel.text = "Processing payment..."
         
         self.blockView.clipsToBounds = true
         self.blockView.layer.cornerRadius = 5.0
@@ -79,11 +108,19 @@ public class LoadingView: UIView {
         self.addConstraint(NSLayoutConstraint(item: self.blockView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
     }
     
+    
+    /**
+     Method to start the animation of the activityIndicator and make the view visible
+     */
     func startAnimating() {
         self.activityIndicatorView.startAnimating()
         self.alpha = 1.0
     }
     
+    
+    /**
+     Method to stop the animation of the activityIndicator and make the view invisible
+     */
     func stopAnimating() {
         self.activityIndicatorView.stopAnimating()
         self.alpha = 0.0

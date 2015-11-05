@@ -24,6 +24,11 @@
 
 import UIKit
 
+/**
+ 
+ The IssueNumberInputField is an input field configured to detect, validate and present issue numbers for maestro cards.
+ 
+ */
 public class IssueNumberInputField: JudoPayInputField {
     
     // MARK: UITextFieldDelegate Methods
@@ -31,7 +36,7 @@ public class IssueNumberInputField: JudoPayInputField {
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField else { return false }
+        guard textField == self.textField() else { return false }
         
         // get old and new text
         let oldString = textField.text!
@@ -40,6 +45,8 @@ public class IssueNumberInputField: JudoPayInputField {
         if newString.characters.count == 0 {
             return true
         }
+        
+        self.didChangeInputText()
         
         return newString.isNumeric() && newString.characters.count <= 3
     }
@@ -53,12 +60,22 @@ public class IssueNumberInputField: JudoPayInputField {
         self.delegate?.issueNumberInputDidEnterCode(self, issueNumber: text)
     }
 
-    override func placeholder() -> String? {
-        return "00"
+    override func placeholder() -> NSAttributedString? {
+        if self.layoutType == .Above {
+            return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
+        }
+        return NSAttributedString(string: "00", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
     }
     
     override func title() -> String {
+        if self.layoutType == .Above {
+            return "Issue number"
+        }
         return "Issue"
     }
     
+    override func hintLabelText() -> String {
+        return "Issue number on front of card"
+    }
+
 }

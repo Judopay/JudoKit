@@ -26,10 +26,14 @@ import Foundation
 import PassKit
 import Judo
 
-public typealias TransactionBlock = (Response?, NSError?) -> ()
+public typealias TransactionBlock = (Response?, JudoError?) -> ()
 public typealias ErrorHandlerBlock = JudoError -> ()
 
+/// Entry point for interacting with the JudoKit
 @objc public class JudoKit: NSObject {
+    
+    /// a tintColor that is used to generate a theme for the Judo payment-form Solution
+    public static var tintColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
     
     /// set the address verification service to true to prompt the user to input his country and post code information
     public static var avsEnabled: Bool = false
@@ -77,11 +81,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
         
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -100,6 +104,7 @@ public typealias ErrorHandlerBlock = JudoError -> ()
     */
     static public func payment(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
         let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, encounteredError: errorHandler)
+        vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
     }
     
@@ -122,11 +127,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
 
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -144,8 +149,9 @@ public typealias ErrorHandlerBlock = JudoError -> ()
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
     static public func preAuth(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
-        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler)
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        let vc = UINavigationController(rootViewController: JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler))
+        vc.modalPresentationStyle = .FormSheet
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
     
     
@@ -170,11 +176,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
 
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -192,8 +198,9 @@ public typealias ErrorHandlerBlock = JudoError -> ()
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
     static public func registerCard(judoID: String, amount: Amount, reference: Reference, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
-        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, encounteredError: errorHandler)
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        let vc = UINavigationController(rootViewController: JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, encounteredError: errorHandler))
+        vc.modalPresentationStyle = .FormSheet
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
     
     
@@ -220,11 +227,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
 
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -246,8 +253,9 @@ public typealias ErrorHandlerBlock = JudoError -> ()
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
     static public func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
-        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken)
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        let vc = UINavigationController(rootViewController: JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken))
+        vc.modalPresentationStyle = .FormSheet
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
     
     
@@ -271,11 +279,11 @@ public typealias ErrorHandlerBlock = JudoError -> ()
             if let response = response {
                 respArray = response.items.map { $0.rawData }
             }
-            completion(respArray, error)
+            completion(respArray, error?.toNSError())
         }
         
         let errHandlerBlock = { (err: JudoError) -> () in
-            errorHandler(err as NSError)
+            errorHandler(err.toNSError())
         }
 
         let ref = Reference(consumerRef: consRef, paymentRef: payRef, metaData: metaData)
@@ -297,8 +305,9 @@ public typealias ErrorHandlerBlock = JudoError -> ()
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
     static public func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: TransactionBlock, errorHandler: ErrorHandlerBlock) {
-        let vc = JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken)
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(UINavigationController(rootViewController: vc), animated: true, completion: nil)
+        let vc = UINavigationController(rootViewController: JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken))
+        vc.modalPresentationStyle = .FormSheet
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
     
     
@@ -314,7 +323,7 @@ public typealias ErrorHandlerBlock = JudoError -> ()
         do {
             try Judo.payment(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {
-            completion(nil, JudoError.ParameterError as NSError)
+            completion(nil, JudoError(.ParameterError))
         }
     }
     
@@ -331,7 +340,7 @@ public typealias ErrorHandlerBlock = JudoError -> ()
         do {
             try Judo.preAuth(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {
-            completion(nil, JudoError.ParameterError as NSError)
+            completion(nil, JudoError(.ParameterError))
         }
     }
     

@@ -25,15 +25,24 @@
 import UIKit
 import Judo
 
+let kUSARegexString = "(^\\d{5}$)|(^\\d{5}-\\d{4}$)"
+let kUKRegexString = "(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})"
+let kCanadaRegexString = "[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]"
+
+/**
+ 
+ The PostCodeInputField is an input field configured to detect, validate and present post codes of various countries.
+ 
+ */
 public class PostCodeInputField: JudoPayInputField {
     
     var billingCountry: BillingCountry = .UK {
         didSet {
             switch billingCountry {
             case .UK, .Canada:
-                self.textField.keyboardType = .Default
+                self.textField().keyboardType = .Default
             default:
-                self.textField.keyboardType = .NumberPad
+                self.textField().keyboardType = .NumberPad
             }
             self.titleLabel.text = self.billingCountry.titleDescription()
         }
@@ -41,19 +50,21 @@ public class PostCodeInputField: JudoPayInputField {
     
     override func setupView() {
         super.setupView()
-        self.textField.keyboardType = .Default
-        self.textField.autocapitalizationType = .AllCharacters
-        self.textField.autocorrectionType = .No
+        self.textField().keyboardType = .Default
+        self.textField().autocapitalizationType = .AllCharacters
+        self.textField().autocorrectionType = .No
     }
     
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField else { return false }
+        guard textField == self.textField() else { return false }
         
         // get old and new text
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        
+        self.didChangeInputText()
         
         if newString.characters.count == 0 {
             return true
@@ -76,11 +87,11 @@ public class PostCodeInputField: JudoPayInputField {
     override func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
 
-        guard let newString = self.textField.text?.uppercaseString else { return }
+        guard let newString = self.textField().text?.uppercaseString else { return }
 
-        let usaRegex = try! NSRegularExpression(pattern: "(^\\d{5}$)|(^\\d{5}-\\d{4}$)", options: .AnchorsMatchLines)
-        let ukRegex = try! NSRegularExpression(pattern: "(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})", options: .AnchorsMatchLines)
-        let canadaRegex = try! NSRegularExpression(pattern: "[ABCEGHJKLMNPRSTVXY][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9][ABCEGHJKLMNPRSTVWXYZ][0-9]", options: .AnchorsMatchLines)
+        let usaRegex = try! NSRegularExpression(pattern: kUSARegexString, options: .AnchorsMatchLines)
+        let ukRegex = try! NSRegularExpression(pattern: kUKRegexString, options: .AnchorsMatchLines)
+        let canadaRegex = try! NSRegularExpression(pattern: kCanadaRegexString, options: .AnchorsMatchLines)
         
         var isValid = false
         
@@ -105,5 +116,5 @@ public class PostCodeInputField: JudoPayInputField {
     override func titleWidth() -> Int {
         return 120
     }
-
+    
 }
