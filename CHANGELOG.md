@@ -20,6 +20,7 @@ Released on 2015-10-29
 - collected all constant strings in one place for easier title customisation
 - payment snippet in readme
 - more convenience inits instead of multiple designated inits in one class
+- updated input field size and layout to fit 6+ sizes
 #### Fixed
 - margins for Card Information Input Fields
 #### Changed
