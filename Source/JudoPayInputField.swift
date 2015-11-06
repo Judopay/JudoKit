@@ -51,9 +51,9 @@ public enum LayoutType {
     func autoLayout(containsLogo: Bool, titleWidth: Int) -> String {
         switch self {
         case .Aside where containsLogo:
-            return "|-13-[title(\(titleWidth))][text][logo(38)]-13-|"
+            return "|-13-[title(\(titleWidth))][text][logo(42)]-13-|"
         case .Above where containsLogo:
-            return "|-13-[text][logo(38)]-13-|"
+            return "|-13-[text][logo(42)]-13-|"
         case .Aside where !containsLogo:
             return "|-13-[title(\(titleWidth))][text]-13-|"
         default: // .Above where !containsLogo:
@@ -266,7 +266,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         
         if self.containsLogo() {
             let logoView = self.logoView()!
-            logoView.frame = CGRectMake(0, 0, 38, 25)
+            logoView.frame = CGRectMake(0, 0, 42, 27)
             self.addSubview(self.logoContainerView)
             self.logoContainerView.translatesAutoresizingMaskIntoConstraints = false
             self.logoContainerView.clipsToBounds = true
@@ -274,7 +274,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             self.logoContainerView.addSubview(logoView)
             
             self.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
-            self.logoContainerView.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 25.0))
+            self.logoContainerView.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 27.0))
         }
         
         let visualFormat = self.layoutType.autoLayout(self.containsLogo(), titleWidth: self.titleWidth())
@@ -324,7 +324,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      */
     public func updateCardLogo() {
         let logoView = self.logoView()!
-        logoView.frame = CGRectMake(0, 0, 38, 25)
+        logoView.frame = CGRectMake(0, 0, 42, 27)
         if let oldLogoView = self.logoContainerView.subviews.first as? CardLogoView {
             if oldLogoView.type != logoView.type {
                 UIView.transitionFromView(self.logoContainerView.subviews.first!, toView: logoView, duration: 0.3, options: .TransitionFlipFromBottom, completion: nil)
