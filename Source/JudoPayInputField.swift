@@ -163,7 +163,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     let titleLabel: UILabel = UILabel()
     
-    var layoutType: LayoutType
+    @IBInspectable public var layoutType: LayoutType
     
     lazy var logoContainerView: UIView = UIView()
     

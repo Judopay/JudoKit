@@ -37,6 +37,7 @@ let kBackButtonTitle = "Back"
 // Titles
 let kPaymentTitle = "Payment"
 let kRegisterCardTitle = "Add card"
+let kRefundTitle = "Refund"
 let kRedirecting3DSTitle = "Redirecting..."
 let kAuthenticationTitle = "Authentication"
 
@@ -45,25 +46,10 @@ let kLoadingIndicatorRegisterCardTitle = "Registering Card..."
 let kLoadingIndicatorProcessingTitle = "Processing payment..."
 
 // InputFields
-let inputFieldHeight = 48
+let inputFieldHeight: CGFloat = 48
+
 
 /**
- enum defining all the types of transactions
- 
- - Payment:      Payment
- - PreAuth:      PreAuth
- - RegisterCard: Register a Card
- */
-public enum TransactionType {
-    /// TransactionTypePayment for a Payment
-    case Payment
-    /// TransactionTypePreAuth for a Pre-authorisation
-    case PreAuth
-    /// TransactionTypeRegisterCard for registering a card for a later transaction
-    case RegisterCard
-}
-
-/** 
  
  the JPayViewController is the one solution build to guide a user through the journey of entering their card details.
  
@@ -107,7 +93,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     
     // MARK: UI properties
     private var paymentEnabled = false
-    private var currentKeyboardHeight = CGFloat(0.0)
+    private var currentKeyboardHeight: CGFloat = 0.0
     
     /// the phantom keyboard height constraint
     var keyboardHeightConstraint: NSLayoutConstraint?
@@ -276,11 +262,13 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             self.title = kPaymentTitle
         case .RegisterCard:
             self.title = kRegisterCardTitle
+        case .Refund:
+            self.title = kRefundTitle
         }
         
         var payButtonTitle = kPaymentButtonTitle
         self.loadingView.actionLabel.text = kLoadingIndicatorProcessingTitle
-
+        
         if self.transactionType == .RegisterCard {
             payButtonTitle = kRegisterCardButtonTitle
             self.loadingView.actionLabel.text = kLoadingIndicatorRegisterCardTitle
@@ -331,12 +319,12 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[loadingView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["loadingView":loadingView]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[loadingView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["loadingView":loadingView]))
-
+        
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-[tdsecure]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["tdsecure":threeDSecureWebView]))
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-(68)-[tdsecure]-(30)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["tdsecure":threeDSecureWebView]))
-
+        
         self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[button]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["button":paymentButton]))
-
+        
         self.keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: paymentEnabled ? 0 : 50)
         self.view.addConstraint(keyboardHeightConstraint!)
         self.paymentButton.addConstraint(NSLayoutConstraint(item: paymentButton, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50))
@@ -346,7 +334,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[start]-(-1)-[issue(==start)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["start":startDateInputField, "issue":issueNumberInputField]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[billing]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["billing":billingCountryInputField]))
-
+        
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(12)-[hint]-(12)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["hint":hintLabel]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[post]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["post":postCodeInputField]))
@@ -411,7 +399,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
      - parameter isVisible: wether start date and issue number fields should be visible
      */
     public func toggleStartDateVisibility(isVisible: Bool) {
-        self.maestroFieldsHeightConstraint?.constant = isVisible ? 44 : 0
+        self.maestroFieldsHeightConstraint?.constant = isVisible ? inputFieldHeight : 0
         self.issueNumberInputField.setNeedsUpdateConstraints()
         self.startDateInputField.setNeedsUpdateConstraints()
         
@@ -434,8 +422,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
      - parameter completion: block that is called when animation was finished
      */
     public func toggleAVSVisibility(isVisible: Bool, completion: (() -> ())? = nil) {
-        self.billingHeightConstraint?.constant = isVisible ? 44 : 0
-        self.postHeightConstraint?.constant = isVisible ? 44 : 0
+        self.billingHeightConstraint?.constant = isVisible ? inputFieldHeight : 0
+        self.postHeightConstraint?.constant = isVisible ? inputFieldHeight : 0
         self.billingCountryInputField.setNeedsUpdateConstraints()
         self.postCodeInputField.setNeedsUpdateConstraints()
         
@@ -448,7 +436,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             }
         }
     }
-
+    
     // MARK: CardInputDelegate
     
     public func cardInput(input: CardInputField, error: JudoError) {
@@ -612,6 +600,9 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                 transaction = try Judo.payment(judoID, amount: amount, reference: reference)
             case .PreAuth, .RegisterCard:
                 transaction = try Judo.preAuth(judoID, amount: amount, reference: reference)
+            case .Refund:
+                assertionFailure("Refund not supported in this context")
+                return
             }
             
             if var payToken = self.paymentToken {
