@@ -134,8 +134,8 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     private let threeDSecureWebView = _DSWebView()
     
     // MARK: completion blocks
-    private var completionBlock: TransactionBlock?
-    private var encounterErrorBlock: ErrorHandlerBlock?
+    private var completionBlock: ((Response?, JudoError?) -> ())?
+    private var encounterErrorBlock: (JudoError -> ())?
     
     // MARK: hint label
     private var timer: NSTimer?
@@ -162,7 +162,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: TransactionBlock, encounteredError: ErrorHandlerBlock, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
+    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: (Response?, JudoError?) -> (), encounteredError: JudoError -> (), cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
         self.judoID = judoID
         self.amount = amount
         self.reference = reference
@@ -605,7 +605,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                 return
             }
             
-            if var payToken = self.paymentToken {
+            if let payToken = self.paymentToken {
                 payToken.cv2 = self.secureCodeInputField.textField().text
                 transaction = transaction?.paymentToken(payToken)
             } else {
