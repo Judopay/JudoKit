@@ -105,9 +105,9 @@ public class CardInputField: JudoPayInputField {
     override func logoView() -> CardLogoView? {
         var type: CardLogoType = .Unknown
         switch self.textField().text!.cardNetwork() {
-        case .Visa(.Credit), .Visa(.Debit), .Visa(.Unknown):
+        case .Visa:
             type = .Visa
-        case .MasterCard(.Credit), .MasterCard(.Debit), .MasterCard(.Unknown):
+        case .MasterCard:
             type = .MasterCard
         case .Maestro:
             type = .Maestro

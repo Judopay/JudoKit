@@ -78,12 +78,12 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
     // MARK: UIPickerViewDelegate
     
     public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return BillingCountry.allValues[row].rawValue
+        return BillingCountry.allValues[row].title()
     }
     
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedCountry = BillingCountry.allValues[row]
-        self.textField().text = self.selectedCountry.rawValue
+        self.textField().text = self.selectedCountry.title()
         self.delegate?.billingCountryInputDidEnter(self, billingCountry: self.selectedCountry)
     }
     

@@ -26,8 +26,8 @@ import Foundation
 import Judo
 
 
-let defaultCardConfigurations = [Card.Configuration(.Visa(.Unknown), 16),
-                                Card.Configuration(.MasterCard(.Unknown), 16),
+let defaultCardConfigurations = [Card.Configuration(.Visa, 16),
+                                Card.Configuration(.MasterCard, 16),
                                 Card.Configuration(.AMEX, 15)]
 
 
@@ -144,9 +144,9 @@ public extension String {
             switch network {
             case .UATP, .AMEX:
                 return strippedSelfCount == 15
-            case .Visa(.Debit), .Visa(.Credit), .Visa(.Unknown):
+            case .Visa:
                 return strippedSelfCount == 13 || strippedSelfCount == 16
-            case .MasterCard(.Debit), .MasterCard(.Credit), .MasterCard(.Unknown), .Dankort, .JCB, .InstaPayment, .Discover:
+            case .MasterCard, .Dankort, .JCB, .InstaPayment, .Discover:
                 return strippedSelfCount == 16
             case .Maestro:
                 return (12...19).contains(strippedSelfCount)
