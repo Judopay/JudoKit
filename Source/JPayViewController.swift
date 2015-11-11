@@ -40,9 +40,10 @@ let kRegisterCardTitle = "Add card"
 let kRefundTitle = "Refund"
 let kRedirecting3DSTitle = "Redirecting..."
 let kAuthenticationTitle = "Authentication"
+let kVerifying3DSPaymentTitle = "Verifying card"
 
 // Loading
-let kLoadingIndicatorRegisterCardTitle = "Registering Card..."
+let kLoadingIndicatorRegisterCardTitle = "Adding Card..."
 let kLoadingIndicatorProcessingTitle = "Processing payment..."
 
 // InputFields
@@ -535,7 +536,11 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             }
             
             if let receiptID = self.pending3DSReceiptID {
+                self.loadingView.actionLabel.text = kVerifying3DSPaymentTitle
+                self.loadingView.startAnimating()
+                self.title = kAuthenticationTitle
                 self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { (resp, error) -> () in
+                    self.loadingView.stopAnimating()
                     if let error = error {
                         self.completionBlock?(nil, error)
                     } else if let resp = resp {
