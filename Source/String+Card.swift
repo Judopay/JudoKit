@@ -154,7 +154,7 @@ public extension String {
                 return strippedSelfCount == 14
             case .ChinaUnionPay, .InterPayment:
                 return (16...19).contains(strippedSelfCount)
-            case .Unknown:
+            default:
                 return false
             }
         }
