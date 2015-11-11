@@ -8,6 +8,8 @@
 
 #import "DetailViewController.h"
 
+@import Judo;
+
 @interface DetailViewController ()
 
 @property (nonatomic, strong) IBOutlet UILabel *dateStampLabel;
@@ -28,19 +30,20 @@
     self.title = @"Payment receipt";
     self.navigationItem.hidesBackButton = YES;
     
-    if (self.infoDict) {
-        NSDate *createdAtDate = [self.inputDateFormatter dateFromString:self.infoDict[@"createdAt"]];
+    if (self.transactionData) {
+        NSDate *createdAtDate = self.transactionData.createdAt;
         self.dateStampLabel.text = [self.outputDateFormatter stringFromDate:createdAtDate];
         
-        self.numberFormatter.currencyCode = self.infoDict[@"currency"];
-        self.amountLabel.text = [self.numberFormatter stringFromNumber:self.infoDict[@"amount"]];
+        self.numberFormatter.currencyCode = self.transactionData.amount.currency;
+        self.amountLabel.text = [self.numberFormatter stringFromNumber:self.transactionData.amount.amount];
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if (self.infoDict) {
-        self.numberFormatter.currencyCode = self.infoDict[@"currency"];
-        self.amountLabel.text = [self.numberFormatter stringFromNumber:self.infoDict[@"amount"]];
+    [super viewWillAppear:animated];
+    if (self.transactionData) {
+        self.numberFormatter.currencyCode = self.transactionData.amount.currency;
+        self.amountLabel.text = [self.numberFormatter stringFromNumber:self.transactionData.amount.amount];
     }
 }
 

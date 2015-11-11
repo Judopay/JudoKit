@@ -95,8 +95,6 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             view.addSubview(label)
             return view
             }()
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -209,7 +207,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
             }, errorHandler: { (error) -> () in
-                if error.judoCode == .UserDidCancel {
+                if error.code == .UserDidCancel {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
                 // handle other errors that may encounter
@@ -234,7 +232,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
             }, errorHandler: { (error) -> () in
-                if error.judoCode == .UserDidCancel {
+                if error.code == .UserDidCancel {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
                 // handle other errors that may encounter
@@ -254,7 +252,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 self.paymentToken = transactionData.paymentToken()
             }
             }, errorHandler: { (error) -> () in
-                if error.judoCode == .UserDidCancel {
+                if error.code == .UserDidCancel {
                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
                 // handle other errors that may encounter
@@ -279,7 +277,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 viewController.response = response
                 self.navigationController?.pushViewController(viewController, animated: true)
                 }, errorHandler: { (error) -> () in
-                    if error.judoCode == .UserDidCancel {
+                    if error.code == .UserDidCancel {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
                     // handle other errors that may encounter
@@ -309,7 +307,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 viewController.response = response
                 self.navigationController?.pushViewController(viewController, animated: true)
                 }, errorHandler: { (error) -> () in
-                    if error.judoCode == .UserDidCancel {
+                    if error.code == .UserDidCancel {
                         self.dismissViewControllerAnimated(true, completion: nil)
                     }
                     // handle other errors that may encounter

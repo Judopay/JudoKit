@@ -440,7 +440,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     // MARK: CardInputDelegate
     
     public func cardInput(input: CardInputField, error: JudoError) {
-        input.errorAnimation(error.judoCode != .InputLengthMismatchError)
+        input.errorAnimation(error.code != .InputLengthMismatchError)
     }
     
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
@@ -458,7 +458,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     // MARK: DateInputDelegate
     
     public func dateInput(input: DateInputField, error: JudoError) {
-        input.errorAnimation(error.judoCode != .InputLengthMismatchError)
+        input.errorAnimation(error.code != .InputLengthMismatchError)
     }
     
     public func dateInput(input: DateInputField, didFindValidDate date: String) {
@@ -637,7 +637,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             
             self.pending3DSTransaction = try transaction?.deviceSignal(deviceSignal).completion({ (response, error) -> () in
                 if let error = error {
-                    if error.domain == JudoErrorDomain && error.judoCode == .ThreeDSAuthRequest {
+                    if error.domain == JudoErrorDomain && error.code == .ThreeDSAuthRequest {
                         guard let userInfo = error.userInfo else {
                             self.completionBlock?(nil, JudoError(.ResponseParseError))
                             return // BAIL
