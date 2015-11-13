@@ -105,23 +105,23 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     
     switch (indexPath.row) {
         case TableViewContentPayment:
-            tvText = @"Make a payment";
+            tvText = @"Payment";
             tvDetailText = @"with default settings";
             break;
         case TableViewContentPreAuth:
-            tvText = @"Make a preAuth";
+            tvText = @"PreAuth";
             tvDetailText = @"to reserve funds on a card";
             break;
         case TableViewContentCreateCardToken:
-            tvText = @"Create card token";
+            tvText = @"Add card";
             tvDetailText = @"to be stored for future transactions";
             break;
         case TableViewContentRepeatPayment:
-            tvText = @"Make a repeat payment";
+            tvText = @"Token payment";
             tvDetailText = @"with a stored card token";
             break;
         case TableViewContentTokenPreAuth:
-            tvText = @"Make a repeat preauth";
+            tvText = @"Token preAuth";
             tvDetailText = @"with a stored card token";
             break;
             
