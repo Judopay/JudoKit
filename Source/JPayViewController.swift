@@ -40,7 +40,8 @@ let kRegisterCardTitle = "Add card"
 let kRefundTitle = "Refund"
 let kRedirecting3DSTitle = "Redirecting..."
 let kAuthenticationTitle = "Authentication"
-let kVerifying3DSPaymentTitle = "Verifying card"
+let kVerifying3DSPaymentTitle = "Verifying payment"
+let kVerifying3DSRegisterCardTitle = "Verifying card"
 
 // Loading
 let kLoadingIndicatorRegisterCardTitle = "Adding Card..."
@@ -536,7 +537,11 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
             }
             
             if let receiptID = self.pending3DSReceiptID {
-                self.loadingView.actionLabel.text = kVerifying3DSPaymentTitle
+                if self.transactionType == .RegisterCard {
+                    self.loadingView.actionLabel.text = kVerifying3DSRegisterCardTitle
+                } else {
+                    self.loadingView.actionLabel.text = kVerifying3DSPaymentTitle
+                }
                 self.loadingView.startAnimating()
                 self.title = kAuthenticationTitle
                 self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { (resp, error) -> () in
@@ -570,6 +575,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
         }
         UIView.animateWithDuration(0.5, animations: { () -> Void in
             self.threeDSecureWebView.alpha = alphaVal
+            self.loadingView.stopAnimating()
         })
     }
     
@@ -651,6 +657,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                         do {
                             self.pending3DSReceiptID = try self.threeDSecureWebView.load3DSWithPayload(userInfo)
                         } catch {
+                            self.loadingView.stopAnimating()
                             self.completionBlock?(nil, error as? JudoError)
                         }
                         self.loadingView.actionLabel.text = kRedirecting3DSTitle
@@ -658,11 +665,12 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
                         self.paymentEnabled(false)
                     } else {
                         self.completionBlock?(nil, error)
+                        self.loadingView.stopAnimating()
                     }
                 } else if let response = response {
                     self.completionBlock?(response, nil)
+                    self.loadingView.stopAnimating()
                 }
-                self.loadingView.stopAnimating()
             })
             
         } catch let error as JudoError {
