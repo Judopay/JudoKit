@@ -515,7 +515,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate, JudoPayInp
     public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         let urlString = request.URL?.absoluteString
         
-        if let urlString = urlString where urlString.rangeOfString("threedsecurecallback") != nil {
+        if let urlString = urlString where urlString.rangeOfString("Parse3DS") != nil {
             guard let body = request.HTTPBody,
                 let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
                     self.encounterErrorBlock?(JudoError(.Failed3DSError))

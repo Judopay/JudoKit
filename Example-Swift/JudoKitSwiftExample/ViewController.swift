@@ -21,19 +21,19 @@ enum TableViewContent : Int {
     func title() -> String {
         switch self {
         case .Payment:
-            return "Make a payment"
+            return "Payment"
         case .PreAuth:
-            return "Make a preAuth"
+            return "PreAuth"
         case .CreateCardToken:
-            return "Create card token"
+            return "Add card"
         case .RepeatPayment:
-            return "Make a repeat payment"
+            return "Token payment"
         case .TokenPreAuth:
-            return "Make a repeat token"
+            return "Token preAuth"
         case .ApplePayPayment:
-            return "ApplePay Payment"
+            return "ApplePay payment"
         case .ApplePayPreAuth:
-            return "ApplePay PreAuth"
+            return "ApplePay preAuth"
         }
     }
     
@@ -215,7 +215,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func preAuthOperation() {
-        JudoKit.preAuth(judoID, amount: Amount(decimalNumber: 40, currency: currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+        JudoKit.preAuth(judoID, amount: Amount(decimalNumber: 2, currency: currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)

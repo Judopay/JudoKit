@@ -99,7 +99,7 @@ public class _DSWebView: UIWebView {
             let receiptID = payload["receiptId"] as? String,
             let paReqString = payload["paReq"],
             let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet),
-            let termURLString = "judo1234567890://threedsecurecallback".stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) else {
+            let termURLString = "https://pay.judopay.com/iOS/Parse3DS".stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) else {
                 throw JudoError(.Failed3DSError)
         }
         
