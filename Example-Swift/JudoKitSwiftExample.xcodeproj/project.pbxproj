@@ -14,8 +14,6 @@
 		DA5E29641BFB7B6000DC73E2 /* JudoKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA7A98A21B7E32A8005754F1 /* JudoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA5E29681BFB7B6300DC73E2 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA6259FD1BAB149A00E38892 /* JudoShield.framework */; };
 		DA5E29691BFB7B6300DC73E2 /* JudoShield.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA6259FD1BAB149A00E38892 /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		DA5E296A1BFB7B6800DC73E2 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA0812991BEA565500BB877C /* Judo.framework */; };
-		DA5E296B1BFB7B6800DC73E2 /* Judo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA0812991BEA565500BB877C /* Judo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA7418C11BA0226000C4D323 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7418C01BA0226000C4D323 /* DetailViewController.swift */; };
 		DA7A988A1B7E3291005754F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A98891B7E3291005754F1 /* AppDelegate.swift */; };
 		DA7A988C1B7E3291005754F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A988B1B7E3291005754F1 /* ViewController.swift */; };
@@ -55,7 +53,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DA5E296B1BFB7B6800DC73E2 /* Judo.framework in Embed Frameworks */,
 				DA5E29641BFB7B6000DC73E2 /* JudoKit.framework in Embed Frameworks */,
 				DA5E29691BFB7B6300DC73E2 /* JudoShield.framework in Embed Frameworks */,
 			);
@@ -86,7 +83,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA5E296A1BFB7B6800DC73E2 /* Judo.framework in Frameworks */,
 				DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */,
 				DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */,
 				DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */,
