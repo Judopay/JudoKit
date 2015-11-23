@@ -43,17 +43,17 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
         self.countryPicker.delegate = self
         self.countryPicker.dataSource = self
         
-        self.textField().text = "UK"
-        self.textField().inputView = self.countryPicker
+        self.textField.text = "UK"
+        self.textField.inputView = self.countryPicker
         
         self.setActive(true)
     }
     
-    override func title() -> String {
+    override public func title() -> String {
         return "Billing country"
     }
     
-    override func titleWidth() -> Int {
+    override public func titleWidth() -> Int {
         return 120
     }
     
@@ -83,7 +83,7 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
     
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedCountry = BillingCountry.allValues[row]
-        self.textField().text = self.selectedCountry.title()
+        self.textField.text = self.selectedCountry.title()
         self.delegate?.billingCountryInputDidEnter(self, billingCountry: self.selectedCountry)
     }
     

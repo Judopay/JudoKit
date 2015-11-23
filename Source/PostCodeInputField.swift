@@ -40,9 +40,9 @@ public class PostCodeInputField: JudoPayInputField {
         didSet {
             switch billingCountry {
             case .UK, .Canada:
-                self.textField().keyboardType = .Default
+                self.textField.keyboardType = .Default
             default:
-                self.textField().keyboardType = .NumberPad
+                self.textField.keyboardType = .NumberPad
             }
             self.titleLabel.text = self.billingCountry.titleDescription()
         }
@@ -50,15 +50,15 @@ public class PostCodeInputField: JudoPayInputField {
     
     override func setupView() {
         super.setupView()
-        self.textField().keyboardType = .Default
-        self.textField().autocapitalizationType = .AllCharacters
-        self.textField().autocorrectionType = .No
+        self.textField.keyboardType = .Default
+        self.textField.autocapitalizationType = .AllCharacters
+        self.textField.autocorrectionType = .No
     }
     
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField() else { return false }
+        guard textField == self.textField else { return false }
         
         // get old and new text
         let oldString = textField.text!
@@ -84,10 +84,10 @@ public class PostCodeInputField: JudoPayInputField {
 
     // MARK: Custom methods
     
-    override func textFieldDidChangeValue(textField: UITextField) {
+    override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
 
-        guard let newString = self.textField().text?.uppercaseString else { return }
+        guard let newString = self.textField.text?.uppercaseString else { return }
 
         let usaRegex = try! NSRegularExpression(pattern: kUSARegexString, options: .AnchorsMatchLines)
         let ukRegex = try! NSRegularExpression(pattern: kUKRegexString, options: .AnchorsMatchLines)
@@ -109,11 +109,11 @@ public class PostCodeInputField: JudoPayInputField {
         self.delegate?.judoPayInput(self, isValid: isValid)
     }
     
-    override func title() -> String {
+    override public func title() -> String {
         return self.billingCountry.titleDescription()
     }
     
-    override func titleWidth() -> Int {
+    override public func titleWidth() -> Int {
         return 120
     }
     

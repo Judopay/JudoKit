@@ -40,7 +40,7 @@ public class SecurityInputField: JudoPayInputField {
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField() else { return false }
+        guard textField == self.textField else { return false }
         
         // get old and new text
         let oldString = textField.text!
@@ -57,38 +57,31 @@ public class SecurityInputField: JudoPayInputField {
     
     // MARK: Custom methods
     
-    override func textFieldDidChangeValue(textField: UITextField) {
+    override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         guard let text = textField.text else { return }
         
         self.delegate?.judoPayInput(self, isValid: text.characters.count == self.cardNetwork.securityCodeLength())
     }
     
-    override func placeholder() -> NSAttributedString? {
-        if self.layoutType == .Above {
-            return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
-        }
-        if self.cardNetwork == .AMEX {
-            return NSAttributedString(string: "0000", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
-        } else {
-            return NSAttributedString(string: "000", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
-        }
+    override public func placeholder() -> NSAttributedString? {
+        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
     }
     
-    override func containsLogo() -> Bool {
+    override public func containsLogo() -> Bool {
         return true
     }
     
-    override func logoView() -> CardLogoView? {
+    override public func logoView() -> CardLogoView? {
         let type: CardLogoType = self.cardNetwork == .AMEX ? .CIDV : .CVC
         return CardLogoView(type: type)
     }
     
-    override func title() -> String {
+    override public func title() -> String {
         return self.cardNetwork.securityCodeTitle()
     }
     
-    override func hintLabelText() -> String {
+    override public func hintLabelText() -> String {
         return "Security code"
     }
 

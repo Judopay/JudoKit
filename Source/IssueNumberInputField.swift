@@ -36,7 +36,7 @@ public class IssueNumberInputField: JudoPayInputField {
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
-        guard textField == self.textField() else { return false }
+        guard textField == self.textField else { return false }
         
         // get old and new text
         let oldString = textField.text!
@@ -53,28 +53,22 @@ public class IssueNumberInputField: JudoPayInputField {
     
     // MARK: Custom methods
     
-    override func textFieldDidChangeValue(textField: UITextField) {
+    override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         guard let text = textField.text else { return }
         
         self.delegate?.issueNumberInputDidEnterCode(self, issueNumber: text)
     }
 
-    override func placeholder() -> NSAttributedString? {
-        if self.layoutType == .Above {
-            return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
-        }
-        return NSAttributedString(string: "00", attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
+    override public func placeholder() -> NSAttributedString? {
+        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
     }
     
-    override func title() -> String {
-        if self.layoutType == .Above {
-            return "Issue number"
-        }
-        return "Issue"
+    override public func title() -> String {
+        return "Issue number"
     }
     
-    override func hintLabelText() -> String {
+    override public func hintLabelText() -> String {
         return "Issue number on front of card"
     }
 
