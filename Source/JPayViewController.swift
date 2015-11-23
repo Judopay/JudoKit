@@ -58,9 +58,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate {
     private var encounterErrorBlock: (JudoError -> ())?
     
     override public var view: UIView! {
-        get {
-            return self.myView as UIView
-        }
+        get { return self.myView as UIView }
         set {
             if newValue is JudoPayView {
                 myView = newValue as! JudoPayView
@@ -111,6 +109,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         fatalError("This class should not be initialised with initWithNibName:Bundle:")
     }
+    
     
     /**
      designated initialiser that will fail if called
