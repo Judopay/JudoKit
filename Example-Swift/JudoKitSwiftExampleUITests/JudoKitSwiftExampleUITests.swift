@@ -37,15 +37,13 @@ class JudoKitSwiftExampleUITests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("497600000000343")
+        elementsQuery.textFields["Card number"].typeText("4976000000003436")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
-        expiryDateTextField.tap()
-        expiryDateTextField.typeText("6121")
+        expiryDateTextField.typeText("1215")
         
         let cvv2TextField = elementsQuery.textFields["CVV2"]
-        cvv2TextField.tap()
-        cvv2TextField.typeText("5452")
+        cvv2TextField.typeText("452")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         app.buttons["Home"].tap()
         
