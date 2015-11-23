@@ -139,8 +139,8 @@
                                                     <action selector="segmentedControlValueChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="G2o-TW-gzX"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHF-jS-3EQ">
-                                                <rect key="frame" x="538" y="152" width="54" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gHF-jS-3EQ">
+                                                <rect key="frame" x="553" y="152" width="39" height="30"/>
                                                 <animations/>
                                                 <state key="normal" title="Close"/>
                                                 <connections>
