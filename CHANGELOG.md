@@ -15,6 +15,7 @@ Released on 2015-11-26
 #### Added
 - UI Testing
 - added resolution label to sample app
+
 #### Updated
 - Integrated Judo-Swift as a standalone Project instead of it being a 'subproject' inside JudoKit
 - moved View related code into UIView subclass to make the JudoPayViewController lighter and easier to understand
@@ -27,11 +28,11 @@ Released on 2015-11-26
 - added RegisterCard to TransactionType
 - wording changes on objc sample
 - renamed 'dismiss' to 'close'
+
 #### Fixed
 - loading view was not presented correctly when 3DS redirection to webview was happening
 - an issue where Frameworks were not properly integrated within the Example Apps
 - fixing an issue where 3DS would not work with HSBC due to the redirect url not being an actual http url
-#### Removed
 
 
 ---
@@ -43,15 +44,19 @@ Released on 2015-11-05
 - Documentation in code and generated html
 - Hint label that fades in when user is idle for 3 seconds
 - tintColor that generates a theme for Judo Journey
+
 #### Updated
 - collected all constant strings in one place for easier title customisation
 - payment snippet in readme
 - more convenience inits instead of multiple designated inits in one class
 - updated input field size and layout to fit 6+ sizes
+
 #### Fixed
 - margins for Card Information Input Fields
+
 #### Changed
 - updated Error Handling model and adjusted changes from Judo-Swift
+
 #### Removed
 - card number pattern detection logging onto the console
   - Added by [Hamon Ben Riazy](https://github.com/ryce).
@@ -77,6 +82,7 @@ Released on 2015-10-01
 - different widths per inputView
 - greyed out input for fields that have not been entered or activated
 - red flash when entered wrong details
+
 #### Changed
 - Fixed Obj-C Sample App
 - Fixed some bugs in the sample apps
@@ -94,6 +100,7 @@ Released on 2015-09-22
 - ObjC sample app
 - LaunchScreen for both sample apps
 - App Icon for both sample apps
+
 #### Changed
 - renamed example app
 - simplified protocols and input initialization
