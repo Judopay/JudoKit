@@ -30,7 +30,8 @@ import Judo
 
 // Buttons
 let kPaymentButtonTitle = "Pay"
-let kRegisterCardButtonTitle = "Add"
+let kRegisterCardButtonTitle = "Add card"
+let kRegisterCardNavBarButtonTitle = "Add"
 
 let kBackButtonTitle = "Back"
 
@@ -186,7 +187,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     // MARK: View LifeCycle
 
     func setupView() {
-        let payButtonTitle = self.transactionType == .RegisterCard ? kRegisterCardButtonTitle : kPaymentButtonTitle
+        let payButtonTitle = self.transactionType == .RegisterCard ? kRegisterCardTitle : kPaymentButtonTitle
         self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? kLoadingIndicatorRegisterCardTitle : kLoadingIndicatorProcessingTitle
         
         self.paymentButton.setTitle(payButtonTitle, forState: .Normal)

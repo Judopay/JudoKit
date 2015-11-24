@@ -133,7 +133,7 @@ public class JPayViewController: UIViewController, UIWebViewDelegate {
         self.myView.threeDSecureWebView.delegate = self
         
         // button actions
-        let payButtonTitle = self.myView.transactionType == .RegisterCard ? kRegisterCardButtonTitle : kPaymentButtonTitle
+        let payButtonTitle = self.myView.transactionType == .RegisterCard ? kRegisterCardNavBarButtonTitle : kPaymentButtonTitle
 
         self.myView.paymentButton.addTarget(self, action: Selector("payButtonAction:"), forControlEvents: .TouchUpInside)
         self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .Done, target: self, action: Selector("payButtonAction:"))
