@@ -2,12 +2,39 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
+- `5.4.x` Releases - [5.4.0](#540)
 - `5.3.x` Releases - [5.3.0](#530)
 - `5.2.x` Releases - [5.2.0](#520) | [5.2.1](#521)
 - `5.1.x` Releases - [5.1.0](#510) | [5.1.1](#511) | [5.1.2](#512)
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
+## [5.4.0](https://github.com/JudoPay/JudoKit/tag/5.4.0)
+Released on 2015-11-26
+
+#### Added
+- UI Testing
+- added resolution label to sample app
+#### Updated
+- Integrated Judo-Swift as a standalone Project instead of it being a 'subproject' inside JudoKit
+- moved View related code into UIView subclass to make the JudoPayViewController lighter and easier to understand
+- cardnetwork is now identified from backend response
+- error handling now exposed to objc - updated tests and sample code to match
+- adjusting swift sample and JudoKit for full objc compability
+- using FormSheet layout style for the ViewController
+- updated card logo size to match new cell size
+- minor UI margin fix 
+- added RegisterCard to TransactionType
+- wording changes on objc sample
+- renamed 'dismiss' to 'close'
+#### Fixed
+- loading view was not presented correctly when 3DS redirection to webview was happening
+- an issue where Frameworks were not properly integrated within the Example Apps
+- fixing an issue where 3DS would not work with HSBC due to the redirect url not being an actual http url
+#### Removed
+
+
+---
 ## [5.3.0](https://github.com/JudoPay/JudoKit/tag/5.3.0)
 Released on 2015-11-05
 
