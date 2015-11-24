@@ -101,6 +101,36 @@ class JudoKitSwiftExampleUITests: XCTestCase {
         button.tap()
     }
     
-//    func test
+    func testVISAPaymentAVS() {
+        
+        let app = XCUIApplication()
+        app.toolbars.buttons["Settings"].tap()
+        
+        let switch2 = app.switches["0"]
+        switch2.tap()
+        switch2.tap()
+        app.buttons["Close"].tap()
+        // Failed to find matching element please file bug (bugreport.apple.com) and provide output from Console.app
+        
+        let elementsQuery = app.scrollViews.otherElements
+        elementsQuery.textFields["Card number"].typeText("4976000000003436")
+        
+        let expiryDateTextField = elementsQuery.textFields["Expiry date"]
+        expiryDateTextField.typeText("1215")
+        
+        let cvv2TextField = elementsQuery.textFields["CVV2"]
+        cvv2TextField.typeText("452")
+        
+        let postCodeTextField = elementsQuery.textFields["Post code"]
+        postCodeTextField.typeText("TR148PA")
+        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+        let button = app.buttons["Home"]
+        let existsPredicate = NSPredicate(format: "exists == 1")
+        
+        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
+        waitForExpectationsWithTimeout(10, handler: nil)
+        
+        button.tap()
+    }
     
 }
