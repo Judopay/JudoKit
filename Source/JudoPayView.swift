@@ -38,14 +38,14 @@ let kBackButtonTitle = "Back"
 let kPaymentTitle = "Payment"
 let kRegisterCardTitle = "Add card"
 let kRefundTitle = "Refund"
-let kRedirecting3DSTitle = "Redirecting..."
 let kAuthenticationTitle = "Authentication"
-let kVerifying3DSPaymentTitle = "Verifying payment"
-let kVerifying3DSRegisterCardTitle = "Verifying card"
 
 // Loading
-let kLoadingIndicatorRegisterCardTitle = "Adding Card..."
+let kLoadingIndicatorRegisterCardTitle = "Adding card..."
 let kLoadingIndicatorProcessingTitle = "Processing payment..."
+let kRedirecting3DSTitle = "Redirecting..."
+let kVerifying3DSPaymentTitle = "Verifying payment"
+let kVerifying3DSRegisterCardTitle = "Verifying card"
 
 // InputFields
 let inputFieldHeight: CGFloat = 48
