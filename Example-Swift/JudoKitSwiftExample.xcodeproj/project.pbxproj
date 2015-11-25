@@ -24,6 +24,7 @@
 		DA7A988F1B7E3291005754F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA7A988D1B7E3291005754F1 /* Main.storyboard */; };
 		DA7A98911B7E3291005754F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7A98901B7E3291005754F1 /* Assets.xcassets */; };
 		DA7A98941B7E3291005754F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA7A98921B7E3291005754F1 /* LaunchScreen.storyboard */; };
+		DABB74581C06137100361F9D /* JudoKitTokenPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB74571C06137100361F9D /* JudoKitTokenPaymentTests.swift */; };
 		DAC14E031C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC14E021C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift */; };
 		DAC14E051C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC14E041C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift */; };
 		DAC14E071C06097B00BF4E28 /* JudoKitMaestroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC14E061C06097B00BF4E28 /* JudoKitMaestroTests.swift */; };
@@ -116,6 +117,7 @@
 		DA7A98901B7E3291005754F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA7A98931B7E3291005754F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA7A98951B7E3291005754F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DABB74571C06137100361F9D /* JudoKitTokenPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitTokenPaymentTests.swift; sourceTree = "<group>"; };
 		DAC14E021C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitPaymentDeclinedTests.swift; sourceTree = "<group>"; };
 		DAC14E041C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKit3DSPaymentTests.swift; sourceTree = "<group>"; };
 		DAC14E061C06097B00BF4E28 /* JudoKitMaestroTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitMaestroTests.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				DAC14E021C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift */,
 				DAC14E041C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift */,
 				DAC14E061C06097B00BF4E28 /* JudoKitMaestroTests.swift */,
+				DABB74571C06137100361F9D /* JudoKitTokenPaymentTests.swift */,
 			);
 			path = JudoKitSwiftExampleUITests;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAC14E051C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift in Sources */,
+				DABB74581C06137100361F9D /* JudoKitTokenPaymentTests.swift in Sources */,
 				DAC14E031C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift in Sources */,
 				DA3048E11C05F079000E1B79 /* JudoKitAVSPaymentTests.swift in Sources */,
 				DAC14E071C06097B00BF4E28 /* JudoKitMaestroTests.swift in Sources */,
