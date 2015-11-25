@@ -77,10 +77,10 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     let billingCountryInputField = BillingCountryInputField()
     /// the post code input field object
     let postCodeInputField = PostCodeInputField()
-
+    
     /// The card details object
     var cardDetails: CardDetails?
-
+    
     /// the phantom keyboard height constraint
     var keyboardHeightConstraint: NSLayoutConstraint?
     
@@ -110,7 +110,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     
     // MARK: hint label
     private var timer: NSTimer?
-
+    
     var transactionType: TransactionType
     
     public init(type: TransactionType, cardDetails: CardDetails? = nil) {
@@ -185,7 +185,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     }
     
     // MARK: View LifeCycle
-
+    
     func setupView() {
         let payButtonTitle = self.transactionType == .RegisterCard ? kRegisterCardTitle : kPaymentButtonTitle
         self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? kLoadingIndicatorRegisterCardTitle : kLoadingIndicatorProcessingTitle
@@ -404,6 +404,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
         self.secureCodeInputField.cardNetwork = network
         self.secureCodeInputField.updateCardLogo()
         self.secureCodeInputField.titleLabel.text = network.securityCodeTitle()
+        self.toggleStartDateVisibility(network == .Maestro)
     }
     
     
