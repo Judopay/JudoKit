@@ -270,6 +270,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
             let expiryDate = cardDetails.formattedEndDate() {
                 self.cardInputField.textField.text = formattedLastFour
                 self.expiryDateInputField.textField.text = expiryDate
+                self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
         }
     }
     
@@ -331,11 +332,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     }
     
     public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
-        self.cardInputField.updateCardLogo()
-        self.secureCodeInputField.cardNetwork = network
-        self.secureCodeInputField.updateCardLogo()
-        self.secureCodeInputField.titleLabel.text = network.securityCodeTitle()
-        self.toggleStartDateVisibility(network == .Maestro)
+        self.updateInputFieldsWithNetwork(network)
     }
     
     // MARK: DateInputDelegate
@@ -394,6 +391,20 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     
     
     // MARK: Helpers
+    
+    
+    /**
+    when a network has been identified, the secure code textfield has to adjust its title and maximum number entry to enable the payment
+    
+    - parameter network: the network that has been identified
+    */
+    func updateInputFieldsWithNetwork(network: CardNetwork?) {
+        guard let network = network else { return }
+        self.cardInputField.updateCardLogo()
+        self.secureCodeInputField.cardNetwork = network
+        self.secureCodeInputField.updateCardLogo()
+        self.secureCodeInputField.titleLabel.text = network.securityCodeTitle()
+    }
     
     
     /**
