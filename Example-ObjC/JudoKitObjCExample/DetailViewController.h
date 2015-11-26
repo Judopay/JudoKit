@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class TransactionData;
+
 @interface DetailViewController : UIViewController
 
-@property (nonatomic, strong) NSDictionary *infoDict;
+@property (nonatomic, strong) TransactionData *transactionData;
 
 @end

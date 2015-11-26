@@ -25,42 +25,6 @@
 import UIKit
 import Judo
 
-/**
- 
- The LayoutType enum declares the View type of the JudoPayInputField
- 
- - Parameter Aside: The Title is shown statically on the left side
- - Parameter Above: The Title is shown floating when user starts entering details
- 
- */
-public enum LayoutType {
-    
-    /// - Case Aside: side-by-side layout
-    case Aside
-    /// - Case Above: Floating title layout
-    case Above
-    
-    /**
-     returns the format in AutoLayout visual language for a given InputField LayoutType
-     
-     - parameter containsLogo: wether the inputField should contain a Logo on the right side or not
-     - parameter titleWidth:   the width of a given title if the view is in side by side mode
-     
-     - returns: a String with the autolayout visual format for a given judoPayInputField
-     */
-    func autoLayout(containsLogo: Bool, titleWidth: Int) -> String {
-        switch self {
-        case .Aside where containsLogo:
-            return "|-13-[title(\(titleWidth))][text][logo(38)]-13-|"
-        case .Above where containsLogo:
-            return "|-13-[text][logo(38)]-13-|"
-        case .Aside where !containsLogo:
-            return "|-13-[title(\(titleWidth))][text]-13-|"
-        default: // .Above where !containsLogo:
-            return "|-13-[text]-13-|"
-        }
-    }
-}
 
 /**
  
@@ -153,17 +117,14 @@ public protocol JudoPayInputDelegate {
  It is not recommended to use this class directly but rather use the subclasses of JudoPayInputField that are also provided in the JudoKit as this class does not do any validation which are necessary for making any kind of transaction.
  
  */
-public class JudoPayInputField: UIView, UITextFieldDelegate {
+public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     /// the delegate for the input field validation methods
     public var delegate: JudoPayInputDelegate?
 
-    let floatingTextField: FloatingTextField = FloatingTextField()
-    let asideTextField: UITextField = UITextField()
+    let textField: FloatingTextField = FloatingTextField()
     
     let titleLabel: UILabel = UILabel()
-    
-    var layoutType: LayoutType
     
     lazy var logoContainerView: UIView = UIView()
     
@@ -183,32 +144,9 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     
     - returns: a JudoPayInputField instance
     */
-    public init(layoutType: LayoutType) {
-        self.layoutType = layoutType
+    override public init(frame: CGRect) {
         super.init(frame: CGRectZero)
         self.setupView()
-    }
-    
-    
-    /**
-     needed to create a convenience init method because default value on init with layoutType would be ambiguous.
-     
-     - returns: a JudoPayInputField instance
-     */
-    convenience public init() {
-        self.init(layoutType: .Above)
-    }
-    
-    
-    /**
-     required convenience method when creating JudoPayInputField with a CGRect
-     
-     - parameter frame: the frame is ignored
-     
-     - returns: a JudoPayInputField instance
-     */
-    convenience override public init(frame: CGRect) {
-        self.init(layoutType: .Above)
     }
     
     
@@ -220,7 +158,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      - returns: a JudoPayInputField instance
      */
     convenience required public init?(coder aDecoder: NSCoder) {
-        self.init(layoutType: .Above)
+        self.init(frame: CGRectZero)
     }
     
     
@@ -235,38 +173,28 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
         self.layer.borderColor = UIColor.judoInputFieldBorderColor().CGColor
         self.layer.borderWidth = 0.5
         
-        self.textField().delegate = self
-        self.textField().keyboardType = .NumberPad
+        self.textField.delegate = self
+        self.textField.keyboardType = .NumberPad
         
-        self.addSubview(self.textField())
+        self.addSubview(self.textField)
         self.addSubview(self.redBlock)
         
-        self.textField().translatesAutoresizingMaskIntoConstraints = false
-        self.textField().textColor = .judoInputFieldTextColor()
-        self.textField().tintColor = JudoKit.tintColor
-        self.textField().font = UIFont.boldSystemFontOfSize(14)
-        self.textField().addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
+        self.textField.translatesAutoresizingMaskIntoConstraints = false
+        self.textField.textColor = .judoInputFieldTextColor()
+        self.textField.tintColor = JudoKit.tintColor
+        self.textField.font = UIFont.boldSystemFontOfSize(14)
+        self.textField.addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
         
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField()]))
+        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField]))
         
         self.setActive(false)
         
-        if self.layoutType == .Aside {
-            self.titleLabel.text = self.title()
-            self.addSubview(self.titleLabel)
-            self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[title]|", options: .AlignAllBaseline, metrics: nil, views: ["title":titleLabel]))
-            self.titleLabel.textColor = .judoDarkGrayColor()
-            self.titleLabel.font = UIFont.systemFontOfSize(14)
-            self.textField().attributedPlaceholder = self.placeholder()
-        } else {
-            self.titleLabel.removeFromSuperview()
-            self.textField().attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName: UIColor.judoLightGrayColor()])
-        }
+        self.titleLabel.removeFromSuperview()
+        self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName: UIColor.judoLightGrayColor()])
         
         if self.containsLogo() {
             let logoView = self.logoView()!
-            logoView.frame = CGRectMake(0, 0, 38, 25)
+            logoView.frame = CGRectMake(0, 0, 42, 27)
             self.addSubview(self.logoContainerView)
             self.logoContainerView.translatesAutoresizingMaskIntoConstraints = false
             self.logoContainerView.clipsToBounds = true
@@ -274,11 +202,11 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             self.logoContainerView.addSubview(logoView)
             
             self.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
-            self.logoContainerView.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 25.0))
+            self.logoContainerView.addConstraint(NSLayoutConstraint(item: self.logoContainerView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 27.0))
         }
         
-        let visualFormat = self.layoutType.autoLayout(self.containsLogo(), titleWidth: self.titleWidth())
-        let views: [String:UIView] = ["text": textField(), "title": self.titleLabel, "logo": self.logoContainerView]
+        let visualFormat = self.containsLogo() ? "|-13-[text][logo(42)]-13-|" : "|-13-[text]-13-|"
+        let views: [String:UIView] = ["text": textField, "title": self.titleLabel, "logo": self.logoContainerView]
         
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(visualFormat, options: .DirectionLeftToRight, metrics: nil, views: views))
     }
@@ -311,7 +239,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.redBlock.frame = CGRectMake(0, self.bounds.height - 4, self.bounds.width, 4.0)
                 self.titleLabel.textColor = UIColor.judoRedColor()
-                self.textField().textColor = UIColor.judoRedColor()
+                self.textField.textColor = UIColor.judoRedColor()
                 }, completion: blockAnimation)
         } else {
             blockAnimation(true)
@@ -324,13 +252,13 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      */
     public func updateCardLogo() {
         let logoView = self.logoView()!
-        logoView.frame = CGRectMake(0, 0, 38, 25)
+        logoView.frame = CGRectMake(0, 0, 42, 27)
         if let oldLogoView = self.logoContainerView.subviews.first as? CardLogoView {
             if oldLogoView.type != logoView.type {
                 UIView.transitionFromView(self.logoContainerView.subviews.first!, toView: logoView, duration: 0.3, options: .TransitionFlipFromBottom, completion: nil)
             }
         }
-        self.textField().attributedPlaceholder = self.placeholder()
+        self.textField.attributedPlaceholder = self.placeholder()
     }
     
     
@@ -340,7 +268,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      - parameter isActive: boolean stating wether textfield has become active or inactive
      */
     public func setActive(isActive: Bool) {
-        self.textField().alpha = isActive ? 1.0 : 0.5
+        self.textField.alpha = isActive ? 1.0 : 0.5
         self.titleLabel.alpha = isActive ? 1.0 : 0.5
     }
     
@@ -353,7 +281,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
             UIView.animateWithDuration(0.4) { () -> Void in
                 self.redBlock.frame = CGRectMake(0.0, self.bounds.height, self.bounds.width, 4.0)
                 self.titleLabel.textColor = .judoDarkGrayColor()
-                self.textField().textColor = .judoDarkGrayColor()
+                self.textField.textColor = .judoDarkGrayColor()
             }
         }
     }
@@ -379,27 +307,56 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
     }
     
     
-    /**
-     a helper method to determine which textfield is the active textfield that is used to receive input information from the user
-     
-     - returns: depending on the configuration, the textfield that is receiving input calls is returned
-     */
-    public func textField() -> UITextField {
-        if self.layoutType == .Aside {
-            return self.asideTextField
-        }
-        return self.floatingTextField
-    }
-    
-    // MARK: Custom methods
+    // MARK: JudoInputType
     
     
-    /**
-    Helper method for the hintLabel to disappear or reset the timer when called. This is triggered by the `shouldChangeCharactersInRange:` method in each of the `inputField` subclasses
-    */
-    func didChangeInputText() {
+    public func didChangeInputText() {
         self.delegate?.judoPayInputDidChangeText(self)
     }
+    
+    
+    public func textFieldDidChangeValue(textField: UITextField) {
+        self.dismissError()
+        // method for subclassing
+    }
+    
+    
+    public func placeholder() -> NSAttributedString? {
+        return nil
+    }
+    
+    
+    public func containsLogo() -> Bool {
+        return false
+    }
+    
+    
+    public func logoView() -> CardLogoView? {
+        return nil
+    }
+    
+    
+    public func title() -> String {
+        return ""
+    }
+    
+    
+    public func titleWidth() -> Int {
+        return 50
+    }
+    
+    
+    public func hintLabelText() -> String {
+        return ""
+    }
+    
+}
+
+public protocol JudoInputType {
+    /**
+     Helper method for the hintLabel to disappear or reset the timer when called. This is triggered by the `shouldChangeCharactersInRange:` method in each of the `inputField` subclasses
+     */
+    func didChangeInputText()
     
     
     /**
@@ -407,10 +364,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      
      - parameter textField: the `UITextField` that has a changed value
      */
-    func textFieldDidChangeValue(textField: UITextField) {
-        self.dismissError()
-        // method for subclassing
-    }
+    func textFieldDidChangeValue(textField: UITextField)
     
     
     /**
@@ -418,12 +372,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      
      - returns: an NSAttributedString depending on color and configuration
      */
-    func placeholder() -> NSAttributedString? {
-        if self.layoutType == .Above {
-            return nil
-        }
-        return nil
-    }
+    func placeholder() -> NSAttributedString?
     
     
     /**
@@ -431,9 +380,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      
      - returns: a boolean indication wether logo should be shown
      */
-    func containsLogo() -> Bool {
-        return false
-    }
+    func containsLogo() -> Bool
     
     
     /**
@@ -441,9 +388,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      
      - returns: the logo of an inputField
      */
-    func logoView() -> CardLogoView? {
-        return nil
-    }
+    func logoView() -> CardLogoView?
     
     
     /**
@@ -451,9 +396,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      
      - returns: the title of an inputField
      */
-    func title() -> String {
-        return ""
-    }
+    func title() -> String
     
     
     /**
@@ -461,9 +404,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      
      - returns: a title width in integer
      */
-    func titleWidth() -> Int {
-        return 50
-    }
+    func titleWidth() -> Int
     
     
     /**
@@ -471,8 +412,5 @@ public class JudoPayInputField: UIView, UITextFieldDelegate {
      
      - returns: a String with instructions for a given inputField that pops up after 3 seconds of being idle
      */
-    func hintLabelText() -> String {
-        return ""
-    }
-    
+    func hintLabelText() -> String
 }

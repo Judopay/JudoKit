@@ -13,6 +13,7 @@ class DetailViewController: UIViewController {
     
     @IBOutlet var dateStampLabel: UILabel!
     @IBOutlet var amountLabel: UILabel!
+    @IBOutlet var resolutionLabel: UILabel!
     
     var response: Response?
     
@@ -46,6 +47,7 @@ class DetailViewController: UIViewController {
             self.dateStampLabel.text = self.outputDateFormatter.stringFromDate(transaction.createdAt)
             self.currencyFormatter.currencyCode = transaction.amount.currency
             self.amountLabel.text = transaction.amount.amount.stringValue + " " + transaction.amount.currency
+            self.resolutionLabel.text = transaction.result.rawValue
         }
     }
     

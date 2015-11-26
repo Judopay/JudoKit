@@ -26,22 +26,12 @@ import Foundation
 import Judo
 
 
-let defaultCardConfigurations = [Card.Configuration(.Visa(.Unknown), 16),
-                                Card.Configuration(.MasterCard(.Unknown), 16),
+let defaultCardConfigurations = [Card.Configuration(.Visa, 16),
+                                Card.Configuration(.MasterCard, 16),
                                 Card.Configuration(.AMEX, 15)]
 
 
 public extension String {
-    
-    /// string by stripping whitespaces
-    public var stripped: String {
-        get {
-            return self.stringByReplacingOccurrencesOfString(" ", withString: "")
-        }
-        set {
-            // do nothing
-        }
-    }
     
     
     /**
@@ -62,7 +52,7 @@ public extension String {
             config = configurations
         }
         
-        let strippedSelf = self.stripped
+        let strippedSelf = self.strippedWhitespaces
         
         // do not continue if the string is empty or out of range
         if strippedSelf.characters.count == 0 {
@@ -85,7 +75,7 @@ public extension String {
         // 1. filter out networks that dont match the entered card numbers
         // 2. map all remaining strings while removing all optional values
         // 3. check if the current string has already passed any valid Card number lengths
-        let patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.stripped.characters.count >= strippedSelf.characters.count })
+        let patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.strippedWhitespaces.characters.count >= strippedSelf.characters.count })
         
         if patterns.count == 0 {
             // if no patterns are left - the entered number is invalid
@@ -123,7 +113,7 @@ public extension String {
     */
     func cardNetwork(constrainedToConfigurations configurations: [Card.Configuration]) -> CardNetwork? {
         let constrainedNetworks = configurations.map { $0.cardNetwork }
-        return CardNetwork.networkForString(self.stripped, constrainedToNetworks: constrainedNetworks)
+        return CardNetwork.networkForString(self.strippedWhitespaces, constrainedToNetworks: constrainedNetworks)
     }
     
     
@@ -134,7 +124,7 @@ public extension String {
     - Returns: CardNetwork object
     */
     func cardNetwork() -> CardNetwork {
-        return CardNetwork.networkForString(self.stripped)
+        return CardNetwork.networkForString(self.strippedWhitespaces)
     }
     
     
@@ -146,7 +136,7 @@ public extension String {
     func isCardNumberValid() -> Bool {
         
         let network = self.cardNetwork()
-        let strippedSelf = self.stripped
+        let strippedSelf = self.strippedWhitespaces
         
         if strippedSelf.isLuhnValid() {
             let strippedSelfCount = strippedSelf.characters.count
@@ -154,9 +144,9 @@ public extension String {
             switch network {
             case .UATP, .AMEX:
                 return strippedSelfCount == 15
-            case .Visa(.Debit), .Visa(.Credit), .Visa(.Unknown):
+            case .Visa:
                 return strippedSelfCount == 13 || strippedSelfCount == 16
-            case .MasterCard(.Debit), .MasterCard(.Credit), .MasterCard(.Unknown), .Dankort, .JCB, .InstaPayment, .Discover:
+            case .MasterCard, .Dankort, .JCB, .InstaPayment, .Discover:
                 return strippedSelfCount == 16
             case .Maestro:
                 return (12...19).contains(strippedSelfCount)
@@ -164,51 +154,12 @@ public extension String {
                 return strippedSelfCount == 14
             case .ChinaUnionPay, .InterPayment:
                 return (16...19).contains(strippedSelfCount)
-            case .Unknown:
+            default:
                 return false
             }
         }
         return false
 
     }
-    
-    
-    /**
-     method to check if a string is luhn valid
-     
-     - returns: true if given string is luhn valid
-     */
-    func isLuhnValid() -> Bool {
-        guard self.isNumeric() else {
-            return false
-        }
-        let reversedInts = self.characters.reverse().map { Int(String($0)) }
-        return reversedInts.enumerate().reduce(0) { (sum, val) in
-            let odd = val.index % 2 == 1
-            return sum + (odd ? (val.element! == 9 ? 9 : (val.element! * 2) % 9) : val.element!)
-            } % 10 == 0
-    }
-    
-    
-    /**
-     method to check wether string contains only numbers
-     
-     - returns: true if string only contains numbers
-     */
-    func isNumeric() -> Bool {
-        return Double(self) != nil
-    }
-    
-    
-    /**
-     method to check wether string contains only numbers and letters
-     
-     - returns: true if string consists of numbers and letters
-     */
-    func isAlphaNumeric() -> Bool {
-        let nonAlphaNum = NSCharacterSet.alphanumericCharacterSet().invertedSet
-        return self.rangeOfCharacterFromSet(nonAlphaNum) == nil
-    }
-    
     
 }
