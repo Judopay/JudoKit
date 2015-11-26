@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>JudoPayView Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/JudoPayView" class="dashAnchor"></a>
+    <a title="JudoPayView Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">JudoKit Docs</a> (52% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">JudoKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        JudoPayView Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BillingCountryInputField.html">BillingCountryInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardInputField.html">CardInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardLogoView.html">CardLogoView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DateInputField.html">DateInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IssueNumberInputField.html">IssueNumberInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JPayViewController.html">JPayViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoKit.html">JudoKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayInputField.html">JudoPayInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayView.html">JudoPayView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LoadingView.html">LoadingView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayButton.html">PayButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PostCodeInputField.html">PostCodeInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SecurityInputField.html">SecurityInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/_DSWebView.html">_DSWebView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/CardLogoType.html">CardLogoType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DateInputType.html">DateInputType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/TransactionType.html">TransactionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardAmexFT_T_">drawCardAmex()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardCIDVFT_T_">drawCardCIDV()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit11drawCardCVCFT_T_">drawCardCVC()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardMaestroFT_T_">drawCardMaestro()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit18drawCardMasterCardFT_T_">drawCardMasterCard()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardUnknownFT_T_">drawCardUnknown()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardVisaFT_T_">drawCardVisa()</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/JudoInputType.html">JudoInputType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/JudoPayInputDelegate.html">JudoPayInputDelegate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>JudoPayView</h1>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11JudoPayView11contentViewCSo12UIScrollView"></a>
+                    <a name="//apple_ref/swift/Property/contentView" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11JudoPayView11contentViewCSo12UIScrollView">contentView</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/hint%20label"></a>
+                <a name="//apple_ref/swift/Section/hint label" class="dashAnchor"></a>
+                <a href="#/hint%20label">
+                  <h3 class="section-name">hint label</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayViewcERR"></a>
+                    <a name="//apple_ref/swift/Method/init(type:cardDetails:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayViewcERR">init(type:cardDetails:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayViewcFMS0_FT5coderCSo7NSCoder_GSqS0__"></a>
+                    <a name="//apple_ref/swift/Method/init(coder:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayViewcFMS0_FT5coderCSo7NSCoder_GSqS0__">init(coder:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/View%20LifeCycle"></a>
+                <a name="//apple_ref/swift/Section/View LifeCycle" class="dashAnchor"></a>
+                <a href="#/View%20LifeCycle">
+                  <h3 class="section-name">View LifeCycle</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView25toggleStartDateVisibilityFS0_FSbT_"></a>
+                    <a name="//apple_ref/swift/Method/toggleStartDateVisibility(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView25toggleStartDateVisibilityFS0_FSbT_">toggleStartDateVisibility(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method is intended to toggle the start date and issue number fields visibility when a Card has been identified.</p>
+
+<ul>
+<li><p>Discussion: Maestro cards need a start date or an issue number to be entered for making any transaction</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">toggleStartDateVisibility</span><span class="p">(</span><span class="nv">isVisible</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isVisible</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>wether start date and issue number fields should be visible</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView19toggleAVSVisibilityFS0_FTSb10completionGSqFT_T___T_"></a>
+                    <a name="//apple_ref/swift/Method/toggleAVSVisibility(_:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView19toggleAVSVisibilityFS0_FTSb10completionGSqFT_T___T_">toggleAVSVisibility(_:completion:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method toggles the visibility of address fields (billing country and post code).</p>
+
+<ul>
+<li><p>Discussion: if AVS is necessary, this should be activated. AVS only needs Postcode to verify</p></li>
+</ul>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">toggleAVSVisibility</span><span class="p">(</span><span class="nv">isVisible</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="p">())?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isVisible</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>wether post code and billing country fields should be visible</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completion</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>block that is called when animation was finished</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/CardInputDelegate"></a>
+                <a name="//apple_ref/swift/Section/CardInputDelegate" class="dashAnchor"></a>
+                <a href="#/CardInputDelegate">
+                  <h3 class="section-name">CardInputDelegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView9cardInputERR"></a>
+                    <a name="//apple_ref/swift/Method/cardInput(_:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView9cardInputERR">cardInput(_:error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView9cardInputFS0_FTCS_14CardInputField18didFindValidNumberSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/cardInput(_:didFindValidNumber:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView9cardInputFS0_FTCS_14CardInputField18didFindValidNumberSS_T_">cardInput(_:didFindValidNumber:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/DateInputDelegate"></a>
+                <a name="//apple_ref/swift/Section/DateInputDelegate" class="dashAnchor"></a>
+                <a href="#/DateInputDelegate">
+                  <h3 class="section-name">DateInputDelegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView9dateInputERR"></a>
+                    <a name="//apple_ref/swift/Method/dateInput(_:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView9dateInputERR">dateInput(_:error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView9dateInputFS0_FTCS_14DateInputField16didFindValidDateSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/dateInput(_:didFindValidDate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView9dateInputFS0_FTCS_14DateInputField16didFindValidDateSS_T_">dateInput(_:didFindValidDate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/IssueNumberInputDelegate"></a>
+                <a name="//apple_ref/swift/Section/IssueNumberInputDelegate" class="dashAnchor"></a>
+                <a href="#/IssueNumberInputDelegate">
+                  <h3 class="section-name">IssueNumberInputDelegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView28issueNumberInputDidEnterCodeFS0_FTCS_21IssueNumberInputField11issueNumberSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/issueNumberInputDidEnterCode(_:issueNumber:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView28issueNumberInputDidEnterCodeFS0_FTCS_21IssueNumberInputField11issueNumberSS_T_">issueNumberInputDidEnterCode(_:issueNumber:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/BillingCountryInputDelegate"></a>
+                <a name="//apple_ref/swift/Section/BillingCountryInputDelegate" class="dashAnchor"></a>
+                <a href="#/BillingCountryInputDelegate">
+                  <h3 class="section-name">BillingCountryInputDelegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView27billingCountryInputDidEnterERR"></a>
+                    <a name="//apple_ref/swift/Method/billingCountryInputDidEnter(_:billingCountry:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView27billingCountryInputDidEnterERR">billingCountryInputDidEnter(_:billingCountry:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/JudoPayInputDelegate"></a>
+                <a name="//apple_ref/swift/Section/JudoPayInputDelegate" class="dashAnchor"></a>
+                <a href="#/JudoPayInputDelegate">
+                  <h3 class="section-name">JudoPayInputDelegate</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView12judoPayInputFS0_FTCS_17JudoPayInputField7isValidSb_T_"></a>
+                    <a name="//apple_ref/swift/Method/judoPayInput(_:isValid:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView12judoPayInputFS0_FTCS_17JudoPayInputField7isValidSb_T_">judoPayInput(_:isValid:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11JudoPayView25judoPayInputDidChangeTextFS0_FCS_17JudoPayInputFieldT_"></a>
+                    <a name="//apple_ref/swift/Method/judoPayInputDidChangeText(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11JudoPayView25judoPayInputDidChangeTextFS0_FCS_17JudoPayInputFieldT_">judoPayInputDidChangeText(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2015-11-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

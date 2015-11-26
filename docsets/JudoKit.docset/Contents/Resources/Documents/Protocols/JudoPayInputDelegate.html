@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>JudoPayInputDelegate Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/JudoPayInputDelegate" class="dashAnchor"></a>
+    <a title="JudoPayInputDelegate Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">JudoKit Docs</a> (52% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">JudoKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        JudoPayInputDelegate Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BillingCountryInputField.html">BillingCountryInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardInputField.html">CardInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardLogoView.html">CardLogoView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DateInputField.html">DateInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IssueNumberInputField.html">IssueNumberInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JPayViewController.html">JPayViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoKit.html">JudoKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayInputField.html">JudoPayInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayView.html">JudoPayView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LoadingView.html">LoadingView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayButton.html">PayButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PostCodeInputField.html">PostCodeInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SecurityInputField.html">SecurityInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/_DSWebView.html">_DSWebView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/CardLogoType.html">CardLogoType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DateInputType.html">DateInputType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/TransactionType.html">TransactionType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardAmexFT_T_">drawCardAmex()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardCIDVFT_T_">drawCardCIDV()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit11drawCardCVCFT_T_">drawCardCVC()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardMaestroFT_T_">drawCardMaestro()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit18drawCardMasterCardFT_T_">drawCardMasterCard()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardUnknownFT_T_">drawCardUnknown()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardVisaFT_T_">drawCardVisa()</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/JudoInputType.html">JudoInputType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/JudoPayInputDelegate.html">JudoPayInputDelegate</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>JudoPayInputDelegate</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">JudoPayInputDelegate</span></code></pre>
+
+                </div>
+              </div>
+            <p>The JudoPayInputDelegate is a delegate protocol that is used to pass information about the state of entering information for making transactions</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP7JudoKit20JudoPayInputDelegate28issueNumberInputDidEnterCodeuRq_S0__Fq_FTCS_21IssueNumberInputField11issueNumberSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/issueNumberInputDidEnterCode(_:issueNumber:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP7JudoKit20JudoPayInputDelegate28issueNumberInputDidEnterCodeuRq_S0__Fq_FTCS_21IssueNumberInputField11issueNumberSS_T_">issueNumberInputDidEnterCode(_:issueNumber:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method that is triggered when the issueNumberInputField entered a code</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">issueNumberInputDidEnterCode</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">IssueNumberInputField</span><span class="p">,</span> <span class="nv">issueNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the issueNumberInputField calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>issueNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the issue number that has been entered as a String</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP7JudoKit20JudoPayInputDelegate9cardInputERR"></a>
+                    <a name="//apple_ref/swift/Method/cardInput(_:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP7JudoKit20JudoPayInputDelegate9cardInputERR">cardInput(_:error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method that is triggered when the CardInputField encountered an error</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">cardInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">CardInputField</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">JudoError</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the error that occured</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP7JudoKit20JudoPayInputDelegate9cardInputuRq_S0__Fq_FTCS_14CardInputField18didFindValidNumberSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/cardInput(_:didFindValidNumber:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP7JudoKit20JudoPayInputDelegate9cardInputuRq_S0__Fq_FTCS_14CardInputField18didFindValidNumberSS_T_">cardInput(_:didFindValidNumber:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method that is triggered when the CardInputField did find a valid number</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">cardInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">CardInputField</span><span class="p">,</span> <span class="n">didFindValidNumber</span> <span class="nv">cardNumberString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cardNumberString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the card number that has been entered as a String</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP7JudoKit20JudoPayInputDelegate9dateInputERR"></a>
+                    <a name="//apple_ref/swift/Method/dateInput(_:error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP7JudoKit20JudoPayInputDelegate9dateInputERR">dateInput(_:error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method that is triggered when the date input field has encountered an error</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">dateInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">DateInputField</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">JudoError</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the error that occured</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP7JudoKit20JudoPayInputDelegate9dateInputuRq_S0__Fq_FTCS_14DateInputField16didFindValidDateSS_T_"></a>
+                    <a name="//apple_ref/swift/Method/dateInput(_:didFindValidDate:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP7JudoKit20JudoPayInputDelegate9dateInputuRq_S0__Fq_FTCS_14DateInputField16didFindValidDateSS_T_">dateInput(_:didFindValidDate:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method that is triggered when the date input field has found a valid date</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">dateInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">DateInputField</span><span class="p">,</span> <span class="n">didFindValidDate</span> <span class="nv">date</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>date</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the valid date that has been entered</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP7JudoKit20JudoPayInputDelegate12judoPayInputuRq_S0__Fq_FTCS_17JudoPayInputField7isValidSb_T_"></a>
+                    <a name="//apple_ref/swift/Method/judoPayInput(_:isValid:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP7JudoKit20JudoPayInputDelegate12judoPayInputuRq_S0__Fq_FTCS_17JudoPayInputField7isValidSb_T_">judoPayInput(_:isValid:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method that is triggered when the judoPayInputField was validated</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">judoPayInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="nv">isValid</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isValid</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a boolean that indicates wether the input is valid or invalid</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP7JudoKit20JudoPayInputDelegate27billingCountryInputDidEnterERR"></a>
+                    <a name="//apple_ref/swift/Method/billingCountryInputDidEnter(_:billingCountry:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP7JudoKit20JudoPayInputDelegate27billingCountryInputDidEnterERR">billingCountryInputDidEnter(_:billingCountry:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method that is triggered when the billingCountry input field selected a BillingCountry</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">billingCountryInputDidEnter</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">BillingCountryInputField</span><span class="p">,</span> <span class="nv">billingCountry</span><span class="p">:</span> <span class="kt">BillingCountry</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>billingCountry</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the billing country that has been selected</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FP7JudoKit20JudoPayInputDelegate25judoPayInputDidChangeTextuRq_S0__Fq_FCS_17JudoPayInputFieldT_"></a>
+                    <a name="//apple_ref/swift/Method/judoPayInputDidChangeText(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FP7JudoKit20JudoPayInputDelegate25judoPayInputDidChangeTextuRq_S0__Fq_FCS_17JudoPayInputFieldT_">judoPayInputDidChangeText(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method that is called whenever any inputField has been manipulated</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">func</span> <span class="nf">judoPayInputDidChangeText</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2015 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2015-11-26)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
