@@ -168,7 +168,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)paymentOperation {
     Amount *amount = [[Amount alloc] initWithAmountString:@"25.0" currency:@"GBP"];
     
-    Reference *ref = [[Reference alloc] initWithConsumerRef:@"consRef" paymentRef:@"payRef" metaData:nil];
+    Reference *ref = [[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil];
     
     [JudoKit payment:judoID amount:amount reference:ref completion:^(Response * response, JudoError * error) {
         if (error || response.items.count == 0) {
@@ -200,7 +200,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)preAuthOperation {
     Amount *amount = [[Amount alloc] initWithDecimalNumber:[NSDecimalNumber decimalNumberWithString:@"25.0"] currency:@"GBP"];
     
-    [JudoKit preAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" paymentRef:@"payRef" metaData:nil] completion:^(Response * response, JudoError * error) {
+    [JudoKit preAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] completion:^(Response * response, JudoError * error) {
         if (error || response.items.count == 0) {
             _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
@@ -228,7 +228,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)createCardTokenOperation {
     
-    [JudoKit registerCard:judoID amount:[[Amount alloc] initWithAmountString:@"1.01" currency:@"GBP"] reference:[[Reference alloc] initWithConsumerRef:@"consumerRef" paymentRef:@"payRef" metaData:nil] completion:^(Response * response, JudoError * error) {
+    [JudoKit registerCard:judoID amount:[[Amount alloc] initWithAmountString:@"1.01" currency:@"GBP"] reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] completion:^(Response * response, JudoError * error) {
         [self dismissViewControllerAnimated:YES completion:nil];
         if (error && response.items.count == 0) {
             _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
@@ -253,7 +253,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     if (self.cardDetails) {
         Amount *amount = [[Amount alloc] initWithAmountString:@"25" currency:@"GBP"];
 
-        [JudoKit tokenPayment:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" paymentRef:@"payRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
+        [JudoKit tokenPayment:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
             if (error || response.items.count == 0) {
                 _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
@@ -289,7 +289,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     if (self.cardDetails) {
         Amount *amount = [[Amount alloc] initWithAmountString:@"25" currency:@"GBP"];
         
-        [JudoKit tokenPreAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" paymentRef:@"payRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
+        [JudoKit tokenPreAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
             if (error || response.items.count == 0) {
                 _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];

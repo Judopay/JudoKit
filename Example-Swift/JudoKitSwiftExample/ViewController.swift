@@ -190,7 +190,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     // MARK: Operations
     
     func paymentOperation() {
-        JudoKit.payment(judoID, amount: Amount(decimalNumber: 35, currency: currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+        guard let ref = Reference(consumerRef: "payment reference") else { return }
+        JudoKit.payment(judoID, amount: Amount(decimalNumber: 35, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
@@ -215,7 +216,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func preAuthOperation() {
-        JudoKit.preAuth(judoID, amount: Amount(decimalNumber: 2, currency: currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+        guard let ref = Reference(consumerRef: "payment reference") else { return }
+        JudoKit.preAuth(judoID, amount: Amount(decimalNumber: 2, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
@@ -240,7 +242,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func createCardTokenOperation() {
-        JudoKit.registerCard(judoID, amount: Amount(decimalNumber: 1, currency: currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+        guard let ref = Reference(consumerRef: "payment reference") else { return }
+        JudoKit.registerCard(judoID, amount: Amount(decimalNumber: 1, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let _ = error {
                 self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
@@ -260,8 +263,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func repeatPaymentOperation() {
-        if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
-            JudoKit.tokenPayment(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+        if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: "payment reference") {
+            JudoKit.tokenPayment(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 self.dismissViewControllerAnimated(true, completion: nil)
                 if let _ = error {
                     self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
@@ -290,8 +293,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func repeatPreAuthOperation() {
-        if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
-            JudoKit.tokenPreAuth(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+        if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: "payment reference") {
+            JudoKit.tokenPreAuth(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 self.dismissViewControllerAnimated(true, completion: nil)
                 if let _ = error {
                     self.alertController = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .Alert)
@@ -395,10 +398,12 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             self.navigationController?.pushViewController(viewController, animated: true)
         }
         
+        guard let ref = Reference(consumerRef: "consumer Reference") else { return }
+        
         if self.isTransactingApplePayPreAuth {
-            JudoKit.applePayPreAuth(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: Reference(consumerRef: "consRef", paymentRef: "payRef"), payment: payment, completion: completionBlock)
+            JudoKit.applePayPreAuth(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref, payment: payment, completion: completionBlock)
         } else {
-            JudoKit.applePayPayment(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: Reference(consumerRef: "consRef", paymentRef: "payRef"), payment: payment, completion: completionBlock)
+            JudoKit.applePayPayment(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref, payment: payment, completion: completionBlock)
         }
     }
     

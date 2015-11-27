@@ -12,7 +12,7 @@ import JudoKit
 import Judo
 
 let judoID      = "<#YOUR JUDO-ID#>"
-let reference   = Reference(consumerRef: "Consumer Reference", paymentRef: "Payment Reference")
+let reference   = Reference(consumerRef: "Consumer Reference")
 
 class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate {
 
