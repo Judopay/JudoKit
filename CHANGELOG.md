@@ -14,25 +14,25 @@ Released on 2015-11-26
 
 #### Added
 - UI Testing
-- added resolution label to sample app
+- Added resolution label to sample app
 
 #### Updated
 - Integrated Judo-Swift as a standalone Project instead of it being a 'subproject' inside JudoKit
-- moved View related code into UIView subclass to make the JudoPayViewController lighter and easier to understand
+- Moved View related code into UIView subclass to make the JudoPayViewController lighter and easier to understand
 - cardnetwork is now identified from backend response
-- error handling now exposed to objc - updated tests and sample code to match
-- adjusting swift sample and JudoKit for full objc compability
-- using FormSheet layout style for the ViewController
-- updated card logo size to match new cell size
-- minor UI margin fix 
-- added RegisterCard to TransactionType
-- wording changes on objc sample
-- renamed 'dismiss' to 'close'
+- Error handling now exposed to objc - updated tests and sample code to match
+- Adjusting Swift sample and JudoKit for full objc compability
+- Using FormSheet layout style for the ViewController
+- Updated card logo size to match new cell size
+- Minor UI margin fix 
+- Added RegisterCard to TransactionType
+- Wording changes on objc sample
+- Renamed 'dismiss' to 'close'
 
 #### Fixed
 - loading view was not presented correctly when 3DS redirection to webview was happening
-- an issue where Frameworks were not properly integrated within the Example Apps
-- fixing an issue where 3DS would not work with HSBC due to the redirect url not being an actual http url
+- An issue where Frameworks were not properly integrated within the Example Apps
+- Fixing an issue where 3DS would not work with HSBC due to the redirect url not being an actual http url
 
 
 ---
