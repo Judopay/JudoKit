@@ -290,13 +290,13 @@ public class JPayViewController: UIViewController, UIWebViewDelegate {
             self.pending3DSTransaction = try transaction.deviceSignal(self.judoShield.deviceSignal()).completion({ (response, error) -> () in
                 if let error = error {
                     if error.domain == JudoErrorDomain && error.code == .ThreeDSAuthRequest {
-                        guard let userInfo = error.userInfo else {
+                        guard let payload = error.payload else {
                             self.completionBlock?(nil, JudoError(.ResponseParseError))
                             return // BAIL
                         }
                         
                         do {
-                            self.pending3DSReceiptID = try self.myView.threeDSecureWebView.load3DSWithPayload(userInfo)
+                            self.pending3DSReceiptID = try self.myView.threeDSecureWebView.load3DSWithPayload(payload)
                         } catch {
                             self.myView.loadingView.stopAnimating()
                             self.completionBlock?(nil, error as? JudoError)
