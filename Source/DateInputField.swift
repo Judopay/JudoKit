@@ -206,16 +206,18 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         super.textFieldDidChangeValue(textField)
         
         guard let text = textField.text where text.characters.count == 5 else { return }
+        guard let beginningOfMonthDate = self.dateFormatter.dateFromString(text) else { return }
         
-        let date = self.dateFormatter.dateFromString(text)
         if self.isStartDate {
-            if date?.compare(NSDate()) == .OrderedAscending {
+            if beginningOfMonthDate.compare(NSDate()) == .OrderedAscending {
                 self.delegate?.dateInput(self, didFindValidDate: text)
             } else {
                 self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
             }
         } else {
-            if date?.compare(NSDate()) == .OrderedDescending {
+            let dayRange = NSCalendar.currentCalendar().rangeOfUnit(.Day, inUnit: .Month, forDate: beginningOfMonthDate)
+            let endOfMonthDate = beginningOfMonthDate.dateByAddingTimeInterval(60 * 60 * 24 * Double(dayRange.length))
+            if endOfMonthDate.compare(NSDate()) == .OrderedDescending {
                 self.delegate?.dateInput(self, didFindValidDate: text)
             } else {
                 self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
