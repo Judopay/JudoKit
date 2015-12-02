@@ -20,6 +20,8 @@
 		DA7418C61BA0448D00C4D323 /* BillingCountryInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7418C51BA0448D00C4D323 /* BillingCountryInputField.swift */; };
 		DA7418C81BA0538E00C4D323 /* IssueNumberInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7418C71BA0538E00C4D323 /* IssueNumberInputField.swift */; };
 		DA76A6011B7B73D30033E553 /* JudoKit.h in Headers */ = {isa = PBXBuildFile; fileRef = DA76A6001B7B73D30033E553 /* JudoKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DA99F4C71C0F562B001EADC6 /* JudoInputType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99F4C61C0F562B001EADC6 /* JudoInputType.swift */; };
+		DA99F4CB1C0F56CD001EADC6 /* JudoPayInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA99F4CA1C0F56CD001EADC6 /* JudoPayInputDelegate.swift */; };
 		DAB051381BD797CA00888E06 /* FloatingTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB051371BD797CA00888E06 /* FloatingTextField.swift */; };
 		DAB261AD1B7B7A0B005024FF /* JudoKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB261AC1B7B7A0B005024FF /* JudoKit.swift */; };
 		DAC0A3D51BB14A8000EA689D /* 3DSWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC0A3D41BB14A8000EA689D /* 3DSWebView.swift */; };
@@ -73,6 +75,8 @@
 		DA76A5FD1B7B73D30033E553 /* JudoKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JudoKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA76A6001B7B73D30033E553 /* JudoKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JudoKit.h; sourceTree = "<group>"; };
 		DA76A6021B7B73D30033E553 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA99F4C61C0F562B001EADC6 /* JudoInputType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoInputType.swift; sourceTree = "<group>"; };
+		DA99F4CA1C0F56CD001EADC6 /* JudoPayInputDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoPayInputDelegate.swift; sourceTree = "<group>"; };
 		DAB051371BD797CA00888E06 /* FloatingTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingTextField.swift; sourceTree = "<group>"; };
 		DAB261AC1B7B7A0B005024FF /* JudoKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKit.swift; sourceTree = "<group>"; };
 		DAC0A3D41BB14A8000EA689D /* 3DSWebView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = 3DSWebView.swift; sourceTree = "<group>"; };
@@ -136,6 +140,8 @@
 				DA39023D1B96092B001A703C /* SecurityInputField.swift */,
 				DA7418C31BA039FF00C4D323 /* PostCodeInputField.swift */,
 				DA7418C51BA0448D00C4D323 /* BillingCountryInputField.swift */,
+				DA99F4C61C0F562B001EADC6 /* JudoInputType.swift */,
+				DA99F4CA1C0F56CD001EADC6 /* JudoPayInputDelegate.swift */,
 			);
 			name = TextFields;
 			sourceTree = "<group>";
@@ -375,8 +381,10 @@
 				DAB261AD1B7B7A0B005024FF /* JudoKit.swift in Sources */,
 				DA7418BD1B9DF61900C4D323 /* LoadingView.swift in Sources */,
 				DAC0A3DF1BB1845C00EA689D /* PayButton.swift in Sources */,
+				DA99F4C71C0F562B001EADC6 /* JudoInputType.swift in Sources */,
 				DA7418C81BA0538E00C4D323 /* IssueNumberInputField.swift in Sources */,
 				DA7418C61BA0448D00C4D323 /* BillingCountryInputField.swift in Sources */,
+				DA99F4CB1C0F56CD001EADC6 /* JudoPayInputDelegate.swift in Sources */,
 				DAE045281BFF2CC7008CF017 /* JudoPayView.swift in Sources */,
 				DA7418BF1B9EF8F000C4D323 /* UIColor+Judo.swift in Sources */,
 				DAB051381BD797CA00888E06 /* FloatingTextField.swift in Sources */,
