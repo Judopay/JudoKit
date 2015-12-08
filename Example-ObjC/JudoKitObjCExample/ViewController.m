@@ -172,7 +172,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     
     [JudoKit payment:judoID amount:amount reference:ref completion:^(Response * response, JudoError * error) {
         if (error || response.items.count == 0) {
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
+            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self dismissViewControllerAnimated:YES completion:nil];
             return; // BAIL
@@ -202,7 +202,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     
     [JudoKit preAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] completion:^(Response * response, JudoError * error) {
         if (error || response.items.count == 0) {
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
+            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             [self dismissViewControllerAnimated:YES completion:nil];
             return; // BAIL
@@ -231,7 +231,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     [JudoKit registerCard:judoID amount:[[Amount alloc] initWithAmountString:@"1.01" currency:@"GBP"] reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] completion:^(Response * response, JudoError * error) {
         [self dismissViewControllerAnimated:YES completion:nil];
         if (error && response.items.count == 0) {
-            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
+            _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
             [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
             return; // BAIL
         }
@@ -255,7 +255,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
         [JudoKit tokenPayment:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
             if (error || response.items.count == 0) {
-                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
+                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return; // BAIL
@@ -291,7 +291,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
         
         [JudoKit tokenPreAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
             if (error || response.items.count == 0) {
-                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"there was an error performing the operation" preferredStyle:UIAlertControllerStyleAlert];
+                _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
                 [_alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
                 [self dismissViewControllerAnimated:YES completion:nil];
                 return; // BAIL
