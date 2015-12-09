@@ -1,5 +1,5 @@
 //
-//  Payment.swift
+//  JudoKit.swift
 //  Judo
 //
 //  Copyright (c) 2015 Alternative Payments Ltd

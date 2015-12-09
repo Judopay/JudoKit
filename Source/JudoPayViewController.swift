@@ -1,5 +1,5 @@
 //
-//  JPayViewController.swift
+//  JudoPayViewController.swift
 //  JudoKit
 //
 //  Copyright (c) 2015 Alternative Payments Ltd

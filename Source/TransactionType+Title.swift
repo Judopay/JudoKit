@@ -1,5 +1,5 @@
 //
-//  NSTimer+Blocks.swift
+//  TransactionType+Title.swift
 //  JudoKit
 //
 //  Copyright © 2015 Judo Payments. All rights reserved.
