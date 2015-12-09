@@ -1,5 +1,5 @@
 //
-//  Card.swift
+//  String+Card.swift
 //  JudoKit
 //
 //  Copyright (c) 2015 Alternative Payments Ltd

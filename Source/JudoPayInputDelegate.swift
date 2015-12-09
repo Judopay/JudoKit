@@ -1,5 +1,5 @@
 //
-//  BillingCountryInputField.swift
+//  JudoPayInputDelegate.swift
 //  JudoKit
 //
 //  Copyright (c) 2015 Alternative Payments Ltd
