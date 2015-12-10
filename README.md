@@ -37,7 +37,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 5.4'
+pod 'JudoKit', '~> 5.5'
 ```
 
 Then, run the following command:
@@ -61,7 +61,7 @@ $ brew install carthage
 - To integrate Judo into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "JudoPay/JudoKit" >= 5.4
+github "JudoPay/JudoKit" >= 5.5
 ```
 
 - execute the following command in your project folder. This should clone the project and build the JudoKit scheme
@@ -149,7 +149,7 @@ When delivering your App to the AppStore make sure to remove the line.
 #### Make a simple Payment
 
 ```swift
-JudoKit.payment(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+JudoKit.payment(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
     self.dismissViewControllerAnimated(true, completion: nil)
     if let _ = error {
         // handle error
@@ -170,7 +170,7 @@ JudoKit.payment(judoID, amount: Amount(42, currentCurrency), reference: Referenc
 #### Make a simple PreAuth
 
 ```swift
-JudoKit.preAuth(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+JudoKit.preAuth(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
     self.dismissViewControllerAnimated(true, completion: nil)
     if let _ = error {
         // handle error
@@ -192,7 +192,7 @@ JudoKit.preAuth(judoID, amount: Amount(42, currentCurrency), reference: Referenc
 #### Register a card
 
 ```swift
-JudoKit.registerCard(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), completion: { (response, error) -> () in
+JudoKit.registerCard(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference"), completion: { (response, error) -> () in
     self.dismissViewControllerAnimated(true, completion: nil)
     if let _ = error {
         // handle error
@@ -214,7 +214,7 @@ JudoKit.registerCard(judoID, amount: Amount(42, currentCurrency), reference: Ref
 
 ```swift
 if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
-    JudoKit.tokenPayment(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+    JudoKit.tokenPayment(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
         self.dismissViewControllerAnimated(true, completion: nil)
         if let _ = error {
             // handle error
@@ -239,7 +239,7 @@ if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
 
 ```swift
 if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
-    JudoKit.tokenPreAuth(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "payment reference", paymentRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+    JudoKit.tokenPreAuth(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
         self.dismissViewControllerAnimated(true, completion: nil)
         if let _ = error {
             // handle error
