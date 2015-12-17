@@ -29,10 +29,10 @@ import JudoShield
 
 /**
  
- the JPayViewController is the one solution build to guide a user through the journey of entering their card details.
+ the JudoPayViewController is the one solution build to guide a user through the journey of entering their card details.
  
  */
-public class JPayViewController: UIViewController, UIWebViewDelegate {
+public class JudoPayViewController: UIViewController {
     
     // MARK: Transaction variables
     
@@ -169,74 +169,6 @@ public class JPayViewController: UIViewController, UIWebViewDelegate {
     }
 
     
-    // MARK: UIWebViewDelegate
-    
-    public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        let urlString = request.URL?.absoluteString
-        
-        if let urlString = urlString where urlString.rangeOfString("Parse3DS") != nil {
-            guard let body = request.HTTPBody,
-                let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
-                    self.encounterErrorBlock?(JudoError(.Failed3DSError))
-                    return false
-            }
-            
-            var results = JSONDictionary()
-            let pairs = bodyString.componentsSeparatedByString("&")
-            
-            for pair in pairs {
-                if pair.rangeOfString("=") != nil {
-                    let components = pair.componentsSeparatedByString("=")
-                    let value = components[1]
-                    let escapedVal = value.stringByRemovingPercentEncoding
-                    
-                    results[components[0]] = escapedVal
-                }
-            }
-            
-            if let receiptID = self.pending3DSReceiptID {
-                if self.myView.transactionType == .RegisterCard {
-                    self.myView.loadingView.actionLabel.text = kVerifying3DSRegisterCardTitle
-                } else {
-                    self.myView.loadingView.actionLabel.text = kVerifying3DSPaymentTitle
-                }
-                self.myView.loadingView.startAnimating()
-                self.title = kAuthenticationTitle
-                self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { (resp, error) -> () in
-                    self.myView.loadingView.stopAnimating()
-                    if let error = error {
-                        self.completionBlock?(nil, error)
-                    } else if let resp = resp {
-                        self.completionBlock?(resp, nil)
-                    } else {
-                        self.completionBlock?(nil, JudoError(.Unknown))
-                    }
-                })
-            } else {
-                self.completionBlock?(nil, JudoError(.Unknown))
-            }
-            
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                self.myView.threeDSecureWebView.alpha = 0.0
-            }, completion: { (didFinish) -> Void in
-                self.myView.threeDSecureWebView.loadRequest(NSURLRequest(URL: NSURL(string: "about:blank")!))
-            })
-            return false
-        }
-        return true
-    }
-    
-    public func webViewDidFinishLoad(webView: UIWebView) {
-        var alphaVal: CGFloat = 1.0
-        if webView.request?.URL?.absoluteString == "about:blank" {
-            alphaVal = 0.0
-        }
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
-            self.myView.threeDSecureWebView.alpha = alphaVal
-            self.myView.loadingView.stopAnimating()
-        })
-    }
-    
     // MARK: Button Actions
     
     
@@ -333,4 +265,75 @@ public class JPayViewController: UIViewController, UIWebViewDelegate {
         self.encounterErrorBlock?(JudoError(.UserDidCancel))
     }
     
+}
+
+// MARK: UIWebViewDelegate
+
+extension JudoPayViewController: UIWebViewDelegate {
+    
+    public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        let urlString = request.URL?.absoluteString
+        
+        if let urlString = urlString where urlString.rangeOfString("Parse3DS") != nil {
+            guard let body = request.HTTPBody,
+                let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
+                    self.encounterErrorBlock?(JudoError(.Failed3DSError))
+                    return false
+            }
+            
+            var results = JSONDictionary()
+            let pairs = bodyString.componentsSeparatedByString("&")
+            
+            for pair in pairs {
+                if pair.rangeOfString("=") != nil {
+                    let components = pair.componentsSeparatedByString("=")
+                    let value = components[1]
+                    let escapedVal = value.stringByRemovingPercentEncoding
+                    
+                    results[components[0]] = escapedVal
+                }
+            }
+            
+            if let receiptID = self.pending3DSReceiptID {
+                if self.myView.transactionType == .RegisterCard {
+                    self.myView.loadingView.actionLabel.text = kVerifying3DSRegisterCardTitle
+                } else {
+                    self.myView.loadingView.actionLabel.text = kVerifying3DSPaymentTitle
+                }
+                self.myView.loadingView.startAnimating()
+                self.title = kAuthenticationTitle
+                self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { (resp, error) -> () in
+                    self.myView.loadingView.stopAnimating()
+                    if let error = error {
+                        self.completionBlock?(nil, error)
+                    } else if let resp = resp {
+                        self.completionBlock?(resp, nil)
+                    } else {
+                        self.completionBlock?(nil, JudoError(.Unknown))
+                    }
+                })
+            } else {
+                self.completionBlock?(nil, JudoError(.Unknown))
+            }
+            
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.myView.threeDSecureWebView.alpha = 0.0
+                }, completion: { (didFinish) -> Void in
+                    self.myView.threeDSecureWebView.loadRequest(NSURLRequest(URL: NSURL(string: "about:blank")!))
+            })
+            return false
+        }
+        return true
+    }
+    
+    public func webViewDidFinishLoad(webView: UIWebView) {
+        var alphaVal: CGFloat = 1.0
+        if webView.request?.URL?.absoluteString == "about:blank" {
+            alphaVal = 0.0
+        }
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.myView.threeDSecureWebView.alpha = alphaVal
+            self.myView.loadingView.stopAnimating()
+        })
+    }
 }
