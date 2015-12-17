@@ -24,7 +24,6 @@ JudoPayInputField.swift
 	public func title() -> String
 	public func titleWidth() -> Int
 	public func hintLabelText() -> String
-	public protocol JudoInputType
 TransactionType+Title.swift
 	public func title() -> String
 SecurityInputField.swift
@@ -67,6 +66,8 @@ JudoPayViewController.swift
 	public override func viewDidAppear(animated: Bool)
 	public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool
 	public func webViewDidFinishLoad(webView: UIWebView)
+JudoInputType.swift
+	public protocol JudoInputType
 IssueNumberInputField.swift
 	public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
 	override public func textFieldDidChangeValue(textField: UITextField)
