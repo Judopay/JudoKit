@@ -70,7 +70,7 @@ import Judo
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
     @objc public static func payment(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, encounteredError: errorHandler))
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, encounteredError: errorHandler))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -86,7 +86,7 @@ import Judo
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
     @objc public static func preAuth(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler))
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -106,7 +106,7 @@ import Judo
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
     @objc public static func registerCard(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, encounteredError: errorHandler))
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, encounteredError: errorHandler))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -126,7 +126,7 @@ import Judo
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
     @objc public static func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken))
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -144,7 +144,7 @@ import Judo
     - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
     @objc public static func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken))
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
