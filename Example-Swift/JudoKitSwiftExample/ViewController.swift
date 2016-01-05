@@ -74,7 +74,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     var alertController: UIAlertController?
     
-    var currentCurrency: String = "GBP"
+    var currentCurrency: Currency = .GBP
     
     var isTransactingApplePayPreAuth = false
     
@@ -136,7 +136,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     @IBAction func segmentedControlValueChange(segmentedControl: UISegmentedControl) {
         if let selectedIndexTitle = segmentedControl.titleForSegmentAtIndex(segmentedControl.selectedSegmentIndex) {
-            self.currentCurrency = selectedIndexTitle
+            self.currentCurrency = Currency(selectedIndexTitle)
         }
     }
     
