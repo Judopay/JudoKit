@@ -11,13 +11,14 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [5.5.0](https://github.com/JudoPay/JudoKit/tag/5.5.0)
-Released on 2015-12-17
+Released on 2016-01-14
 
 #### Added
 - Version is now sent in the REST API Headers
 - dedup
 
 #### Updated
+- currency to allow only strongly typed currencies from a list
 - now accessing v5 API
 - new error handling model
 - spreading code to more files for better readability
