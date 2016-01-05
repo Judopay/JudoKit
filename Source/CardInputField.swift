@@ -66,9 +66,7 @@ public class CardInputField: JudoPayInputField {
             cardConfigs = acceptedCardConfigs
         }
         
-        let filteredNetworks = cardConfigs.filter { $0.cardNetwork == newString.cardNetwork()}
-        
-        let lowestNumber = filteredNetworks.sort { $0.cardLength < $1.cardLength }
+        let lowestNumber = cardConfigs.filter({ $0.cardNetwork == newString.cardNetwork() }).sort({ $0 < $1 })
         
         if let textCount = textField.text?.stripped.characters.count where textCount == lowestNumber.first?.cardLength {
             if textField.text!.isCardNumberValid() {
