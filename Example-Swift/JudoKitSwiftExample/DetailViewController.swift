@@ -45,8 +45,8 @@ class DetailViewController: UIViewController {
         
         if let response = self.response, let transaction = response.items.first {
             self.dateStampLabel.text = self.outputDateFormatter.stringFromDate(transaction.createdAt)
-            self.currencyFormatter.currencyCode = transaction.amount.currency
-            self.amountLabel.text = transaction.amount.amount.stringValue + " " + transaction.amount.currency
+            self.currencyFormatter.currencyCode = transaction.amount.currency.rawValue
+            self.amountLabel.text = transaction.amount.amount.stringValue + " " + transaction.amount.currency.rawValue
             self.resolutionLabel.text = transaction.result.rawValue
         }
     }
@@ -56,8 +56,8 @@ class DetailViewController: UIViewController {
         
         if let response = self.response, let transaction = response.items.first {
             self.dateStampLabel.text = self.outputDateFormatter.stringFromDate(transaction.createdAt)
-            self.currencyFormatter.currencyCode = transaction.amount.currency
-            self.amountLabel.text = transaction.amount.amount.stringValue + " " + transaction.amount.currency
+            self.currencyFormatter.currencyCode = transaction.amount.currency.rawValue
+            self.amountLabel.text = transaction.amount.amount.stringValue + " " + transaction.amount.currency.rawValue
         }
     }
     

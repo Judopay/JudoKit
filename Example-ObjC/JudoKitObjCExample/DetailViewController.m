@@ -34,7 +34,7 @@
         NSDate *createdAtDate = self.transactionData.createdAt;
         self.dateStampLabel.text = [self.outputDateFormatter stringFromDate:createdAtDate];
         
-        self.numberFormatter.currencyCode = self.transactionData.amount.currency;
+        self.numberFormatter.currencyCode = self.transactionData.amount.currency.rawValue;
         self.amountLabel.text = [self.numberFormatter stringFromNumber:self.transactionData.amount.amount];
     }
 }
@@ -42,7 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     if (self.transactionData) {
-        self.numberFormatter.currencyCode = self.transactionData.amount.currency;
+        self.numberFormatter.currencyCode = self.transactionData.amount.currency.rawValue;
         self.amountLabel.text = [self.numberFormatter stringFromNumber:self.transactionData.amount.amount];
     }
 }

@@ -33,7 +33,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 @property (nonatomic, strong) IBOutlet NSLayoutConstraint *settingsViewBottomConstraint;
 
-@property (nonatomic, strong) NSString *currentCurrency;
+@property (nonatomic, strong) Currency *currentCurrency;
 
 @property (nonatomic, strong) CardDetails *cardDetails;
 @property (nonatomic, strong) PaymentToken *payToken;
@@ -84,7 +84,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (IBAction)segmentedControlValueChange:(UISegmentedControl *)segmentedControl {
-    self.currentCurrency = [segmentedControl titleForSegmentAtIndex:segmentedControl.selectedSegmentIndex];
+    self.currentCurrency = [[Currency alloc] init:[segmentedControl titleForSegmentAtIndex:segmentedControl.selectedSegmentIndex]];
 }
 
 - (IBAction)AVSValueChanged:(UISwitch *)theSwitch {
@@ -166,7 +166,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 #pragma mark - Operations
 
 - (void)paymentOperation {
-    Amount *amount = [[Amount alloc] initWithAmountString:@"25.0" currency:@"GBP"];
+    Amount *amount = [[Amount alloc] initWithAmountString:@"25.0" currency:[Currency GBP]];
     
     Reference *ref = [[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil];
     
@@ -198,7 +198,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (void)preAuthOperation {
-    Amount *amount = [[Amount alloc] initWithDecimalNumber:[NSDecimalNumber decimalNumberWithString:@"25.0"] currency:@"GBP"];
+    Amount *amount = [[Amount alloc] initWithDecimalNumber:[NSDecimalNumber decimalNumberWithString:@"25.0"] currency:[Currency GBP]];
     
     [JudoKit preAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] completion:^(Response * response, JudoError * error) {
         if (error || response.items.count == 0) {
@@ -228,7 +228,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)createCardTokenOperation {
     
-    [JudoKit registerCard:judoID amount:[[Amount alloc] initWithAmountString:@"1.01" currency:@"GBP"] reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] completion:^(Response * response, JudoError * error) {
+    [JudoKit registerCard:judoID amount:[[Amount alloc] initWithAmountString:@"1.01" currency:[Currency GBP]] reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] completion:^(Response * response, JudoError * error) {
         [self dismissViewControllerAnimated:YES completion:nil];
         if (error && response.items.count == 0) {
             _alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.message preferredStyle:UIAlertControllerStyleAlert];
@@ -251,7 +251,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)tokenPaymentOperation {
     if (self.cardDetails) {
-        Amount *amount = [[Amount alloc] initWithAmountString:@"25" currency:@"GBP"];
+        Amount *amount = [[Amount alloc] initWithAmountString:@"25" currency:[Currency GBP]];
 
         [JudoKit tokenPayment:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
             if (error || response.items.count == 0) {
@@ -287,7 +287,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)tokenPreAuthOperation {
     if (self.cardDetails) {
-        Amount *amount = [[Amount alloc] initWithAmountString:@"25" currency:@"GBP"];
+        Amount *amount = [[Amount alloc] initWithAmountString:@"25" currency:[Currency GBP]];
         
         [JudoKit tokenPreAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
             if (error || response.items.count == 0) {

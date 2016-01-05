@@ -155,7 +155,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     */
     func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: PKPaymentAuthorizationStatus -> Void) {
         
-        JudoKit.applePayPayment(judoID, amount: Amount("0.99", "GBP"), reference: reference, payment: payment) { (response, error) -> () in
+        JudoKit.applePayPayment(judoID, amount: Amount(amountString: "0.99", currency: .GBP), reference: reference!, payment: payment) { (response, error) -> () in
             if let _ = error {
                 completion(.Failure)
             } else {
