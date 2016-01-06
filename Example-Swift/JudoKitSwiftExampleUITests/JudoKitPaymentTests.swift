@@ -37,7 +37,7 @@ class JudoKitPaymentTests: XCTestCase {
         elementsQuery.textFields["Card number"].typeText("4976000000003436")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
-        expiryDateTextField.typeText("1215")
+        expiryDateTextField.typeText("1220")
         
         let cvv2TextField = elementsQuery.textFields["CVV2"]
         cvv2TextField.typeText("452")
@@ -61,7 +61,7 @@ class JudoKitPaymentTests: XCTestCase {
         cardNumberTextField.typeText("5100000000005460")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
-        expiryDateTextField.typeText("1215")
+        expiryDateTextField.typeText("1220")
         
         let cvc2TextField = elementsQuery.textFields["CVC2"]
         cvc2TextField.typeText("524")
@@ -85,7 +85,7 @@ class JudoKitPaymentTests: XCTestCase {
         cardNumberTextField.typeText("340000432128428")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
-        expiryDateTextField.typeText("1215")
+        expiryDateTextField.typeText("1220")
         
         let cidvTextField = elementsQuery.textFields["CIDV"]
         cidvTextField.typeText("3469")

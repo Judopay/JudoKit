@@ -41,7 +41,7 @@ class JudoKitMaestroTests: XCTestCase {
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.tap()
-        expiryDateTextField.typeText("1215")
+        expiryDateTextField.typeText("1220")
         
         let cvvTextField = elementsQuery.textFields["CVV"]
         cvvTextField.typeText("789")
@@ -75,7 +75,7 @@ class JudoKitMaestroTests: XCTestCase {
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.tap()
-        expiryDateTextField.typeText("1215")
+        expiryDateTextField.typeText("1220")
         
         let cvvTextField = elementsQuery.textFields["CVV"]
         cvvTextField.typeText("789")
@@ -107,7 +107,7 @@ class JudoKitMaestroTests: XCTestCase {
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.tap()
-        expiryDateTextField.typeText("1215")
+        expiryDateTextField.typeText("1220")
         
         let cvvTextField = elementsQuery.textFields["CVV"]
         cvvTextField.typeText("784")
