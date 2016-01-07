@@ -268,6 +268,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
         if let cardDetails = self.cardDetails,
             let formattedLastFour = cardDetails.formattedLastFour(),
             let expiryDate = cardDetails.formattedEndDate() {
+                self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
                 self.cardInputField.textField.text = formattedLastFour
                 self.expiryDateInputField.textField.text = expiryDate
                 self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
@@ -400,6 +401,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     */
     func updateInputFieldsWithNetwork(network: CardNetwork?) {
         guard let network = network else { return }
+        self.cardInputField.cardNetwork = network
         self.cardInputField.updateCardLogo()
         self.secureCodeInputField.cardNetwork = network
         self.secureCodeInputField.updateCardLogo()

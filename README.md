@@ -272,5 +272,5 @@ JudoKit.tintColor = UIColor.greenColor()
 
 This way you can achieve a number of very different looks in an instant
 
-![Light Theme Image](ressources/theme01.png)
-![Dark Theme Image](ressources/theme02.png)
+![Light Theme Image](http://judopay.github.io/JudoKit/ressources/theme01.png)
+![Dark Theme Image](http://judopay.github.io/JudoKit/ressources/theme02.png)
