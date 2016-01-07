@@ -5,13 +5,13 @@
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
 [![Build Status](https://travis-ci.org/JudoPay/JudoKit.svg)](http://travis-ci.org/JudoPay/JudoKit)
 
-# judoKit Native SDK for iOS #
+# judoKit Native SDK for iOS
 
 <p><img align="right" src="http://judopay.github.io/JudoKit/ressources/theme01.png" width="257" height="480"></p>
 
-This is the official Judo iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judoshield)) combining them with additional tools to enable easy integration of payments into your App.
+This is the official Judo iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judoshield)) combining them with additional tools to enable easy integration of payments into your App. It works for both Swift and Obj-C projects.
 
-### What is this project for? ###
+### What is this project for?
 
 The JudoKit is a framework for creating easy payments inside your app with [JudoPay](https://www.judopay.com/). It contains an exhaustive toolbelt for everything to related to making payments.
 
@@ -262,15 +262,61 @@ if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
 }
 ```
 
-#### Theme Customisation
+## Customizing payments page theme
 
-The JudoKit integrated UI Solution for making transactions has a simple method to customise the theme. The `JudoKit` class has a property that takes a `UIColor` instance and automatically adjusts the general look and feel for this color based on a light or dark theme.
+judoKit comes with our new customisable, stacked UI. Note that if you have implemented with our Objective-C repository, you will have to use this Swift framework in your Obj-C project to use the new customisable UI. To do this, replace the legacy 'judoPay' implementation in your app with the 'judoKit' implementation.
 
-```swift
-JudoKit.tintColor = UIColor.greenColor()
+### Manual integration & Carthage
+
+For manual integration and usage of carthage, you need to create a fork of the existing judoKit repository on GitHub.
+
+### Cocoapods
+
+If you need to make changes to the Theme while using Cocoapods, you need to unlock the source code files from judoKit inside your Pods project. With these changes, make sure you track your Cocoapods inside your git (or other versioning system).
+
+### Theme classes
+
+To customize colors, have a look at the `UIColor+Judo.swift` file. To customize strings, have a look at the `JudoPayView.swift` file
+
+#### `UIColor+Judo.swift`
+
+```
+func judoDarkGrayColor()
+func judoInputFieldTextColor()
+func judoLightGrayColor()
+func judoInputFieldBorderColor()
+func judoContentViewBackgroundColor()
+func judoButtonColor()
+func judoButtonTitleColor()
+func judoLoadingBackgroundColor()
+func judoRedColor()
+func judoLoadingBlockViewColor()
+func judoInputFieldBackgroundColor()
 ```
 
-This way you can achieve a number of very different looks in an instant
+#### `JudoPayView.swift`
 
-![Light Theme Image](ressources/theme01.png)
-![Dark Theme Image](ressources/theme02.png)
+```
+// Buttons
+let kPaymentButtonTitle = "Pay"
+let kRegisterCardButtonTitle = "Add card"
+let kRegisterCardNavBarButtonTitle = "Add"
+
+let kBackButtonTitle = "Back"
+
+// Titles
+let kPaymentTitle = "Payment"
+let kRegisterCardTitle = "Add card"
+let kRefundTitle = "Refund"
+let kAuthenticationTitle = "Authentication"
+
+// Loading
+let kLoadingIndicatorRegisterCardTitle = "Adding card..."
+let kLoadingIndicatorProcessingTitle = "Processing payment..."
+let kRedirecting3DSTitle = "Redirecting..."
+let kVerifying3DSPaymentTitle = "Verifying payment"
+let kVerifying3DSRegisterCardTitle = "Verifying card"
+
+// InputFields
+let inputFieldHeight: CGFloat = 48
+```
