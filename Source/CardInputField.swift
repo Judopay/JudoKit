@@ -36,6 +36,8 @@ public class CardInputField: JudoPayInputField {
     /// the input field will validate a set of given card configurations
     public var acceptedCardNetworks: [Card.Configuration]?
     
+    public var cardNetwork: CardNetwork = .Unknown
+    
     // MARK: UITextFieldDelegate
     
     
@@ -94,20 +96,7 @@ public class CardInputField: JudoPayInputField {
     }
     
     override public func logoView() -> CardLogoView? {
-        var type: CardLogoType = .Unknown
-        switch self.textField.text!.cardNetwork() {
-        case .Visa:
-            type = .Visa
-        case .MasterCard:
-            type = .MasterCard
-        case .Maestro:
-            type = .Maestro
-        case .AMEX:
-            type = .AMEX
-        default:
-            break
-        }
-        return CardLogoView(type: type)
+        return CardLogoView(type: self.cardNetwork.cardLogoType())
     }
     
     override public func title() -> String {
