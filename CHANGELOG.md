@@ -24,6 +24,7 @@ Released on 2016-01-14
 - spreading code to more files for better readability
 
 #### Fixed
+- some issues where the card logo would not appear on repeat payments
 - some typos
 - expiry date was not correctly verified
 
