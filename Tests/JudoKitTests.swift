@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import JudoKit
+@testable import Judo
 
 class JudoKitTests: XCTestCase {
     
