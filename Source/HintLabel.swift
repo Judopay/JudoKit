@@ -62,7 +62,7 @@ public class HintLabel: UILabel {
         let animation = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.type = kCATransitionFade
-        animation.duration = 0.75
+        animation.duration = 0.5
         self.layer.addAnimation(animation, forKey: "kCATransitionFade")
     }
     
