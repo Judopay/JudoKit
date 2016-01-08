@@ -26,7 +26,7 @@ import Foundation
 import PassKit
 import Judo
 
-let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16)]
+let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.Maestro, 16)]
 
 
 /// Entry point for interacting with the JudoKit
