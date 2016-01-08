@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file.
 Released on 2016-01-14
 
 #### Added
+- Hint label now shows errors in red color
+- modified acceptance of card networks to hard restrict networks and lengths that are not supported
 - Version is now sent in the REST API Headers
 - dedup
 

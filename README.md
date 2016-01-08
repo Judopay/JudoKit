@@ -262,6 +262,24 @@ if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
 }
 ```
 
+## Card acceptance configuration
+
+JudoKit is capable of detecting and accepting a huge array of Card Networks and Card lengths. Maestro as an example used to have cards with 19 digits while most of card have 16 digit card numbers. To be capable of using all kinds of cards, a `Card.Configuration` object defines a specific accepted card network and card length. This is used as shown below
+
+The default value for accepted networks are Visa and MasterCard cards with a length of 16 digits
+
+```swift
+let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16)]
+```
+
+in case you want to add the capability of accepting AMEX you need to add this as following
+
+```swift
+JudoKit.acceptedCardNetworks = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.AMEX, 15)]
+```
+
+Any other card configuration that is available can be added for the UI to accept the card. **BE AWARE** you do need to configure your account with JudoPayments for any other Card Type payments to be processed successfully
+
 ## Customizing payments page theme
 
 judoKit comes with our new customisable, stacked UI. Note that if you have implemented with our Objective-C repository, you will have to use this Swift framework in your Obj-C project to use the new customisable UI. To do this, replace the legacy 'judoPay' implementation in your app with the 'judoKit' implementation.

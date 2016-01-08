@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import JudoKit
+@testable import Judo
 
 class JudoKitTests: XCTestCase {
     
@@ -26,7 +27,7 @@ class JudoKitTests: XCTestCase {
         let visaCardNumber = "46231344642" // VISA
         
         // When
-        let visaCardFormatted = try! visaCardNumber.cardPresentationString(nil)
+        let visaCardFormatted = try! visaCardNumber.cardPresentationString([Card.Configuration(.Visa, 16)])
         
         // Then
         XCTAssertEqual(visaCardFormatted, "4623 1344 642")
@@ -36,7 +37,7 @@ class JudoKitTests: XCTestCase {
         let masterCardNumber = "5546231344642" // MasterCard
         
         // When
-        let masterCardFormatted = try! masterCardNumber.cardPresentationString(nil)
+        let masterCardFormatted = try! masterCardNumber.cardPresentationString([Card.Configuration(.MasterCard, 16)])
         
         // Then
         XCTAssertEqual(masterCardFormatted, "5546 2313 4464 2")
@@ -46,7 +47,7 @@ class JudoKitTests: XCTestCase {
         let amexCardNumber = "3446231344642" // MasterCard
         
         // When
-        let amexCardFormatted = try! amexCardNumber.cardPresentationString(nil)
+        let amexCardFormatted = try! amexCardNumber.cardPresentationString([Card.Configuration(.AMEX, 15)])
         
         // Then
         XCTAssertEqual(amexCardFormatted, "3446 231344 642")

@@ -26,6 +26,9 @@ import Foundation
 import PassKit
 import Judo
 
+let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.Maestro, 16)]
+
+
 /// Entry point for interacting with the JudoKit
 @objc public class JudoKit: NSObject {
     
@@ -34,6 +37,9 @@ import Judo
     
     /// set the address verification service to true to prompt the user to input his country and post code information
     public static var avsEnabled: Bool = false
+    
+    /// an array of accepted card configurations (card network and card number length)
+    public static var acceptedCardNetworks: [Card.Configuration] = defaultCardConfigurations
     
     
     /**

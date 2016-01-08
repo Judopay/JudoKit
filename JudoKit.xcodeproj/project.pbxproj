@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3B286FBC1C3ED7F200094D48 /* CardNetwork+CardLogoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B286FBB1C3ED7F200094D48 /* CardNetwork+CardLogoType.swift */; };
+		3B286FC81C3FCED400094D48 /* HintLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B286FC71C3FCED400094D48 /* HintLabel.swift */; };
 		DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C19B81B986B5400CD2613 /* CardLogoView.swift */; };
 		DA3048531BFF8C76000E1B79 /* TransactionType+Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3048521BFF8C76000E1B79 /* TransactionType+Title.swift */; };
 		DA3902351B95B5DF001A703C /* JudoPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902341B95B5DF001A703C /* JudoPayViewController.swift */; };
@@ -62,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		3B286FBB1C3ED7F200094D48 /* CardNetwork+CardLogoType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CardNetwork+CardLogoType.swift"; sourceTree = "<group>"; };
+		3B286FC71C3FCED400094D48 /* HintLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HintLabel.swift; sourceTree = "<group>"; };
 		DA0C19B81B986B5400CD2613 /* CardLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CardLogoView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DA3048521BFF8C76000E1B79 /* TransactionType+Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionType+Title.swift"; sourceTree = "<group>"; };
 		DA3902341B95B5DF001A703C /* JudoPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = JudoPayViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -209,6 +211,7 @@
 				DA7418BC1B9DF61900C4D323 /* LoadingView.swift */,
 				DAC0A3D41BB14A8000EA689D /* 3DSWebView.swift */,
 				DAC0A3DE1BB1845C00EA689D /* PayButton.swift */,
+				3B286FC71C3FCED400094D48 /* HintLabel.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				DA53A27F1BDE430B000C0A99 /* NSTimer+Blocks.swift in Sources */,
 				DA3902461B983959001A703C /* JudoPayInputField.swift in Sources */,
 				DA3048531BFF8C76000E1B79 /* TransactionType+Title.swift in Sources */,
+				3B286FC81C3FCED400094D48 /* HintLabel.swift in Sources */,
 				DA39023E1B96092B001A703C /* SecurityInputField.swift in Sources */,
 				DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */,
 				DAD13A241B7CABA7007BB196 /* String+Card.swift in Sources */,
