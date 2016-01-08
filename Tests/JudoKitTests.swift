@@ -46,7 +46,7 @@ class JudoKitTests: XCTestCase {
         let amexCardNumber = "3446231344642" // MasterCard
         
         // When
-        let amexCardFormatted = try! amexCardNumber.cardPresentationString(nil)
+        let amexCardFormatted = try! amexCardNumber.cardPresentationString([Card.Configuration(.AMEX, 15)])
         
         // Then
         XCTAssertEqual(amexCardFormatted, "3446 231344 642")

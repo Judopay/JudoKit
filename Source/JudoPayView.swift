@@ -96,7 +96,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     var currentKeyboardHeight: CGFloat = 0.0
     
     /// the hint label object
-    let hintLabel = UILabel(frame: CGRectZero)
+    let hintLabel = HintLabel(frame: CGRectZero)
     
     // can not initialize because self is not available at this point to set the target
     // must be var? because can also not be initialized in init before self is available
@@ -223,9 +223,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
         self.postCodeInputField.delegate = self
         
         self.hintLabel.font = UIFont.systemFontOfSize(14)
-        self.hintLabel.textColor = UIColor.judoDarkGrayColor()
         self.hintLabel.numberOfLines = 3
-        self.hintLabel.alpha = 0.0
         self.hintLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // layout constraints
@@ -326,6 +324,9 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     
     public func cardInput(input: CardInputField, error: JudoError) {
         input.errorAnimation(error.code != .InputLengthMismatchError)
+        if let message = error.message {
+            self.hintLabel.showAlert(message)
+        }
     }
     
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
@@ -334,6 +335,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     
     public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
         self.updateInputFieldsWithNetwork(network)
+        self.hintLabel.hideAlert()
     }
     
     // MARK: DateInputDelegate
@@ -440,15 +442,10 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
      - parameter input: the input field which the user is currently idling
      */
     func resetTimerWithInput(input: JudoPayInputField) {
-        UIView.animateWithDuration(0.5) { () -> Void in
-            self.hintLabel.alpha = 0.0
-        }
+        self.hintLabel.hideHint()
         self.timer?.invalidate()
         self.timer = NSTimer.schedule(3.0, handler: { (timer) -> Void in
-            self.hintLabel.text = input.hintLabelText()
-            UIView.animateWithDuration(0.5, animations: { () -> Void in
-                self.hintLabel.alpha = 1.0
-            })
+            self.hintLabel.showHint(input.hintLabelText())
         })
     }
     

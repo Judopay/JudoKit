@@ -26,11 +26,6 @@ import Foundation
 import Judo
 
 
-let defaultCardConfigurations = [Card.Configuration(.Visa, 16),
-                                Card.Configuration(.MasterCard, 16),
-                                Card.Configuration(.AMEX, 15)]
-
-
 public extension String {
     
     
@@ -44,13 +39,7 @@ public extension String {
     - Throws CardLengthMismatchError: if amount of characters is longer than the maximum character number
     - Throws InvalidCardNumber: if the card number is invalid
     */
-    func cardPresentationString(configurations: [Card.Configuration]?) throws -> String {
-        
-        var config = defaultCardConfigurations
-        
-        if let configurations = configurations {
-            config = configurations
-        }
+    func cardPresentationString(configurations: [Card.Configuration]) throws -> String {
         
         let strippedSelf = self.strippedWhitespaces
         
@@ -64,7 +53,7 @@ public extension String {
         }
         
         // make sure to only check validity for the necessary networks
-        let cardNetwork = strippedSelf.cardNetwork(constrainedToConfigurations: config)
+        let cardNetwork = strippedSelf.cardNetwork()
         
         // only try to format if a specific card number has been recognized
         if cardNetwork == .Unknown {
@@ -75,15 +64,21 @@ public extension String {
         // 1. filter out networks that dont match the entered card numbers
         // 2. map all remaining strings while removing all optional values
         // 3. check if the current string has already passed any valid Card number lengths
-        let patterns = config.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() }).filter({ $0.strippedWhitespaces.characters.count >= strippedSelf.characters.count })
+        let patterns = configurations.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() })
         
-        if patterns.count == 0 {
+        let cardLengthMatchedPatterns = patterns.filter({ $0.strippedWhitespaces.characters.count >= strippedSelf.characters.count })
+        
+        if cardLengthMatchedPatterns.count == 0 {
             // if no patterns are left - the entered number is invalid
-            throw JudoError(.InvalidCardNumber)
+            var message = "We do not accept \(cardNetwork.stringValue())"
+            if cardLengthMatchedPatterns.count != patterns.count {
+                message += " with a length of \(strippedSelf.characters.count) digits"
+            }
+            throw JudoError(.InvalidCardNetwork, message)
         }
         
         // retrieve the shortest pattern that is left and start moving the characters across
-        let patternString = patterns.sort({ $0.characters.count < $1.characters.count })[0]
+        let patternString = patterns.sort(<)[0]
         
         var patternIndex = patternString.startIndex
         

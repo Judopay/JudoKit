@@ -50,6 +50,7 @@ public protocol JudoPayInputDelegate {
      */
     func cardInput(input: CardInputField, error: JudoError)
     
+    
     /**
      Delegate method that is triggered when the CardInputField did find a valid number
      
@@ -57,6 +58,7 @@ public protocol JudoPayInputDelegate {
      - parameter cardNumberString: the card number that has been entered as a String
      */
     func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String)
+    
     
     /**
      Delegate method that is triggered when the CardInputField detected a network
@@ -74,6 +76,7 @@ public protocol JudoPayInputDelegate {
      - parameter error: the error that occured
      */
     func dateInput(input: DateInputField, error: JudoError)
+    
     
     /**
      Delegate method that is triggered when the date input field has found a valid date
@@ -108,4 +111,5 @@ public protocol JudoPayInputDelegate {
      - parameter input: the input field calling the delegate method
      */
     func judoPayInputDidChangeText(input: JudoPayInputField)
+    
 }
