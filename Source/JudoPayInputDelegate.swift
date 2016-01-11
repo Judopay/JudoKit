@@ -91,7 +91,7 @@ public protocol JudoPayInputDelegate {
      Delegate method that is triggered when the judoPayInputField was validated
      
      - parameter input:   the input field calling the delegate method
-     - parameter isValid: a boolean that indicates wether the input is valid or invalid
+     - parameter isValid: a boolean that indicates whether the input is valid or invalid
      */
     func judoPayInput(input: JudoPayInputField, isValid: Bool)
     

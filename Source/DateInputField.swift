@@ -58,7 +58,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     private let currentMonth = NSCalendar.currentCalendar().component(.Month, fromDate: NSDate())
     
     
-    /// boolean stating wether input field should identify as a start or end date
+    /// boolean stating whether input field should identify as a start or end date
     public var isStartDate: Bool = false {
         didSet {
             self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
@@ -202,26 +202,36 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     
     // MARK: Custom methods
     
+    override public func isValid() -> Bool {
+        guard let dateString = textField.text where dateString.characters.count == 5,
+            let beginningOfMonthDate = self.dateFormatter.dateFromString(dateString) else { return false }
+        if self.isStartDate {
+            if beginningOfMonthDate.compare(NSDate()) == .OrderedAscending {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            let dayRange = NSCalendar.currentCalendar().rangeOfUnit(.Day, inUnit: .Month, forDate: beginningOfMonthDate)
+            let endOfMonthDate = beginningOfMonthDate.dateByAddingTimeInterval(60 * 60 * 24 * Double(dayRange.length))
+            if endOfMonthDate.compare(NSDate()) == .OrderedDescending {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
         guard let text = textField.text where text.characters.count == 5 else { return }
         guard let beginningOfMonthDate = self.dateFormatter.dateFromString(text) else { return }
         
-        if self.isStartDate {
-            if beginningOfMonthDate.compare(NSDate()) == .OrderedAscending {
-                self.delegate?.dateInput(self, didFindValidDate: text)
-            } else {
-                self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
-            }
+        if self.isValid() {
+            self.delegate?.dateInput(self, didFindValidDate: textField.text!)
         } else {
-            let dayRange = NSCalendar.currentCalendar().rangeOfUnit(.Day, inUnit: .Month, forDate: beginningOfMonthDate)
-            let endOfMonthDate = beginningOfMonthDate.dateByAddingTimeInterval(60 * 60 * 24 * Double(dayRange.length))
-            if endOfMonthDate.compare(NSDate()) == .OrderedDescending {
-                self.delegate?.dateInput(self, didFindValidDate: text)
-            } else {
-                self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
-            }
+            self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
         }
     }
     

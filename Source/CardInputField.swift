@@ -37,7 +37,6 @@ public class CardInputField: JudoPayInputField {
     
     // MARK: UITextFieldDelegate
     
-    
     @objc public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
@@ -47,19 +46,47 @@ public class CardInputField: JudoPayInputField {
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
-        if newString.characters.count == 0 {
+        if newString.characters.count == 0 || string.characters.count == 0 {
             return true
         }
         
+        var result: String?
+        
         do {
-            textField.text = try newString.cardPresentationString(JudoKit.acceptedCardNetworks)
+            result = try self.textField.text?.cardPresentationString(JudoKit.acceptedCardNetworks)
+            self.dismissError()
+        } catch let error {
+            self.delegate?.cardInput(self, error: error as! JudoError)
+        }
+        
+        if result == nil {
+            return false
+        }
+        
+        self.didChangeInputText()
+        
+        return true
+        
+    }
+    
+    // MARK: Custom methods
+    
+    override public func isValid() -> Bool {
+        return self.textField.text?.isCardNumberValid() ?? false
+    }
+    
+    override public func textFieldDidChangeValue(textField: UITextField) {
+        super.textFieldDidChangeValue(textField)
+        
+        do {
+            self.textField.text = try self.textField.text?.cardPresentationString(JudoKit.acceptedCardNetworks)
             self.delegate?.cardInput(self, didDetectNetwork: textField.text!.cardNetwork())
             self.dismissError()
         } catch let error {
             self.delegate?.cardInput(self, error: error as! JudoError)
         }
         
-        let lowestNumber = JudoKit.acceptedCardNetworks.filter({ $0.cardNetwork == newString.cardNetwork() }).sort(<)
+        let lowestNumber = JudoKit.acceptedCardNetworks.filter({ $0.cardNetwork == self.textField.text?.cardNetwork() }).sort(<)
         
         if let textCount = textField.text?.stripped.characters.count where textCount == lowestNumber.first?.cardLength {
             if textField.text!.isCardNumberValid() {
@@ -69,14 +96,8 @@ public class CardInputField: JudoPayInputField {
                 self.delegate?.cardInput(self, error: JudoError(.InvalidCardNumber, "the card number is invalid"))
             }
         }
-        
-        self.didChangeInputText()
 
-        return false
-        
     }
-    
-    // MARK: Custom methods
     
     override public func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])

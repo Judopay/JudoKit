@@ -87,4 +87,10 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
         self.delegate?.billingCountryInputDidEnter(self, billingCountry: self.selectedCountry)
     }
     
+    // MARK: JudoInputType
+    
+    override public func isValid() -> Bool {
+        return true
+    }
+    
 }
