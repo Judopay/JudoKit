@@ -55,7 +55,6 @@ public class JudoPayViewController: UIViewController {
     
     // MARK: completion blocks
     private var completionBlock: ((Response?, JudoError?) -> ())?
-    private var encounterErrorBlock: (JudoError -> ())?
     
     override public var view: UIView! {
         get { return self.myView as UIView }
@@ -78,19 +77,17 @@ public class JudoPayViewController: UIViewController {
      - parameter reference:        a Reference for the transaction
      - parameter transactionType:  the type of the transaction
      - parameter completion:       completion block called when transaction has been finished
-     - parameter encounteredError: a block that is called when non-fatal errors occured
      - parameter cardDetails:      an object containing all card information - default: nil
      - parameter paymentToken:     a payment token if a payment by token is to be made - default: nil
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: (Response?, JudoError?) -> (), encounteredError: JudoError -> (), cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
+    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: (Response?, JudoError?) -> (), cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
         self.judoID = judoID
         self.amount = amount
         self.reference = reference
         self.paymentToken = paymentToken
         self.completionBlock = completion
-        self.encounterErrorBlock = encounteredError
         
         self.myView = JudoPayView(type: transactionType, cardDetails: cardDetails)
         
@@ -154,8 +151,8 @@ public class JudoPayViewController: UIViewController {
         super.viewDidAppear(animated)
         
         self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
-            if let err = error as? JudoError {
-                self.encounterErrorBlock?(err)
+            if let _ = error as? JudoError {
+                // silently fail
             } else if coordinate.latitude != CLLocationDegrees(NSIntegerMax) {
                 self.currentLocation = coordinate
             }
@@ -262,7 +259,7 @@ public class JudoPayViewController: UIViewController {
      - parameter sender: the button
      */
     func doneButtonAction(sender: UIBarButtonItem) {
-        self.encounterErrorBlock?(JudoError(.UserDidCancel))
+        self.completionBlock?(nil, JudoError(.UserDidCancel))
     }
     
 }
@@ -277,7 +274,7 @@ extension JudoPayViewController: UIWebViewDelegate {
         if let urlString = urlString where urlString.rangeOfString("Parse3DS") != nil {
             guard let body = request.HTTPBody,
                 let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
-                    self.encounterErrorBlock?(JudoError(.Failed3DSError))
+                    self.completionBlock?(nil, JudoError(.Failed3DSError))
                     return false
             }
             

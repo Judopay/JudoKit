@@ -73,10 +73,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter amount:       the amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
-    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public static func payment(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, encounteredError: errorHandler))
+    @objc public static func payment(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> ()) {
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -89,10 +88,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter amount:       the amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
-    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public static func preAuth(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler))
+    @objc public static func preAuth(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> ()) {
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -109,10 +107,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter amount:       the amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
-    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public static func registerCard(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, encounteredError: errorHandler))
+    @objc public static func registerCard(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> ()) {
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -129,10 +126,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter cardDetails:  the card details to present in the input fields
     - parameter paymentToken: the consumer and card token to make a token payment with
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
-    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public static func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken))
+    @objc public static func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, cardDetails: cardDetails, paymentToken: paymentToken))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -147,10 +143,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter cardDetails:  the card details to present in the input fields
     - parameter paymentToken: the consumer and card token to make a token payment with
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
-    - parameter errorHandler: arbitrary error handler for more control to detect input or other non-fatal errors
     */
-    @objc public static func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> (), errorHandler: JudoError -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, encounteredError: errorHandler, cardDetails: cardDetails, paymentToken: paymentToken))
+    @objc public static func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, cardDetails: cardDetails, paymentToken: paymentToken))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }

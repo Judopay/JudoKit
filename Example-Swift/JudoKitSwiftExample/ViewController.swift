@@ -194,6 +194,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         JudoKit.payment(judoID, amount: Amount(decimalNumber: 35, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let error = error {
+                if error.code == .UserDidCancel {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    return
+                }
                 var errorTitle = "Error"
                 if let errorCategory = error.category {
                     errorTitle = errorCategory.stringValue()
@@ -211,12 +215,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
-            }, errorHandler: { (error) -> () in
-                if error.code == .UserDidCancel {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                }
-                // handle other errors that may encounter
-        })
+            })
     }
     
     func preAuthOperation() {
@@ -224,6 +223,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         JudoKit.preAuth(judoID, amount: Amount(decimalNumber: 2, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let error = error {
+                if error.code == .UserDidCancel {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    return
+                }
                 var errorTitle = "Error"
                 if let errorCategory = error.category {
                     errorTitle = errorCategory.stringValue()
@@ -241,12 +244,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
-            }, errorHandler: { (error) -> () in
-                if error.code == .UserDidCancel {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                }
-                // handle other errors that may encounter
-        })
+            })
     }
     
     func createCardTokenOperation() {
@@ -254,6 +252,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         JudoKit.registerCard(judoID, amount: Amount(decimalNumber: 1, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let error = error {
+                if error.code == .UserDidCancel {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    return
+                }
                 var errorTitle = "Error"
                 if let errorCategory = error.category {
                     errorTitle = errorCategory.stringValue()
@@ -267,12 +269,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 self.cardDetails = transactionData.cardDetails
                 self.paymentToken = transactionData.paymentToken()
             }
-            }, errorHandler: { (error) -> () in
-                if error.code == .UserDidCancel {
-                    self.dismissViewControllerAnimated(true, completion: nil)
-                }
-                // handle other errors that may encounter
-        })
+            })
     }
     
     func repeatPaymentOperation() {
@@ -280,6 +277,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             JudoKit.tokenPayment(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 self.dismissViewControllerAnimated(true, completion: nil)
                 if let error = error {
+                    if error.code == .UserDidCancel {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                        return
+                    }
                     var errorTitle = "Error"
                     if let errorCategory = error.category {
                         errorTitle = errorCategory.stringValue()
@@ -297,11 +298,6 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
                 viewController.response = response
                 self.navigationController?.pushViewController(viewController, animated: true)
-                }, errorHandler: { (error) -> () in
-                    if error.code == .UserDidCancel {
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                    }
-                    // handle other errors that may encounter
             })
         } else {
             let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .Alert)
@@ -315,6 +311,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             JudoKit.tokenPreAuth(judoID, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 self.dismissViewControllerAnimated(true, completion: nil)
                 if let error = error {
+                    if error.code == .UserDidCancel {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                        return
+                    }
                     var errorTitle = "Error"
                     if let errorCategory = error.category {
                         errorTitle = errorCategory.stringValue()
@@ -332,12 +332,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
                 viewController.response = response
                 self.navigationController?.pushViewController(viewController, animated: true)
-                }, errorHandler: { (error) -> () in
-                    if error.code == .UserDidCancel {
-                        self.dismissViewControllerAnimated(true, completion: nil)
-                    }
-                    // handle other errors that may encounter
-            })
+                })
         } else {
             let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))

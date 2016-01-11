@@ -226,7 +226,7 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         super.textFieldDidChangeValue(textField)
         
         guard let text = textField.text where text.characters.count == 5 else { return }
-        guard let beginningOfMonthDate = self.dateFormatter.dateFromString(text) else { return }
+        if self.dateFormatter.dateFromString(text) == nil { return }
         
         if self.isValid() {
             self.delegate?.dateInput(self, didFindValidDate: textField.text!)
