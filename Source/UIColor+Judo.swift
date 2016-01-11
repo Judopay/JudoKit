@@ -60,7 +60,7 @@ public extension UIColor {
     
     
     /**
-     helper method to identifiy wether to use a dark or light theme
+     helper method to identifiy whether to use a dark or light theme
      
      - returns: a boolean indicating to use dark or light mode
      */

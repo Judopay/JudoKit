@@ -84,29 +84,29 @@ public class PostCodeInputField: JudoPayInputField {
 
     // MARK: Custom methods
     
-    override public func textFieldDidChangeValue(textField: UITextField) {
-        super.textFieldDidChangeValue(textField)
-
-        guard let newString = self.textField.text?.uppercaseString else { return }
-
+    override public func isValid() -> Bool {
+        guard let newString = self.textField.text?.uppercaseString else { return false }
+        
         let usaRegex = try! NSRegularExpression(pattern: kUSARegexString, options: .AnchorsMatchLines)
         let ukRegex = try! NSRegularExpression(pattern: kUKRegexString, options: .AnchorsMatchLines)
         let canadaRegex = try! NSRegularExpression(pattern: kCanadaRegexString, options: .AnchorsMatchLines)
         
-        var isValid = false
-        
         switch billingCountry {
         case .UK:
-            isValid = ukRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0
+            return ukRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0
         case .Canada:
-            isValid = canadaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0 && newString.characters.count == 6
+            return canadaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0 && newString.characters.count == 6
         case .USA:
-            isValid = usaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0
+            return usaRegex.numberOfMatchesInString(newString, options: NSMatchingOptions.WithoutAnchoringBounds, range: NSMakeRange(0, newString.characters.count)) > 0
         case .Other:
-            isValid = newString.isNumeric() && newString.characters.count <= 8
+            return newString.isNumeric() && newString.characters.count <= 8
         }
+    }
+    
+    override public func textFieldDidChangeValue(textField: UITextField) {
+        super.textFieldDidChangeValue(textField)
         
-        self.delegate?.judoPayInput(self, isValid: isValid)
+        self.delegate?.judoPayInput(self, isValid: self.isValid())
     }
     
     override public func title() -> String {
