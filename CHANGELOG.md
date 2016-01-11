@@ -15,20 +15,20 @@ Released on 2016-01-14
 
 #### Added
 - Hint label now shows errors in red color
-- modified acceptance of card networks to hard restrict networks and lengths that are not supported
+- Modified acceptance of card networks to hard restrict networks and lengths that are not supported
 - Version is now sent in the REST API Headers
-- dedup
+- Duplicated protection against duplicaton of transactions
 
 #### Updated
-- currency to allow only strongly typed currencies from a list
-- now accessing v5 API
-- new error handling model
-- spreading code to more files for better readability
+- Currency to allow only strongly typed currencies from a list
+- Now accessing our latest API version 5.0
+- New error handling model
+- Spreading code to more files for better readability
 
 #### Fixed
-- some issues where the card logo would not appear on repeat payments
-- some typos
-- expiry date was not correctly verified
+- Some issues where the card logo would not appear on repeat payments
+- Some typos
+- Expiry date was not correctly verified
 
 ---
 ## [5.4.0](https://github.com/JudoPay/JudoKit/tag/5.4.0)
