@@ -15,23 +15,23 @@ Released on 2016-01-14
 
 #### Added
 - Hint label now shows errors in red color
-- modified acceptance of card networks to hard restrict networks and lengths that are not supported
+- Modified acceptance of card networks to hard restrict networks and lengths that are not supported
 - Version is now sent in the REST API Headers
-- dedup
-- validation methods for each input field
+- Duplicaition prevention - payment reference will be uniquely checked against previous transactions to block any duplication of the same transaction
+- Validation methods for each input field
 
 #### Updated
 - SHA 256 SSL/TLS Certificate upgrade - an industry-wide security update to protect you against man-in-the-middle attacks
-- card input field will now let you enter the first incorrect number and stop you from entering anything after that
-- currency to allow only strongly typed currencies from a list
-- now accessing v5 API
-- new error handling model
-- spreading code to more files for better readability
+- Card input field will now let you enter the first incorrect number and stop you from entering anything after that
+- Currency to allow only strongly typed currencies from a list
+- Now accessing our latest API version 5
+- New error handling model
+- Spreading code to more files for better readability
 
 #### Fixed
-- some issues where the card logo would not appear on repeat payments
-- some typos
-- expiry date was not correctly verified
+- Some issues where the card logo would not appear on repeat payments
+- Some typos
+- Expiry date was not correctly verified
 
 ---
 ## [5.4.0](https://github.com/JudoPay/JudoKit/tag/5.4.0)
