@@ -49,9 +49,9 @@ public protocol JudoInputType {
     
     
     /**
-     an indication of wether an inputField contains a Logo or not. This method is intended for subclassing
+     an indication of whether an inputField contains a Logo or not. This method is intended for subclassing
      
-     - returns: a boolean indication wether logo should be shown
+     - returns: a boolean indication whether logo should be shown
      */
     func containsLogo() -> Bool
     
@@ -86,4 +86,12 @@ public protocol JudoInputType {
      - returns: a String with instructions for a given inputField that pops up after 3 seconds of being idle
      */
     func hintLabelText() -> String
+    
+    
+    /**
+     a function that replies whether the entered text in that specific field is valid or not
+     
+     - returns: true if information in field is valid
+     */
+    func isValid() -> Bool
 }
