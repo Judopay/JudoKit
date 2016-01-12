@@ -7,13 +7,16 @@
     <meta charset='utf-8'>
     <script src="../js/jquery.min.js" defer></script>
     <script src="../js/jazzy.js" defer></script>
+    
   </head>
   <body>
     <a name="//apple_ref/swift/Class/JudoKit" class="dashAnchor"></a>
     <a title="JudoKit Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">JudoKit Docs</a> (52% documented)</p>
+        <p><a href="../index.html">JudoKit Docs</a> (48% documented)</p>
+        <p class="header-right"><a href="https://github.com/JudoPay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fjudopay%2Egithub%2Eio%2FJudoKit%2Fdocsets%2FJudoKit%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -42,10 +45,10 @@
                 <a href="../Classes/DateInputField.html">DateInputField</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/IssueNumberInputField.html">IssueNumberInputField</a>
+                <a href="../Classes/HintLabel.html">HintLabel</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Classes/JPayViewController.html">JPayViewController</a>
+                <a href="../Classes/IssueNumberInputField.html">IssueNumberInputField</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/JudoKit.html">JudoKit</a>
@@ -55,6 +58,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/JudoPayView.html">JudoPayView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayViewController.html">JudoPayViewController</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Classes/LoadingView.html">LoadingView</a>
@@ -177,6 +183,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L36">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -204,6 +213,39 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L39">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvC7JudoKit7JudoKit20acceptedCardNetworksERR"></a>
+                    <a name="//apple_ref/swift/Variable/acceptedCardNetworks" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvC7JudoKit7JudoKit20acceptedCardNetworksERR">acceptedCardNetworks</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>an array of accepted card configurations (card network and card number length)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">acceptedCardNetworks</span><span class="p">:</span> <span class="p">[</span><span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">]</span> <span class="o">=</span> <span class="n">defaultCardConfigurations</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L42">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -223,14 +265,16 @@
                         <p>a mandatory method that sets the token and secret for making payments with Judo</p>
 
 <div class="aside aside-parameter">
-          <p class="aside-title">Parameter</p>
-          Parameter token:  a string object representing the token
+    <p class="aside-title">Parameter</p>
+    Parameter token:  a string object representing the token
 
-        </div><div class="aside aside-parameter">
-          <p class="aside-title">Parameter</p>
-          Parameter secret: a string object representing the secret
+</div>
 
-        </div>
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter secret: a string object representing the secret
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -273,6 +317,9 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L51-L53">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -321,6 +368,9 @@
                           </tbody>
                         </table>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L61-L63">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -339,8 +389,8 @@
                   <div>
                     <code>
                     <a name="/s:ZFC7JudoKit7JudoKit7paymentERR"></a>
-                    <a name="//apple_ref/swift/Method/payment(_:amount:reference:completion:errorHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit7paymentERR">payment(_:amount:reference:completion:errorHandler:)</a>
+                    <a name="//apple_ref/swift/Method/payment(_:amount:reference:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit7paymentERR">payment(_:amount:reference:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -355,7 +405,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">payment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">(),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">JudoError</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">payment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -415,21 +465,11 @@
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>errorHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
-
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L77-L81">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -438,8 +478,8 @@
                   <div>
                     <code>
                     <a name="/s:ZFC7JudoKit7JudoKit7preAuthERR"></a>
-                    <a name="//apple_ref/swift/Method/preAuth(_:amount:reference:completion:errorHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit7preAuthERR">preAuth(_:amount:reference:completion:errorHandler:)</a>
+                    <a name="//apple_ref/swift/Method/preAuth(_:amount:reference:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit7preAuthERR">preAuth(_:amount:reference:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -454,7 +494,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">preAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">(),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">JudoError</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">preAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -514,21 +554,11 @@
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>errorHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
-
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L92-L96">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -548,8 +578,8 @@
                   <div>
                     <code>
                     <a name="/s:ZFC7JudoKit7JudoKit12registerCardERR"></a>
-                    <a name="//apple_ref/swift/Method/registerCard(_:amount:reference:completion:errorHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12registerCardERR">registerCard(_:amount:reference:completion:errorHandler:)</a>
+                    <a name="//apple_ref/swift/Method/registerCard(_:amount:reference:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12registerCardERR">registerCard(_:amount:reference:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -564,7 +594,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerCard</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">(),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">JudoError</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">registerCard</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -624,21 +654,11 @@
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>errorHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
-
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L111-L115">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -658,8 +678,8 @@
                   <div>
                     <code>
                     <a name="/s:ZFC7JudoKit7JudoKit12tokenPaymentERR"></a>
-                    <a name="//apple_ref/swift/Method/tokenPayment(_:amount:reference:cardDetails:paymentToken:completion:errorHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12tokenPaymentERR">tokenPayment(_:amount:reference:cardDetails:paymentToken:completion:errorHandler:)</a>
+                    <a name="//apple_ref/swift/Method/tokenPayment(_:amount:reference:cardDetails:paymentToken:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12tokenPaymentERR">tokenPayment(_:amount:reference:cardDetails:paymentToken:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -674,7 +694,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">tokenPayment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">(),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">JudoError</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">tokenPayment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -760,21 +780,11 @@
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>errorHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
-
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L130-L134">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -783,8 +793,8 @@
                   <div>
                     <code>
                     <a name="/s:ZFC7JudoKit7JudoKit12tokenPreAuthERR"></a>
-                    <a name="//apple_ref/swift/Method/tokenPreAuth(_:amount:reference:cardDetails:paymentToken:completion:errorHandler:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12tokenPreAuthERR">tokenPreAuth(_:amount:reference:cardDetails:paymentToken:completion:errorHandler:)</a>
+                    <a name="//apple_ref/swift/Method/tokenPreAuth(_:amount:reference:cardDetails:paymentToken:completion:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZFC7JudoKit7JudoKit12tokenPreAuthERR">tokenPreAuth(_:amount:reference:cardDetails:paymentToken:completion:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -799,7 +809,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">tokenPreAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">(),</span> <span class="nv">errorHandler</span><span class="p">:</span> <span class="kt">JudoError</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">tokenPreAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -885,21 +895,11 @@
                                 </div>
                               </td>
                             </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>errorHandler</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>arbitrary error handler for more control to detect input or other non-fatal errors</p>
-
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L147-L151">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -987,6 +987,9 @@
                           </tbody>
                         </table>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L162-L168">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1073,6 +1076,9 @@
                           </tbody>
                         </table>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoKit.swift#L179-L185">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1081,8 +1087,8 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2015-12-17)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2016 <a class="link" href="https://judopayments.com" target="_blank" rel="external">Judo Payments</a>. All rights reserved. (Last updated: 2016-01-12)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

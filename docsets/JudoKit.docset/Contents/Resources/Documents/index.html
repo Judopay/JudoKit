@@ -7,12 +7,15 @@
     <meta charset='utf-8'>
     <script src="js/jquery.min.js" defer></script>
     <script src="js/jazzy.js" defer></script>
+    
   </head>
   <body>
     <a title="JudoKit  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">JudoKit Docs</a> (52% documented)</p>
+        <p><a href="index.html">JudoKit Docs</a> (48% documented)</p>
+        <p class="header-right"><a href="https://github.com/JudoPay/JudoKit"><img src="img/gh.png"/>View on GitHub</a></p>
+        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fjudopay%2Egithub%2Eio%2FJudoKit%2Fdocsets%2FJudoKit%2Exml"><img src="img/dash.png"/>Install in Dash</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -41,10 +44,10 @@
                 <a href="Classes/DateInputField.html">DateInputField</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/IssueNumberInputField.html">IssueNumberInputField</a>
+                <a href="Classes/HintLabel.html">HintLabel</a>
               </li>
               <li class="nav-group-task">
-                <a href="Classes/JPayViewController.html">JPayViewController</a>
+                <a href="Classes/IssueNumberInputField.html">IssueNumberInputField</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/JudoKit.html">JudoKit</a>
@@ -54,6 +57,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Classes/JudoPayView.html">JudoPayView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Classes/JudoPayViewController.html">JudoPayViewController</a>
               </li>
               <li class="nav-group-task">
                 <a href="Classes/LoadingView.html">LoadingView</a>
@@ -150,7 +156,7 @@
 
 <p><img align="right" src="http://judopay.github.io/JudoKit/ressources/theme01.png" width="257" height="480"></p>
 
-<p>This is the official Judo iOS SDK. It is built on top of basic frameworks (<a href="http://github.com/JudoPay/Judo-Swift">Judo</a>, <a href="https://github.com/judopay/judoshield">JudoShield</a>) combining them with additional tools to enable easy integration of payments into your App.</p>
+<p>This is the official Judo iOS SDK. It is built on top of basic frameworks (<a href="http://github.com/JudoPay/Judo-Swift">Judo</a>, <a href="https://github.com/judopay/judoshield">JudoShield</a>) combining them with additional tools to enable easy integration of payments into your App. It works for both Swift and Obj-C projects.</p>
 <a href='#what_is_this_project_for' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='what_is_this_project_for'>What is this project for?</h3>
 
 <p>The JudoKit is a framework for creating easy payments inside your app with <a href="https://www.judopay.com/">JudoPay</a>. It contains an exhaustive toolbelt for everything to related to making payments.</p>
@@ -366,22 +372,74 @@ $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
     <span class="c1">// no card details available</span>
 <span class="p">}</span>
 </code></pre>
-<a href='#theme_customisation' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='theme_customisation'>Theme Customisation</h4>
+<a href='#card_acceptance_configuration' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='card_acceptance_configuration'>Card acceptance configuration</h2>
 
-<p>The JudoKit integrated UI Solution for making transactions has a simple method to customise the theme. The <code>JudoKit</code> class has a property that takes a <code>UIColor</code> instance and automatically adjusts the general look and feel for this color based on a light or dark theme.</p>
-<pre class="highlight swift"><code><span class="kt">JudoKit</span><span class="o">.</span><span class="n">tintColor</span> <span class="o">=</span> <span class="kt">UIColor</span><span class="o">.</span><span class="nf">greenColor</span><span class="p">()</span>
+<p>JudoKit is capable of detecting and accepting a huge array of Card Networks and Card lengths. Maestro as an example used to have cards with 19 digits while most of card have 16 digit card numbers. To be capable of using all kinds of cards, a <code>Card.Configuration</code> object defines a specific accepted card network and card length. This is used as shown below</p>
+
+<p>The default value for accepted networks are Visa and MasterCard cards with a length of 16 digits</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">defaultCardConfigurations</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">Visa</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">MasterCard</span><span class="p">,</span> <span class="mi">16</span><span class="p">)]</span>
 </code></pre>
 
-<p>This way you can achieve a number of very different looks in an instant</p>
+<p>in case you want to add the capability of accepting AMEX you need to add this as following</p>
+<pre class="highlight swift"><code><span class="kt">JudoKit</span><span class="o">.</span><span class="n">acceptedCardNetworks</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">Visa</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">MasterCard</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">AMEX</span><span class="p">,</span> <span class="mi">15</span><span class="p">)]</span>
+</code></pre>
 
-<p><img src="ressources/theme01.png" alt="Light Theme Image">
-<img src="ressources/theme02.png" alt="Dark Theme Image"></p>
+<p>Any other card configuration that is available can be added for the UI to accept the card. <strong>BE AWARE</strong> you do need to configure your account with JudoPayments for any other Card Type payments to be processed successfully</p>
+<a href='#customizing_payments_page_theme' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='customizing_payments_page_theme'>Customizing payments page theme</h2>
+
+<p>judoKit comes with our new customisable, stacked UI. Note that if you have implemented with our Objective-C repository, you will have to use this Swift framework in your Obj-C project to use the new customisable UI. To do this, replace the legacy &#39;judoPay&rsquo; implementation in your app with the &#39;judoKit&rsquo; implementation.</p>
+<a href='#manual_integration_amp_carthage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='manual_integration_amp_carthage'>Manual integration &amp; Carthage</h3>
+
+<p>For manual integration and usage of carthage, you need to create a fork of the existing judoKit repository on GitHub.</p>
+<a href='#cocoapods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='cocoapods'>Cocoapods</h3>
+
+<p>If you need to make changes to the Theme while using Cocoapods, you need to unlock the source code files from judoKit inside your Pods project. With these changes, make sure you track your Cocoapods inside your git (or other versioning system).</p>
+<a href='#theme_classes' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='theme_classes'>Theme classes</h3>
+
+<p>To customize colors, have a look at the <code>UIColor+Judo.swift</code> file. To customize strings, have a look at the <code>JudoPayView.swift</code> file</p>
+<a href='#code_uicolor_judo_swift_code' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='code_uicolor_judo_swift_code'><code>UIColor+Judo.swift</code></h4>
+<pre class="highlight plaintext"><code>func judoDarkGrayColor()
+func judoInputFieldTextColor()
+func judoLightGrayColor()
+func judoInputFieldBorderColor()
+func judoContentViewBackgroundColor()
+func judoButtonColor()
+func judoButtonTitleColor()
+func judoLoadingBackgroundColor()
+func judoRedColor()
+func judoLoadingBlockViewColor()
+func judoInputFieldBackgroundColor()
+</code></pre>
+<a href='#code_judopayview_swift_code' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='code_judopayview_swift_code'><code>JudoPayView.swift</code></h4>
+<pre class="highlight plaintext"><code>// Buttons
+let kPaymentButtonTitle = "Pay"
+let kRegisterCardButtonTitle = "Add card"
+let kRegisterCardNavBarButtonTitle = "Add"
+
+let kBackButtonTitle = "Back"
+
+// Titles
+let kPaymentTitle = "Payment"
+let kRegisterCardTitle = "Add card"
+let kRefundTitle = "Refund"
+let kAuthenticationTitle = "Authentication"
+
+// Loading
+let kLoadingIndicatorRegisterCardTitle = "Adding card..."
+let kLoadingIndicatorProcessingTitle = "Processing payment..."
+let kRedirecting3DSTitle = "Redirecting..."
+let kVerifying3DSPaymentTitle = "Verifying payment"
+let kVerifying3DSRegisterCardTitle = "Verifying card"
+
+// InputFields
+let inputFieldHeight: CGFloat = 48
+</code></pre>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2015-12-17)</p>
-          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+          <p>&copy; 2016 <a class="link" href="https://judopayments.com" target="_blank" rel="external">Judo Payments</a>. All rights reserved. (Last updated: 2016-01-12)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
     </div>

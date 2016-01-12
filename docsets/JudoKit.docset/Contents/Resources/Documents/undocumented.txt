@@ -1,5 +1,8 @@
 CardInputField.swift
+	public var cardNetwork: CardNetwork = .Unknown
 	@objc public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+	override public func isValid() -> Bool
+	override public func textFieldDidChangeValue(textField: UITextField)
 	override public func placeholder() -> NSAttributedString?
 	override public func containsLogo() -> Bool
 	override public func logoView() -> CardLogoView?
@@ -11,11 +14,13 @@ DateInputField.swift
 	public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
 	public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
 	public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+	override public func isValid() -> Bool
 	override public func textFieldDidChangeValue(textField: UITextField)
 	override public func placeholder() -> NSAttributedString?
 	override public func title() -> String
 	override public func hintLabelText() -> String
 JudoPayInputField.swift
+	public func isValid() -> Bool
 	public func didChangeInputText()
 	public func textFieldDidChangeValue(textField: UITextField)
 	public func placeholder() -> NSAttributedString?
@@ -26,8 +31,16 @@ JudoPayInputField.swift
 	public func hintLabelText() -> String
 TransactionType+Title.swift
 	public func title() -> String
+HintLabel.swift
+	public class HintLabel: UILabel
+	public func showHint(text: String)
+	public func showAlert(text: String)
+	public func hideHint()
+	public func hideAlert()
+	public func addAnimation()
 SecurityInputField.swift
 	public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+	override public func isValid() -> Bool
 	override public func textFieldDidChangeValue(textField: UITextField)
 	override public func placeholder() -> NSAttributedString?
 	override public func containsLogo() -> Bool
@@ -57,6 +70,7 @@ CardLogoView.swift
 	public func drawCardVisa()
 PostCodeInputField.swift
 	public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+	override public func isValid() -> Bool
 	override public func textFieldDidChangeValue(textField: UITextField)
 	override public func title() -> String
 	override public func titleWidth() -> Int
@@ -66,10 +80,13 @@ JudoPayViewController.swift
 	public override func viewDidAppear(animated: Bool)
 	public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool
 	public func webViewDidFinishLoad(webView: UIWebView)
+CardNetwork+CardLogoType.swift
+	public func cardLogoType() -> CardLogoType
 JudoInputType.swift
 	public protocol JudoInputType
 IssueNumberInputField.swift
 	public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool
+	override public func isValid() -> Bool
 	override public func textFieldDidChangeValue(textField: UITextField)
 	override public func placeholder() -> NSAttributedString?
 	override public func title() -> String
@@ -82,6 +99,7 @@ BillingCountryInputField.swift
 	public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
 	public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
 	public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+	override public func isValid() -> Bool
 JudoPayView.swift
 	public class JudoPayView: UIView, JudoPayInputDelegate
 	public let contentView: UIScrollView =
