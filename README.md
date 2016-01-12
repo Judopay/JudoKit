@@ -7,9 +7,7 @@
 
 # judoKit Native SDK for iOS
 
-<p><img align="right" src="http://judopay.github.io/JudoKit/ressources/theme01.png" width="257" height="480"></p>
-
-This is the official judoNative iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judoshield)) combining them with additional tools to enable easy integration of payments into your app. It works for both Swift and Obj-C projects.
+This is the official Judo iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judoshield)) combining them with additional tools to enable easy integration of payments into your App. It works for both Swift and Obj-C projects.
 
 ### What is this project for?
 
@@ -280,6 +278,11 @@ JudoKit.acceptedCardNetworks = [Card.Configuration(.Visa, 16), Card.Configuratio
 Any other card configuration that is available can be added for the UI to accept the card. **BE AWARE** you do need to configure your account with Judo Payments for any other Card Type payments to be processed successfully.
 
 ## Customizing payments page theme
+
+![lighttheme1](http://judopay.github.io/JudoKit/ressources/lighttheme1.png "Light Theme Example Image")
+![lighttheme2](http://judopay.github.io/JudoKit/ressources/lighttheme2.png "Light Theme Example Image")
+![darktheme1](http://judopay.github.io/JudoKit/ressources/darktheme1.png "Dark Theme Example Image")
+![darktheme1](http://judopay.github.io/JudoKit/ressources/darktheme2.png "Dark Theme Example Image")
 
 judoKit comes with our new customisable, stacked UI. Note that if you have implemented with our Objective-C repository, you will have to use this Swift framework in your Obj-C project to use the new customisable UI. To do this, replace the legacy 'judoPay' implementation in your app with the 'judoKit' implementation.
 
