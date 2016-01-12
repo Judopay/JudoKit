@@ -278,7 +278,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
      
      - Discussion: Maestro cards need a start date or an issue number to be entered for making any transaction
      
-     - parameter isVisible: wether start date and issue number fields should be visible
+     - parameter isVisible: whether start date and issue number fields should be visible
      */
     public func toggleStartDateVisibility(isVisible: Bool) {
         self.maestroFieldsHeightConstraint?.constant = isVisible ? inputFieldHeight : 0
@@ -300,7 +300,7 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
      
      - Discussion: if AVS is necessary, this should be activated. AVS only needs Postcode to verify
      
-     - parameter isVisible:  wether post code and billing country fields should be visible
+     - parameter isVisible:  whether post code and billing country fields should be visible
      - parameter completion: block that is called when animation was finished
      */
     public func toggleAVSVisibility(isVisible: Bool, completion: (() -> ())? = nil) {

@@ -53,6 +53,10 @@ public class IssueNumberInputField: JudoPayInputField {
     
     // MARK: Custom methods
     
+    override public func isValid() -> Bool {
+        return self.textField.text?.characters.count > 0 && self.textField.text?.characters.count < 4
+    }
+    
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         guard let text = textField.text else { return }

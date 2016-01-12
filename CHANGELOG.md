@@ -20,6 +20,8 @@ Released on 2016-01-14
 - Duplicated protection against duplicaton of transactions
 
 #### Updated
+- SHA 256 SSL/TLS Certificate upgrade - an industry-wide security update to protect you against man-in-the-middle attacks
+- Card input field will now let you enter the first incorrect number and stop you from entering anything after that
 - Currency to allow only strongly typed currencies from a list
 - Now accessing our latest API version 5.0
 - New error handling model

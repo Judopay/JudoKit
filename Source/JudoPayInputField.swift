@@ -133,7 +133,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     /**
     Helper method that will wiggle the inputField and show a red line at the bottom in which is was executed
     
-    - parameter redBlock: boolean stating wether to show a red line at the bottom or not
+    - parameter redBlock: boolean stating whether to show a red line at the bottom or not
     */
     public func errorAnimation(redBlock: Bool) {
         // animate the red block on the bottom
@@ -181,7 +181,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     /**
      set current object as active textfield visually
      
-     - parameter isActive: boolean stating wether textfield has become active or inactive
+     - parameter isActive: boolean stating whether textfield has become active or inactive
      */
     public func setActive(isActive: Bool) {
         self.textField.alpha = isActive ? 1.0 : 0.5
@@ -225,6 +225,10 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     // MARK: JudoInputType
     
+    
+    public func isValid() -> Bool {
+        return false
+    }
     
     public func didChangeInputText() {
         self.delegate?.judoPayInputDidChangeText(self)
