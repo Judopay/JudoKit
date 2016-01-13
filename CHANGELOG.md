@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `5.5.x` Releases - [5.5.0](#550)
+- `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551)
 - `5.4.x` Releases - [5.4.0](#540)
 - `5.3.x` Releases - [5.3.0](#530)
 - `5.2.x` Releases - [5.2.0](#520) | [5.2.1](#521)
@@ -10,6 +10,17 @@ All notable changes to this project will be documented in this file.
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
+## [5.5.1](https://github.com/JudoPay/JudoKit/tag/5.5.1)
+Released on 2016-01-28
+
+#### Added
+- Ability to pass a CardDetails object to prefill textfields when making a Transaction
+
+#### Updated
+
+#### Fixed
+
+---
 ## [5.5.0](https://github.com/JudoPay/JudoKit/tag/5.5.0)
 Released on 2016-01-14
 
