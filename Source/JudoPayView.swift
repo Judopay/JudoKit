@@ -420,18 +420,15 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     */
     func paymentEnabled(enabled: Bool) {
         self.paymentEnabled = enabled
-        if enabled {
-            self.paymentButton.hidden = false
-        }
+        self.paymentButton.hidden = !enabled
+        
         self.keyboardHeightConstraint?.constant = -self.currentKeyboardHeight + (paymentEnabled ? 0 : self.paymentButton.bounds.height)
         
         self.paymentButton.setNeedsUpdateConstraints()
         
         UIView.animateWithDuration(0.25, delay: 0.0, options:enabled ? .CurveEaseOut : .CurveEaseIn, animations: { () -> Void in
             self.paymentButton.layoutIfNeeded()
-            }) { (didFinish) -> Void in
-                self.paymentButton.hidden = !enabled
-        }
+        }, completion: nil)
         
         self.paymentNavBarButton!.enabled = enabled
     }

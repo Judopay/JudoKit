@@ -147,6 +147,17 @@ public class JudoPayViewController: UIViewController {
         
     }
     
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.myView.paymentEnabled(false)
+        
+        if self.myView.cardDetails == nil && self.myView.cardInputField.textField.text != nil {
+            self.myView.cardInputField.textFieldDidChangeValue(self.myView.cardInputField.textField)
+            self.myView.expiryDateInputField.textFieldDidChangeValue(self.myView.expiryDateInputField.textField)
+        }
+    }
+    
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
