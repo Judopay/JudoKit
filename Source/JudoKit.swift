@@ -74,8 +74,11 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     */
-    @objc public static func payment(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion))
+    @objc public static func payment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion)
+        judoPayViewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
+        judoPayViewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
+        let vc = UINavigationController(rootViewController: judoPayViewController)
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -89,7 +92,7 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     */
-    @objc public static func preAuth(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> ()) {
+    @objc public static func preAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
         let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
@@ -108,7 +111,7 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     */
-    @objc public static func registerCard(judoID: String, amount: Amount, reference: Reference, completion: (Response?, JudoError?) -> ()) {
+    @objc public static func registerCard(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
         let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion))
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
