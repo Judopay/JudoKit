@@ -35,6 +35,8 @@ public class SecurityInputField: JudoPayInputField {
     /// the card network for the security input field
     public var cardNetwork: CardNetwork = .Unknown
     
+    public var isTokenPayment: Bool = false
+    
     // MARK: UITextFieldDelegate Methods
     
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
@@ -86,6 +88,10 @@ public class SecurityInputField: JudoPayInputField {
     }
     
     override public func hintLabelText() -> String {
+        if isTokenPayment {
+            let cardNetwork = self.cardNetwork == .AMEX ? "CIDV" : "CVC"
+            return "For security, please re-enter the card \(cardNetwork)"
+        }
         return "Security code"
     }
 
