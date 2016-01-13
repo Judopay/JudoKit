@@ -93,7 +93,10 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     */
     @objc public static func preAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion))
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion)
+        judoPayViewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
+        judoPayViewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
+        let vc = UINavigationController(rootViewController: judoPayViewController)
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
@@ -112,7 +115,10 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter completion:   the completion handler which will respond with a Response Object or an NSError
     */
     @objc public static func registerCard(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion))
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion)
+        judoPayViewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
+        judoPayViewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
+        let vc = UINavigationController(rootViewController: judoPayViewController)
         vc.modalPresentationStyle = .FormSheet
         UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
     }
