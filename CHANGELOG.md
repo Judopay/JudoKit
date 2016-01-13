@@ -17,6 +17,7 @@ Released on 2016-01-28
 - Ability to pass a CardDetails object to prefill textfields when making a Transaction
 
 #### Updated
+- Secure Code Input Field hintlabel now shows a better description when doing a repeat (token) payment
 
 #### Fixed
 
