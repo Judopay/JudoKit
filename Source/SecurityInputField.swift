@@ -48,8 +48,6 @@ public class SecurityInputField: JudoPayInputField {
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
-        self.didChangeInputText()
-        
         if newString.characters.count == 0 {
             return true
         }
@@ -65,6 +63,7 @@ public class SecurityInputField: JudoPayInputField {
     
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
+        self.didChangeInputText()
         guard let text = textField.text else { return }
         
         self.delegate?.judoPayInput(self, isValid: text.characters.count == self.cardNetwork.securityCodeLength())

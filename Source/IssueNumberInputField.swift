@@ -46,8 +46,6 @@ public class IssueNumberInputField: JudoPayInputField {
             return true
         }
         
-        self.didChangeInputText()
-        
         return newString.isNumeric() && newString.characters.count <= 3
     }
     
@@ -59,6 +57,9 @@ public class IssueNumberInputField: JudoPayInputField {
     
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
+        
+        self.didChangeInputText()
+        
         guard let text = textField.text else { return }
         
         self.delegate?.issueNumberInputDidEnterCode(self, issueNumber: text)

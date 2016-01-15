@@ -63,8 +63,6 @@ public class CardInputField: JudoPayInputField {
             return false
         }
         
-        self.didChangeInputText()
-        
         return true
         
     }
@@ -77,6 +75,8 @@ public class CardInputField: JudoPayInputField {
     
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
+        
+        self.didChangeInputText()
         
         do {
             self.textField.text = try self.textField.text?.cardPresentationString(JudoKit.acceptedCardNetworks)

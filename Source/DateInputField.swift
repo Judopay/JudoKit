@@ -120,8 +120,6 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
-        self.didChangeInputText()
-        
         if newString.characters.count == 0 {
             return true
         } else if newString.characters.count == 1 {
@@ -224,6 +222,8 @@ public class DateInputField: JudoPayInputField, UIPickerViewDataSource, UIPicker
     
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
+        
+        self.didChangeInputText()
         
         guard let text = textField.text where text.characters.count == 5 else { return }
         if self.dateFormatter.dateFromString(text) == nil { return }

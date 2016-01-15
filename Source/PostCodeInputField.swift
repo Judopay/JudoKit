@@ -64,8 +64,6 @@ public class PostCodeInputField: JudoPayInputField {
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
-        self.didChangeInputText()
-        
         if newString.characters.count == 0 {
             return true
         }
@@ -105,6 +103,8 @@ public class PostCodeInputField: JudoPayInputField {
     
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
+        
+        self.didChangeInputText()
         
         self.delegate?.judoPayInput(self, isValid: self.isValid())
     }
