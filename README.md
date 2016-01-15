@@ -5,13 +5,13 @@
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
 [![Build Status](https://travis-ci.org/JudoPay/JudoKit.svg)](http://travis-ci.org/JudoPay/JudoKit)
 
-# judoKit Native SDK for iOS
+# JudoKit Native SDK for iOS
 
 This is the official Judo iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judoshield)) combining them with additional tools to enable easy integration of payments into your App. It works for both Swift and Obj-C projects.
 
 ### What is this project for?
 
-judoKit is a framework for creating easy payments inside your app with [judoPay](https://www.judopay.com/). It contains an exhaustive toolbelt for everything to related to making payments.
+JudoKit is a framework for creating easy payments inside your app with [JudoPay](https://www.judopay.com/). It contains an exhaustive toolbelt for everything to related to making payments.
 
 ## Integration
 
@@ -150,19 +150,17 @@ When delivering your App to the App Store, make sure to remove the line.
 ```swift
 JudoKit.payment(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
     self.dismissViewControllerAnimated(true, completion: nil)
-    if let _ = error {
+    if let error = error {
+        // if the user cancelled, this error is passed
+        if error == JudoError.UserDidCancel {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
         // handle error
         return // BAIL
     }
     if let resp = response, transactionData = resp.items.first {
     // handle successful transaction
     }
-    }, errorHandler: { (error) -> () in
-        // if the user cancelled, this error is called
-        if error == JudoError.UserDidCancel {
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        // handle other errors that may encounter
 })
 ```
 
@@ -171,19 +169,17 @@ JudoKit.payment(judoID, amount: Amount(42, currentCurrency), reference: Referenc
 ```swift
 JudoKit.preAuth(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
     self.dismissViewControllerAnimated(true, completion: nil)
-    if let _ = error {
+    if let error = error {
+        // if the user cancelled, this error is passed
+        if error == JudoError.UserDidCancel {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
         // handle error
         return // BAIL
     }
     if let resp = response, transactionData = resp.items.first {
     // handle successful transaction
     }
-    }, errorHandler: { (error) -> () in
-        // if the user cancelled, this error is called
-        if error == JudoError.UserDidCancel {
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        // handle other errors that may encounter
 })
 ```
 
@@ -193,19 +189,17 @@ JudoKit.preAuth(judoID, amount: Amount(42, currentCurrency), reference: Referenc
 ```swift
 JudoKit.registerCard(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference"), completion: { (response, error) -> () in
     self.dismissViewControllerAnimated(true, completion: nil)
-    if let _ = error {
+    if let error = error {
+        // if the user cancelled, this error is passed
+        if error == JudoError.UserDidCancel {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
         // handle error
         return // BAIL
     }
     if let resp = response, transactionData = resp.items.first {
     // handle successful transaction
     }
-    }, errorHandler: { (error) -> () in
-        // if the user cancelled, this error is called
-        if error == JudoError.UserDidCancel {
-            self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        // handle other errors that may encounter
 })
 ```
 
@@ -215,20 +209,18 @@ JudoKit.registerCard(judoID, amount: Amount(42, currentCurrency), reference: Ref
 if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
     JudoKit.tokenPayment(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
         self.dismissViewControllerAnimated(true, completion: nil)
-        if let _ = error {
+        if let error = error {
+            // if the user cancelled, this error is passed
+            if error == JudoError.UserDidCancel {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
             // handle error
             return // BAIL
         }
         if let resp = response, transactionData = resp.items.first {
             // handle successful transaction
         }
-        }, errorHandler: { (error) -> () in
-            // if the user cancelled, this error is called
-            if error == JudoError.UserDidCancel {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-            // handle other errors that may encounter
-        })
+    })
 } else {
     // no card details available
 }
@@ -240,20 +232,18 @@ if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
 if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
     JudoKit.tokenPreAuth(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
         self.dismissViewControllerAnimated(true, completion: nil)
-        if let _ = error {
+        if let error = error {
+            // if the user cancelled, this error is passed
+            if error == JudoError.UserDidCancel {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
             // handle error
             return // BAIL
         }
         if let resp = response, transactionData = resp.items.first {
             // handle successful transaction
         }
-        }, errorHandler: { (error) -> () in
-            // if the user cancelled, this error is called
-            if error == JudoError.UserDidCancel {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-            // handle other errors that may encounter
-        })
+    })
 } else {
     // no card details available
 }
