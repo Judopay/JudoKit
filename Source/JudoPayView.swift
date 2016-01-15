@@ -367,15 +367,12 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
         self.postCodeInputField.billingCountry = billingCountry
         // FIXME: maybe check if the postcode is still valid and then delete if nessecary
         self.postCodeInputField.textField.text = ""
-        self.paymentEnabled(false)
     }
     
     // MARK: JudoPayInputDelegate
     
     public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
-        if input == self.postCodeInputField {
-            self.paymentEnabled(isValid)
-        } else if input == self.secureCodeInputField {
+        if input == self.secureCodeInputField {
             if JudoKit.avsEnabled {
                 if isValid {
                     self.postCodeInputField.textField.becomeFirstResponder()
@@ -383,14 +380,21 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
                         self.contentView.scrollRectToVisible(self.postCodeInputField.frame, animated: true)
                     })
                 }
-            } else {
-                self.paymentEnabled(isValid)
             }
         }
     }
     
     public func judoPayInputDidChangeText(input: JudoPayInputField) {
         self.resetTimerWithInput(input)
+        var allFieldsValid = false
+        allFieldsValid = self.cardInputField.isValid() && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
+        if JudoKit.avsEnabled {
+            allFieldsValid = allFieldsValid && self.postCodeInputField.isValid() && self.billingCountryInputField.isValid()
+        }
+        if self.cardInputField.cardNetwork == .Maestro {
+            allFieldsValid = allFieldsValid && (self.issueNumberInputField.isValid() || self.startDateInputField.isValid())
+        }
+        self.paymentEnabled(allFieldsValid)
     }
     
     
