@@ -21,6 +21,7 @@ Released on 2016-01-28
 - Secure Code Input Field hintlabel now shows a better description when doing a repeat (token) payment
 
 #### Fixed
+- Validation on every field at every entry
 
 ---
 ## [5.5.0](https://github.com/JudoPay/JudoKit/tag/5.5.0)
