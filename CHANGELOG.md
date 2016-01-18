@@ -16,6 +16,7 @@ Released on 2016-01-28
 #### Added
 - Ability to pass a CardDetails object to prefill textfields when making a Transaction
 - Validation of card information when set from an external source
+- Package file for future Swift package manager
 
 #### Updated
 - Secure Code Input Field hintlabel now shows a better description when doing a repeat (token) payment
