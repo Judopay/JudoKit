@@ -15,6 +15,8 @@ JudoKit is a framework for creating easy payments inside your app with [JudoPay]
 
 ## Integration
 
+**Be aware that bit code should be disabled for all projects using JudoKit**
+
 ### Sign up to judo's platform
 
 - To use judo's SDK, you'll need to [sign up](https://www.judopay.com/signup) and get your app token. 
