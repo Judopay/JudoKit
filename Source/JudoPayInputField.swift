@@ -226,46 +226,90 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     // MARK: JudoInputType
     
     
+    /**
+    check if this inputField is valid
+    
+    - returns: true if valid input
+    */
     public func isValid() -> Bool {
         return false
     }
     
+    
+    /**
+     helper call for delegate method
+     */
     public func didChangeInputText() {
         self.delegate?.judoPayInputDidChangeText(self)
     }
     
     
+    /**
+     subclassed method that is called when textField content was changed
+     
+     - parameter textField: the textfield of which the content has changed
+     */
     public func textFieldDidChangeValue(textField: UITextField) {
         self.dismissError()
         // method for subclassing
     }
     
     
+    /**
+     the placeholder string for the current inputField
+     
+     - returns: an Attributed String that is the placeholder of the receiver
+     */
     public func placeholder() -> NSAttributedString? {
         return nil
     }
     
     
+    /**
+     boolean indicating whether the receiver has to show a logo
+     
+     - returns: true if inputField shows a Logo
+     */
     public func containsLogo() -> Bool {
         return false
     }
     
     
+    /**
+     if the receiving inputField contains a Logo, this method returns Some
+     
+     - returns: an optional CardLogoView
+     */
     public func logoView() -> CardLogoView? {
         return nil
     }
     
     
+    /**
+     title of the receiver inputField
+     
+     - returns: a string that is the title of the receiver
+     */
     public func title() -> String {
         return ""
     }
     
     
+    /**
+     width of the title
+     
+     - returns: width of the title
+     */
     public func titleWidth() -> Int {
         return 50
     }
     
     
+    /**
+     hint label text
+     
+     - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
+     */
     public func hintLabelText() -> String {
         return ""
     }

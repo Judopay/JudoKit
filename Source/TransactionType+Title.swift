@@ -26,6 +26,12 @@ import Foundation
 import Judo
 
 public extension TransactionType {
+    
+    /**
+     title of the receiver
+     
+     - returns: a string describing the title
+     */
     public func title() -> String {
         switch self {
         case .Payment, .PreAuth:

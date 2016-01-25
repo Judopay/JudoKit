@@ -51,10 +51,10 @@ let kVerifying3DSRegisterCardTitle = "Verifying card"
 // InputFields
 let inputFieldHeight: CGFloat = 48
 
-
-
-public class JudoPayView: UIView, JudoPayInputDelegate {
+/// JudoPayView - the main view in the Transaction journey
+public class JudoPayView: UIView {
     
+    /// the content view of the JudoPayView
     public let contentView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -111,8 +111,18 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
     // MARK: hint label
     private var timer: NSTimer?
     
+    /// the transactionType of the current journey
     var transactionType: TransactionType
     
+    
+    /**
+     designated initializer
+     
+     - parameter type:        the transactionType of this transaction
+     - parameter cardDetails: cardDetails information if they have been passed
+     
+     - returns: a JudoPayView object
+     */
     public init(type: TransactionType, cardDetails: CardDetails? = nil) {
         self.transactionType = type
         self.cardDetails = cardDetails
@@ -124,12 +134,23 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    
+    /**
+     required initializer for the JudoPayView that will fail
+     
+     - parameter aDecoder: a Decoder
+     
+     - returns: a fatal error will be thrown as this class should not be retrieved by decoding
+     */
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: Keyboard notification configuration
     
+    /**
+    deinitializer
+    */
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
@@ -320,84 +341,6 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
         }
     }
     
-    
-    // MARK: CardInputDelegate
-    
-    public func cardInput(input: CardInputField, error: JudoError) {
-        input.errorAnimation(error.code != .InputLengthMismatchError)
-        if let message = error.message {
-            self.hintLabel.showAlert(message)
-        }
-    }
-    
-    public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
-        self.expiryDateInputField.textField.becomeFirstResponder()
-    }
-    
-    public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
-        self.updateInputFieldsWithNetwork(network)
-        self.hintLabel.hideAlert()
-    }
-    
-    // MARK: DateInputDelegate
-    
-    public func dateInput(input: DateInputField, error: JudoError) {
-        input.errorAnimation(error.code != .InputLengthMismatchError)
-    }
-    
-    public func dateInput(input: DateInputField, didFindValidDate date: String) {
-        if input == self.startDateInputField {
-            self.issueNumberInputField.textField.becomeFirstResponder()
-        } else {
-            self.secureCodeInputField.textField.becomeFirstResponder()
-        }
-    }
-    
-    // MARK: IssueNumberInputDelegate
-    
-    public func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String) {
-        if issueNumber.characters.count == 3 {
-            self.expiryDateInputField.textField.becomeFirstResponder()
-        }
-    }
-    
-    // MARK: BillingCountryInputDelegate
-    
-    public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
-        self.postCodeInputField.billingCountry = billingCountry
-        // FIXME: maybe check if the postcode is still valid and then delete if nessecary
-        self.postCodeInputField.textField.text = ""
-    }
-    
-    // MARK: JudoPayInputDelegate
-    
-    public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
-        if input == self.secureCodeInputField {
-            if JudoKit.avsEnabled {
-                if isValid {
-                    self.postCodeInputField.textField.becomeFirstResponder()
-                    self.toggleAVSVisibility(true, completion: { () -> () in
-                        self.contentView.scrollRectToVisible(self.postCodeInputField.frame, animated: true)
-                    })
-                }
-            }
-        }
-    }
-    
-    public func judoPayInputDidChangeText(input: JudoPayInputField) {
-        self.resetTimerWithInput(input)
-        var allFieldsValid = false
-        allFieldsValid = self.cardInputField.isValid() && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
-        if JudoKit.avsEnabled {
-            allFieldsValid = allFieldsValid && self.postCodeInputField.isValid() && self.billingCountryInputField.isValid()
-        }
-        if self.cardInputField.cardNetwork == .Maestro {
-            allFieldsValid = allFieldsValid && (self.issueNumberInputField.isValid() || self.startDateInputField.isValid())
-        }
-        self.paymentEnabled(allFieldsValid)
-    }
-    
-    
     // MARK: Helpers
     
     
@@ -449,6 +392,147 @@ public class JudoPayView: UIView, JudoPayInputDelegate {
         self.timer = NSTimer.schedule(3.0, handler: { (timer) -> Void in
             self.hintLabel.showHint(input.hintLabelText())
         })
+    }
+    
+}
+
+extension JudoPayView: JudoPayInputDelegate {
+    
+    // MARK: CardInputDelegate
+    
+    
+    /**
+    Delegate method that is triggered when the CardInputField encountered an error
+    
+    - parameter input: the input field calling the delegate method
+    - parameter error: the error that occured
+    */
+    public func cardInput(input: CardInputField, error: JudoError) {
+        input.errorAnimation(error.code != .InputLengthMismatchError)
+        if let message = error.message {
+            self.hintLabel.showAlert(message)
+        }
+    }
+    
+    
+    /**
+     Delegate method that is triggered when the CardInputField did find a valid number
+     
+     - parameter input:            the input field calling the delegate method
+     - parameter cardNumberString: the card number that has been entered as a String
+     */
+    public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
+        self.expiryDateInputField.textField.becomeFirstResponder()
+    }
+    
+    
+    /**
+     Delegate method that is triggered when the CardInputField detected a network
+     
+     - parameter input:   the input field calling the delegate method
+     - parameter network: the network that has been identified
+     */
+    public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
+        self.updateInputFieldsWithNetwork(network)
+        self.hintLabel.hideAlert()
+    }
+    
+    // MARK: DateInputDelegate
+    
+    
+    /**
+    Delegate method that is triggered when the date input field has encountered an error
+    
+    - parameter input: the input field calling the delegate method
+    - parameter error: the error that occured
+    */
+    public func dateInput(input: DateInputField, error: JudoError) {
+        input.errorAnimation(error.code != .InputLengthMismatchError)
+    }
+    
+    
+    /**
+     Delegate method that is triggered when the date input field has found a valid date
+     
+     - parameter input: the input field calling the delegate method
+     - parameter date:  the valid date that has been entered
+     */
+    public func dateInput(input: DateInputField, didFindValidDate date: String) {
+        if input == self.startDateInputField {
+            self.issueNumberInputField.textField.becomeFirstResponder()
+        } else {
+            self.secureCodeInputField.textField.becomeFirstResponder()
+        }
+    }
+    
+    // MARK: IssueNumberInputDelegate
+    
+    
+    /**
+    Delegate method that is triggered when the issueNumberInputField entered a code
+    
+    - parameter input:       the issueNumberInputField calling the delegate method
+    - parameter issueNumber: the issue number that has been entered as a String
+    */
+    public func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String) {
+        if issueNumber.characters.count == 3 {
+            self.expiryDateInputField.textField.becomeFirstResponder()
+        }
+    }
+    
+    // MARK: BillingCountryInputDelegate
+    
+    
+    /**
+    Delegate method that is triggered when the billingCountry input field selected a BillingCountry
+    
+    - parameter input:          the input field calling the delegate method
+    - parameter billingCountry: the billing country that has been selected
+    */
+    public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
+        self.postCodeInputField.billingCountry = billingCountry
+        // FIXME: maybe check if the postcode is still valid and then delete if nessecary
+        self.postCodeInputField.textField.text = ""
+    }
+    
+    // MARK: JudoPayInputDelegate
+    
+    
+    /**
+    Delegate method that is triggered when the judoPayInputField was validated
+    
+    - parameter input:   the input field calling the delegate method
+    - parameter isValid: a boolean that indicates whether the input is valid or invalid
+    */
+    public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
+        if input == self.secureCodeInputField {
+            if JudoKit.avsEnabled {
+                if isValid {
+                    self.postCodeInputField.textField.becomeFirstResponder()
+                    self.toggleAVSVisibility(true, completion: { () -> () in
+                        self.contentView.scrollRectToVisible(self.postCodeInputField.frame, animated: true)
+                    })
+                }
+            }
+        }
+    }
+    
+    /**
+     Delegate method that is called whenever any inputField has been manipulated
+     
+     - parameter input: the input field calling the delegate method
+     */
+    public func judoPayInputDidChangeText(input: JudoPayInputField) {
+        self.resetTimerWithInput(input)
+        var allFieldsValid = false
+        allFieldsValid = self.cardInputField.isValid() && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
+        if JudoKit.avsEnabled {
+            allFieldsValid = allFieldsValid && self.postCodeInputField.isValid() && self.billingCountryInputField.isValid()
+        }
+        if self.cardInputField.cardNetwork == .Maestro {
+            allFieldsValid = allFieldsValid && (self.issueNumberInputField.isValid() || self.startDateInputField.isValid())
+        }
+        self.paymentEnabled(allFieldsValid)
     }
     
 }

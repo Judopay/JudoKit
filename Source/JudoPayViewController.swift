@@ -54,8 +54,10 @@ public class JudoPayViewController: UIViewController {
     private var pending3DSReceiptID: String?
     
     // MARK: completion blocks
-    private var completionBlock: ((Response?, JudoError?) -> ())?
+    private var completionBlock: JudoCompletionBlock?
     
+    
+    /// the overridden view object forwarding to a JudoPayView
     override public var view: UIView! {
         get { return self.myView as UIView }
         set {
@@ -66,6 +68,8 @@ public class JudoPayViewController: UIViewController {
         }
     }
     
+    
+    /// the main JudoPayView of this ViewController
     var myView: JudoPayView!
     
     
@@ -82,7 +86,7 @@ public class JudoPayViewController: UIViewController {
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: (Response?, JudoError?) -> (), cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
+    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
         self.judoID = judoID
         self.amount = amount
         self.reference = reference
@@ -122,6 +126,10 @@ public class JudoPayViewController: UIViewController {
     
     // MARK: View Lifecycle
     
+    
+    /**
+    viewDidLoad
+    */
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -147,6 +155,12 @@ public class JudoPayViewController: UIViewController {
         
     }
     
+    
+    /**
+     viewWillAppear
+     
+     - parameter animated: animated
+     */
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -160,6 +174,12 @@ public class JudoPayViewController: UIViewController {
         }
     }
     
+    
+    /**
+     viewDidAppear
+     
+     - parameter animated: animated
+     */
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -281,6 +301,15 @@ public class JudoPayViewController: UIViewController {
 
 extension JudoPayViewController: UIWebViewDelegate {
     
+    /**
+     webView delegate method
+    
+     - parameter webView:        the webView
+     - parameter request:        the request that was called
+     - parameter navigationType: the navigationType
+     
+     - returns: return whether webView should start loading the request
+     */
     public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         let urlString = request.URL?.absoluteString
         
@@ -336,6 +365,12 @@ extension JudoPayViewController: UIWebViewDelegate {
         return true
     }
     
+    
+    /**
+     webView delegate method that indicates the webView has finished loading
+     
+     - parameter webView: the webView
+     */
     public func webViewDidFinishLoad(webView: UIWebView) {
         var alphaVal: CGFloat = 1.0
         if webView.request?.URL?.absoluteString == "about:blank" {

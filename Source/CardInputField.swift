@@ -33,10 +33,20 @@ import Judo
  */
 public class CardInputField: JudoPayInputField {
     
+    /// the card network that was detected in this field
     public var cardNetwork: CardNetwork = .Unknown
     
     // MARK: UITextFieldDelegate
     
+    /**
+    delegate method implementation
+    
+    - parameter textField: textField
+    - parameter range:     range
+    - parameter string:    string
+    
+    - returns: boolean to change characters in given range for a textfield
+    */
     @objc public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
@@ -69,10 +79,21 @@ public class CardInputField: JudoPayInputField {
     
     // MARK: Custom methods
     
+    /**
+    check if this inputField is valid
+    
+    - returns: true if valid input
+    */
     override public func isValid() -> Bool {
         return self.textField.text?.isCardNumberValid() ?? false
     }
     
+    
+    /**
+     subclassed method that is called when textField content was changed
+     
+     - parameter textField: the textfield of which the content has changed
+     */
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
@@ -96,25 +117,55 @@ public class CardInputField: JudoPayInputField {
                 self.delegate?.cardInput(self, error: JudoError(.InvalidCardNumber, "the card number is invalid"))
             }
         }
-
+        
     }
     
+    
+    /**
+     the placeholder string for the current inputField
+     
+     - returns: an Attributed String that is the placeholder of the receiver
+     */
     override public func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
     }
     
+    
+    /**
+     boolean indicating whether the receiver has to show a logo
+     
+     - returns: true if inputField shows a Logo
+     */
     override public func containsLogo() -> Bool {
         return true
     }
     
+    
+    /**
+     if the receiving inputField contains a Logo, this method returns Some
+     
+     - returns: an optional CardLogoView
+     */
     override public func logoView() -> CardLogoView? {
         return CardLogoView(type: self.cardNetwork.cardLogoType())
     }
     
+    
+    /**
+     title of the receiver inputField
+     
+     - returns: a string that is the title of the receiver
+     */
     override public func title() -> String {
         return "Card number"
     }
     
+    
+    /**
+     hint label text
+     
+     - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
+     */
     override public func hintLabelText() -> String {
         return "Long card number"
     }

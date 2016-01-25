@@ -24,7 +24,9 @@
 
 import Foundation
 
-
+/**
+ *  the type for all the inputFields to conform to
+ */
 public protocol JudoInputType {
     /**
      Helper method for the hintLabel to disappear or reset the timer when called. This is triggered by the `shouldChangeCharactersInRange:` method in each of the `inputField` subclasses

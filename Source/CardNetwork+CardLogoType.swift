@@ -10,6 +10,12 @@ import Foundation
 import Judo
 
 public extension CardNetwork {
+    
+    /**
+     get a CardLogoType from the receiving CardNetwork
+     
+     - returns: a CardLogoType
+     */
     public func cardLogoType() -> CardLogoType {
         switch self {
         case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:

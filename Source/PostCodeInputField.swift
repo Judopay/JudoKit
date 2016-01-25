@@ -55,6 +55,16 @@ public class PostCodeInputField: JudoPayInputField {
         self.textField.autocorrectionType = .No
     }
     
+    
+    /**
+     delegate method implementation
+     
+     - parameter textField: textField
+     - parameter range:     range
+     - parameter string:    string
+     
+     - returns: boolean to change characters in given range for a textfield
+     */
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
@@ -82,6 +92,12 @@ public class PostCodeInputField: JudoPayInputField {
 
     // MARK: Custom methods
     
+    
+    /**
+    check if this inputField is valid
+    
+    - returns: true if valid input
+    */
     override public func isValid() -> Bool {
         guard let newString = self.textField.text?.uppercaseString else { return false }
         
@@ -101,6 +117,12 @@ public class PostCodeInputField: JudoPayInputField {
         }
     }
     
+    
+    /**
+     subclassed method that is called when textField content was changed
+     
+     - parameter textField: the textfield of which the content has changed
+     */
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
@@ -109,10 +131,22 @@ public class PostCodeInputField: JudoPayInputField {
         self.delegate?.judoPayInput(self, isValid: self.isValid())
     }
     
+    
+    /**
+     title of the receiver inputField
+     
+     - returns: a string that is the title of the receiver
+     */
     override public func title() -> String {
         return self.billingCountry.titleDescription()
     }
     
+    
+    /**
+     width of the title
+     
+     - returns: width of the title
+     */
     override public func titleWidth() -> Int {
         return 120
     }
