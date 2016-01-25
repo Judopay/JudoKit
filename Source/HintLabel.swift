@@ -24,6 +24,7 @@
 
 import UIKit
 
+/// label that sits below the payment entry form, showing alerts and hints
 public class HintLabel: UILabel {
     /// the alertText if an alert occured
     var alertText: NSAttributedString?

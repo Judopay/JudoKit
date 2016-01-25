@@ -31,7 +31,7 @@ import Judo
  The BillingCountryInputField is an input field configured to select a billing country out of a selected set of countries that we currently support.
  
  */
-public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource, UIPickerViewDelegate {
+public class BillingCountryInputField: JudoPayInputField {
     
     let countryPicker = UIPickerView()
     
@@ -49,16 +49,8 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
         self.setActive(true)
     }
     
-    override public func title() -> String {
-        return "Billing country"
-    }
-    
-    override public func titleWidth() -> Int {
-        return 120
-    }
     
     // MARK: UITextFieldDelegate Methods
-    
     
     /**
     delegate method implementation
@@ -73,30 +65,6 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
         return false
     }
     
-    
-    // MARK: UIPickerViewDataSource
-    
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return BillingCountry.allValues.count
-    }
-    
-    
-    // MARK: UIPickerViewDelegate
-    
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return BillingCountry.allValues[row].title()
-    }
-    
-    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.selectedCountry = BillingCountry.allValues[row]
-        self.textField.text = self.selectedCountry.title()
-        self.delegate?.billingCountryInputDidEnter(self, billingCountry: self.selectedCountry)
-    }
-    
     // MARK: JudoInputType
     
     
@@ -109,4 +77,86 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
         return true
     }
     
+    
+    /**
+     title of the receiver inputField
+     
+     - returns: a string that is the title of the receiver
+     */
+    override public func title() -> String {
+        return "Billing country"
+    }
+    
+    
+    /**
+     width of the title
+     
+     - returns: width of the title
+     */
+    override public func titleWidth() -> Int {
+        return 120
+    }
+    
+}
+
+// MARK: UIPickerViewDataSource
+
+extension BillingCountryInputField: UIPickerViewDataSource {
+    
+    /**
+     datasource method for billingCountryPickerView
+     
+     - parameter pickerView: PickerView that calls its delegate
+     
+     - returns: the number of components in the pickerView
+     */
+    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    
+    /**
+     datasource method for billingCountryPickerView
+     
+     - parameter pickerView: pickerView
+     - parameter component:  a given component
+     
+     - returns: number of rows in component
+     */
+    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return BillingCountry.allValues.count
+    }
+    
+}
+
+extension BillingCountryInputField: UIPickerViewDelegate {
+    
+    // MARK: UIPickerViewDelegate
+    
+    /**
+    delegate method for billingCountryPickerView
+    
+    - parameter pickerView: the caller
+    - parameter row:        the row
+    - parameter component:  the component
+    
+    - returns: title of a given component and row
+    */
+    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return BillingCountry.allValues[row].title()
+    }
+    
+    
+    /**
+     delegate method for billingCountryPickerView that had a given row in a component selected
+     
+     - parameter pickerView: the caller
+     - parameter row:        the row
+     - parameter component:  the component
+     */
+    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.selectedCountry = BillingCountry.allValues[row]
+        self.textField.text = self.selectedCountry.title()
+        self.delegate?.billingCountryInputDidEnter(self, billingCountry: self.selectedCountry)
+    }
 }
