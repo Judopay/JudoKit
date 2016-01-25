@@ -33,6 +33,16 @@ public class IssueNumberInputField: JudoPayInputField {
     
     // MARK: UITextFieldDelegate Methods
     
+    
+    /**
+    delegate method implementation
+    
+    - parameter textField: textField
+    - parameter range:     range
+    - parameter string:    string
+    
+    - returns: boolean to change characters in given range for a textfield
+    */
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // only handle delegate calls for own textfield
@@ -51,10 +61,22 @@ public class IssueNumberInputField: JudoPayInputField {
     
     // MARK: Custom methods
     
+    
+    /**
+    check if this inputField is valid
+    
+    - returns: true if valid input
+    */
     override public func isValid() -> Bool {
         return self.textField.text?.characters.count > 0 && self.textField.text?.characters.count < 4
     }
     
+    
+    /**
+     subclassed method that is called when textField content was changed
+     
+     - parameter textField: the textfield of which the content has changed
+     */
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
@@ -64,15 +86,33 @@ public class IssueNumberInputField: JudoPayInputField {
         
         self.delegate?.issueNumberInputDidEnterCode(self, issueNumber: text)
     }
-
+    
+    
+    /**
+     the placeholder string for the current inputField
+     
+     - returns: an Attributed String that is the placeholder of the receiver
+     */
     override public func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
     }
     
+    
+    /**
+     title of the receiver inputField
+     
+     - returns: a string that is the title of the receiver
+     */
     override public func title() -> String {
         return "Issue number"
     }
     
+    
+    /**
+     hint label text
+     
+     - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
+     */
     override public func hintLabelText() -> String {
         return "Issue number on front of card"
     }

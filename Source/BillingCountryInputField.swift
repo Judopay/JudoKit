@@ -59,6 +59,16 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
     
     // MARK: UITextFieldDelegate Methods
     
+    
+    /**
+    delegate method implementation
+    
+    - parameter textField: textField
+    - parameter range:     range
+    - parameter string:    string
+    
+    - returns: boolean to change characters in given range for a textfield
+    */
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         return false
     }
@@ -89,6 +99,12 @@ public class BillingCountryInputField: JudoPayInputField, UIPickerViewDataSource
     
     // MARK: JudoInputType
     
+    
+    /**
+    check if this inputField is valid
+    
+    - returns: true if valid input
+    */
     override public func isValid() -> Bool {
         return true
     }
