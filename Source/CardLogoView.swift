@@ -52,6 +52,8 @@ public enum CardLogoType {
     case Unknown
 }
 
+
+/// the CardLogoView that shows a given card logo on a view
 public class CardLogoView: UIView {
     /// set a type for the current CardLogoView
     public var type: CardLogoType = .Unknown

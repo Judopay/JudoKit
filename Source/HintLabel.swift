@@ -25,9 +25,17 @@
 import UIKit
 
 public class HintLabel: UILabel {
+    /// the alertText if an alert occured
     var alertText: NSAttributedString?
+    /// the hintText if a hint is being shown
     var hintText: NSAttributedString?
     
+    
+    /**
+     makes the hintText visible in case there is no alertText is not occupying the space
+     
+     - parameter text: the hint text string to show
+     */
     public func showHint(text: String) {
         self.hintText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor()])
         if self.alertText == nil {
@@ -37,6 +45,12 @@ public class HintLabel: UILabel {
         }
     }
     
+    
+    /**
+     makes the alertText visible and overrides the hintText if it has been previously set and visible at the current time
+     
+     - parameter text: the alert text string to show
+     */
     public func showAlert(text: String) {
         self.addAnimation()
         
@@ -44,6 +58,10 @@ public class HintLabel: UILabel {
         self.attributedText = self.alertText
     }
     
+    
+    /**
+    hide the currently visible hint text and show the alert text if available
+     */
     public func hideHint() {
         self.addAnimation()
         
@@ -51,6 +69,10 @@ public class HintLabel: UILabel {
         self.attributedText = self.alertText
     }
     
+    
+    /**
+     hide the currently visible alert text and show the hint text if available
+     */
     public func hideAlert() {
         self.addAnimation()
         
@@ -58,6 +80,10 @@ public class HintLabel: UILabel {
         self.attributedText = self.hintText
     }
     
+    
+    /**
+     helper to show/hide/transition between texts
+     */
     public func addAnimation() {
         let animation = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
