@@ -24,23 +24,69 @@
 
 import Foundation
 
+/**
+ Card Logo Type enum
+ 
+ - Visa:       Visa card logo
+ - MasterCard: MasterCard card logo
+ - AMEX:       AMEX card logo
+ - Maestro:    Maestro card logo
+ - CIDV:       CIDV logo
+ - CVC:        CVC logo
+ - Unknown:    Unknown placeholder logo
+ */
 public enum CardLogoType {
-    case Visa, MasterCard, AMEX, Maestro, CIDV, CVC, Unknown
+    /// Visa card logo
+    case Visa
+    /// MasterCard card logo
+    case MasterCard
+    /// AMEX card logo
+    case AMEX
+    /// Maestro card logo
+    case Maestro
+    /// CIDV logo
+    case CIDV
+    /// CVC logo
+    case CVC
+    /// Unknown placeholder logo
+    case Unknown
 }
 
 public class CardLogoView: UIView {
-    
+    /// set a type for the current CardLogoView
     public var type: CardLogoType = .Unknown
     
+    
+    /**
+     designated initializer for creating a logo connected to cards
+     
+     - parameter type: CardLogoType
+     
+     - returns: a CardLogoView object
+     */
     public required init(type: CardLogoType = .Unknown) {
         self.type = type
         super.init(frame: CGRectZero)
     }
     
+    
+    /**
+     required initializer for creating a logo connected to cards
+     
+     - parameter aDecoder: the decoder
+     
+     - returns: a deserialized CardLogoView
+     */
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
+    
+    /**
+     override function that draws the content of the CardLogoView
+     
+     - parameter rect: the CGRect to draw in
+     */
     public override func drawRect(rect: CGRect) {
         switch self.type {
         case .Visa:
@@ -62,6 +108,10 @@ public class CardLogoView: UIView {
     
 }
 
+
+/**
+ draw an unknown card logo
+ */
 public func drawCardUnknown() {
         //// Color Declarations
         let fillColor = UIColor(red: 0.651, green: 0.651, blue: 0.651, alpha: 1.000)
@@ -1064,6 +1114,10 @@ public func drawCardUnknown() {
         bezier20Path.fill()
 }
 
+
+/**
+ draw a MasterCard card logo
+ */
 public func drawCardMasterCard() {
         //// Color Declarations
         let fillColor = UIColor(red: 0.651, green: 0.651, blue: 0.651, alpha: 1.000)
@@ -2666,6 +2720,10 @@ public func drawCardMasterCard() {
         bezier39Path.fill()
 }
 
+
+/**
+ draw a Maestro card logo
+ */
 public func drawCardMaestro() {
         //// Color Declarations
         let fillColor = UIColor(red: 0.651, green: 0.651, blue: 0.651, alpha: 1.000)
@@ -4085,6 +4143,10 @@ public func drawCardMaestro() {
         bezier34Path.fill()
 }
 
+
+/**
+ draw an AMEX card logo
+ */
 public func drawCardAmex() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -5545,6 +5607,10 @@ public func drawCardAmex() {
         bezier26Path.fill()
 }
 
+
+/**
+ draw a CVC card logo
+ */
 public func drawCardCVC() {
         //// Color Declarations
         let fillColor = UIColor(red: 0.651, green: 0.651, blue: 0.651, alpha: 1.000)
@@ -5746,6 +5812,10 @@ public func drawCardCVC() {
         bezier7Path.fill()
 }
 
+
+/**
+ draw a CIDV card logo
+ */
 public func drawCardCIDV() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
@@ -7237,6 +7307,10 @@ public func drawCardCIDV() {
         bezier27Path.fill()
 }
 
+
+/**
+ draw a Visa card logo
+ */
 public func drawCardVisa() {
         //// Color Declarations
         let fillColor = UIColor(red: 0.651, green: 0.651, blue: 0.651, alpha: 1.000)

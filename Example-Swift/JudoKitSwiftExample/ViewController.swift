@@ -207,7 +207,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 self.dismissViewControllerAnimated(true, completion:nil)
                 return // BAIL
             }
-            if let resp = response, transactionData = resp.items.first {
+            
+            if let resp = response, transactionData = resp.first {
                 self.cardDetails = transactionData.cardDetails
                 self.paymentToken = transactionData.paymentToken()
             }

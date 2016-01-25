@@ -54,7 +54,7 @@ public class JudoPayViewController: UIViewController {
     private var pending3DSReceiptID: String?
     
     // MARK: completion blocks
-    private var completionBlock: ((Response?, JudoError?) -> ())?
+    private var completionBlock: JudoCompletionBlock?
     
     override public var view: UIView! {
         get { return self.myView as UIView }
@@ -82,7 +82,7 @@ public class JudoPayViewController: UIViewController {
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: (Response?, JudoError?) -> (), cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
+    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
         self.judoID = judoID
         self.amount = amount
         self.reference = reference
