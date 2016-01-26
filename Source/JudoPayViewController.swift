@@ -38,9 +38,9 @@ public class JudoPayViewController: UIViewController {
     
     /// The amount and currency to process, amount to two decimal places and currency in string
     public private (set) var amount: Amount?
-    /// the number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
+    /// The number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
     public private (set) var judoID: String?
-    /// Your reference for this consumer, this payment and An object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
+    /// Your reference for this consumer, this payment and an object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
     public private (set) var reference: Reference?
     /// Card token and Consumer token
     public private (set) var paymentToken: PaymentToken?
@@ -57,32 +57,32 @@ public class JudoPayViewController: UIViewController {
     private var completionBlock: JudoCompletionBlock?
     
     
-    /// the overridden view object forwarding to a JudoPayView
+    /// The overridden view object forwarding to a JudoPayView
     override public var view: UIView! {
         get { return self.myView as UIView }
         set {
             if newValue is JudoPayView {
                 myView = newValue as! JudoPayView
             }
-            // do nothing
+            // Do nothing
         }
     }
     
     
-    /// the main JudoPayView of this ViewController
+    /// The main JudoPayView of this ViewController
     var myView: JudoPayView!
     
     
     /**
-     Initialiser to start a payment journey
+     Initializer to start a payment journey
      
-     - parameter judoID:           the judoID of the recipient
-     - parameter amount:           an amount and currency for the transaction
-     - parameter reference:        a Reference for the transaction
-     - parameter transactionType:  the type of the transaction
-     - parameter completion:       completion block called when transaction has been finished
-     - parameter cardDetails:      an object containing all card information - default: nil
-     - parameter paymentToken:     a payment token if a payment by token is to be made - default: nil
+     - parameter judoID:           The judoID of the recipient
+     - parameter amount:           An amount and currency for the transaction
+     - parameter reference:        A Reference for the transaction
+     - parameter transactionType:  The type of the transaction
+     - parameter completion:       Completion block called when transaction has been finished
+     - parameter cardDetails:      An object containing all card information - default: nil
+     - parameter paymentToken:     A payment token if a payment by token is to be made - default: nil
      
      - returns: a JPayViewController object for presentation on a view stack
      */
@@ -100,10 +100,10 @@ public class JudoPayViewController: UIViewController {
     
     
     /**
-     designated initialiser that will fail if called
+     Designated initializer that will fail if called
      
-     - parameter nibNameOrNil:   nib name or nil
-     - parameter nibBundleOrNil: bundle or nil
+     - parameter nibNameOrNil:   Nib name or nil
+     - parameter nibBundleOrNil: Bundle or nil
      
      - returns: will crash if executed
      */
@@ -113,9 +113,9 @@ public class JudoPayViewController: UIViewController {
     
     
     /**
-     designated initialiser that will fail if called
+     Designated initializer that will fail if called
      
-     - parameter aDecoder: a decoder
+     - parameter aDecoder: A decoder
      
      - returns: will crash if executed
      */
@@ -137,7 +137,7 @@ public class JudoPayViewController: UIViewController {
         
         self.myView.threeDSecureWebView.delegate = self
         
-        // button actions
+        // Button actions
         let payButtonTitle = self.myView.transactionType == .RegisterCard ? kRegisterCardNavBarButtonTitle : kPaymentButtonTitle
 
         self.myView.paymentButton.addTarget(self, action: Selector("payButtonAction:"), forControlEvents: .TouchUpInside)
@@ -159,7 +159,7 @@ public class JudoPayViewController: UIViewController {
     /**
      viewWillAppear
      
-     - parameter animated: animated
+     - parameter animated: Animated
      */
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -178,7 +178,7 @@ public class JudoPayViewController: UIViewController {
     /**
      viewDidAppear
      
-     - parameter animated: animated
+     - parameter animated: Animated
      */
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -203,9 +203,9 @@ public class JudoPayViewController: UIViewController {
     
     
     /**
-    When the user hits the pay button, the information is collected from the fields and passed to the backend. The transaction will then be executed
+    When the user hits the pay button, the information is collected from the fields and passed to the backend. The transaction will then be executed.
     
-    - parameter sender: the payment button
+    - parameter sender: The payment button
     */
     func payButtonAction(sender: AnyObject) {
         guard let reference = self.reference, let amount = self.amount, let judoID = self.judoID else {
@@ -244,7 +244,7 @@ public class JudoPayViewController: UIViewController {
                 transaction.card(Card(number: self.myView.cardInputField.textField.text!.strippedWhitespaces, expiryDate: self.myView.expiryDateInputField.textField.text!, cv2: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
             
-            // if location was fetched until now, get it
+            // If location was fetched until now, get it
             if let location = self.currentLocation {
                 transaction.location(location)
             }
@@ -304,9 +304,9 @@ extension JudoPayViewController: UIWebViewDelegate {
     /**
      webView delegate method
     
-     - parameter webView:        the webView
-     - parameter request:        the request that was called
-     - parameter navigationType: the navigationType
+     - parameter webView:        The web view
+     - parameter request:        The request that was called
+     - parameter navigationType: The navigation Type
      
      - returns: return whether webView should start loading the request
      */
@@ -369,7 +369,7 @@ extension JudoPayViewController: UIWebViewDelegate {
     /**
      webView delegate method that indicates the webView has finished loading
      
-     - parameter webView: the webView
+     - parameter webView: The web view
      */
     public func webViewDidFinishLoad(webView: UIWebView) {
         var alphaVal: CGFloat = 1.0
