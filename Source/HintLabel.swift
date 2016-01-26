@@ -24,18 +24,18 @@
 
 import UIKit
 
-/// label that sits below the payment entry form, showing alerts and hints
+/// Label that sits below the payment entry form, showing alerts and hints
 public class HintLabel: UILabel {
-    /// the alertText if an alert occured
+    /// The alert text if an alert occured
     var alertText: NSAttributedString?
-    /// the hintText if a hint is being shown
+    /// The hint text if a hint is being shown
     var hintText: NSAttributedString?
     
     
     /**
-     makes the hintText visible in case there is no alertText is not occupying the space
+     Makes the hint text visible in case there is no alert text occupying the space
      
-     - parameter text: the hint text string to show
+     - parameter text: The hint text string to show
      */
     public func showHint(text: String) {
         self.hintText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor()])
@@ -48,9 +48,9 @@ public class HintLabel: UILabel {
     
     
     /**
-     makes the alertText visible and overrides the hintText if it has been previously set and visible at the current time
+     Makes the alert text visible and overrides the hint text if it has been previously set and visible at the current time
      
-     - parameter text: the alert text string to show
+     - parameter text: The alert text string to show
      */
     public func showAlert(text: String) {
         self.addAnimation()
@@ -61,7 +61,7 @@ public class HintLabel: UILabel {
     
     
     /**
-    hide the currently visible hint text and show the alert text if available
+    Hide the currently visible hint text and show the alert text if available
      */
     public func hideHint() {
         self.addAnimation()
@@ -72,7 +72,7 @@ public class HintLabel: UILabel {
     
     
     /**
-     hide the currently visible alert text and show the hint text if available
+     Hide the currently visible alert text and show the hint text if available
      */
     public func hideAlert() {
         self.addAnimation()
@@ -83,7 +83,7 @@ public class HintLabel: UILabel {
     
     
     /**
-     helper to show/hide/transition between texts
+     Helper to show/hide/transition between texts
      */
     public func addAnimation() {
         let animation = CATransition()
