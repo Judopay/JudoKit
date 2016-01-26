@@ -26,7 +26,7 @@ import UIKit
 
 /**
  
- The IssueNumberInputField is an input field configured to detect, validate and present issue numbers for maestro cards.
+ The IssueNumberInputField is an input field configured to detect, validate and present issue numbers for Maestro cards.
  
  */
 public class IssueNumberInputField: JudoPayInputField {
@@ -35,20 +35,20 @@ public class IssueNumberInputField: JudoPayInputField {
     
     
     /**
-    delegate method implementation
+    Delegate method implementation
     
-    - parameter textField: textField
-    - parameter range:     range
-    - parameter string:    string
+    - parameter textField: Text field
+    - parameter range:     Range
+    - parameter string:    String
     
     - returns: boolean to change characters in given range for a textfield
     */
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        // only handle delegate calls for own textfield
+        // Only handle delegate calls for own textfield
         guard textField == self.textField else { return false }
         
-        // get old and new text
+        // Get old and new text
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
@@ -63,9 +63,9 @@ public class IssueNumberInputField: JudoPayInputField {
     
     
     /**
-    check if this inputField is valid
+    Check if this input field is valid
     
-    - returns: true if valid input
+    - returns: True if valid input
     */
     override public func isValid() -> Bool {
         return self.textField.text?.characters.count > 0 && self.textField.text?.characters.count < 4
@@ -73,7 +73,7 @@ public class IssueNumberInputField: JudoPayInputField {
     
     
     /**
-     subclassed method that is called when textField content was changed
+     Subclassed method that is called when text field content was changed
      
      - parameter textField: the textfield of which the content has changed
      */
@@ -89,7 +89,7 @@ public class IssueNumberInputField: JudoPayInputField {
     
     
     /**
-     the placeholder string for the current inputField
+     The placeholder string for the current input field
      
      - returns: an Attributed String that is the placeholder of the receiver
      */
@@ -99,7 +99,7 @@ public class IssueNumberInputField: JudoPayInputField {
     
     
     /**
-     title of the receiver inputField
+     Title of the receiver input field
      
      - returns: a string that is the title of the receiver
      */
@@ -109,7 +109,7 @@ public class IssueNumberInputField: JudoPayInputField {
     
     
     /**
-     hint label text
+     Hint label text
      
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */
