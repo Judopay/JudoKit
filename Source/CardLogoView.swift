@@ -53,14 +53,14 @@ public enum CardLogoType {
 }
 
 
-/// the CardLogoView that shows a given card logo on a view
+/// The CardLogoView that shows a given card logo on a view
 public class CardLogoView: UIView {
-    /// set a type for the current CardLogoView
+    /// Set a type for the current CardLogoView
     public var type: CardLogoType = .Unknown
     
     
     /**
-     designated initializer for creating a logo connected to cards
+     Designated initializer for creating a logo connected to cards
      
      - parameter type: CardLogoType
      
@@ -73,7 +73,7 @@ public class CardLogoView: UIView {
     
     
     /**
-     required initializer for creating a logo connected to cards
+     Required initializer for creating a logo connected to cards
      
      - parameter aDecoder: the decoder
      
@@ -85,7 +85,7 @@ public class CardLogoView: UIView {
     
     
     /**
-     override function that draws the content of the CardLogoView
+     Override function that draws the content of the CardLogoView
      
      - parameter rect: the CGRect to draw in
      */
@@ -112,7 +112,7 @@ public class CardLogoView: UIView {
 
 
 /**
- draw an unknown card logo
+ Draw an unknown card logo
  */
 public func drawCardUnknown() {
         //// Color Declarations
