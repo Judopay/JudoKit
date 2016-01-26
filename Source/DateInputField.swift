@@ -29,8 +29,8 @@ import Judo
 /**
 The DateTextField allows two different modes of input.
 
-- Picker: use a custom UIPickerView with month and year fields
-- Text:   use a common Numpad Keyboard as text input method
+- Picker: Use a custom UIPickerView with month and year fields
+- Text:   Use a common Numpad Keyboard as text input method
 */
 public enum DateInputType {
     /// DateInputTypePicker using a UIPicker as an input method
@@ -47,24 +47,24 @@ public enum DateInputType {
 public class DateInputField: JudoPayInputField {
     
     
-    /// the datePicker showing months and years to pick from for expiry or start date input
+    /// The datePicker showing months and years to pick from for expiry or start date input
     let datePicker = UIPickerView()
     
     
-    /// the date formatter that shows the date in the same way it is written on a credit card
+    /// The date formatter that shows the date in the same way it is written on a credit card
     private let dateFormatter: NSDateFormatter = {
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MM/yy"
         return formatter
     }()
     
-    /// the current year on a gregorian calendar
+    /// The current year on a Gregorian calendar
     private let currentYear = NSCalendar.currentCalendar().component(.Year, fromDate: NSDate())
-    /// the current month on a gregorian calendar
+    /// The current month on a Gregorian calendar
     private let currentMonth = NSCalendar.currentCalendar().component(.Month, fromDate: NSDate())
     
     
-    /// boolean stating whether input field should identify as a start or end date
+    /// Boolean stating whether input field should identify as a start or end date
     public var isStartDate: Bool = false {
         didSet {
             self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
@@ -72,7 +72,7 @@ public class DateInputField: JudoPayInputField {
     }
     
     
-    /// variable defining the input type (text or picker)
+    /// Variable defining the input type (text or picker)
     public var dateInputType: DateInputType = .Text {
         didSet {
             switch dateInputType {
@@ -95,12 +95,12 @@ public class DateInputField: JudoPayInputField {
     
     
     /**
-    setup the view
+    Setup the view
     */
     override func setupView() {
         super.setupView()
         
-        // input method should be via date picker
+        // Input method should be via date picker
         self.datePicker.delegate = self
         self.datePicker.dataSource = self
         
@@ -121,22 +121,22 @@ public class DateInputField: JudoPayInputField {
     
     
     /**
-    delegate method implementation
+    Delegate method implementation
     
-    - parameter textField: textField
-    - parameter range:     range
-    - parameter string:    string
+    - parameter textField: Text field
+    - parameter range:     Range
+    - parameter string:    String
     
     - returns: boolean to change characters in given range for a textfield
     */
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        // only handle calls if textinput is selected
+        // Only handle calls if textinput is selected
         guard self.dateInputType == .Text else { return true }
         
-        // only handle delegate calls for own textfield
+        // Only handle delegate calls for own textfield
         guard textField == self.textField else { return false }
         
-        // get old and new text
+        // Get old and new text
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
@@ -182,7 +182,7 @@ public class DateInputField: JudoPayInputField {
     
     
     /**
-    check if this inputField is valid
+    Check if this inputField is valid
     
     - returns: true if valid input
     */
@@ -208,7 +208,7 @@ public class DateInputField: JudoPayInputField {
     
     
     /**
-     subclassed method that is called when textField content was changed
+     Subclassed method that is called when textField content was changed
      
      - parameter textField: the textfield of which the content has changed
      */
@@ -229,7 +229,7 @@ public class DateInputField: JudoPayInputField {
     
     
     /**
-     the placeholder string for the current inputField
+     The placeholder string for the current inputField
      
      - returns: an Attributed String that is the placeholder of the receiver
      */
@@ -239,7 +239,7 @@ public class DateInputField: JudoPayInputField {
     
     
     /**
-     title of the receiver inputField
+     Title of the receiver inputField
      
      - returns: a string that is the title of the receiver
      */
@@ -249,7 +249,7 @@ public class DateInputField: JudoPayInputField {
     
     
     /**
-     hint label text
+     Hint label text
      
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */
@@ -264,11 +264,11 @@ public class DateInputField: JudoPayInputField {
 extension DateInputField: UIPickerViewDataSource {
     
     /**
-    datasource method for datePickerView
+    Datasource method for datePickerView
     
     - parameter pickerView: PickerView that calls its delegate
     
-    - returns: the number of components in the pickerView
+    - returns: The number of components in the pickerView
     */
     public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 2
@@ -276,10 +276,10 @@ extension DateInputField: UIPickerViewDataSource {
     
     
     /**
-     datasource method for datePickerView
+     Datasource method for datePickerView
      
      - parameter pickerView: PickerView that calls its delegate
-     - parameter component:  a given component
+     - parameter component:  A given component
      
      - returns: number of rows in component
      */
@@ -294,11 +294,11 @@ extension DateInputField: UIPickerViewDataSource {
 extension DateInputField: UIPickerViewDelegate {
     
     /**
-    delegate method for datePickerView
+    Delegate method for datePickerView
     
-    - parameter pickerView: the caller
-    - parameter row:        the row
-    - parameter component:  the component
+    - parameter pickerView: The caller
+    - parameter row:        The row
+    - parameter component:  The component
     
     - returns: content of a given component and row
     */
@@ -315,14 +315,14 @@ extension DateInputField: UIPickerViewDelegate {
     
     
     /**
-     delegate method for datePickerView that had a given row in a component selected
+     Delegate method for datePickerView that had a given row in a component selected
      
-     - parameter pickerView: the caller
-     - parameter row:        the row
-     - parameter component:  the component
+     - parameter pickerView: The caller
+     - parameter row:        The row
+     - parameter component:  The component
      */
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        // need to use NSString because Precision String Format Specifier is easier this way
+        // Need to use NSString because Precision String Format Specifier is easier this way
         if component == 0 {
             let month = NSString(format: "%02i", row + 1)
             let oldDateString = self.textField.text!
