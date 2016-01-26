@@ -5,17 +5,17 @@
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
 [![Build Status](https://travis-ci.org/JudoPay/JudoKit.svg)](http://travis-ci.org/JudoPay/JudoKit)
 
-# JudoKit Native SDK for iOS
+# judoKit Native SDK for iOS
 
-This is the official Judo iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judoshield)) combining them with additional tools to enable easy integration of payments into your App. It works for both Swift and Obj-C projects.
+This is the official judo iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judoshield)) combining them with additional tools to enable easy integration of payments into your app. It works for both Swift and Obj-C projects.
 
 ### What is this project for?
 
-JudoKit is a framework for creating easy payments inside your app with [JudoPay](https://www.judopay.com/). It contains an exhaustive toolbelt for everything to related to making payments.
+judoKit is a framework for creating easy payments inside your app with [judoPay](https://www.judopay.com/). It contains an exhaustive toolbelt for everything to related to making payments.
 
 ## Integration
 
-**Be aware that bit code should be disabled for all projects using JudoKit**
+**Be aware that bit code should be disabled for all projects using judoKit**
 
 ### Sign up to judo's platform
 
