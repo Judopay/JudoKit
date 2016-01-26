@@ -14,12 +14,12 @@ All notable changes to this project will be documented in this file.
 Released on 2016-01-28
 
 #### Added
-- Ability to pass a CardDetails object to prefill textfields when making a Transaction
+- Ability to pass a CardDetails object to prefill text fields when making a transaction
 - Validation of card information when set from an external source
 - Package file for future Swift package manager
 
 #### Updated
-- Secure Code Input Field hintlabel now shows a better description when doing a repeat (token) payment
+- Secure Code Input Field hint label now shows a better description when doing a repeat (token) payment
 
 #### Fixed
 - Validation on every field at every entry
@@ -32,7 +32,7 @@ Released on 2016-01-14
 - Hint label now shows errors in red color
 - Modified acceptance of card networks to hard restrict networks and lengths that are not supported
 - Version is now sent in the REST API Headers
-- Duplicaition prevention - payment reference will be uniquely checked against previous transactions to block any duplication of the same transaction
+- Duplicate transaction prevention - payment reference will be uniquely checked against previous transactions to block any duplication of the same transaction
 - Validation methods for each input field
 
 #### Updated
