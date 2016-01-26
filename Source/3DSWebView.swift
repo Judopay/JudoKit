@@ -36,7 +36,7 @@ public class _DSWebView: UIWebView {
     // MARK: initialization
     
     /**
-    designated initialiser
+    Designated initializer
     
     - returns: a 3DSWebView object
     */
@@ -47,7 +47,7 @@ public class _DSWebView: UIWebView {
     
     
     /**
-     convenience initialiser
+     Convenience initializer
      
      - parameter frame: ignored
      
@@ -59,7 +59,7 @@ public class _DSWebView: UIWebView {
     
     
     /**
-     convenience initialiser
+     Convenience initializer
      
      - parameter aDecoder: ignored
      
