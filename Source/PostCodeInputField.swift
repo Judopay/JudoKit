@@ -57,20 +57,20 @@ public class PostCodeInputField: JudoPayInputField {
     
     
     /**
-     delegate method implementation
+     Delegate method implementation
      
-     - parameter textField: textField
-     - parameter range:     range
-     - parameter string:    string
+     - parameter textField: Text field
+     - parameter range:     Range
+     - parameter string:    String
      
-     - returns: boolean to change characters in given range for a textfield
+     - returns: Boolean to change characters in given range for a text field
      */
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        // only handle delegate calls for own textfield
+        // Only handle delegate calls for own text field
         guard textField == self.textField else { return false }
         
-        // get old and new text
+        // Get old and new text
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
@@ -94,9 +94,9 @@ public class PostCodeInputField: JudoPayInputField {
     
     
     /**
-    check if this inputField is valid
+    Check if this input field is valid
     
-    - returns: true if valid input
+    - returns: True if valid input
     */
     override public func isValid() -> Bool {
         guard let newString = self.textField.text?.uppercaseString else { return false }
@@ -119,9 +119,9 @@ public class PostCodeInputField: JudoPayInputField {
     
     
     /**
-     subclassed method that is called when textField content was changed
+     Subclassed method that is called when text field content was changed
      
-     - parameter textField: the textfield of which the content has changed
+     - parameter textField: The text field of which the content has changed
      */
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
@@ -133,9 +133,9 @@ public class PostCodeInputField: JudoPayInputField {
     
     
     /**
-     title of the receiver inputField
+     Title of the receiver input field
      
-     - returns: a string that is the title of the receiver
+     - returns: A string that is the title of the receiver
      */
     override public func title() -> String {
         return self.billingCountry.titleDescription()
@@ -143,9 +143,9 @@ public class PostCodeInputField: JudoPayInputField {
     
     
     /**
-     width of the title
+     Width of the title
      
-     - returns: width of the title
+     - returns: Width of the title
      */
     override public func titleWidth() -> Int {
         return 120
