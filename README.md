@@ -9,6 +9,8 @@
 
 This is the official judo iOS SDK. It is built on top of basic frameworks ([Judo](http://github.com/JudoPay/Judo-Swift), [JudoShield](https://github.com/judopay/judoshield)) combining them with additional tools to enable easy integration of payments into your app. It works for both Swift and Obj-C projects.
 
+#### **\*\*\*Due to industry-wide security updates, versions below 5.5.1 of this SDK will no longer be supported after 1st Oct 2016. For more information regarding these updates, please read our blog [here](http://hub.judopay.com/pci31-security-updates/).*****
+
 ### What is this project for?
 
 judoKit is a framework for creating easy payments inside your app with [judoPay](https://www.judopay.com/). It contains an exhaustive toolbelt for everything to related to making payments.
