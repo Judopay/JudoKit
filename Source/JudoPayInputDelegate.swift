@@ -36,8 +36,8 @@ public protocol JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the issueNumberInputField entered a code
      
-     - parameter input:       the issueNumberInputField calling the delegate method
-     - parameter issueNumber: the issue number that has been entered as a String
+     - parameter input:       The issueNumberInputField calling the delegate method
+     - parameter issueNumber: The issue number that has been entered as a String
      */
     func issueNumberInputDidEnterCode(input: IssueNumberInputField, issueNumber: String)
     
@@ -45,8 +45,8 @@ public protocol JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the CardInputField encountered an error
      
-     - parameter input: the input field calling the delegate method
-     - parameter error: the error that occured
+     - parameter input: The input field calling the delegate method
+     - parameter error: The error that occured
      */
     func cardInput(input: CardInputField, error: JudoError)
     
@@ -54,8 +54,8 @@ public protocol JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the CardInputField did find a valid number
      
-     - parameter input:            the input field calling the delegate method
-     - parameter cardNumberString: the card number that has been entered as a String
+     - parameter input:            The input field calling the delegate method
+     - parameter cardNumberString: The card number that has been entered as a String
      */
     func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String)
     
@@ -63,8 +63,8 @@ public protocol JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the CardInputField detected a network
      
-     - parameter input:   the input field calling the delegate method
-     - parameter network: the network that has been identified
+     - parameter input:   The input field calling the delegate method
+     - parameter network: The network that has been identified
      */
     func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork)
     
@@ -72,8 +72,8 @@ public protocol JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the date input field has encountered an error
      
-     - parameter input: the input field calling the delegate method
-     - parameter error: the error that occured
+     - parameter input: The input field calling the delegate method
+     - parameter error: The error that occured
      */
     func dateInput(input: DateInputField, error: JudoError)
     
@@ -81,8 +81,8 @@ public protocol JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the date input field has found a valid date
      
-     - parameter input: the input field calling the delegate method
-     - parameter date:  the valid date that has been entered
+     - parameter input: The input field calling the delegate method
+     - parameter date:  The valid date that has been entered
      */
     func dateInput(input: DateInputField, didFindValidDate date: String)
     
@@ -90,8 +90,8 @@ public protocol JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the judoPayInputField was validated
      
-     - parameter input:   the input field calling the delegate method
-     - parameter isValid: a boolean that indicates whether the input is valid or invalid
+     - parameter input:   The input field calling the delegate method
+     - parameter isValid: A boolean that indicates whether the input is valid or invalid
      */
     func judoPayInput(input: JudoPayInputField, isValid: Bool)
     
@@ -99,8 +99,8 @@ public protocol JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the billingCountry input field selected a BillingCountry
      
-     - parameter input:          the input field calling the delegate method
-     - parameter billingCountry: the billing country that has been selected
+     - parameter input:          The input field calling the delegate method
+     - parameter billingCountry: The billing country that has been selected
      */
     func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry)
     
@@ -108,7 +108,7 @@ public protocol JudoPayInputDelegate {
     /**
      Delegate method that is called whenever any inputField has been manipulated
      
-     - parameter input: the input field calling the delegate method
+     - parameter input: The input field calling the delegate method
      */
     func judoPayInputDidChangeText(input: JudoPayInputField)
     

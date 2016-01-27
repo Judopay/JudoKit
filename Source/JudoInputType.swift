@@ -25,7 +25,7 @@
 import Foundation
 
 /**
- *  the type for all the inputFields to conform to
+ *  The type for all the input fields to conform to
  */
 public protocol JudoInputType {
     /**
@@ -35,7 +35,7 @@ public protocol JudoInputType {
     
     
     /**
-     Method that is called after a value has changed. This method is intended for subclassing
+     Method that is called after a value has changed. This method is intended for subclassing.
      
      - parameter textField: the `UITextField` that has a changed value
      */
@@ -43,7 +43,7 @@ public protocol JudoInputType {
     
     
     /**
-     Placeholder string for textfields depending on layout configuration. This method is intended for subclassing
+     Placeholder string for text fields depending on layout configuration. This method is intended for subclassing.
      
      - returns: an NSAttributedString depending on color and configuration
      */
@@ -51,7 +51,7 @@ public protocol JudoInputType {
     
     
     /**
-     an indication of whether an inputField contains a Logo or not. This method is intended for subclassing
+     An indication of whether an input field contains a Logo or not. This method is intended for subclassing.
      
      - returns: a boolean indication whether logo should be shown
      */
@@ -59,7 +59,7 @@ public protocol JudoInputType {
     
     
     /**
-     the logo of an inputField if available. This method is intended for subclassing
+     The logo of an input field if available. This method is intended for subclassing.
      
      - returns: the logo of an inputField
      */
@@ -67,15 +67,15 @@ public protocol JudoInputType {
     
     
     /**
-     the title of an inputField. This method is intended for subclassing
+     The title of an input field. This method is intended for subclassing.
      
      - returns: the title of an inputField
      */
     func title() -> String
-    
+ 
     
     /**
-     the titleWidth for a given title and inputField. This method is intended for subclassing
+     The title width for a given title and input field. This method is intended for subclassing.
      
      - returns: a title width in integer
      */
@@ -83,7 +83,7 @@ public protocol JudoInputType {
     
     
     /**
-     a hint text for a given inputField. This method is intended for subclassing
+     A hint text for a given input field. This method is intended for subclassing.
      
      - returns: a String with instructions for a given inputField that pops up after 3 seconds of being idle
      */
@@ -91,7 +91,7 @@ public protocol JudoInputType {
     
     
     /**
-     a function that replies whether the entered text in that specific field is valid or not
+     A function that replies whether the entered text in that specific field is valid or not.
      
      - returns: true if information in field is valid
      */

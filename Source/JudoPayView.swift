@@ -48,13 +48,13 @@ let kRedirecting3DSTitle = "Redirecting..."
 let kVerifying3DSPaymentTitle = "Verifying payment"
 let kVerifying3DSRegisterCardTitle = "Verifying card"
 
-// InputFields
+// Input fields
 let inputFieldHeight: CGFloat = 48
 
-/// JudoPayView - the main view in the Transaction journey
+/// JudoPayView - the main view in the transaction journey
 public class JudoPayView: UIView {
     
-    /// the content view of the JudoPayView
+    /// The content view of the JudoPayView
     public let contentView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -63,46 +63,46 @@ public class JudoPayView: UIView {
         return scrollView
     }()
     
-    /// the card input field object
+    /// The card input field object
     let cardInputField = CardInputField()
-    /// the expiry date input field object
+    /// The expiry date input field object
     let expiryDateInputField = DateInputField()
-    /// the secure code input field object
+    /// The secure code input field object
     let secureCodeInputField = SecurityInputField()
-    /// the start date input field object
+    /// The start date input field object
     let startDateInputField = DateInputField()
-    /// the issue number input field object
+    /// The issue number input field object
     let issueNumberInputField = IssueNumberInputField()
-    /// the billing country input field object
+    /// The billing country input field object
     let billingCountryInputField = BillingCountryInputField()
-    /// the post code input field object
+    /// The post code input field object
     let postCodeInputField = PostCodeInputField()
     
     /// The card details object
     var cardDetails: CardDetails?
     
-    /// the phantom keyboard height constraint
+    /// The phantom keyboard height constraint
     var keyboardHeightConstraint: NSLayoutConstraint?
     
-    /// the maestro card fields (issue number and start date) height constraint)
+    /// The Maestro card fields (issue number and start date) height constraint
     var maestroFieldsHeightConstraint: NSLayoutConstraint?
-    /// the billing country field height constraint
+    /// The billing country field height constraint
     var billingHeightConstraint: NSLayoutConstraint?
-    /// the postal code field height constraint
+    /// The postal code field height constraint
     var postHeightConstraint: NSLayoutConstraint?
     
     // MARK: UI properties
     var paymentEnabled = false
     var currentKeyboardHeight: CGFloat = 0.0
     
-    /// the hint label object
+    /// The hint label object
     let hintLabel = HintLabel(frame: CGRectZero)
     
-    // can not initialize because self is not available at this point to set the target
-    // must be var? because can also not be initialized in init before self is available
-    /// payment navbar button
+    // Can not initialize because self is not available at this point to set the target
+    // Must be var? because can also not be initialized in init before self is available
+    /// Payment navbar button
     var paymentNavBarButton: UIBarButtonItem?
-    /// the payment button object
+    /// The payment button object
     let paymentButton = PayButton()
     
     let loadingView = LoadingView()
@@ -111,15 +111,15 @@ public class JudoPayView: UIView {
     // MARK: hint label
     private var timer: NSTimer?
     
-    /// the transactionType of the current journey
+    /// The transactionType of the current journey
     var transactionType: TransactionType
     
     
     /**
-     designated initializer
+     Designated initializer
      
-     - parameter type:        the transactionType of this transaction
-     - parameter cardDetails: cardDetails information if they have been passed
+     - parameter type:        The transactionType of this transaction
+     - parameter cardDetails: Card details information if they have been passed
      
      - returns: a JudoPayView object
      */
@@ -136,9 +136,9 @@ public class JudoPayView: UIView {
     
     
     /**
-     required initializer for the JudoPayView that will fail
+     Required initializer for the JudoPayView that will fail
      
-     - parameter aDecoder: a Decoder
+     - parameter aDecoder: A Decoder
      
      - returns: a fatal error will be thrown as this class should not be retrieved by decoding
      */
@@ -149,7 +149,7 @@ public class JudoPayView: UIView {
     // MARK: Keyboard notification configuration
     
     /**
-    deinitializer
+    Deinitializer
     */
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
@@ -157,7 +157,7 @@ public class JudoPayView: UIView {
     }
     
     /**
-     this method will receive the height of the keyboard when the keyboard will appear to fit the size of the contentview accordingly
+     This method will receive the height of the keyboard when the keyboard will appear to fit the size of the contentview accordingly
      
      - parameter note: the notification that calls this method
      */
@@ -183,7 +183,7 @@ public class JudoPayView: UIView {
     
     
     /**
-     this method will receive the keyboard will disappear notification to fit the size of the contentview accordingly
+     This method will receive the keyboard will disappear notification to fit the size of the contentview accordingly
      
      - parameter note: the notification that calls this method
      */
@@ -215,7 +215,7 @@ public class JudoPayView: UIView {
         
         self.startDateInputField.isStartDate = true
         
-        // view
+        // View
         self.addSubview(contentView)
         self.contentView.contentSize = self.bounds.size
         
@@ -234,7 +234,7 @@ public class JudoPayView: UIView {
         self.addSubview(threeDSecureWebView)
         self.addSubview(loadingView)
         
-        // delegates
+        // Delegates
         self.cardInputField.delegate = self
         self.expiryDateInputField.delegate = self
         self.secureCodeInputField.delegate = self
@@ -247,7 +247,7 @@ public class JudoPayView: UIView {
         self.hintLabel.numberOfLines = 3
         self.hintLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        // layout constraints
+        // Layout constraints
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|[scrollView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView]))
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[scrollView]-1-[button]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView, "button":paymentButton]))
         
@@ -283,7 +283,7 @@ public class JudoPayView: UIView {
         self.billingCountryInputField.addConstraint(billingHeightConstraint!)
         self.postCodeInputField.addConstraint(postHeightConstraint!)
         
-        // if card details are available, fill out the fields
+        // If card details are available, fill out the fields
         if let cardDetails = self.cardDetails,
             let formattedLastFour = cardDetails.formattedLastFour(),
             let expiryDate = cardDetails.formattedEndDate() {
@@ -300,7 +300,7 @@ public class JudoPayView: UIView {
      
      - Discussion: Maestro cards need a start date or an issue number to be entered for making any transaction
      
-     - parameter isVisible: whether start date and issue number fields should be visible
+     - parameter isVisible: Whether start date and issue number fields should be visible
      */
     public func toggleStartDateVisibility(isVisible: Bool) {
         self.maestroFieldsHeightConstraint?.constant = isVisible ? inputFieldHeight : 0
@@ -320,10 +320,10 @@ public class JudoPayView: UIView {
     /**
      This method toggles the visibility of address fields (billing country and post code).
      
-     - Discussion: if AVS is necessary, this should be activated. AVS only needs Postcode to verify
+     - Discussion: If AVS is necessary, this should be activated. AVS only needs Postcode to verify
      
-     - parameter isVisible:  whether post code and billing country fields should be visible
-     - parameter completion: block that is called when animation was finished
+     - parameter isVisible:  Whether post code and billing country fields should be visible
+     - parameter completion: Block that is called when animation was finished
      */
     public func toggleAVSVisibility(isVisible: Bool, completion: (() -> ())? = nil) {
         self.billingHeightConstraint?.constant = isVisible ? inputFieldHeight : 0
@@ -345,9 +345,9 @@ public class JudoPayView: UIView {
     
     
     /**
-    when a network has been identified, the secure code textfield has to adjust its title and maximum number entry to enable the payment
+    When a network has been identified, the secure code text field has to adjust its title and maximum number entry to enable the payment
     
-    - parameter network: the network that has been identified
+    - parameter network: The network that has been identified
     */
     func updateInputFieldsWithNetwork(network: CardNetwork?) {
         guard let network = network else { return }
@@ -363,7 +363,7 @@ public class JudoPayView: UIView {
     /**
     Helper method to enable the payment after all fields have been validated and entered
     
-    - parameter enabled: pass true to enable the payment buttons
+    - parameter enabled: Pass true to enable the payment buttons
     */
     func paymentEnabled(enabled: Bool) {
         self.paymentEnabled = enabled
@@ -384,7 +384,7 @@ public class JudoPayView: UIView {
     /**
      The hint label has a timer that executes the visibility.
      
-     - parameter input: the input field which the user is currently idling
+     - parameter input: The input field which the user is currently idling
      */
     func resetTimerWithInput(input: JudoPayInputField) {
         self.hintLabel.hideHint()
@@ -404,8 +404,8 @@ extension JudoPayView: JudoPayInputDelegate {
     /**
     Delegate method that is triggered when the CardInputField encountered an error
     
-    - parameter input: the input field calling the delegate method
-    - parameter error: the error that occured
+    - parameter input: The input field calling the delegate method
+    - parameter error: The error that occured
     */
     public func cardInput(input: CardInputField, error: JudoError) {
         input.errorAnimation(error.code != .InputLengthMismatchError)
@@ -418,8 +418,8 @@ extension JudoPayView: JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the CardInputField did find a valid number
      
-     - parameter input:            the input field calling the delegate method
-     - parameter cardNumberString: the card number that has been entered as a String
+     - parameter input:            The input field calling the delegate method
+     - parameter cardNumberString: The card number that has been entered as a String
      */
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
         self.expiryDateInputField.textField.becomeFirstResponder()
@@ -429,8 +429,8 @@ extension JudoPayView: JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the CardInputField detected a network
      
-     - parameter input:   the input field calling the delegate method
-     - parameter network: the network that has been identified
+     - parameter input:   The input field calling the delegate method
+     - parameter network: The network that has been identified
      */
     public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
         self.updateInputFieldsWithNetwork(network)
@@ -443,8 +443,8 @@ extension JudoPayView: JudoPayInputDelegate {
     /**
     Delegate method that is triggered when the date input field has encountered an error
     
-    - parameter input: the input field calling the delegate method
-    - parameter error: the error that occured
+    - parameter input: The input field calling the delegate method
+    - parameter error: The error that occured
     */
     public func dateInput(input: DateInputField, error: JudoError) {
         input.errorAnimation(error.code != .InputLengthMismatchError)
@@ -454,8 +454,8 @@ extension JudoPayView: JudoPayInputDelegate {
     /**
      Delegate method that is triggered when the date input field has found a valid date
      
-     - parameter input: the input field calling the delegate method
-     - parameter date:  the valid date that has been entered
+     - parameter input: The input field calling the delegate method
+     - parameter date:  The valid date that has been entered
      */
     public func dateInput(input: DateInputField, didFindValidDate date: String) {
         if input == self.startDateInputField {
@@ -471,8 +471,8 @@ extension JudoPayView: JudoPayInputDelegate {
     /**
     Delegate method that is triggered when the issueNumberInputField entered a code
     
-    - parameter input:       the issueNumberInputField calling the delegate method
-    - parameter issueNumber: the issue number that has been entered as a String
+    - parameter input:       The issueNumberInputField calling the delegate method
+    - parameter issueNumber: The issue number that has been entered as a String
     */
     public func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String) {
         if issueNumber.characters.count == 3 {
@@ -484,10 +484,10 @@ extension JudoPayView: JudoPayInputDelegate {
     
     
     /**
-    Delegate method that is triggered when the billingCountry input field selected a BillingCountry
+    Delegate method that is triggered when the billing country input field selected a billing country
     
-    - parameter input:          the input field calling the delegate method
-    - parameter billingCountry: the billing country that has been selected
+    - parameter input:          The input field calling the delegate method
+    - parameter billingCountry: The billing country that has been selected
     */
     public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
         self.postCodeInputField.billingCountry = billingCountry
@@ -501,8 +501,8 @@ extension JudoPayView: JudoPayInputDelegate {
     /**
     Delegate method that is triggered when the judoPayInputField was validated
     
-    - parameter input:   the input field calling the delegate method
-    - parameter isValid: a boolean that indicates whether the input is valid or invalid
+    - parameter input:   The input field calling the delegate method
+    - parameter isValid: A boolean that indicates whether the input is valid or invalid
     */
     public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
         if input == self.secureCodeInputField {
@@ -518,9 +518,9 @@ extension JudoPayView: JudoPayInputDelegate {
     }
     
     /**
-     Delegate method that is called whenever any inputField has been manipulated
+     Delegate method that is called whenever any input field has been manipulated
      
-     - parameter input: the input field calling the delegate method
+     - parameter input: The input field calling the delegate method
      */
     public func judoPayInputDidChangeText(input: JudoPayInputField) {
         self.resetTimerWithInput(input)

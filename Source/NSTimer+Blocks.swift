@@ -2,7 +2,7 @@
 //  NSTimer+Blocks.swift
 //  JudoKit
 //
-//  Copyright © 2015 Judo Payments. All rights reserved.
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal

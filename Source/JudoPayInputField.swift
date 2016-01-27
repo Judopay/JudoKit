@@ -28,14 +28,14 @@ import Judo
 
 /**
  
- The JudoPayInputField is a UIView subclass that is used to help to validate and visualize common information related to payments. This class delivers the common ground for the UI and UX. Textfields can either be used in a side-by-side motion (title on the left and input textfield on the right) or with a floating title that floats to the top as soon as a user starts entering their details)
+ The JudoPayInputField is a UIView subclass that is used to help to validate and visualize common information related to payments. This class delivers the common ground for the UI and UX. Text fields can either be used in a side-by-side motion (title on the left and input text field on the right) or with a floating title that floats to the top as soon as a user starts entering their details.
  
- It is not recommended to use this class directly but rather use the subclasses of JudoPayInputField that are also provided in the JudoKit as this class does not do any validation which are necessary for making any kind of transaction.
+ It is not recommended to use this class directly but rather use the subclasses of JudoPayInputField that are also provided in judoKit as this class does not do any validation which are necessary for making any kind of transaction.
  
  */
 public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
-    /// the delegate for the input field validation methods
+    /// The delegate for the input field validation methods
     public var delegate: JudoPayInputDelegate?
 
     let textField: FloatingTextField = FloatingTextField()
@@ -56,7 +56,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     /**
     Designated Initializer for JudoPayInputField
     
-    - parameter layoutType: the layout type to use for
+    - parameter layoutType: The layout type to use for
     
     - returns: a JudoPayInputField instance
     */
@@ -67,7 +67,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     required initializer set as convenience to trigger the designated initializer that contains all necessary initialisation methods
+     Required initializer set as convenience to trigger the designated initializer that contains all necessary initialization methods
      
      - parameter aDecoder: decoder is ignored
      
@@ -79,7 +79,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     helper method to initialize the view
+     Helper method to initialize the view
      */
     func setupView() {
         self.backgroundColor = .judoInputFieldBackgroundColor()
@@ -131,12 +131,12 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-    Helper method that will wiggle the inputField and show a red line at the bottom in which is was executed
+    Helper method that will wiggle the input field and show a red line at the bottom in which is was executed
     
-    - parameter redBlock: boolean stating whether to show a red line at the bottom or not
+    - parameter redBlock: Boolean stating whether to show a red line at the bottom or not
     */
     public func errorAnimation(redBlock: Bool) {
-        // animate the red block on the bottom
+        // Animate the red block on the bottom
         
         let blockAnimation = { (didFinish: Bool) -> Void in
             let contentViewAnimation = CAKeyframeAnimation()
@@ -164,7 +164,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     in the case of an updated cardlogo, this method animates the change
+     In the case of an updated card logo, this method animates the change
      */
     public func updateCardLogo() {
         let logoView = self.logoView()!
@@ -179,9 +179,9 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     set current object as active textfield visually
+     Set current object as active text field visually
      
-     - parameter isActive: boolean stating whether textfield has become active or inactive
+     - parameter isActive: Boolean stating whether textfield has become active or inactive
      */
     public func setActive(isActive: Bool) {
         self.textField.alpha = isActive ? 1.0 : 0.5
@@ -190,7 +190,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     method that dismisses the error generated in the `errorAnmiation:` method
+     Method that dismisses the error generated in the `errorAnmiation:` method
      */
     public func dismissError() {
         if self.redBlock.bounds.size.height > 0 {
@@ -204,9 +204,9 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     Delegate method when textfield did begin editing
+     Delegate method when text field did begin editing
      
-     - parameter textField: the `UITextField` that has begun editing
+     - parameter textField: The `UITextField` that has begun editing
      */
     public func textFieldDidBeginEditing(textField: UITextField) {
         self.setActive(true)
@@ -214,7 +214,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     }
     
     /**
-     Delegate method when textfield did end editing
+     Delegate method when text field did end editing
      
      - parameter textField: the `UITextField` that has ended editing
      */
@@ -227,7 +227,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-    check if this inputField is valid
+    Check if this input field is valid
     
     - returns: true if valid input
     */
@@ -237,7 +237,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     helper call for delegate method
+     Helper call for delegate method
      */
     public func didChangeInputText() {
         self.delegate?.judoPayInputDidChangeText(self)
@@ -245,18 +245,18 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     subclassed method that is called when textField content was changed
+     Subclassed method that is called when text field content was changed
      
      - parameter textField: the textfield of which the content has changed
      */
     public func textFieldDidChangeValue(textField: UITextField) {
         self.dismissError()
-        // method for subclassing
+        // Method for subclassing
     }
     
     
     /**
-     the placeholder string for the current inputField
+     The placeholder string for the current input field
      
      - returns: an Attributed String that is the placeholder of the receiver
      */
@@ -266,7 +266,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     boolean indicating whether the receiver has to show a logo
+     Boolean indicating whether the receiver has to show a logo
      
      - returns: true if inputField shows a Logo
      */
@@ -276,7 +276,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     if the receiving inputField contains a Logo, this method returns Some
+     If the receiving input field contains a logo, this method returns Some
      
      - returns: an optional CardLogoView
      */
@@ -286,7 +286,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     title of the receiver inputField
+     Title of the receiver input field
      
      - returns: a string that is the title of the receiver
      */
@@ -296,7 +296,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     width of the title
+     Width of the title
      
      - returns: width of the title
      */
@@ -306,7 +306,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-     hint label text
+     Hint label text
      
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */

@@ -53,13 +53,13 @@ public class BillingCountryInputField: JudoPayInputField {
     // MARK: UITextFieldDelegate Methods
     
     /**
-    delegate method implementation
+    Delegate method implementation
     
-    - parameter textField: textField
-    - parameter range:     range
-    - parameter string:    string
+    - parameter textField: Text field
+    - parameter range:     Range
+    - parameter string:    String
     
-    - returns: boolean to change characters in given range for a textfield
+    - returns: boolean to change characters in given range for a text field
     */
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         return false
@@ -69,7 +69,7 @@ public class BillingCountryInputField: JudoPayInputField {
     
     
     /**
-    check if this inputField is valid
+    Check if this inputField is valid
     
     - returns: true if valid input
     */
@@ -79,7 +79,7 @@ public class BillingCountryInputField: JudoPayInputField {
     
     
     /**
-     title of the receiver inputField
+     Title of the receiver inputField
      
      - returns: a string that is the title of the receiver
      */
@@ -89,7 +89,7 @@ public class BillingCountryInputField: JudoPayInputField {
     
     
     /**
-     width of the title
+     Width of the title
      
      - returns: width of the title
      */
@@ -104,7 +104,7 @@ public class BillingCountryInputField: JudoPayInputField {
 extension BillingCountryInputField: UIPickerViewDataSource {
     
     /**
-     datasource method for billingCountryPickerView
+     Datasource method for billingCountryPickerView
      
      - parameter pickerView: PickerView that calls its delegate
      
@@ -116,10 +116,10 @@ extension BillingCountryInputField: UIPickerViewDataSource {
     
     
     /**
-     datasource method for billingCountryPickerView
+     Datasource method for billingCountryPickerView
      
-     - parameter pickerView: pickerView
-     - parameter component:  a given component
+     - parameter pickerView: Picker view
+     - parameter component:  A given component
      
      - returns: number of rows in component
      */
@@ -134,11 +134,11 @@ extension BillingCountryInputField: UIPickerViewDelegate {
     // MARK: UIPickerViewDelegate
     
     /**
-    delegate method for billingCountryPickerView
+    Delegate method for billingCountryPickerView
     
-    - parameter pickerView: the caller
-    - parameter row:        the row
-    - parameter component:  the component
+    - parameter pickerView: The caller
+    - parameter row:        The row
+    - parameter component:  The component
     
     - returns: title of a given component and row
     */
@@ -148,11 +148,11 @@ extension BillingCountryInputField: UIPickerViewDelegate {
     
     
     /**
-     delegate method for billingCountryPickerView that had a given row in a component selected
+     Delegate method for billingCountryPickerView that had a given row in a component selected
      
-     - parameter pickerView: the caller
-     - parameter row:        the row
-     - parameter component:  the component
+     - parameter pickerView: The caller
+     - parameter row:        The row
+     - parameter component:  The component
      */
     public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedCountry = BillingCountry.allValues[row]

@@ -26,7 +26,7 @@ import UIKit
 
 /**
  
- The PayButton is a button that is configured to layout a JudoPay button for the Transaction journey
+ The PayButton is a button that is configured to layout a judo pay button for the transaction journey
  
  */
 public class PayButton: UIButton {
@@ -34,9 +34,9 @@ public class PayButton: UIButton {
     // MARK: initialization
     
     /**
-    designated initialiser
+    Designated initializer
     
-    - returns: a PayButton object
+    - returns: A PayButton object
     */
     public init() {
         super.init(frame: CGRectZero)
@@ -45,11 +45,11 @@ public class PayButton: UIButton {
     
     
     /**
-     convenience initialiser
+     Convenience initializer
      
-     - parameter frame: this value is ignored - view is sized via autolayout
+     - parameter frame: This value is ignored - view is sized via autolayout
      
-     - returns: a PayButton object
+     - returns: A PayButton object
      */
     convenience override public init(frame: CGRect) {
         self.init()
@@ -57,11 +57,11 @@ public class PayButton: UIButton {
     
     
     /**
-     convenience initialiser
+     Convenience initializer
      
-     - parameter aDecoder: ignored parameter
+     - parameter aDecoder: Ignored parameter
      
-     - returns: a PayButton object
+     - returns: A PayButton object
      */
     convenience required public init?(coder aDecoder: NSCoder) {
         self.init()

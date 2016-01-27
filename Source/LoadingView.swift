@@ -34,14 +34,14 @@ public class LoadingView: UIView {
     private let blockView = UIView()
     private let activityIndicatorView = UIActivityIndicatorView()
     
-    /// the label that shows a description text
+    /// The label that shows a description text
     let actionLabel = UILabel()
     
     
     /**
-     designated initialiser
+     Designated initializer
      
-     - returns: a LoadingView object
+     - returns: A LoadingView object
      */
     public init() {
         super.init(frame: CGRectZero)
@@ -50,9 +50,9 @@ public class LoadingView: UIView {
     
     
     /**
-     convenience initialiser
+     Convenience initializer
      
-     - parameter frame: this value is ignored - view is sized via autolayout
+     - parameter frame: This value is ignored - view is sized via autolayout
      
      - returns: a LoadingView object
      */
@@ -62,9 +62,9 @@ public class LoadingView: UIView {
     
     
     /**
-     convenience initialiser
+     Convenience initializer
      
-     - parameter aDecoder: this value is ignored
+     - parameter aDecoder: This value is ignored
      
      - returns: a LoadingView object
      */

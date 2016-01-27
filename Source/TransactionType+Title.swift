@@ -2,7 +2,7 @@
 //  TransactionType+Title.swift
 //  JudoKit
 //
-//  Copyright © 2015 Judo Payments. All rights reserved.
+//  Copyright © 2016 Alternative Payments Ltd. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -28,9 +28,9 @@ import Judo
 public extension TransactionType {
     
     /**
-     title of the receiver
+     Title of the receiver
      
-     - returns: a string describing the title
+     - returns: A string describing the title
      */
     public func title() -> String {
         switch self {

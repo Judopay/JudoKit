@@ -32,30 +32,30 @@ import Judo
  */
 public class SecurityInputField: JudoPayInputField {
     
-    /// the card network for the security input field
+    /// The card network for the security input field
     public var cardNetwork: CardNetwork = .Unknown
     
-    /// boolean that indicates whether this transaction is done via a token 
+    /// Boolean that indicates whether this transaction is done via a token 
     public var isTokenPayment: Bool = false
     
     // MARK: UITextFieldDelegate Methods
     
     
     /**
-    delegate method implementation
+    Delegate method implementation
     
-    - parameter textField: textField
-    - parameter range:     range
-    - parameter string:    string
+    - parameter textField: Text field
+    - parameter range:     Range
+    - parameter string:    String
     
-    - returns: boolean to change characters in given range for a textfield
+    - returns: Boolean to change characters in given range for a textfield
     */
     public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        // only handle delegate calls for own textfield
+        // Only handle delegate calls for own text field
         guard textField == self.textField else { return false }
         
-        // get old and new text
+        // Get old and new text
         let oldString = textField.text!
         let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
@@ -70,9 +70,9 @@ public class SecurityInputField: JudoPayInputField {
     
     
     /**
-    check if this inputField is valid
+    Check if this input field is valid
     
-    - returns: true if valid input
+    - returns: True if valid input
     */
     override public func isValid() -> Bool {
         return self.textField.text?.characters.count == self.cardNetwork.securityCodeLength()
@@ -80,9 +80,9 @@ public class SecurityInputField: JudoPayInputField {
     
     
     /**
-     subclassed method that is called when textField content was changed
+     Subclassed method that is called when text field content was changed
      
-     - parameter textField: the textfield of which the content has changed
+     - parameter textField: The text field of which the content has changed
      */
     override public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
@@ -94,9 +94,9 @@ public class SecurityInputField: JudoPayInputField {
     
     
     /**
-     the placeholder string for the current inputField
+     The placeholder string for the current input field
      
-     - returns: an Attributed String that is the placeholder of the receiver
+     - returns: An Attributed String that is the placeholder of the receiver
      */
     override public func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
@@ -104,9 +104,9 @@ public class SecurityInputField: JudoPayInputField {
     
     
     /**
-     boolean indicating whether the receiver has to show a logo
+     Boolean indicating whether the receiver has to show a logo
      
-     - returns: true if inputField shows a Logo
+     - returns: True if input field shows a Logo
      */
     override public func containsLogo() -> Bool {
         return true
@@ -114,9 +114,9 @@ public class SecurityInputField: JudoPayInputField {
     
     
     /**
-     if the receiving inputField contains a Logo, this method returns Some
+     If the receiving input field contains a logo, this method returns Some
      
-     - returns: an optional CardLogoView
+     - returns: An optional CardLogoView
      */
     override public func logoView() -> CardLogoView? {
         let type: CardLogoType = self.cardNetwork == .AMEX ? .CIDV : .CVC
@@ -125,9 +125,9 @@ public class SecurityInputField: JudoPayInputField {
     
     
     /**
-     title of the receiver inputField
+     Title of the receiver input field
      
-     - returns: a string that is the title of the receiver
+     - returns: A string that is the title of the receiver
      */
     override public func title() -> String {
         return self.cardNetwork.securityCodeTitle()
@@ -135,9 +135,9 @@ public class SecurityInputField: JudoPayInputField {
     
     
     /**
-     hint label text
+     Hint label text
      
-     - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
+     - returns: String that is shown as a hint when user resides in a input field for more than 5 seconds
      */
     override public func hintLabelText() -> String {
         if isTokenPayment {

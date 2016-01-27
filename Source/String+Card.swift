@@ -30,20 +30,20 @@ public extension String {
     
     
     /**
-    returns a string that matches the format of the number on the card itself based on the spacing pattern
+    Returns a string that matches the format of the number on the card itself based on the spacing pattern
     
-    - Parameter configurations: the valid configurations to check for when
+    - Parameter configurations: The valid configurations to check for when
     
-    - Returns: a formatted String that matches the credit card format
+    - Returns: A formatted String that matches the credit card format
     
-    - Throws CardLengthMismatchError: if amount of characters is longer than the maximum character number
-    - Throws InvalidCardNumber: if the card number is invalid
+    - Throws CardLengthMismatchError: If amount of characters is longer than the maximum character number
+    - Throws InvalidCardNumber: If the card number is invalid
     */
     func cardPresentationString(configurations: [Card.Configuration]) throws -> String {
         
         let strippedSelf = self.strippedWhitespaces
         
-        // do not continue if the string is empty or out of range
+        // Do not continue if the string is empty or out of range
         if strippedSelf.characters.count == 0 {
             return ""
         } else if strippedSelf.characters.count > Card.maximumLength {
@@ -52,24 +52,24 @@ public extension String {
             throw JudoError(.InvalidEntry)
         }
         
-        // make sure to only check validity for the necessary networks
+        // Make sure to only check validity for the necessary networks
         let cardNetwork = strippedSelf.cardNetwork()
         
-        // only try to format if a specific card number has been recognized
+        // Only try to format if a specific card number has been recognized
         if cardNetwork == .Unknown {
             return strippedSelf
         }
         
-        // special secret ingredient
-        // 1. filter out networks that dont match the entered card numbers
-        // 2. map all remaining strings while removing all optional values
-        // 3. check if the current string has already passed any valid Card number lengths
+        // Special secret ingredient
+        // 1. Filter out networks that don't match the entered card numbers
+        // 2. Map all remaining strings while removing all optional values
+        // 3. Check if the current string has already passed any valid card number lengths
         let patterns = configurations.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() })
         
         let cardLengthMatchedPatterns = patterns.filter({ $0.strippedWhitespaces.characters.count >= strippedSelf.characters.count })
         
         if cardLengthMatchedPatterns.count == 0 {
-            // if no patterns are left - the entered number is invalid
+            // If no patterns are left - the entered number is invalid
             var message = "We do not accept \(cardNetwork.stringValue())"
             if cardLengthMatchedPatterns.count != patterns.count {
                 message += " with a length of \(strippedSelf.characters.count) digits"
@@ -77,7 +77,7 @@ public extension String {
             throw JudoError(.InvalidCardNetwork, message)
         }
         
-        // retrieve the shortest pattern that is left and start moving the characters across
+        // Retrieve the shortest pattern that is left and start moving the characters across
         let patternString = patterns.sort(<)[0]
         
         var patternIndex = patternString.startIndex
@@ -99,10 +99,10 @@ public extension String {
     
     
     /**
-    see https://en.wikipedia.org/wiki/Bank_card_number
-    This method will not do any validation - just a check for numbers from at least 1 character and return an assumption about what the card might be
+    See https://en.wikipedia.org/wiki/Bank_card_number
+    This method will not do any validation - just a check for numbers from at least 1 character and return an assumption about what the card might be.
     
-    - Parameter configurations: only return valid responses for the given configurations
+    - Parameter configurations: Only return valid responses for the given configurations
     
     - Returns: CardNetwork object
     */
@@ -113,8 +113,8 @@ public extension String {
     
     
     /**
-    see https://en.wikipedia.org/wiki/Bank_card_number
-    This method will not do any validation - just a check for numbers from at least 1 character and return an assumption about what the card might be
+    See https://en.wikipedia.org/wiki/Bank_card_number
+    This method will not do any validation - just a check for numbers from at least 1 character and return an assumption about what the card might be.
     
     - Returns: CardNetwork object
     */
@@ -124,9 +124,9 @@ public extension String {
     
     
     /**
-    check if the string is representing a valid credit card number
+    Check if the string is representing a valid credit card number
     
-    - Returns: true if the string is a valid credit card number
+    - Returns: True if the string is a valid credit card number
     */
     func isCardNumberValid() -> Bool {
         
