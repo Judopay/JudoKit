@@ -14,9 +14,8 @@
     <a title="CardLogoView Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">JudoKit Docs</a> (48% documented)</p>
-        <p class="header-right"><a href="https://github.com/JudoPay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
-        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fjudopay%2Egithub%2Eio%2FJudoKit%2Fdocsets%2FJudoKit%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+        <p><a href="../index.html">JudoKit Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/judopay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -147,7 +146,13 @@
         <section>
           <section class="section">
             <h1>CardLogoView</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardLogoView</span><span class="p">:</span> <span class="kt">UIView</span></code></pre>
+
+                </div>
+              </div>
+            <p>The CardLogoView that shows a given card logo on a view</p>
 
           </section>
           <section class="section task-group-section">
@@ -166,11 +171,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Set a type for the current CardLogoView</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">CardLogoType</span> <span class="o">=</span> <span class="o">.</span><span class="kt">Unknown</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardLogoView.swift#L0">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardLogoView.swift#L59">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -188,11 +201,44 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Designated initializer for creating a logo connected to cards</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">CardLogoType</span> <span class="o">=</span> <span class="o">.</span><span class="kt">Unknown</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>CardLogoType</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a CardLogoView object</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardLogoView.swift#L35-L38">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardLogoView.swift#L69-L72">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -210,11 +256,44 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Required initializer for creating a logo connected to cards</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">?(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aDecoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the decoder</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a deserialized CardLogoView</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardLogoView.swift#L40-L42">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardLogoView.swift#L82-L84">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -232,11 +311,39 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Override function that draws the content of the CardLogoView</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">override</span> <span class="kd">func</span> <span class="nf">drawRect</span><span class="p">(</span><span class="nv">rect</span><span class="p">:</span> <span class="kt">CGRect</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rect</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the CGRect to draw in</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardLogoView.swift#L44-L61">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardLogoView.swift#L92-L109">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -246,7 +353,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://judopayments.com" target="_blank" rel="external">Judo Payments</a>. All rights reserved. (Last updated: 2016-01-12)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-01-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -14,9 +14,8 @@
     <a title="JudoPayView Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">JudoKit Docs</a> (48% documented)</p>
-        <p class="header-right"><a href="https://github.com/JudoPay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
-        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fjudopay%2Egithub%2Eio%2FJudoKit%2Fdocsets%2FJudoKit%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+        <p><a href="../index.html">JudoKit Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/judopay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -147,7 +146,13 @@
         <section>
           <section class="section">
             <h1>JudoPayView</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">JudoPayView</span><span class="p">:</span> <span class="kt">UIView</span></code></pre>
+
+                </div>
+              </div>
+            <p>JudoPayView - the main view in the transaction journey</p>
 
           </section>
           <section class="section task-group-section">
@@ -166,11 +171,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The content view of the JudoPayView</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">contentView</span><span class="p">:</span> <span class="kt">UIScrollView</span> <span class="o">=</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L0">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L58">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -199,11 +212,57 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Designated initializer</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">type</span><span class="p">:</span> <span class="kt">TransactionType</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The transactionType of this transaction</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cardDetails</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Card details information if they have been passed</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a JudoPayView object</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L116-L125">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L126-L135">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -221,11 +280,44 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Required initializer for the JudoPayView that will fail</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">required</span> <span class="kd">public</span> <span class="nf">init</span><span class="p">?(</span><span class="n">coder</span> <span class="nv">aDecoder</span><span class="p">:</span> <span class="kt">NSCoder</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>aDecoder</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A Decoder</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a fatal error will be thrown as this class should not be retrieved by decoding</p>
 
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L127-L129">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L145-L147">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -281,7 +373,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>whether start date and issue number fields should be visible</p>
+                                  <p>Whether start date and issue number fields should be visible</p>
 
                                 </div>
                               </td>
@@ -290,7 +382,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L283-L295">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L305-L317">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -311,7 +403,7 @@
                         <p>This method toggles the visibility of address fields (billing country and post code).</p>
 
 <ul>
-<li><p>Discussion: if AVS is necessary, this should be activated. AVS only needs Postcode to verify</p></li>
+<li><p>Discussion: If AVS is necessary, this should be activated. AVS only needs Postcode to verify</p></li>
 </ul>
 
                       </div>
@@ -335,7 +427,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>whether post code and billing country fields should be visible</p>
+                                  <p>Whether post code and billing country fields should be visible</p>
 
                                 </div>
                               </td>
@@ -348,7 +440,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>block that is called when animation was finished</p>
+                                  <p>Block that is called when animation was finished</p>
 
                                 </div>
                               </td>
@@ -357,7 +449,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L306-L320">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L328-L342">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -386,11 +478,52 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method that is triggered when the CardInputField encountered an error</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cardInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">CardInputField</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">JudoError</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error that occured</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L325-L330">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L410-L415">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -408,11 +541,52 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method that is triggered when the CardInputField did find a valid number</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">cardInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">CardInputField</span><span class="p">,</span> <span class="n">didFindValidNumber</span> <span class="nv">cardNumberString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>cardNumberString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The card number that has been entered as a String</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L332-L334">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L424-L426">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -441,11 +615,52 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method that is triggered when the date input field has encountered an error</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dateInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">DateInputField</span><span class="p">,</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">JudoError</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>error</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error that occured</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L343-L345">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L449-L451">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -463,11 +678,52 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method that is triggered when the date input field has found a valid date</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">dateInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">DateInputField</span><span class="p">,</span> <span class="n">didFindValidDate</span> <span class="nv">date</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>date</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The valid date that has been entered</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L347-L353">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L460-L466">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -496,11 +752,52 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method that is triggered when the issueNumberInputField entered a code</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">issueNumberInputDidEnterCode</span><span class="p">(</span><span class="nv">inputField</span><span class="p">:</span> <span class="kt">IssueNumberInputField</span><span class="p">,</span> <span class="nv">issueNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The issueNumberInputField calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>issueNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The issue number that has been entered as a String</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L357-L361">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L477-L481">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -529,11 +826,52 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method that is triggered when the billing country input field selected a billing country</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">billingCountryInputDidEnter</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">BillingCountryInputField</span><span class="p">,</span> <span class="nv">billingCountry</span><span class="p">:</span> <span class="kt">BillingCountry</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>billingCountry</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The billing country that has been selected</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L365-L370">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L492-L496">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -562,11 +900,52 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method that is triggered when the judoPayInputField was validated</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">judoPayInput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="nv">isValid</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>isValid</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A boolean that indicates whether the input is valid or invalid</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L374-L389">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L507-L518">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -584,11 +963,39 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method that is called whenever any input field has been manipulated</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">judoPayInputDidChangeText</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input field calling the delegate method</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/JudoPayView.swift#L391-L393">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/JudoPayView.swift#L525-L536">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -598,7 +1005,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://judopayments.com" target="_blank" rel="external">Judo Payments</a>. All rights reserved. (Last updated: 2016-01-12)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-01-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

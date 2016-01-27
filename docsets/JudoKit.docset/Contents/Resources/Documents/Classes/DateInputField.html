@@ -14,9 +14,8 @@
     <a title="DateInputField Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">JudoKit Docs</a> (48% documented)</p>
-        <p class="header-right"><a href="https://github.com/JudoPay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
-        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fjudopay%2Egithub%2Eio%2FJudoKit%2Fdocsets%2FJudoKit%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+        <p><a href="../index.html">JudoKit Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/judopay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -149,7 +148,7 @@
             <h1>DateInputField</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
 
                 </div>
               </div>
@@ -172,7 +171,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>boolean stating whether input field should identify as a start or end date</p>
+                        <p>Boolean stating whether input field should identify as a start or end date</p>
 
                       </div>
                       <div class="declaration">
@@ -184,7 +183,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L62-L66">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L68-L72">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -202,7 +201,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>variable defining the input type (text or picker)</p>
+                        <p>Variable defining the input type (text or picker)</p>
 
                       </div>
                       <div class="declaration">
@@ -214,7 +213,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L70-L85">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L76-L91">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -243,161 +242,70 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method implementation</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">textField</span><span class="p">(</span><span class="nv">textField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="p">,</span> <span class="n">shouldChangeCharactersInRange</span> <span class="nv">range</span><span class="p">:</span> <span class="kt">NSRange</span><span class="p">,</span> <span class="n">replacementString</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L112-L161">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/UIPickerViewDataSource"></a>
-                <a name="//apple_ref/swift/Section/UIPickerViewDataSource" class="dashAnchor"></a>
-                <a href="#/UIPickerViewDataSource">
-                  <h3 class="section-name">UIPickerViewDataSource</h3>
-                </a>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FC7JudoKit14DateInputField30numberOfComponentsInPickerViewFS0_FCSo12UIPickerViewSi"></a>
-                    <a name="//apple_ref/swift/Method/numberOfComponentsInPickerView(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC7JudoKit14DateInputField30numberOfComponentsInPickerViewFS0_FCSo12UIPickerViewSi">numberOfComponentsInPickerView(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>textField</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Text field</p>
 
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>range</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Range</p>
 
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L166-L168">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView23numberOfRowsInComponentSi_Si"></a>
-                    <a name="//apple_ref/swift/Method/pickerView(_:numberOfRowsInComponent:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView23numberOfRowsInComponentSi_Si">pickerView(_:numberOfRowsInComponent:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>string</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String</p>
 
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>boolean to change characters in given range for a textfield</p>
 
-                        </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L170-L172">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <div class="task-name-container">
-                <a name="/UIPickerViewDelegate"></a>
-                <a name="//apple_ref/swift/Section/UIPickerViewDelegate" class="dashAnchor"></a>
-                <a href="#/UIPickerViewDelegate">
-                  <h3 class="section-name">UIPickerViewDelegate</h3>
-                </a>
-              </div>
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView11titleForRowSi12forComponentSi_GSqSS_"></a>
-                    <a name="//apple_ref/swift/Method/pickerView(_:titleForRow:forComponent:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView11titleForRowSi12forComponentSi_GSqSS_">pickerView(_:titleForRow:forComponent:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L177-L186">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView12didSelectRowSi11inComponentSi_T_"></a>
-                    <a name="//apple_ref/swift/Method/pickerView(_:didSelectRow:inComponent:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView12didSelectRowSi11inComponentSi_T_">pickerView(_:didSelectRow:inComponent:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L188-L201">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L132-L179">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -426,19 +334,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Check if this inputField is valid</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">isValid</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>true if valid input</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L205-L223">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L189-L207">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -456,19 +369,39 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Subclassed method that is called when textField content was changed</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">textFieldDidChangeValue</span><span class="p">(</span><span class="nv">textField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>textField</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the textfield of which the content has changed</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L225-L236">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L215-L228">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -486,19 +419,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The placeholder string for the current inputField</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">placeholder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSAttributedString</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>an Attributed String that is the placeholder of the receiver</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L238-L240">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L236-L238">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -516,19 +454,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Title of the receiver inputField</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">title</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a string that is the title of the receiver</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L242-L244">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L246-L248">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -546,19 +489,312 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Hint label text</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">DateInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span><span class="p">,</span> <span class="kt">UIPickerViewDataSource</span><span class="p">,</span> <span class="kt">UIPickerViewDelegate</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">hintLabelText</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>string that is shown as a hint when user resides in a inputField for more than 5 seconds</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/DateInputField.swift#L246-L248">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L256-L258">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit14DateInputField30numberOfComponentsInPickerViewFS0_FCSo12UIPickerViewSi"></a>
+                    <a name="//apple_ref/swift/Method/numberOfComponentsInPickerView(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit14DateInputField30numberOfComponentsInPickerViewFS0_FCSo12UIPickerViewSi">numberOfComponentsInPickerView(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Datasource method for datePickerView</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">numberOfComponentsInPickerView</span><span class="p">(</span><span class="nv">pickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pickerView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>PickerView that calls its delegate</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The number of components in the pickerView</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L273-L275">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView23numberOfRowsInComponentSi_Si"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:numberOfRowsInComponent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView23numberOfRowsInComponentSi_Si">pickerView(_:numberOfRowsInComponent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Datasource method for datePickerView</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="nv">pickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="n">numberOfRowsInComponent</span> <span class="nv">component</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pickerView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>PickerView that calls its delegate</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>component</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A given component</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>number of rows in component</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L286-L288">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView11titleForRowSi12forComponentSi_GSqSS_"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:titleForRow:forComponent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView11titleForRowSi12forComponentSi_GSqSS_">pickerView(_:titleForRow:forComponent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method for datePickerView</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="nv">pickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="n">titleForRow</span> <span class="nv">row</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">forComponent</span> <span class="nv">component</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pickerView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The caller</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>row</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The row</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>component</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The component</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>content of a given component and row</p>
+
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L305-L314">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView12didSelectRowSi11inComponentSi_T_"></a>
+                    <a name="//apple_ref/swift/Method/pickerView(_:didSelectRow:inComponent:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit14DateInputField10pickerViewFS0_FTCSo12UIPickerView12didSelectRowSi11inComponentSi_T_">pickerView(_:didSelectRow:inComponent:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Delegate method for datePickerView that had a given row in a component selected</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pickerView</span><span class="p">(</span><span class="nv">pickerView</span><span class="p">:</span> <span class="kt">UIPickerView</span><span class="p">,</span> <span class="n">didSelectRow</span> <span class="nv">row</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">inComponent</span> <span class="nv">component</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pickerView</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The caller</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>row</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The row</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>component</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The component</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/DateInputField.swift#L324-L337">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -568,7 +804,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://judopayments.com" target="_blank" rel="external">Judo Payments</a>. All rights reserved. (Last updated: 2016-01-12)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-01-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -14,9 +14,8 @@
     <a title="HintLabel Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">JudoKit Docs</a> (48% documented)</p>
-        <p class="header-right"><a href="https://github.com/JudoPay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
-        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fjudopay%2Egithub%2Eio%2FJudoKit%2Fdocsets%2FJudoKit%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+        <p><a href="../index.html">JudoKit Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/judopay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -147,7 +146,13 @@
         <section>
           <section class="section">
             <h1>HintLabel</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">HintLabel</span><span class="p">:</span> <span class="kt">UILabel</span></code></pre>
+
+                </div>
+              </div>
+            <p>Label that sits below the payment entry form, showing alerts and hints</p>
 
           </section>
           <section class="section task-group-section">
@@ -166,11 +171,39 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Makes the hint text visible in case there is no alert text occupying the space</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">showHint</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>text</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The hint text string to show</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/HintLabel.swift#L31-L38">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/HintLabel.swift#L40-L47">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -188,11 +221,39 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Makes the alert text visible and overrides the hint text if it has been previously set and visible at the current time</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">showAlert</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>text</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The alert text string to show</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/HintLabel.swift#L40-L45">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/HintLabel.swift#L55-L60">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -210,11 +271,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Hide the currently visible hint text and show the alert text if available</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hideHint</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/HintLabel.swift#L47-L52">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/HintLabel.swift#L66-L71">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -232,11 +301,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Hide the currently visible alert text and show the hint text if available</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">hideAlert</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/HintLabel.swift#L54-L59">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/HintLabel.swift#L77-L82">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -254,11 +331,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Helper to show/hide/transition between texts</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">addAnimation</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/HintLabel.swift#L61-L67">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/HintLabel.swift#L88-L94">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -268,7 +353,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://judopayments.com" target="_blank" rel="external">Judo Payments</a>. All rights reserved. (Last updated: 2016-01-12)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-01-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -14,9 +14,8 @@
     <a title="CardInputField Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">JudoKit Docs</a> (48% documented)</p>
-        <p class="header-right"><a href="https://github.com/JudoPay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
-        <p class="header-right"><a href="dash-feed://https%3A%2F%2Fjudopay%2Egithub%2Eio%2FJudoKit%2Fdocsets%2FJudoKit%2Exml"><img src="../img/dash.png"/>Install in Dash</a></p>
+        <p><a href="../index.html">JudoKit Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/judopay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -172,19 +171,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The card network that was detected in this field</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">cardNetwork</span><span class="p">:</span> <span class="kt">CardNetwork</span> <span class="o">=</span> <span class="o">.</span><span class="kt">Unknown</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardInputField.swift#L0">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardInputField.swift#L37">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -213,19 +212,70 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Delegate method implementation</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">@objc</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">textField</span><span class="p">(</span><span class="nv">textField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="p">,</span> <span class="n">shouldChangeCharactersInRange</span> <span class="nv">range</span><span class="p">:</span> <span class="kt">NSRange</span><span class="p">,</span> <span class="n">replacementString</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>textField</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Text field</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>range</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Range</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>string</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>String</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>boolean to change characters in given range for a textfield</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardInputField.swift#L40-L70">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardInputField.swift#L50-L78">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -254,19 +304,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Check if this inputField is valid</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">isValid</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>true if valid input</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardInputField.swift#L74-L76">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardInputField.swift#L87-L89">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -284,19 +339,39 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Subclassed method that is called when textField content was changed</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">textFieldDidChangeValue</span><span class="p">(</span><span class="nv">textField</span><span class="p">:</span> <span class="kt">UITextField</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>textField</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the textfield of which the content has changed</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardInputField.swift#L78-L100">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardInputField.swift#L97-L121">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -314,19 +389,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The placeholder string for the current inputField</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">placeholder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">NSAttributedString</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>an Attributed String that is the placeholder of the receiver</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardInputField.swift#L102-L104">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardInputField.swift#L129-L131">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -344,19 +424,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Boolean indicating whether the receiver has to show a logo</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">containsLogo</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>true if inputField shows a Logo</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardInputField.swift#L106-L108">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardInputField.swift#L139-L141">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -374,19 +459,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>If the receiving inputField contains a Logo, this method returns Some</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">logoView</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">CardLogoView</span><span class="p">?</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>an optional CardLogoView</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardInputField.swift#L110-L112">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardInputField.swift#L149-L151">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -404,19 +494,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Title of the receiver inputField</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">title</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a string that is the title of the receiver</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardInputField.swift#L114-L116">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardInputField.swift#L159-L161">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -434,19 +529,24 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Hint label text</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">CardInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
+                          <pre class="highlight"><code><span class="k">override</span> <span class="kd">public</span> <span class="kd">func</span> <span class="nf">hintLabelText</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>string that is shown as a hint when user resides in a inputField for more than 5 seconds</p>
+
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/JudoPay/JudoKit/tree/5.5/Source/CardInputField.swift#L118-L120">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/5.5.1/Source/CardInputField.swift#L169-L171">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -456,7 +556,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://judopayments.com" target="_blank" rel="external">Judo Payments</a>. All rights reserved. (Last updated: 2016-01-12)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-01-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
