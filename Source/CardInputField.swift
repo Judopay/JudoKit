@@ -36,6 +36,9 @@ public class CardInputField: JudoPayInputField {
     /// The card network that was detected in this field
     public var cardNetwork: CardNetwork = .Unknown
     
+    /// if it is a token payment, different validation criteria apply
+    public var isTokenPayment: Bool = false
+    
     // MARK: UITextFieldDelegate
     
     /**
@@ -85,7 +88,7 @@ public class CardInputField: JudoPayInputField {
     - returns: true if valid input
     */
     override public func isValid() -> Bool {
-        return self.textField.text?.isCardNumberValid() ?? false
+        return self.isTokenPayment || self.textField.text?.isCardNumberValid() ?? false
     }
     
     

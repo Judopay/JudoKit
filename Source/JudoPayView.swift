@@ -292,6 +292,7 @@ public class JudoPayView: UIView {
                 self.expiryDateInputField.textField.text = expiryDate
                 self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
                 self.secureCodeInputField.isTokenPayment = true
+                self.cardInputField.isTokenPayment = true
         }
     }
     
