@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [5.5.1](https://github.com/JudoPay/JudoKit/tag/5.5.1)
-Released on 2016-01-28
+Released on 2016-01-29
 
 #### Added
 - Ability to pass a CardDetails object to prefill text fields when making a transaction
