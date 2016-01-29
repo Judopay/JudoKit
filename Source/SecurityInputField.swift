@@ -35,7 +35,7 @@ public class SecurityInputField: JudoPayInputField {
     /// The card network for the security input field
     public var cardNetwork: CardNetwork = .Unknown
     
-    /// Boolean that indicates whether this transaction is done via a token 
+    /// if it is a token payment, a different hint label text should appear
     public var isTokenPayment: Bool = false
     
     // MARK: UITextFieldDelegate Methods
