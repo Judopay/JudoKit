@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:JudoKitObjCExample.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

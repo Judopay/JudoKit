@@ -33,7 +33,7 @@
 		DAD13A061B7B8BD6007BB196 /* JudoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA76A5FD1B7B73D30033E553 /* JudoKit.framework */; };
 		DAD13A221B7C9E76007BB196 /* CardInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A211B7C9E76007BB196 /* CardInputField.swift */; };
 		DAD13A241B7CABA7007BB196 /* String+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A231B7CABA7007BB196 /* String+Card.swift */; };
-		DAD503F81BB42674007D5596 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE44E9E1BAB15920007A9FD /* JudoShield.framework */; };
+		DAD503F81BB42674007D5596 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE44E9E1BAB15920007A9FD /* JudoShield.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDB0081B7DF3160073C6F1 /* Judo.framework */; };
 		DAE045281BFF2CC7008CF017 /* JudoPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE045271BFF2CC7008CF017 /* JudoPayView.swift */; };
 /* End PBXBuildFile section */
