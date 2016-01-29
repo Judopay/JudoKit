@@ -186,7 +186,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     
     Reference *ref = [[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil];
     
-    [JudoKit payment:judoID amount:amount reference:ref completion:^(Response * response, JudoError * error) {
+    [JudoKit payment:judoID amount:amount reference:ref cardDetails:nil completion:^(Response * response, JudoError * error) {
         if (error || response.items.count == 0) {
             if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -212,7 +212,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)preAuthOperation {
     Amount *amount = [[Amount alloc] initWithDecimalNumber:[NSDecimalNumber decimalNumberWithString:@"25.0"] currency:[Currency GBP]];
     
-    [JudoKit preAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] completion:^(Response * response, JudoError * error) {
+    [JudoKit preAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:nil completion:^(Response * response, JudoError * error) {
         if (error || response.items.count == 0) {
             // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
             if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
@@ -238,7 +238,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)createCardTokenOperation {
     
-    [JudoKit registerCard:judoID amount:[[Amount alloc] initWithAmountString:@"1.01" currency:[Currency GBP]] reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] completion:^(Response * response, JudoError * error) {
+    [JudoKit registerCard:judoID amount:[[Amount alloc] initWithAmountString:@"1.01" currency:[Currency GBP]] reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:nil completion:^(Response * response, JudoError * error) {
         [self dismissViewControllerAnimated:YES completion:nil];
         if (error && response.items.count == 0) {
             // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
