@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B09DEA61C5FA0C400E77825 /* JudoShield.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DAE44E9E1BAB15920007A9FD /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3B286FBC1C3ED7F200094D48 /* CardNetwork+CardLogoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B286FBB1C3ED7F200094D48 /* CardNetwork+CardLogoType.swift */; };
 		3B286FC81C3FCED400094D48 /* HintLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B286FC71C3FCED400094D48 /* HintLabel.swift */; };
-		3BF98E8A1C58C2B400B8A172 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BF98E891C58C2B400B8A172 /* CoreTelephony.framework */; };
 		DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C19B81B986B5400CD2613 /* CardLogoView.swift */; };
 		DA3048531BFF8C76000E1B79 /* TransactionType+Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3048521BFF8C76000E1B79 /* TransactionType+Title.swift */; };
 		DA3902351B95B5DF001A703C /* JudoPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902341B95B5DF001A703C /* JudoPayViewController.swift */; };
@@ -33,7 +33,6 @@
 		DAD13A061B7B8BD6007BB196 /* JudoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA76A5FD1B7B73D30033E553 /* JudoKit.framework */; };
 		DAD13A221B7C9E76007BB196 /* CardInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A211B7C9E76007BB196 /* CardInputField.swift */; };
 		DAD13A241B7CABA7007BB196 /* String+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD13A231B7CABA7007BB196 /* String+Card.swift */; };
-		DAD503F81BB42674007D5596 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE44E9E1BAB15920007A9FD /* JudoShield.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DADDB0081B7DF3160073C6F1 /* Judo.framework */; };
 		DAE045281BFF2CC7008CF017 /* JudoPayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE045271BFF2CC7008CF017 /* JudoPayView.swift */; };
 /* End PBXBuildFile section */
@@ -62,9 +61,23 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3B09DEA51C5FA0AE00E77825 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3B09DEA61C5FA0C400E77825 /* JudoShield.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3B286FBB1C3ED7F200094D48 /* CardNetwork+CardLogoType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CardNetwork+CardLogoType.swift"; sourceTree = "<group>"; };
 		3B286FC71C3FCED400094D48 /* HintLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HintLabel.swift; sourceTree = "<group>"; };
+		3B963E8D1C5F6F7C00C01074 /* strip-frameworks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "strip-frameworks.sh"; path = "Supporting Files/strip-frameworks.sh"; sourceTree = "<group>"; };
 		3BF98E891C58C2B400B8A172 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		DA0C19B81B986B5400CD2613 /* CardLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CardLogoView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DA3048521BFF8C76000E1B79 /* TransactionType+Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionType+Title.swift"; sourceTree = "<group>"; };
@@ -102,8 +115,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BF98E8A1C58C2B400B8A172 /* CoreTelephony.framework in Frameworks */,
-				DAD503F81BB42674007D5596 /* JudoShield.framework in Frameworks */,
 				DADDB00D1B7DF32B0073C6F1 /* Judo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,6 +130,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B963E8A1C5F6F6D00C01074 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3B963E8D1C5F6F7C00C01074 /* strip-frameworks.sh */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		DA0C19BC1B986B5800CD2613 /* CardLogos */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,10 +188,11 @@
 			isa = PBXGroup;
 			children = (
 				DADDB0021B7DF3160073C6F1 /* Judo.xcodeproj */,
-				DA76A5FF1B7B73D30033E553 /* Source */,
-				DAD13A021B7B8BD6007BB196 /* Tests */,
 				DAB261AB1B7B79EE005024FF /* JudoShield */,
 				DA76A5FE1B7B73D30033E553 /* Products */,
+				DA76A5FF1B7B73D30033E553 /* Source */,
+				3B963E8A1C5F6F6D00C01074 /* Supporting Files */,
+				DAD13A021B7B8BD6007BB196 /* Tests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -268,6 +288,8 @@
 				DA76A5F91B7B73D30033E553 /* Frameworks */,
 				DA76A5FA1B7B73D30033E553 /* Headers */,
 				DA76A5FB1B7B73D30033E553 /* Resources */,
+				3B09DEA51C5FA0AE00E77825 /* CopyFiles */,
+				3B09DEA41C5FA02700E77825 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -371,6 +393,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3B09DEA41C5FA02700E77825 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "sh \"${SRCROOT}/Supporting Files/strip-frameworks.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DA76A5F81B7B73D30033E553 /* Sources */ = {

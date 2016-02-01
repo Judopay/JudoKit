@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B963E861C5F6A0C00C01074 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAC0A3C31BAC71DE00EA689D /* JudoShield.framework */; };
+		3B963E871C5F6A0C00C01074 /* JudoShield.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAC0A3C31BAC71DE00EA689D /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA3048B91C0471AA000E1B79 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3048B81C0471AA000E1B79 /* Security.framework */; };
 		DA3048BB1C0471B0000E1B79 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3048BA1C0471B0000E1B79 /* CoreTelephony.framework */; };
 		DA3048BF1C0471F0000E1B79 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3048BE1C0471F0000E1B79 /* CoreLocation.framework */; };
@@ -76,6 +78,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3B963E871C5F6A0C00C01074 /* JudoShield.framework in Embed Frameworks */,
 				DABFBDCC1C089986008F1D64 /* Judo.framework in Embed Frameworks */,
 				DABFBDC61C089986008F1D64 /* JudoKit.framework in Embed Frameworks */,
 			);
@@ -114,6 +117,7 @@
 				DABFBDCB1C089986008F1D64 /* Judo.framework in Frameworks */,
 				DABFBDC51C089986008F1D64 /* JudoKit.framework in Frameworks */,
 				DA3048BF1C0471F0000E1B79 /* CoreLocation.framework in Frameworks */,
+				3B963E861C5F6A0C00C01074 /* JudoShield.framework in Frameworks */,
 				DA3048BB1C0471B0000E1B79 /* CoreTelephony.framework in Frameworks */,
 				DA3048B91C0471AA000E1B79 /* Security.framework in Frameworks */,
 			);
