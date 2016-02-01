@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
   s.source_files          = 'Source/**/*.swift'
   s.dependency 'Judo'
   s.dependency 'JudoShield'
+
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony'
   s.pod_target_xcconfig              = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/JudoShield/Framework',
                               'OTHER_LDFLAGS'            => '$(inherited) -undefined dynamic_lookup'
