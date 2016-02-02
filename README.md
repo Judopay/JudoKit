@@ -41,7 +41,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 5.5.1'
+pod 'JudoKit', '~> 5.5.2'
 ```
 
 Then, run the following command:
@@ -65,7 +65,7 @@ $ brew install carthage
 - To integrate judo into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "JudoPay/JudoKit" >= 5.5.1
+github "JudoPay/JudoKit" >= 5.5.2
 ```
 
 - execute the following command in your project folder. This should clone the project and build the judoKit scheme.
