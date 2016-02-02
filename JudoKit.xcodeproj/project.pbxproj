@@ -64,10 +64,8 @@
 /* Begin PBXFileReference section */
 		3B125B931C5FC67E0086BB18 /* JudoShield.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoShield.framework; path = JudoShield/Framework/JudoShield.framework; sourceTree = "<group>"; };
 		3B125B9D1C5FCEE50086BB18 /* strip-frameworks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "strip-frameworks.sh"; path = "JudoShield/Framework/strip-frameworks.sh"; sourceTree = "<group>"; };
-		3B125BA11C5FCF690086BB18 /* JudoShield.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoShield.framework; path = JudoShield/Source/JudoShield.framework; sourceTree = "<group>"; };
 		3B286FBB1C3ED7F200094D48 /* CardNetwork+CardLogoType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CardNetwork+CardLogoType.swift"; sourceTree = "<group>"; };
 		3B286FC71C3FCED400094D48 /* HintLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HintLabel.swift; sourceTree = "<group>"; };
-		3BBE8E501C60AD2400770A75 /* JudoShield.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoShield.framework; path = JudoShield/Source/JudoShield.framework; sourceTree = "<group>"; };
 		DA0C19B81B986B5400CD2613 /* CardLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CardLogoView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DA3048521BFF8C76000E1B79 /* TransactionType+Title.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TransactionType+Title.swift"; sourceTree = "<group>"; };
 		DA3902341B95B5DF001A703C /* JudoPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = JudoPayViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -168,7 +166,6 @@
 		DA76A5F31B7B73D30033E553 = {
 			isa = PBXGroup;
 			children = (
-				3BBE8E501C60AD2400770A75 /* JudoShield.framework */,
 				DADDB0021B7DF3160073C6F1 /* Judo.xcodeproj */,
 				DAB261AB1B7B79EE005024FF /* JudoShield */,
 				DA76A5FE1B7B73D30033E553 /* Products */,
@@ -204,7 +201,6 @@
 			isa = PBXGroup;
 			children = (
 				3B125B9D1C5FCEE50086BB18 /* strip-frameworks.sh */,
-				3B125BA11C5FCF690086BB18 /* JudoShield.framework */,
 				3B125B931C5FC67E0086BB18 /* JudoShield.framework */,
 			);
 			name = JudoShield;
