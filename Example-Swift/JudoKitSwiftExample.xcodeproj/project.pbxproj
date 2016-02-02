@@ -45,13 +45,6 @@
 			remoteGlobalIDString = DA76A5FD1B7B73D30033E553;
 			remoteInfo = JudoKit;
 		};
-		DA30488F1C038932000E1B79 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DA3048871C038932000E1B79 /* JudoKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DAD13A011B7B8BD6007BB196;
-			remoteInfo = JudoKitTests;
-		};
 		DA3048961C038939000E1B79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA3048911C038939000E1B79 /* Judo.xcodeproj */;
@@ -178,7 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				DA30488E1C038932000E1B79 /* JudoKit.framework */,
-				DA3048901C038932000E1B79 /* JudoKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -327,13 +319,6 @@
 			fileType = wrapper.framework;
 			path = JudoKit.framework;
 			remoteRef = DA30488D1C038932000E1B79 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DA3048901C038932000E1B79 /* JudoKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = JudoKitTests.xctest;
-			remoteRef = DA30488F1C038932000E1B79 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		DA3048971C038939000E1B79 /* Judo.framework */ = {
@@ -552,7 +537,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../JudoShield/Framework";
 				INFOPLIST_FILE = JudoKitSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -570,7 +554,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../JudoShield/Framework";
 				INFOPLIST_FILE = JudoKitSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
