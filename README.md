@@ -17,14 +17,14 @@ judoKit is a framework for creating easy payments inside your app with [judoPay]
 
 ## Integration
 
-**Be aware that bit code should be disabled for all projects using judoKit**
+**Be aware that bit code must be disabled when you submit your Archive to the App Store**
 
 ### Sign up to judo's platform
 
 - To use judo's SDK, you'll need to [sign up](https://www.judopay.com/signup) and get your app token. 
 - the SDK has to be integrated in your project using one of the following methods:
 
-#### ~~CocoaPods~~ We are experiencing some issues with this version and CocoaPods, please use Carthage or integrate manually for now
+#### CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
 
@@ -88,6 +88,7 @@ $(SRCROOT)/Carthage/Build/iOS/JudoKit.framework
 $(SRCROOT)/Carthage/Build/iOS/Judo.framework
 $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 ```
+
 ### Manual integration
 
 You can integrate judo into your project manually if you prefer not to use dependency management.
@@ -104,14 +105,16 @@ $ git submodule add https://github.com/JudoPay/JudoKit
 
 ```bash
 $ cd JudoKit
-$ git submodule update
+$ git submodule update --init --recursive
 ```
 - Open your project and select your application in the Project Navigator (blue project icon).
+- Drag and drop the `JudoKit.xcodeproj` project file inside the JudoKit folder into your project (just below the blue project icon inside Xcode).
+- Drag and drop the `Judo.xcodeproj` project file inside the JudoKit/Judo-Swift folder into your project (just below the blue project icon inside Xcode).
 - Navigate to the target configuration window and select the application target under the "Targets" heading in the sidebar.
 - In the tab bar at the top of that window, open the "General" panel.
 - Click on the '+' button in 'Embedded Binaries' section.
-- Click on 'Add Other...' and Navigate to the JudoShield/Framework Folder and add JudoSecure.Framework .
-- Navigate to your projects folder and add `JudoKit.framework`.
+- Click on 'Add Other...' and Navigate to the JudoKit/JudoShield/Framework Folder and add JudoShield.Framework.
+- Click on the same '+' button and add `JudoKit.framework` under the JudoKit project from the `Products` folder and `Judo.framework` from the Judo project under the `Products` folder **make sure not to add the Judo.framework file from the JudoKit project, these two have to be from each of the projects product folder**.
 - In the project navigator, click on the `+` button under the "Linked Frameworks and Libraries" section.
 - Select `Security.framework`, `CoreTelephony.framework` and `CoreLocation.framework` from the list presented.
 - Open the "Build Settings" panel.
