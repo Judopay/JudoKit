@@ -17,7 +17,7 @@ judoKit is a framework for creating easy payments inside your app with [judoPay]
 
 ## Integration
 
-**Be aware that bit code must be disabled when you submit your Archive to the App Store**
+**We experienced some issues with archives containing bitcode when submitting to the App Store - We advise you to exclude bitcode from your archives for now**
 
 ### Sign up to judo's platform
 
