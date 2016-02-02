@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BBE8E581C60D18A00770A75 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBE8E571C60D18A00770A75 /* JudoShield.framework */; };
+		3BBE8E591C60D18A00770A75 /* JudoShield.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBE8E571C60D18A00770A75 /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CC31B84AA0C003FBAA5 /* Security.framework */; };
 		DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */; };
 		DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */; };
@@ -87,6 +89,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3BBE8E591C60D18A00770A75 /* JudoShield.framework in Embed Frameworks */,
 				DA30489B1C038944000E1B79 /* Judo.framework in Embed Frameworks */,
 				DA30489F1C038944000E1B79 /* JudoKit.framework in Embed Frameworks */,
 			);
@@ -96,6 +99,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3BBE8E571C60D18A00770A75 /* JudoShield.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JudoShield.framework; path = ../JudoShield/Framework/JudoShield.framework; sourceTree = "<group>"; };
 		DA1B9CC31B84AA0C003FBAA5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -134,6 +138,7 @@
 				DA30489E1C038944000E1B79 /* JudoKit.framework in Frameworks */,
 				DA30489A1C038944000E1B79 /* Judo.framework in Frameworks */,
 				DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */,
+				3BBE8E581C60D18A00770A75 /* JudoShield.framework in Frameworks */,
 				DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */,
 				DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */,
 			);
@@ -147,6 +152,7 @@
 			children = (
 				DA3048911C038939000E1B79 /* Judo.xcodeproj */,
 				DA3048871C038932000E1B79 /* JudoKit.xcodeproj */,
+				3BBE8E571C60D18A00770A75 /* JudoShield.framework */,
 				DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */,
 				DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */,
 				DA1B9CC31B84AA0C003FBAA5 /* Security.framework */,
