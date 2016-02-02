@@ -74,7 +74,7 @@ github "JudoPay/JudoKit" >= 5.5.3
 $ carthage bootstrap
 ```
 
-- On your application targets’ “General” settings tab, in the “Linked Frameworks and Libraries” section, drag and drop `Judo.framework` and `JudoKit.framework` from the Carthage/Build folder and `JudoShield.framework` from the Carthage/Checkouts folder on disk.
+- On your application targets’ “General” settings tab, in the “Embedded Binaries" section, drag and drop `Judo.framework` and `JudoKit.framework` from the Carthage/Build folder and `JudoShield.framework` from the Carthage/Checkouts folder on disk.
 - On your application targets’ “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script with the following contents:
 
 ```sh
