@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file.
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
-## [5.5.2](https://github.com/JudoPay/JudoKit/tag/5.5.2)
+## [5.5.3](https://github.com/JudoPay/JudoKit/tag/5.5.2)
 Released on 2016-02-03
 
 #### Updated

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = 'JudoKit'
-  s.version               = '5.5.2'
+  s.version               = '5.5.3'
   s.summary               = 'Judo Pay Full iOS Client Kit'
   s.homepage              = 'http://judopay.com/'
   s.license               = 'MIT'
@@ -17,10 +17,6 @@ Pod::Spec.new do |s|
   s.dependency 'JudoShield'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony'
-  s.pod_target_xcconfig              = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/JudoShield/Framework',
-                              'OTHER_LDFLAGS'            => '$(inherited) -undefined dynamic_lookup'
- }
-
-
+  s.pod_target_xcconfig              = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/JudoShield/Source' }
 
 end
