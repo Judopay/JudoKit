@@ -51,6 +51,10 @@ let kVerifying3DSRegisterCardTitle = "Verifying card"
 // Input fields
 let inputFieldHeight: CGFloat = 48
 
+// Security message
+let kSecurityMessageString = "Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers."
+let kSecurityMessageTextSize: CGFloat = 10
+
 /// JudoPayView - the main view in the transaction journey
 public class JudoPayView: UIView {
     
@@ -90,6 +94,8 @@ public class JudoPayView: UIView {
     var billingHeightConstraint: NSLayoutConstraint?
     /// The postal code field height constraint
     var postHeightConstraint: NSLayoutConstraint?
+    /// the security messages top distance constraint
+    var securityMessageTopConstraint: NSLayoutConstraint?
     
     // MARK: UI properties
     var paymentEnabled = false
@@ -97,6 +103,24 @@ public class JudoPayView: UIView {
     
     /// The hint label object
     let hintLabel = HintLabel(frame: CGRectZero)
+    
+    /// the security message label that is shown if showSecurityMessage is set to true
+    let securityMessageLabel: UILabel = {
+        let label = UILabel(frame: CGRectZero)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor(), NSFontAttributeName:UIFont.boldSystemFontOfSize(kSecurityMessageTextSize)])
+        attributedString.appendAttributedString(NSAttributedString(string: kSecurityMessageString, attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor(), NSFontAttributeName:UIFont.systemFontOfSize(kSecurityMessageTextSize)]))
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .Justified
+        paragraphStyle.lineSpacing = 3
+        
+        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+        label.attributedText = attributedString
+        
+        return label
+    }()
     
     // Can not initialize because self is not available at this point to set the target
     // Must be var? because can also not be initialized in init before self is available
@@ -229,6 +253,7 @@ public class JudoPayView: UIView {
         self.contentView.addSubview(billingCountryInputField)
         self.contentView.addSubview(postCodeInputField)
         self.contentView.addSubview(hintLabel)
+        self.contentView.addSubview(securityMessageLabel)
         
         self.addSubview(paymentButton)
         self.addSubview(threeDSecureWebView)
@@ -271,17 +296,25 @@ public class JudoPayView: UIView {
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(12)-[hint]-(12)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["hint":hintLabel]))
         
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(12)-[securityMessage]-(12)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["securityMessage":securityMessageLabel]))
+        
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[post]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["post":postCodeInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[start]-(-1)-[expiry(fieldHeight)]-(-1)-[billing]-(-1)-[post]-[hint(34)]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":inputFieldHeight], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "post":postCodeInputField, "hint":hintLabel]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[issue(==start)]-(-1)-[security(fieldHeight)]-(-1)-[billing]-(-1)-[post]-[hint]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":inputFieldHeight], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField, "hint":hintLabel]))
+        
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[start]-(-1)-[expiry(fieldHeight)]-(-1)-[billing]-(-1)-[post]-(20)-[hint(18)]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":inputFieldHeight], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "post":postCodeInputField, "hint":hintLabel]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[issue(==start)]-(-1)-[security(fieldHeight)]-(-1)-[billing]-(-1)-[post]-(20)-[hint]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":inputFieldHeight], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField, "hint":hintLabel]))
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.billingHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.postHeightConstraint = NSLayoutConstraint(item: postCodeInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
+        self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .Top, relatedBy: .Equal, toItem: self.hintLabel, attribute: .Bottom, multiplier: 1.0, constant: -self.hintLabel.bounds.height)
+        
+        self.securityMessageLabel.hidden = !JudoKit.showSecurityMessage
         
         self.startDateInputField.addConstraint(maestroFieldsHeightConstraint!)
         self.billingCountryInputField.addConstraint(billingHeightConstraint!)
         self.postCodeInputField.addConstraint(postHeightConstraint!)
+        
+        self.contentView.addConstraint(securityMessageTopConstraint!)
         
         // If card details are available, fill out the fields
         if let cardDetails = self.cardDetails,
@@ -388,152 +421,19 @@ public class JudoPayView: UIView {
      - parameter input: The input field which the user is currently idling
      */
     func resetTimerWithInput(input: JudoPayInputField) {
+        self.securityMessageTopConstraint?.constant = -self.hintLabel.bounds.height
+        UIView.animateWithDuration(0.3, animations: { () -> Void in
+            self.contentView.layoutIfNeeded()
+        })
         self.hintLabel.hideHint()
         self.timer?.invalidate()
         self.timer = NSTimer.schedule(3.0, handler: { (timer) -> Void in
+            self.securityMessageTopConstraint?.constant = 14.0
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.contentView.layoutIfNeeded()
+            })
             self.hintLabel.showHint(input.hintLabelText())
         })
-    }
-    
-}
-
-extension JudoPayView: JudoPayInputDelegate {
-    
-    // MARK: CardInputDelegate
-    
-    
-    /**
-    Delegate method that is triggered when the CardInputField encountered an error
-    
-    - parameter input: The input field calling the delegate method
-    - parameter error: The error that occured
-    */
-    public func cardInput(input: CardInputField, error: JudoError) {
-        input.errorAnimation(error.code != .InputLengthMismatchError)
-        if let message = error.message {
-            self.hintLabel.showAlert(message)
-        }
-    }
-    
-    
-    /**
-     Delegate method that is triggered when the CardInputField did find a valid number
-     
-     - parameter input:            The input field calling the delegate method
-     - parameter cardNumberString: The card number that has been entered as a String
-     */
-    public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
-        self.expiryDateInputField.textField.becomeFirstResponder()
-    }
-    
-    
-    /**
-     Delegate method that is triggered when the CardInputField detected a network
-     
-     - parameter input:   The input field calling the delegate method
-     - parameter network: The network that has been identified
-     */
-    public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
-        self.updateInputFieldsWithNetwork(network)
-        self.hintLabel.hideAlert()
-    }
-    
-    // MARK: DateInputDelegate
-    
-    
-    /**
-    Delegate method that is triggered when the date input field has encountered an error
-    
-    - parameter input: The input field calling the delegate method
-    - parameter error: The error that occured
-    */
-    public func dateInput(input: DateInputField, error: JudoError) {
-        input.errorAnimation(error.code != .InputLengthMismatchError)
-    }
-    
-    
-    /**
-     Delegate method that is triggered when the date input field has found a valid date
-     
-     - parameter input: The input field calling the delegate method
-     - parameter date:  The valid date that has been entered
-     */
-    public func dateInput(input: DateInputField, didFindValidDate date: String) {
-        if input == self.startDateInputField {
-            self.issueNumberInputField.textField.becomeFirstResponder()
-        } else {
-            self.secureCodeInputField.textField.becomeFirstResponder()
-        }
-    }
-    
-    // MARK: IssueNumberInputDelegate
-    
-    
-    /**
-    Delegate method that is triggered when the issueNumberInputField entered a code
-    
-    - parameter input:       The issueNumberInputField calling the delegate method
-    - parameter issueNumber: The issue number that has been entered as a String
-    */
-    public func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String) {
-        if issueNumber.characters.count == 3 {
-            self.expiryDateInputField.textField.becomeFirstResponder()
-        }
-    }
-    
-    // MARK: BillingCountryInputDelegate
-    
-    
-    /**
-    Delegate method that is triggered when the billing country input field selected a billing country
-    
-    - parameter input:          The input field calling the delegate method
-    - parameter billingCountry: The billing country that has been selected
-    */
-    public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
-        self.postCodeInputField.billingCountry = billingCountry
-        // FIXME: maybe check if the postcode is still valid and then delete if nessecary
-        self.postCodeInputField.textField.text = ""
-    }
-    
-    // MARK: JudoPayInputDelegate
-    
-    
-    /**
-    Delegate method that is triggered when the judoPayInputField was validated
-    
-    - parameter input:   The input field calling the delegate method
-    - parameter isValid: A boolean that indicates whether the input is valid or invalid
-    */
-    public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
-        if input == self.secureCodeInputField {
-            if JudoKit.avsEnabled {
-                if isValid {
-                    self.postCodeInputField.textField.becomeFirstResponder()
-                    self.toggleAVSVisibility(true, completion: { () -> () in
-                        self.contentView.scrollRectToVisible(self.postCodeInputField.frame, animated: true)
-                    })
-                }
-            }
-        }
-    }
-    
-    /**
-     Delegate method that is called whenever any input field has been manipulated
-     
-     - parameter input: The input field calling the delegate method
-     */
-    public func judoPayInputDidChangeText(input: JudoPayInputField) {
-        self.resetTimerWithInput(input)
-        var allFieldsValid = false
-        allFieldsValid = self.cardInputField.isValid() && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
-        if JudoKit.avsEnabled {
-            allFieldsValid = allFieldsValid && self.postCodeInputField.isValid() && self.billingCountryInputField.isValid()
-        }
-        if self.cardInputField.cardNetwork == .Maestro {
-            allFieldsValid = allFieldsValid && (self.issueNumberInputField.isValid() || self.startDateInputField.isValid())
-        }
-        self.paymentEnabled(allFieldsValid)
     }
     
 }

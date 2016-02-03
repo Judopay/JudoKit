@@ -97,7 +97,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        JudoKit.tintColor = UIColor.greenColor()
+        JudoKit.showSecurityMessage = true
         
         self.tableView.backgroundColor = UIColor.clearColor()
         
