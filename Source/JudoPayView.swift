@@ -53,7 +53,7 @@ let inputFieldHeight: CGFloat = 48
 
 // Security message
 let kSecurityMessageString = "Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers."
-let kSecurityMessageTextSize: CGFloat = 10
+let kSecurityMessageTextSize: CGFloat = 12
 
 /// JudoPayView - the main view in the transaction journey
 public class JudoPayView: UIView {
