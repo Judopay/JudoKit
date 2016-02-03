@@ -13,6 +13,20 @@ All notable changes to this project will be documented in this file.
 ## [5.5.3](https://github.com/JudoPay/JudoKit/tag/5.5.3)
 Released on 2016-02-03
 
+#### Added
+- Security message option - new API to turn on or off a message that is shown to the user.
+
+```
+@objc public class JudoKit: NSObject {
+...
+    public static var showSecurityMessage: Bool = false
+...
+}
+```
+
+#### Changed
+- Moved JudoPayInputDelegate extension to seperate file `JudoPayView+JudoPayInputDelegate`.
+
 #### Updated
 - Build configuration for JudoShield
 
