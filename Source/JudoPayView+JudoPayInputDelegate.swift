@@ -40,6 +40,7 @@ extension JudoPayView: JudoPayInputDelegate {
         input.errorAnimation(error.code != .InputLengthMismatchError)
         if let message = error.message {
             self.hintLabel.showAlert(message)
+            self.updateSecurityMessagePosition(toggleUp: false)
         }
     }
     
@@ -64,6 +65,7 @@ extension JudoPayView: JudoPayInputDelegate {
     public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
         self.updateInputFieldsWithNetwork(network)
         self.hintLabel.hideAlert()
+        self.updateSecurityMessagePosition(toggleUp: true)
     }
     
     // MARK: DateInputDelegate

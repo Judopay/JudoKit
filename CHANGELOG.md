@@ -2,7 +2,8 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551) | [5.5.2](#552) | [5.5.3](#553)
+- `5.6.x` Releases - [5.6.0](#560)
+- `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551) | [5.5.2](#552) | [5.5.3](#553) | [5.5.4](#554)
 - `5.4.x` Releases - [5.4.0](#540)
 - `5.3.x` Releases - [5.3.0](#530)
 - `5.2.x` Releases - [5.2.0](#520) | [5.2.1](#521)
@@ -10,7 +11,32 @@ All notable changes to this project will be documented in this file.
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
-## [5.5.3](https://github.com/JudoPay/JudoKit/tag/5.5.3)
+## [5.6.0](https://github.com/JudoPay/JudoKit/releases/tag/5.6.0)
+Released on 2016-02-18
+
+#### Added
+- Helper method to update the message position
+```
+public class JudoPayView: UIView {
+...
+func updateSecurityMessagePosition(toggleUp toggleUp: Bool)
+...
+}
+```
+- Helper method to identify whether a HintLabel instance is actively showing a text
+```
+public class HintLabel: UILabel {
+...
+public func isActive() -> Bool {
+...
+}
+```
+
+#### Fixed
+- An issue with the security message not moving in sync with the hintlabel and errormessage appearing/disappearing
+
+---
+## [5.5.3](https://github.com/JudoPay/JudoKit/releases/tag/5.5.3)
 Released on 2016-02-03
 
 #### Added
@@ -31,12 +57,12 @@ Released on 2016-02-03
 - Build configuration for JudoShield
 
 ---
-## [5.5.2](https://github.com/JudoPay/JudoKit/tag/5.5.2)
+## [5.5.2]()
 
 #### NOT RELEASED DUE TO RELEASE ISSUE WITH COCOAPODS
 
 ---
-## [5.5.1](https://github.com/JudoPay/JudoKit/tag/5.5.1)
+## [5.5.1](https://github.com/JudoPay/JudoKit/releases/tag/5.5.1)
 Released on 2016-01-29
 
 #### Added
@@ -51,7 +77,7 @@ Released on 2016-01-29
 - Validation on every field at every entry
 
 ---
-## [5.5.0](https://github.com/JudoPay/JudoKit/tag/5.5.0)
+## [5.5.0](https://github.com/JudoPay/JudoKit/releases/tag/5.5.0)
 Released on 2016-01-14
 
 #### Added
@@ -75,7 +101,7 @@ Released on 2016-01-14
 - Expiry date was not correctly verified
 
 ---
-## [5.4.0](https://github.com/JudoPay/JudoKit/tag/5.4.0)
+## [5.4.0](https://github.com/JudoPay/JudoKit/releases/tag/5.4.0)
 Released on 2015-11-26
 
 #### Added
@@ -102,7 +128,7 @@ Released on 2015-11-26
 
 
 ---
-## [5.3.0](https://github.com/JudoPay/JudoKit/tag/5.3.0)
+## [5.3.0](https://github.com/JudoPay/JudoKit/releases/tag/5.3.0)
 Released on 2015-11-05
 
 #### Added
@@ -128,7 +154,7 @@ Released on 2015-11-05
   - Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---
-## [5.2.1](https://github.com/JudoPay/JudoKit/tag/5.2.1)
+## [5.2.1](https://github.com/JudoPay/JudoKit/releases/tag/5.2.1)
 Released on 2015-10-20
 
 #### Added
@@ -139,7 +165,7 @@ Released on 2015-10-20
   - Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---
-## [5.2.0](https://github.com/JudoPay/JudoKit/tag/5.2.0)
+## [5.2.0](https://github.com/JudoPay/JudoKit/releases/tag/5.2.0)
 Released on 2015-10-01
 
 #### Added
@@ -159,7 +185,7 @@ Released on 2015-10-01
 	- Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---
-## [5.1.2](https://github.com/JudoPay/JudoKit/tag/5.1.2)
+## [5.1.2](https://github.com/JudoPay/JudoKit/releases/tag/5.1.2)
 Released on 2015-09-22
 
 #### Added
@@ -176,7 +202,7 @@ Released on 2015-09-22
 	- Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---
-## [5.1.1](https://github.com/JudoPay/JudoKit/tag/5.1.1)
+## [5.1.1](https://github.com/JudoPay/JudoKit/releases/tag/5.1.1)
 Released on 2015-09-18
 
 #### Changed
@@ -184,7 +210,7 @@ Released on 2015-09-18
 	- Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---
-## [5.1.0](https://github.com/JudoPay/JudoKit/tag/5.1.0)
+## [5.1.0](https://github.com/JudoPay/JudoKit/releases/tag/5.1.0)
 Released on 2015-09-18
 
 #### Added 
@@ -193,7 +219,7 @@ Released on 2015-09-18
 	- Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---
-## [5.0.1](https://github.com/JudoPay/JudoKit/tag/5.0.1)
+## [5.0.1](https://github.com/JudoPay/JudoKit/releases/tag/5.0.1)
 Released on 2015-09-15
 
 #### Added
@@ -201,7 +227,7 @@ Released on 2015-09-15
 	- Added by [Hamon Ben Riazy](https://github.com/ryce).
 
 ---
-## [5.0.0](https://github.com/JudoPay/JudoKit/tag/5.0.0)
+## [5.0.0](https://github.com/JudoPay/JudoKit/releases/tag/5.0.0)
 Released on 2015-09-15
 
 #### Added

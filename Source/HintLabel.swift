@@ -33,6 +33,14 @@ public class HintLabel: UILabel {
     
     
     /**
+     a function that will return true if any of the texts is set
+     */
+    public func isActive() -> Bool {
+        return alertText?.length > 0 || hintText?.length > 0
+    }
+    
+    
+    /**
      Makes the hint text visible in case there is no alert text occupying the space
      
      - parameter text: The hint text string to show

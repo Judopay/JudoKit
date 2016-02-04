@@ -421,19 +421,33 @@ public class JudoPayView: UIView {
      - parameter input: The input field which the user is currently idling
      */
     func resetTimerWithInput(input: JudoPayInputField) {
-        self.securityMessageTopConstraint?.constant = -self.hintLabel.bounds.height
-        UIView.animateWithDuration(0.3, animations: { () -> Void in
-            self.contentView.layoutIfNeeded()
-        })
+        self.updateSecurityMessagePosition(toggleUp: true)
         self.hintLabel.hideHint()
         self.timer?.invalidate()
         self.timer = NSTimer.schedule(3.0, handler: { (timer) -> Void in
+            self.updateSecurityMessagePosition(toggleUp: false)
+            self.hintLabel.showHint(input.hintLabelText())
+        })
+    }
+    
+    
+    /**
+     Helper method to update the position of the security message
+     
+     - parameter toggleUp: whether the label should move up or down
+     */
+    func updateSecurityMessagePosition(toggleUp toggleUp: Bool) {
+        if toggleUp && !self.hintLabel.isActive() {
+            self.securityMessageTopConstraint?.constant = -self.hintLabel.bounds.height
+            UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.contentView.layoutIfNeeded()
+            })
+        } else {
             self.securityMessageTopConstraint?.constant = 14.0
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 self.contentView.layoutIfNeeded()
             })
-            self.hintLabel.showHint(input.hintLabelText())
-        })
+        }
     }
     
 }
