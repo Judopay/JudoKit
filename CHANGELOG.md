@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
+- `5.6.x` Releases - [5.6.0](#560)
 - `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551) | [5.5.2](#552) | [5.5.3](#553) | [5.5.4](#554)
 - `5.4.x` Releases - [5.4.0](#540)
 - `5.3.x` Releases - [5.3.0](#530)
@@ -10,6 +11,31 @@ All notable changes to this project will be documented in this file.
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
+## [5.6.0](https://github.com/JudoPay/JudoKit/releases/tag/5.6.0)
+Released on 2016-02-18
+
+#### Added
+- Helper method to update the message position
+```
+public class JudoPayView: UIView {
+...
+func updateSecurityMessagePosition(toggleUp toggleUp: Bool)
+...
+}
+```
+- Helper method to identify whether a HintLabel instance is actively showing a text
+```
+public class HintLabel: UILabel {
+...
+public func isActive() -> Bool {
+...
+}
+```
+
+#### Fixed
+- An issue with the security message not moving in sync with the hintlabel and errormessage appearing/disappearing
+
+---
 ## [5.5.3](https://github.com/JudoPay/JudoKit/releases/tag/5.5.3)
 Released on 2016-02-03
 

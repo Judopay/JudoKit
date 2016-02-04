@@ -430,6 +430,12 @@ public class JudoPayView: UIView {
         })
     }
     
+    
+    /**
+     Helper method to update the position of the security message
+     
+     - parameter toggleUp: whether the label should move up or down
+     */
     func updateSecurityMessagePosition(toggleUp toggleUp: Bool) {
         if toggleUp && !self.hintLabel.isActive() {
             self.securityMessageTopConstraint?.constant = -self.hintLabel.bounds.height
