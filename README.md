@@ -50,6 +50,7 @@ Then, run the following command:
 $ pod install
 ```
 
+Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file
 
 #### Carthage
 
