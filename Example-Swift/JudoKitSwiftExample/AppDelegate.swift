@@ -26,9 +26,6 @@ import UIKit
 import Judo
 import JudoKit
 
-let token = "<#YOUR TOKEN#>"
-let secret = "<#YOUR SECRET#>"
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
