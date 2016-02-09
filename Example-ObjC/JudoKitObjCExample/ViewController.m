@@ -28,6 +28,10 @@
 @import JudoKit;
 @import Judo;
 
+#pragma warning "set your own token and secret to see testing results"
+static NSString * const token   = @"<#YOUR TOKEN#>";
+static NSString * const secret  = @"<#YOUR SECRET#>";
+
 typedef NS_ENUM(NSUInteger, TableViewContent) {
     TableViewContentPayment,
     TableViewContentPreAuth,
@@ -55,6 +59,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 @property (nonatomic, strong) PaymentToken *payToken;
 
 @property (nonatomic, strong) UIView *tableFooterView;
+@property (nonatomic, strong) JudoKit *judoKitSession;
 
 @end
 
@@ -62,6 +67,12 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // initialize the SDK by setting it up with a token and a secret
+    self.judoKitSession = [[JudoKit alloc] initWithToken:token secret:secret];
+    
+    // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
+    [self.judoKitSession sandboxed:YES];
     
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = self.tableFooterView;
@@ -104,7 +115,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 }
 
 - (IBAction)AVSValueChanged:(UISwitch *)theSwitch {
-    JudoKit.avsEnabled = theSwitch.on;
+    JudoKit.theme.avsEnabled = theSwitch.on;
 }
 
 #pragma mark - UITableViewDataSource
@@ -186,7 +197,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     
     Reference *ref = [[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil];
     
-    [JudoKit payment:judoID amount:amount reference:ref cardDetails:nil completion:^(Response * response, JudoError * error) {
+    [self.judoKitSession payment:judoID amount:amount reference:ref cardDetails:nil completion:^(Response * response, JudoError * error) {
         if (error || response.items.count == 0) {
             if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
                 [self dismissViewControllerAnimated:YES completion:nil];
@@ -212,7 +223,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 - (void)preAuthOperation {
     Amount *amount = [[Amount alloc] initWithDecimalNumber:[NSDecimalNumber decimalNumberWithString:@"25.0"] currency:[Currency GBP]];
     
-    [JudoKit preAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:nil completion:^(Response * response, JudoError * error) {
+    [self.judoKitSession preAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:nil completion:^(Response * response, JudoError * error) {
         if (error || response.items.count == 0) {
             // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
             if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
@@ -238,7 +249,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
 
 - (void)createCardTokenOperation {
     
-    [JudoKit registerCard:judoID amount:[[Amount alloc] initWithAmountString:@"1.01" currency:[Currency GBP]] reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:nil completion:^(Response * response, JudoError * error) {
+    [self.judoKitSession registerCard:judoID amount:[[Amount alloc] initWithAmountString:@"1.01" currency:[Currency GBP]] reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:nil completion:^(Response * response, JudoError * error) {
         [self dismissViewControllerAnimated:YES completion:nil];
         if (error && response.items.count == 0) {
             // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
@@ -261,7 +272,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     if (self.cardDetails) {
         Amount *amount = [[Amount alloc] initWithAmountString:@"25" currency:[Currency GBP]];
 
-        [JudoKit tokenPayment:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
+        [self.judoKitSession tokenPayment:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
             if (error || response.items.count == 0) {
                 // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
                 if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {
@@ -295,7 +306,7 @@ static NSString * const kCellIdentifier     = @"com.judo.judopaysample.tableview
     if (self.cardDetails) {
         Amount *amount = [[Amount alloc] initWithAmountString:@"25" currency:[Currency GBP]];
         
-        [JudoKit tokenPreAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
+        [self.judoKitSession tokenPreAuth:judoID amount:amount reference:[[Reference alloc] initWithConsumerRef:@"consRef" metaData:nil] cardDetails:self.cardDetails paymentToken:self.payToken completion:^(Response * response, JudoError * error) {
             if (error || response.items.count == 0) {
                 // unfortunately due to restrictions an enum that conforms to ErrorType cant also be exposed to objective C, so we have to use the int directly
                 if ([error.domain isEqualToString:@"com.judopay.error"] && error.code == -999) {

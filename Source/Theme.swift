@@ -10,7 +10,7 @@ import Foundation
 import Judo
 
 
-public class JudoTheme {
+@objc public class JudoTheme: NSObject {
     
     /// A tint color that is used to generate a theme for the judo payment form
     public var tintColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)

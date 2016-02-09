@@ -25,10 +25,6 @@
 #import "AppDelegate.h"
 @import JudoKit;
 
-#pragma warning "set your own token and secret to see testing results"
-static NSString * const token   = @"<#YOUR TOKEN#>";
-static NSString * const secret  = @"<#YOUR SECRET#>";
-
 @interface AppDelegate ()
 
 @end
@@ -37,11 +33,6 @@ static NSString * const secret  = @"<#YOUR SECRET#>";
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // initialize the SDK by setting it up with a token and a secret
-    [JudoKit setToken:token andSecret:secret];
-    
-    // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
-    [JudoKit sandboxed:YES];
     
     return YES;
 }

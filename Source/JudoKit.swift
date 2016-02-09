@@ -27,7 +27,7 @@ import PassKit
 import Judo
 
 /// Entry point for interacting with judoKit
-public class JudoKit {
+@objc public class JudoKit: NSObject {
     
     /// JudoKit local judo session
     public let judoSession: Judo
