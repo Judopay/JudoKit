@@ -52,7 +52,11 @@ extension JudoPayView: JudoPayInputDelegate {
      - parameter cardNumberString: The card number that has been entered as a String
      */
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
-        self.expiryDateInputField.textField.becomeFirstResponder()
+        if input.cardNetwork == .Maestro {
+            self.startDateInputField.textField.becomeFirstResponder()
+        } else {
+            self.expiryDateInputField.textField.becomeFirstResponder()
+        }
     }
     
     
@@ -137,7 +141,7 @@ extension JudoPayView: JudoPayInputDelegate {
     */
     public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
         if input == self.secureCodeInputField {
-            if JudoKit.avsEnabled {
+            if JudoKit.theme.avsEnabled {
                 if isValid {
                     self.postCodeInputField.textField.becomeFirstResponder()
                     self.toggleAVSVisibility(true, completion: { () -> () in
@@ -154,10 +158,10 @@ extension JudoPayView: JudoPayInputDelegate {
      - parameter input: The input field calling the delegate method
      */
     public func judoPayInputDidChangeText(input: JudoPayInputField) {
-        self.resetTimerWithInput(input)
+        self.showHintAfterDefaultDelay(input)
         var allFieldsValid = false
         allFieldsValid = self.cardInputField.isValid() && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
-        if JudoKit.avsEnabled {
+        if JudoKit.theme.avsEnabled {
             allFieldsValid = allFieldsValid && self.postCodeInputField.isValid() && self.billingCountryInputField.isValid()
         }
         if self.cardInputField.cardNetwork == .Maestro {

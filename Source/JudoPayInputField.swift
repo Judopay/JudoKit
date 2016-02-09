@@ -97,7 +97,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         
         self.textField.translatesAutoresizingMaskIntoConstraints = false
         self.textField.textColor = .judoInputFieldTextColor()
-        self.textField.tintColor = JudoKit.tintColor
+        self.textField.tintColor = JudoKit.theme.tintColor
         self.textField.font = UIFont.boldSystemFontOfSize(14)
         self.textField.addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
         

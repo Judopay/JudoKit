@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
+- `6.0.x` Releases - [6.0.0](#600)
 - `5.6.x` Releases - [5.6.0](#560)
 - `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551) | [5.5.2](#552) | [5.5.3](#553) | [5.5.4](#554)
 - `5.4.x` Releases - [5.4.0](#540)
@@ -10,6 +11,29 @@ All notable changes to this project will be documented in this file.
 - `5.1.x` Releases - [5.1.0](#510) | [5.1.1](#511) | [5.1.2](#512)
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
+
+## [6.0.0](https://github.com/JudoPay/JudoKit/releases/tag/6.0.0)
+Potential released on 2016-02-18
+
+#### Added
+- BRL is now a statically accessible from the Currency class.
+- Theme object to make it easier to adjust colors, fonts and texts in the JudoKit Payment view.
+- JudoPayViewController now needs a judo session to do all transactions.
+- NSDate+Extension.swift for easier date handling.
+
+#### Changed
+- Removing all statically accessible methods and properties from JudoKit to favor creation of an instance that is taken care of by the project that is using JudoKit. This allows for cleaner usage of JudoKit in MVC environments.
+- Hint text will only be shown when the field is completely empty after 5 seconds of being idle.
+- Start and expiry dates now have a maximum/minimum allowed threshold of 10 years to the current date.
+
+#### Fixed
+- Example projects have been adjusted for new SDKs.
+- Error text now properly behaves with the security text at the bottom of the input fields.
+- Manipulating the card number and expiry date fields is now restricted for all token payments.
+- Auto-advancing for Maestro cards when finished entering the card number.
+- Wording when an incorrect card number is entered.
+- An issue where adding '.' into the card number field would cause the app to crash.
+- Wording on the hint text when a token payment is being made.
 
 ## [5.6.0](https://github.com/JudoPay/JudoKit/releases/tag/5.6.0)
 Released on 2016-02-18

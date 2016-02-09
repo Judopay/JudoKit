@@ -17,8 +17,6 @@ judoKit is a framework for creating easy payments inside your app with [judoPay]
 
 ## Integration
 
-**We experienced some issues with archives containing bitcode when submitting to the App Store - We advise you to exclude bitcode from your archives for now**
-
 ### Sign up to judo's platform
 
 - To use judo's SDK, you'll need to [sign up](https://www.judopay.com/signup) and get your app token. 
@@ -41,7 +39,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 5.5.3'
+pod 'JudoKit', '~> 6.0'
 ```
 
 Then, run the following command:
@@ -66,7 +64,7 @@ $ brew install carthage
 - To integrate judo into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-github "JudoPay/JudoKit" >= 5.5.3
+github "JudoPay/JudoKit" >= 6.0
 ```
 
 - execute the following command in your project folder. This should clone the project and build the judoKit scheme.
@@ -141,14 +139,14 @@ The token and secret are accessible from your judoPay account [here](https://por
 let token = "a3xQdxP6iHdWg1zy"
 let secret = "2094c2f5484ba42557917aad2b2c2d294a35dddadb93de3c35d6910e6c461bfb"
 
-JudoKit.setToken(token, secret: secret)
+let myJudoKitSession = JudoKit(token: token, secret: secret)
 
 ```
 
 For testing purposes, you should set the app into sandboxed mode by calling the function `sandboxed(value: Bool)` on `JudoKit`.
 
 ```swift
-JudoKit.sandboxed(true)
+myJudoKitSession.sandboxed(true)
 ```
 
 When delivering your App to the App Store, make sure to remove the line.
@@ -156,7 +154,7 @@ When delivering your App to the App Store, make sure to remove the line.
 #### Make a simple payment
 
 ```swift
-JudoKit.payment(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
+myJudoKitSession.payment(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
     self.dismissViewControllerAnimated(true, completion: nil)
     if let error = error {
         // if the user cancelled, this error is passed
@@ -175,7 +173,7 @@ JudoKit.payment(judoID, amount: Amount(42, currentCurrency), reference: Referenc
 #### Make a simple pre-authorization
 
 ```swift
-JudoKit.preAuth(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
+myJudoKitSession.preAuth(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
     self.dismissViewControllerAnimated(true, completion: nil)
     if let error = error {
         // if the user cancelled, this error is passed
@@ -195,7 +193,7 @@ JudoKit.preAuth(judoID, amount: Amount(42, currentCurrency), reference: Referenc
 #### Register a card
 
 ```swift
-JudoKit.registerCard(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference"), completion: { (response, error) -> () in
+myJudoKitSession.registerCard(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "payment reference"), completion: { (response, error) -> () in
     self.dismissViewControllerAnimated(true, completion: nil)
     if let error = error {
         // if the user cancelled, this error is passed
@@ -215,7 +213,7 @@ JudoKit.registerCard(judoID, amount: Amount(42, currentCurrency), reference: Ref
 
 ```swift
 if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
-    JudoKit.tokenPayment(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+    myJudoKitSession.tokenPayment(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
         self.dismissViewControllerAnimated(true, completion: nil)
         if let error = error {
             // if the user cancelled, this error is passed
@@ -238,7 +236,7 @@ if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
 
 ```swift
 if let cardDetails = self.cardDetails, let payToken = self.paymentToken {
-    JudoKit.tokenPreAuth(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+    myJudoKitSession.tokenPreAuth(judoID, amount: Amount(30, currentCurrency), reference: Reference(consumerRef: "consumer reference"), cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
         self.dismissViewControllerAnimated(true, completion: nil)
         if let error = error {
             // if the user cancelled, this error is passed
@@ -270,7 +268,7 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
 In case you want to add the capability of accepting AMEX you need to add this as following:
 
 ```swift
-JudoKit.acceptedCardNetworks = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.AMEX, 15)]
+JudoKit.theme.acceptedCardNetworks = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.AMEX, 15)]
 ```
 
 Any other card configuration that is available can be added for the UI to accept the card. **BE AWARE** you do need to configure your account with Judo Payments for any other Card Type payments to be processed successfully.
@@ -283,17 +281,9 @@ Any other card configuration that is available can be added for the UI to accept
 
 judoKit comes with our new customisable, stacked UI. Note that if you have implemented with our Objective-C repository, you will have to use this Swift framework in your Obj-C project to use the new customisable UI. To do this, replace the legacy 'judoPay' implementation in your app with the 'judoKit' implementation.
 
-### Manual integration & Carthage
+### Theme class
 
-For manual integration and usage of Carthage, you need to create a fork of the existing judoKit repository on GitHub.
-
-### CocoaPods
-
-If you need to make changes to the Theme while using CocoaPods, you need to unlock the source code files from judoKit inside your Pods project. With these changes, make sure you track your CocoaPods inside your git (or other versioning system).
-
-### Theme classes
-
-To customize colors, have a look at the `UIColor+Judo.swift` file. To customize strings, have a look at the `JudoPayView.swift` file.
+The color declaration are not yet openly handled.
 
 #### `UIColor+Judo.swift`
 
@@ -311,30 +301,70 @@ func judoLoadingBlockViewColor()
 func judoInputFieldBackgroundColor()
 ```
 
-#### `JudoPayView.swift`
+The following parameters can be accessed through `JudoKit.theme`
 
 ```
-// Buttons
-let kPaymentButtonTitle = "Pay"
-let kRegisterCardButtonTitle = "Add card"
-let kRegisterCardNavBarButtonTitle = "Add"
+/// A tint color that is used to generate a theme for the judo payment form
+public var tintColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
 
-let kBackButtonTitle = "Back"
+/// Set the address verification service to true to prompt the user to input his country and post code information
+public var avsEnabled: Bool = false
 
-// Titles
-let kPaymentTitle = "Payment"
-let kRegisterCardTitle = "Add card"
-let kRefundTitle = "Refund"
-let kAuthenticationTitle = "Authentication"
+/// a boolean indicating whether a security message should be shown below the input
+public var showSecurityMessage: Bool = false
 
-// Loading
-let kLoadingIndicatorRegisterCardTitle = "Adding card..."
-let kLoadingIndicatorProcessingTitle = "Processing payment..."
-let kRedirecting3DSTitle = "Redirecting..."
-let kVerifying3DSPaymentTitle = "Verifying payment"
-let kVerifying3DSRegisterCardTitle = "Verifying card"
+/// An array of accepted card configurations (card network and card number length)
+public var acceptedCardNetworks: [Card.Configuration] = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.Maestro, 16)]
 
-// InputFields
-let inputFieldHeight: CGFloat = 48
+
+// MARK: Buttons
+
+/// the title for the payment button
+public var paymentButtonTitle = "Pay"
+/// the title for the button when registering a card
+public var registerCardButtonTitle = "Add card"
+/// the title for the back button of the navigation controller
+public var registerCardNavBarButtonTitle = "Add"
+/// the title for the back button
+public var backButtonTitle = "Back"
+
+
+// MARK: Titles
+
+/// the title for a payment
+public var paymentTitle = "Payment"
+/// the title for a card registration
+public var registerCardTitle = "Add card"
+/// the title for a refund
+public var refundTitle = "Refund"
+/// the title for an authentication
+public var authenticationTitle = "Authentication"
+
+// MARK: Loading
+
+/// when a register card transaction is currently running
+public var loadingIndicatorRegisterCardTitle = "Adding card..."
+/// the title of the loading indicator during a transaction
+public var loadingIndicatorProcessingTitle = "Processing payment..."
+/// the title of the loading indicator during a redirect to a 3DS webview
+public var redirecting3DSTitle = "Redirecting..."
+/// the title of the loading indicator during the verification of the transaction
+public var verifying3DSPaymentTitle = "Verifying payment"
+/// the title of the loading indicator during the verification of the card registration
+public var verifying3DSRegisterCardTitle = "Verifying card"
+
+// MARK: Input fields
+
+/// the height of the input fields
+public var inputFieldHeight: CGFloat = 48
+
+// MARK: Security message
+
+/// the message that is shown below the input fields the ensure safety when entering card information
+public var securityMessageString = "Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers."
+
+/// the text size of the security message
+public var securityMessageTextSize: CGFloat = 12
+
 ```
 

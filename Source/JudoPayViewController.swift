@@ -36,6 +36,9 @@ public class JudoPayViewController: UIViewController {
     
     // MARK: Transaction variables
     
+    /// the current JudoKit Session
+    public var judoSession: Judo
+    
     /// The amount and currency to process, amount to two decimal places and currency in string
     public private (set) var amount: Amount?
     /// The number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
@@ -86,13 +89,14 @@ public class JudoPayViewController: UIViewController {
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
+    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, currentSession: Judo, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
         self.judoID = judoID
         self.amount = amount
         self.reference = reference
         self.paymentToken = paymentToken
         self.completionBlock = completion
         
+        self.judoSession = currentSession
         self.myView = JudoPayView(type: transactionType, cardDetails: cardDetails)
         
         super.init(nibName: nil, bundle: nil)
@@ -123,7 +127,6 @@ public class JudoPayViewController: UIViewController {
         fatalError("This class should not be initialised with initWithCoder:")
     }
     
-    
     // MARK: View Lifecycle
     
     
@@ -138,13 +141,13 @@ public class JudoPayViewController: UIViewController {
         self.myView.threeDSecureWebView.delegate = self
         
         // Button actions
-        let payButtonTitle = self.myView.transactionType == .RegisterCard ? kRegisterCardNavBarButtonTitle : kPaymentButtonTitle
+        let payButtonTitle = self.myView.transactionType == .RegisterCard ? JudoKit.theme.registerCardNavBarButtonTitle : JudoKit.theme.paymentButtonTitle
 
         self.myView.paymentButton.addTarget(self, action: Selector("payButtonAction:"), forControlEvents: .TouchUpInside)
         self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .Done, target: self, action: Selector("payButtonAction:"))
         self.myView.paymentNavBarButton!.enabled = false
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: kBackButtonTitle, style: .Plain, target: self, action: Selector("doneButtonAction:"))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: JudoKit.theme.backButtonTitle, style: .Plain, target: self, action: Selector("doneButtonAction:"))
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
         
         self.navigationController?.navigationBar.tintColor = .judoDarkGrayColor()
@@ -219,7 +222,7 @@ public class JudoPayViewController: UIViewController {
         self.myView.loadingView.startAnimating()
         
         do {
-            let transaction = try Judo.transaction(self.myView.transactionType, judoID: judoID, amount: amount, reference: reference)
+            let transaction = try judoSession.transaction(self.myView.transactionType, judoID: judoID, amount: amount, reference: reference)
             
             if let payToken = self.paymentToken {
                 payToken.cv2 = self.myView.secureCodeInputField.textField.text
@@ -227,7 +230,7 @@ public class JudoPayViewController: UIViewController {
             } else {
                 // I expect that all the texts are available because the Pay Button would not be active otherwise
                 var address: Address? = nil
-                if JudoKit.avsEnabled {
+                if JudoKit.theme.avsEnabled {
                     guard let postCode = self.myView.postCodeInputField.textField.text else { return }
                     
                     address = Address(postCode: postCode, country: self.myView.billingCountryInputField.selectedCountry)
@@ -263,8 +266,8 @@ public class JudoPayViewController: UIViewController {
                             self.myView.loadingView.stopAnimating()
                             self.completionBlock?(nil, error as? JudoError)
                         }
-                        self.myView.loadingView.actionLabel.text = kRedirecting3DSTitle
-                        self.title = kAuthenticationTitle
+                        self.myView.loadingView.actionLabel.text = JudoKit.theme.redirecting3DSTitle
+                        self.title = JudoKit.theme.authenticationTitle
                         self.myView.paymentEnabled(false)
                     } else {
                         self.completionBlock?(nil, error)
@@ -335,12 +338,12 @@ extension JudoPayViewController: UIWebViewDelegate {
             
             if let receiptID = self.pending3DSReceiptID {
                 if self.myView.transactionType == .RegisterCard {
-                    self.myView.loadingView.actionLabel.text = kVerifying3DSRegisterCardTitle
+                    self.myView.loadingView.actionLabel.text = JudoKit.theme.verifying3DSRegisterCardTitle
                 } else {
-                    self.myView.loadingView.actionLabel.text = kVerifying3DSPaymentTitle
+                    self.myView.loadingView.actionLabel.text = JudoKit.theme.verifying3DSPaymentTitle
                 }
                 self.myView.loadingView.startAnimating()
-                self.title = kAuthenticationTitle
+                self.title = JudoKit.theme.authenticationTitle
                 self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { (resp, error) -> () in
                     self.myView.loadingView.stopAnimating()
                     if let error = error {

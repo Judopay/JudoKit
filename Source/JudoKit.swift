@@ -26,33 +26,24 @@ import Foundation
 import PassKit
 import Judo
 
-let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.Maestro, 16)]
-
-
 /// Entry point for interacting with judoKit
-@objc public class JudoKit: NSObject {
+public class JudoKit {
     
-    /// A tint color that is used to generate a theme for the judo payment form
-    public static var tintColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
+    /// JudoKit local judo session
+    public let judoSession: Judo
     
-    /// Set the address verification service to true to prompt the user to input his country and post code information
-    public static var avsEnabled: Bool = false
-    
-    /// a boolean indicating whether a security message should be shown below the input
-    public static var showSecurityMessage: Bool = false
-    
-    /// An array of accepted card configurations (card network and card number length)
-    public static var acceptedCardNetworks: [Card.Configuration] = defaultCardConfigurations
-    
+    public static var theme: JudoTheme = JudoTheme()
     
     /**
-    A mandatory method that sets the token and secret for making payments with judo
-    
-    - Parameter token:  A string object representing the token
-    - Parameter secret: A string object representing the secret
-    */
-    @objc public static func setToken(token: String, andSecret secret: String) {
-        Judo.setToken(token, secret: secret)
+     designated initializer of JudoKit
+     
+     - Parameter token:  a string object representing the token
+     - Parameter secret: a string object representing the secret
+     
+     - returns: a new instance of JudoKit
+     */
+    @objc public init(token: String, secret: String) {
+        judoSession = Judo(token: token, secret: secret)
     }
     
     
@@ -61,10 +52,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     
     - parameter enabled: true to set the SDK to sandboxed mode
     */
-    @objc public static func sandboxed(enabled: Bool) {
-        Judo.sandboxed = enabled
+    @objc public func sandboxed(enabled: Bool) {
+        judoSession.sandboxed = enabled
     }
-    
     
     // MARK: Transactions
     
@@ -77,13 +67,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public static func payment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion)
-        judoPayViewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
-        judoPayViewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
-        let vc = UINavigationController(rootViewController: judoPayViewController)
-        vc.modalPresentationStyle = .FormSheet
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+    @objc public func payment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, currentSession: judoSession)
+        self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
     }
     
     
@@ -95,13 +81,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public static func preAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion)
-        judoPayViewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
-        judoPayViewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
-        let vc = UINavigationController(rootViewController: judoPayViewController)
-        vc.modalPresentationStyle = .FormSheet
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+    @objc public func preAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: judoSession)
+        self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
     }
     
     
@@ -117,13 +99,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public static func registerCard(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion)
-        judoPayViewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
-        judoPayViewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
-        let vc = UINavigationController(rootViewController: judoPayViewController)
-        vc.modalPresentationStyle = .FormSheet
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+    @objc public func registerCard(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: judoSession)
+        self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
     }
     
     
@@ -139,10 +117,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter paymentToken: The consumer and card token to make a token payment with
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public static func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, cardDetails: cardDetails, paymentToken: paymentToken))
-        vc.modalPresentationStyle = .FormSheet
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+    @objc public func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, currentSession: judoSession, cardDetails: cardDetails, paymentToken: paymentToken))
+        self.showViewController(vc)
     }
     
     
@@ -156,10 +133,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter paymentToken: The consumer and card token to make a token payment with
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public static func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, cardDetails: cardDetails, paymentToken: paymentToken))
-        vc.modalPresentationStyle = .FormSheet
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+    @objc public func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: judoSession, cardDetails: cardDetails, paymentToken: paymentToken))
+        self.showViewController(vc)
     }
     
     
@@ -171,9 +147,9 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter reference:  Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter payment:    The PKPayment object that is generated during an ApplePay process
     */
-    @objc public static func applePayPayment(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
+    @objc public func applePayPayment(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
         do {
-            try Judo.payment(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
+            try judoSession.payment(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {
             completion(nil, JudoError(.ParameterError))
         }
@@ -188,12 +164,39 @@ let defaultCardConfigurations = [Card.Configuration(.Visa, 16), Card.Configurati
     - parameter reference:  Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter payment:    The PKPayment object that is generated during an ApplePay process
     */
-    @objc public static func applePayPreAuth(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
+    @objc public func applePayPreAuth(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
         do {
-            try Judo.preAuth(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
+            try judoSession.preAuth(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {
             completion(nil, JudoError(.ParameterError))
         }
     }
+    
+    // MARK: Helper methods
+    
+    
+    /**
+    Helper method to initiate, pass information and show a JudoPay ViewController
+    
+    - parameter viewController: the viewController to initiate and show
+    - parameter cardDetails:    optional dictionary that contains card info
+    */
+    func initiateAndShow(viewController: JudoPayViewController, cardDetails: CardDetails? = nil) {
+        viewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
+        viewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
+        self.showViewController(UINavigationController(rootViewController: viewController))
+    }
+    
+    
+    /**
+     Helper method to show a given ViewController on the top most view
+     
+     - parameter vc: the viewController to show
+     */
+    func showViewController(vc: UIViewController) {
+        vc.modalPresentationStyle = .FormSheet
+        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+    }
+    
     
 }

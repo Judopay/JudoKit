@@ -190,19 +190,12 @@ public class DateInputField: JudoPayInputField {
         guard let dateString = textField.text where dateString.characters.count == 5,
             let beginningOfMonthDate = self.dateFormatter.dateFromString(dateString) else { return false }
         if self.isStartDate {
-            if beginningOfMonthDate.compare(NSDate()) == .OrderedAscending {
-                return true
-            } else {
-                return false
-            }
+            let minimumDate = NSDate().dateByAddingYears(-10)
+            return beginningOfMonthDate.compare(NSDate()) == .OrderedAscending && beginningOfMonthDate.compare(minimumDate!) == .OrderedDescending
         } else {
-            let dayRange = NSCalendar.currentCalendar().rangeOfUnit(.Day, inUnit: .Month, forDate: beginningOfMonthDate)
-            let endOfMonthDate = beginningOfMonthDate.dateByAddingTimeInterval(60 * 60 * 24 * Double(dayRange.length))
-            if endOfMonthDate.compare(NSDate()) == .OrderedDescending {
-                return true
-            } else {
-                return false
-            }
+            let endOfMonthDate = beginningOfMonthDate.dateAtTheEndOfMonth()
+            let maximumDate = NSDate().dateByAddingYears(10)
+            return endOfMonthDate.compare(NSDate()) == .OrderedDescending && endOfMonthDate.compare(maximumDate!) == .OrderedAscending
         }
     }
     

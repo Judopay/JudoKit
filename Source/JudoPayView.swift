@@ -26,35 +26,6 @@ import UIKit
 import Judo
 
 
-// MARK: Constants
-
-// Buttons
-let kPaymentButtonTitle = "Pay"
-let kRegisterCardButtonTitle = "Add card"
-let kRegisterCardNavBarButtonTitle = "Add"
-
-let kBackButtonTitle = "Back"
-
-// Titles
-let kPaymentTitle = "Payment"
-let kRegisterCardTitle = "Add card"
-let kRefundTitle = "Refund"
-let kAuthenticationTitle = "Authentication"
-
-// Loading
-let kLoadingIndicatorRegisterCardTitle = "Adding card..."
-let kLoadingIndicatorProcessingTitle = "Processing payment..."
-let kRedirecting3DSTitle = "Redirecting..."
-let kVerifying3DSPaymentTitle = "Verifying payment"
-let kVerifying3DSRegisterCardTitle = "Verifying card"
-
-// Input fields
-let inputFieldHeight: CGFloat = 48
-
-// Security message
-let kSecurityMessageString = "Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers."
-let kSecurityMessageTextSize: CGFloat = 12
-
 /// JudoPayView - the main view in the transaction journey
 public class JudoPayView: UIView {
     
@@ -109,8 +80,8 @@ public class JudoPayView: UIView {
         let label = UILabel(frame: CGRectZero)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor(), NSFontAttributeName:UIFont.boldSystemFontOfSize(kSecurityMessageTextSize)])
-        attributedString.appendAttributedString(NSAttributedString(string: kSecurityMessageString, attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor(), NSFontAttributeName:UIFont.systemFontOfSize(kSecurityMessageTextSize)]))
+        let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor(), NSFontAttributeName:UIFont.boldSystemFontOfSize(JudoKit.theme.securityMessageTextSize)])
+        attributedString.appendAttributedString(NSAttributedString(string: JudoKit.theme.securityMessageString, attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor(), NSFontAttributeName:UIFont.systemFontOfSize(JudoKit.theme.securityMessageTextSize)]))
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .Justified
@@ -131,9 +102,6 @@ public class JudoPayView: UIView {
     
     let loadingView = LoadingView()
     let threeDSecureWebView = _DSWebView()
-    
-    // MARK: hint label
-    private var timer: NSTimer?
     
     /// The transactionType of the current journey
     var transactionType: TransactionType
@@ -232,8 +200,8 @@ public class JudoPayView: UIView {
     // MARK: View LifeCycle
     
     func setupView() {
-        let payButtonTitle = self.transactionType == .RegisterCard ? kRegisterCardTitle : kPaymentButtonTitle
-        self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? kLoadingIndicatorRegisterCardTitle : kLoadingIndicatorProcessingTitle
+        let payButtonTitle = self.transactionType == .RegisterCard ? JudoKit.theme.registerCardTitle : JudoKit.theme.paymentButtonTitle
+        self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? JudoKit.theme.loadingIndicatorRegisterCardTitle : JudoKit.theme.loadingIndicatorProcessingTitle
         
         self.paymentButton.setTitle(payButtonTitle, forState: .Normal)
         
@@ -300,15 +268,15 @@ public class JudoPayView: UIView {
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(-1)-[post]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["post":postCodeInputField]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[start]-(-1)-[expiry(fieldHeight)]-(-1)-[billing]-(-1)-[post]-(20)-[hint(18)]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":inputFieldHeight], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "post":postCodeInputField, "hint":hintLabel]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[issue(==start)]-(-1)-[security(fieldHeight)]-(-1)-[billing]-(-1)-[post]-(20)-[hint]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":inputFieldHeight], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField, "hint":hintLabel]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[start]-(-1)-[expiry(fieldHeight)]-(-1)-[billing]-(-1)-[post]-(20)-[hint(18)]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":JudoKit.theme.inputFieldHeight], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "post":postCodeInputField, "hint":hintLabel]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[issue(==start)]-(-1)-[security(fieldHeight)]-(-1)-[billing]-(-1)-[post]-(20)-[hint]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":JudoKit.theme.inputFieldHeight], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField, "hint":hintLabel]))
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.billingHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.postHeightConstraint = NSLayoutConstraint(item: postCodeInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .Top, relatedBy: .Equal, toItem: self.hintLabel, attribute: .Bottom, multiplier: 1.0, constant: -self.hintLabel.bounds.height)
         
-        self.securityMessageLabel.hidden = !JudoKit.showSecurityMessage
+        self.securityMessageLabel.hidden = !(JudoKit.theme.showSecurityMessage ?? false)
         
         self.startDateInputField.addConstraint(maestroFieldsHeightConstraint!)
         self.billingCountryInputField.addConstraint(billingHeightConstraint!)
@@ -326,6 +294,8 @@ public class JudoPayView: UIView {
                 self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
                 self.secureCodeInputField.isTokenPayment = true
                 self.cardInputField.isTokenPayment = true
+                self.cardInputField.userInteractionEnabled = false
+                self.expiryDateInputField.userInteractionEnabled = false
         }
     }
     
@@ -337,7 +307,7 @@ public class JudoPayView: UIView {
      - parameter isVisible: Whether start date and issue number fields should be visible
      */
     public func toggleStartDateVisibility(isVisible: Bool) {
-        self.maestroFieldsHeightConstraint?.constant = isVisible ? inputFieldHeight : 0
+        self.maestroFieldsHeightConstraint?.constant = isVisible ? JudoKit.theme.inputFieldHeight : 0
         self.issueNumberInputField.setNeedsUpdateConstraints()
         self.startDateInputField.setNeedsUpdateConstraints()
         
@@ -360,8 +330,8 @@ public class JudoPayView: UIView {
      - parameter completion: Block that is called when animation was finished
      */
     public func toggleAVSVisibility(isVisible: Bool, completion: (() -> ())? = nil) {
-        self.billingHeightConstraint?.constant = isVisible ? inputFieldHeight : 0
-        self.postHeightConstraint?.constant = isVisible ? inputFieldHeight : 0
+        self.billingHeightConstraint?.constant = isVisible ? JudoKit.theme.inputFieldHeight : 0
+        self.postHeightConstraint?.constant = isVisible ? JudoKit.theme.inputFieldHeight : 0
         self.billingCountryInputField.setNeedsUpdateConstraints()
         self.postCodeInputField.setNeedsUpdateConstraints()
         
@@ -420,13 +390,14 @@ public class JudoPayView: UIView {
      
      - parameter input: The input field which the user is currently idling
      */
-    func resetTimerWithInput(input: JudoPayInputField) {
-        self.updateSecurityMessagePosition(toggleUp: true)
+    func showHintAfterDefaultDelay(input: JudoPayInputField) {
         self.hintLabel.hideHint()
-        self.timer?.invalidate()
-        self.timer = NSTimer.schedule(3.0, handler: { (timer) -> Void in
-            self.updateSecurityMessagePosition(toggleUp: false)
-            self.hintLabel.showHint(input.hintLabelText())
+        self.updateSecurityMessagePosition(toggleUp: true)
+        NSTimer.schedule(5.0, handler: { (timer) -> Void in
+            if input.textField.text?.characters.count == 0 && input.textField.isFirstResponder() {
+                self.updateSecurityMessagePosition(toggleUp: false)
+                self.hintLabel.showHint(input.hintLabelText())
+            }
         })
     }
     

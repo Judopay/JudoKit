@@ -65,7 +65,7 @@ public extension UIColor {
      - returns: A boolean indicating to use dark or light mode
      */
     public static func colorMode() -> Bool {
-        return JudoKit.tintColor.greyScale() < 0.5
+        return JudoKit.theme.tintColor.greyScale() < 0.5
     }
     
     
@@ -140,7 +140,7 @@ public extension UIColor {
      - returns: A UIColor object
      */
     public static func judoButtonColor() -> UIColor {
-        return JudoKit.tintColor
+        return JudoKit.theme.tintColor
     }
     
     
