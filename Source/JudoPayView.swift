@@ -271,7 +271,7 @@ public class JudoPayView: UIView {
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[start]-(-1)-[expiry(fieldHeight)]-(-1)-[billing]-(-1)-[post]-(20)-[hint(18)]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":JudoKit.theme.inputFieldHeight], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "post":postCodeInputField, "hint":hintLabel]))
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[issue(==start)]-(-1)-[security(fieldHeight)]-(-1)-[billing]-(-1)-[post]-(20)-[hint]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":JudoKit.theme.inputFieldHeight], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField, "hint":hintLabel]))
         
-        self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
+        self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 1.0)
         self.billingHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.postHeightConstraint = NSLayoutConstraint(item: postCodeInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .Top, relatedBy: .Equal, toItem: self.hintLabel, attribute: .Bottom, multiplier: 1.0, constant: -self.hintLabel.bounds.height)
@@ -307,7 +307,7 @@ public class JudoPayView: UIView {
      - parameter isVisible: Whether start date and issue number fields should be visible
      */
     public func toggleStartDateVisibility(isVisible: Bool) {
-        self.maestroFieldsHeightConstraint?.constant = isVisible ? JudoKit.theme.inputFieldHeight : 0
+        self.maestroFieldsHeightConstraint?.constant = isVisible ? JudoKit.theme.inputFieldHeight : 1
         self.issueNumberInputField.setNeedsUpdateConstraints()
         self.startDateInputField.setNeedsUpdateConstraints()
         
@@ -409,11 +409,13 @@ public class JudoPayView: UIView {
      */
     func updateSecurityMessagePosition(toggleUp toggleUp: Bool) {
         if toggleUp && !self.hintLabel.isActive() {
+            self.contentView.layoutIfNeeded()
             self.securityMessageTopConstraint?.constant = -self.hintLabel.bounds.height
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 self.contentView.layoutIfNeeded()
             })
         } else {
+            self.contentView.layoutIfNeeded()
             self.securityMessageTopConstraint?.constant = 14.0
             UIView.animateWithDuration(0.3, animations: { () -> Void in
                 self.contentView.layoutIfNeeded()

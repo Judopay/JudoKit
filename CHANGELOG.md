@@ -34,6 +34,8 @@ Potential released on 2016-02-18
 - Wording when an incorrect card number is entered.
 - An issue where adding '.' into the card number field would cause the app to crash.
 - Wording on the hint text when a token payment is being made.
+- An issue where the maestro input fields negative top and bottom constraints would lead to overlapping other fields.
+- An issue where after the first correct entering of any input field would result in an unwanted animation
 
 ## [5.6.0](https://github.com/JudoPay/JudoKit/releases/tag/5.6.0)
 Released on 2016-02-18
