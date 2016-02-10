@@ -39,8 +39,7 @@ extension JudoPayView: JudoPayInputDelegate {
     public func cardInput(input: CardInputField, error: JudoError) {
         input.errorAnimation(error.code != .InputLengthMismatchError)
         if let message = error.message {
-            self.hintLabel.showAlert(message)
-            self.updateSecurityMessagePosition(toggleUp: false)
+            self.showAlertOnHintLabel(message)
         }
     }
     
@@ -125,6 +124,15 @@ extension JudoPayView: JudoPayInputDelegate {
     - parameter billingCountry: The billing country that has been selected
     */
     public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
+        if billingCountry == .Other {
+            input.errorAnimation(true)
+            postCodeInputField.userInteractionEnabled = false
+            self.showAlertOnHintLabel("We only accept cards issued in UK, USA and Canada.")
+        } else {
+            input.dismissError()
+            postCodeInputField.userInteractionEnabled = true
+            self.hideAlertOnHintLabel()
+        }
         self.postCodeInputField.billingCountry = billingCountry
         // FIXME: maybe check if the postcode is still valid and then delete if nessecary
         self.postCodeInputField.textField.text = ""
@@ -152,6 +160,7 @@ extension JudoPayView: JudoPayInputDelegate {
         }
     }
     
+    
     /**
      Delegate method that is called whenever any input field has been manipulated
      
@@ -170,4 +179,25 @@ extension JudoPayView: JudoPayInputDelegate {
         self.paymentEnabled(allFieldsValid)
     }
     
+    
+    /**
+     helper method to show an alert message on the hint label and take care of the security message animation if necessary
+     
+     - parameter message: the message that needs to be displayed
+     */
+    public func showAlertOnHintLabel(message: String) {
+        self.hintLabel.showAlert(message)
+        self.updateSecurityMessagePosition(toggleUp: false)
+    }
+    
+    
+    /**
+     helper method to hide an alert message on the hint label if visible
+     */
+    public func hideAlertOnHintLabel() {
+        self.hintLabel.hideAlert()
+        self.updateSecurityMessagePosition(toggleUp: true)
+    }
+    
 }
+

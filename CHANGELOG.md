@@ -20,12 +20,15 @@ Potential released on 2016-02-18
 - Theme object to make it easier to adjust colors, fonts and texts in the JudoKit Payment view.
 - JudoPayViewController now needs a judo session to do all transactions.
 - NSDate+Extension.swift for easier date handling.
+- Acceptance of cards now only possible from UK, USA and Canada
+- Hint label text for postcode input field
 
 #### Changed
 - Removing all statically accessible methods and properties from JudoKit to favor creation of an instance that is taken care of by the project that is using JudoKit. This allows for cleaner usage of JudoKit in MVC environments.
 - Hint text will only be shown when the field is completely empty after 5 seconds of being idle.
 - Start and expiry dates now have a maximum/minimum allowed threshold of 10 years to the current date.
 - unified Postcode and billingcountry fields into one line instead of two
+- Other countries are now restricted and will no longer be allowed to make a transaction from the OOTB UI. An alert message will be shown in case Other is selected (AVS)
 
 #### Fixed
 - Example projects have been adjusted for new SDKs.

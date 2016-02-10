@@ -74,7 +74,7 @@ public class BillingCountryInputField: JudoPayInputField {
     - returns: true if valid input
     */
     override public func isValid() -> Bool {
-        return true
+        return self.selectedCountry != .Other
     }
     
     

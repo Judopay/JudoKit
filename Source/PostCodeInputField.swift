@@ -143,6 +143,16 @@ public class PostCodeInputField: JudoPayInputField {
     
     
     /**
+     hint label of the receiver input field
+     
+     - returns: A string that is the hint text of the receiver
+     */
+    public override func hintLabelText() -> String {
+        return "Billing address \(self.billingCountry.titleDescription())"
+    }
+    
+    
+    /**
      Width of the title
      
      - returns: Width of the title
