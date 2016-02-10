@@ -25,6 +25,7 @@ Potential released on 2016-02-18
 - Removing all statically accessible methods and properties from JudoKit to favor creation of an instance that is taken care of by the project that is using JudoKit. This allows for cleaner usage of JudoKit in MVC environments.
 - Hint text will only be shown when the field is completely empty after 5 seconds of being idle.
 - Start and expiry dates now have a maximum/minimum allowed threshold of 10 years to the current date.
+- unified Postcode and billingcountry fields into one line instead of two
 
 #### Fixed
 - Example projects have been adjusted for new SDKs.
@@ -34,8 +35,9 @@ Potential released on 2016-02-18
 - Wording when an incorrect card number is entered.
 - An issue where adding '.' into the card number field would cause the app to crash.
 - Wording on the hint text when a token payment is being made.
-- An issue where the maestro input fields negative top and bottom constraints would lead to overlapping other fields.
-- An issue where after the first correct entering of any input field would result in an unwanted animation
+- The maestro input fields negative top and bottom constraints would lead to overlapping other fields.
+- After the first correct entering of any input field fixed an unwanted animation
+- removed an unused title label and fixed some issues around that
 
 ## [5.6.0](https://github.com/JudoPay/JudoKit/releases/tag/5.6.0)
 Released on 2016-02-18

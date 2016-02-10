@@ -32,6 +32,17 @@ let DefaultFormat = "EEE MMM dd HH:mm:ss Z yyyy"
 let RSSFormat = "EEE, d MMM yyyy HH:mm:ss ZZZ" // "Fri, 09 Sep 2011 15:26:08 +0200"
 let AltRSSFormat = "d MMM yyyy HH:mm:ss ZZZ" // "09 Sep 2011 15:26:08 +0200"
 
+
+/**
+ Helper enum for ISO8601 Formatted datestrings
+
+- Year:             Year
+- YearMonth:        Year and month
+- Date:             Year, month and day
+- DateTime:         same as Date including hours and minutes
+- DateTimeSec:      same as DateTime including seconds
+- DateTimeMilliSec: same as DateTimeSec including milliseconds
+*/
 public enum ISO8601Format: String {
     
     case Year = "yyyy" // 1997
@@ -41,7 +52,7 @@ public enum ISO8601Format: String {
     case DateTimeSec = "yyyy-MM-dd'T'HH:mm:ssZ" // 1997-07-16T19:20:30+01:00
     case DateTimeMilliSec = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // 1997-07-16T19:20:30.45+01:00
     
-    init(dateString:String) {
+    init(dateString: String) {
         switch dateString.characters.count {
         case 4:
             self = ISO8601Format(rawValue: ISO8601Format.Year.rawValue)!

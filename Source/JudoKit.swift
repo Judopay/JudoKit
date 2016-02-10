@@ -32,6 +32,7 @@ import Judo
     /// JudoKit local judo session
     public let judoSession: Judo
     
+    /// the theme of any judoSession
     public static var theme: JudoTheme = JudoTheme()
     
     /**

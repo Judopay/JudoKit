@@ -40,8 +40,6 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
 
     let textField: FloatingTextField = FloatingTextField()
     
-    let titleLabel: UILabel = UILabel()
-    
     lazy var logoContainerView: UIView = UIView()
     
     
@@ -105,7 +103,6 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         
         self.setActive(false)
         
-        self.titleLabel.removeFromSuperview()
         self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName: UIColor.judoLightGrayColor()])
         
         if self.containsLogo() {
@@ -122,7 +119,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         }
         
         let visualFormat = self.containsLogo() ? "|-13-[text][logo(42)]-13-|" : "|-13-[text]-13-|"
-        let views: [String:UIView] = ["text": textField, "title": self.titleLabel, "logo": self.logoContainerView]
+        let views: [String:UIView] = ["text": textField, "logo": self.logoContainerView]
         
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(visualFormat, options: .DirectionLeftToRight, metrics: nil, views: views))
     }
@@ -154,7 +151,6 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
             
             UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.redBlock.frame = CGRectMake(0, self.bounds.height - 4, self.bounds.width, 4.0)
-                self.titleLabel.textColor = UIColor.judoRedColor()
                 self.textField.textColor = UIColor.judoRedColor()
                 }, completion: blockAnimation)
         } else {
@@ -185,7 +181,6 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
      */
     public func setActive(isActive: Bool) {
         self.textField.alpha = isActive ? 1.0 : 0.5
-        self.titleLabel.alpha = isActive ? 1.0 : 0.5
     }
     
     
@@ -196,7 +191,6 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         if self.redBlock.bounds.size.height > 0 {
             UIView.animateWithDuration(0.4) { () -> Void in
                 self.redBlock.frame = CGRectMake(0.0, self.bounds.height, self.bounds.width, 4.0)
-                self.titleLabel.textColor = .judoDarkGrayColor()
                 self.textField.textColor = .judoDarkGrayColor()
             }
         }

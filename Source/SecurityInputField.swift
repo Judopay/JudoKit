@@ -140,7 +140,7 @@ public class SecurityInputField: JudoPayInputField {
      - returns: String that is shown as a hint when user resides in a input field for more than 5 seconds
      */
     override public func hintLabelText() -> String {
-        if !isTokenPayment {
+        if isTokenPayment {
             return "For security, please re-enter the card \(self.cardNetwork.securityCodeTitle())"
         }
         return "Security code"
