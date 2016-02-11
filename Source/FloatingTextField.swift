@@ -185,24 +185,28 @@ class FloatingTextField: UITextField {
     }
     
     private func showTitle(animated: Bool) {
-        let dur = animated ? animationDuration : 0
-        UIView.animateWithDuration(dur, delay:0, options: UIViewAnimationOptions.BeginFromCurrentState.union(UIViewAnimationOptions.CurveEaseOut), animations:{
-            // Animation
-            self.title.alpha = 1.0
-            var r = self.title.frame
-            r.origin.y = self.titleYPadding
-            self.title.frame = r
-            }, completion:nil)
+        if self.title.alpha == 0.0 {
+            let dur = animated ? animationDuration : 0
+            UIView.animateWithDuration(dur, delay:0, options: UIViewAnimationOptions.BeginFromCurrentState.union(UIViewAnimationOptions.CurveEaseOut), animations:{
+                // Animation
+                self.title.alpha = 1.0
+                var r = self.title.frame
+                r.origin.y = self.titleYPadding
+                self.title.frame = r
+                }, completion:nil)
+        }
     }
     
     private func hideTitle(animated: Bool) {
-        let dur = animated ? animationDuration : 0
-        UIView.animateWithDuration(dur, delay:0, options: UIViewAnimationOptions.BeginFromCurrentState.union(UIViewAnimationOptions.CurveEaseIn), animations:{
-            // Animation
-            self.title.alpha = 0.0
-            var r = self.title.frame
-            r.origin.y = self.title.font.lineHeight + self.hintYPadding
-            self.title.frame = r
-            }, completion:nil)
+        if self.title.alpha == 1.0 {
+            let dur = animated ? animationDuration : 0
+            UIView.animateWithDuration(dur, delay:0, options: UIViewAnimationOptions.BeginFromCurrentState.union(UIViewAnimationOptions.CurveEaseIn), animations:{
+                // Animation
+                self.title.alpha = 0.0
+                var r = self.title.frame
+                r.origin.y = self.title.font.lineHeight + self.hintYPadding
+                self.title.frame = r
+                }, completion:nil)
+        }
     }
 }

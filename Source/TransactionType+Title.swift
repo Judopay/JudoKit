@@ -35,11 +35,11 @@ public extension TransactionType {
     public func title() -> String {
         switch self {
         case .Payment, .PreAuth:
-            return kPaymentTitle
+            return JudoKit.theme.paymentTitle
         case .RegisterCard:
-            return kRegisterCardTitle
+            return JudoKit.theme.registerCardTitle
         case .Refund:
-            return kRefundTitle
+            return JudoKit.theme.refundTitle
         }
     }
 }

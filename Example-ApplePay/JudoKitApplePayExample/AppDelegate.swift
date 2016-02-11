@@ -25,9 +25,6 @@
 import UIKit
 import JudoKit
 
-let token = "<#YOUR TOKEN#>"
-let secret = "<#YOUR SECRET#>"
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -36,8 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        JudoKit.setToken(token, andSecret: secret)
-        
         return true
     }
 

@@ -66,7 +66,7 @@ public class CardInputField: JudoPayInputField {
         var result: String?
         
         do {
-            result = try self.textField.text?.cardPresentationString(JudoKit.acceptedCardNetworks)
+            result = try self.textField.text?.cardPresentationString(JudoKit.theme.acceptedCardNetworks)
             self.dismissError()
         } catch let error {
             self.delegate?.cardInput(self, error: error as! JudoError)
@@ -103,21 +103,21 @@ public class CardInputField: JudoPayInputField {
         self.didChangeInputText()
         
         do {
-            self.textField.text = try self.textField.text?.cardPresentationString(JudoKit.acceptedCardNetworks)
+            self.textField.text = try self.textField.text?.cardPresentationString(JudoKit.theme.acceptedCardNetworks)
             self.delegate?.cardInput(self, didDetectNetwork: textField.text!.cardNetwork())
             self.dismissError()
         } catch let error {
             self.delegate?.cardInput(self, error: error as! JudoError)
         }
         
-        let lowestNumber = JudoKit.acceptedCardNetworks.filter({ $0.cardNetwork == self.textField.text?.cardNetwork() }).sort(<)
+        let lowestNumber = JudoKit.theme.acceptedCardNetworks.filter({ $0.cardNetwork == self.textField.text?.cardNetwork() }).sort(<)
         
         if let textCount = textField.text?.stripped.characters.count where textCount == lowestNumber.first?.cardLength {
             if textField.text!.isCardNumberValid() {
                 self.delegate?.cardInput(self, didFindValidNumber: textField.text!)
                 self.dismissError()
             } else {
-                self.delegate?.cardInput(self, error: JudoError(.InvalidCardNumber, "the card number is invalid"))
+                self.delegate?.cardInput(self, error: JudoError(.InvalidCardNumber, "Please check card number"))
             }
         }
         

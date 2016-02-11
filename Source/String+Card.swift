@@ -70,9 +70,11 @@ public extension String {
         
         if cardLengthMatchedPatterns.count == 0 {
             // If no patterns are left - the entered number is invalid
-            var message = "We do not accept \(cardNetwork.stringValue())"
+            var message = "We do not accept "
             if cardLengthMatchedPatterns.count != patterns.count {
-                message += " with a length of \(strippedSelf.characters.count) digits"
+                message += "\(strippedSelf.characters.count)-digit \(cardNetwork.stringValue()) cards"
+            } else {
+                message += "\(cardNetwork.stringValue()), please use other cards"
             }
             throw JudoError(.InvalidCardNetwork, message)
         }
@@ -132,6 +134,10 @@ public extension String {
         
         let network = self.cardNetwork()
         let strippedSelf = self.strippedWhitespaces
+        
+        if strippedSelf.rangeOfString(".") != nil {
+            return false
+        }
         
         if strippedSelf.isLuhnValid() {
             let strippedSelfCount = strippedSelf.characters.count

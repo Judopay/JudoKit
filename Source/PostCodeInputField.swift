@@ -44,7 +44,7 @@ public class PostCodeInputField: JudoPayInputField {
             default:
                 self.textField.keyboardType = .NumberPad
             }
-            self.titleLabel.text = self.billingCountry.titleDescription()
+            self.textField.placeholder = self.billingCountry.titleDescription()
         }
     }
     
@@ -139,6 +139,16 @@ public class PostCodeInputField: JudoPayInputField {
      */
     override public func title() -> String {
         return self.billingCountry.titleDescription()
+    }
+    
+    
+    /**
+     hint label of the receiver input field
+     
+     - returns: A string that is the hint text of the receiver
+     */
+    public override func hintLabelText() -> String {
+        return "Billing address \(self.billingCountry.titleDescription())"
     }
     
     

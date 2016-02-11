@@ -26,9 +26,6 @@ import UIKit
 import Judo
 import JudoKit
 
-let token = "<#YOUR TOKEN#>"
-let secret = "<#YOUR SECRET#>"
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -36,12 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        JudoKit.setToken(token, andSecret: secret)
-        
-        JudoKit.acceptedCardNetworks = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.Maestro, 16), Card.Configuration(.AMEX, 15)]
-        
-        JudoKit.sandboxed(true)
         
         return true
     }

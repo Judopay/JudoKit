@@ -39,8 +39,7 @@ extension JudoPayView: JudoPayInputDelegate {
     public func cardInput(input: CardInputField, error: JudoError) {
         input.errorAnimation(error.code != .InputLengthMismatchError)
         if let message = error.message {
-            self.hintLabel.showAlert(message)
-            self.updateSecurityMessagePosition(toggleUp: false)
+            self.showAlertOnHintLabel(message)
         }
     }
     
@@ -52,7 +51,11 @@ extension JudoPayView: JudoPayInputDelegate {
      - parameter cardNumberString: The card number that has been entered as a String
      */
     public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
-        self.expiryDateInputField.textField.becomeFirstResponder()
+        if input.cardNetwork == .Maestro {
+            self.startDateInputField.textField.becomeFirstResponder()
+        } else {
+            self.expiryDateInputField.textField.becomeFirstResponder()
+        }
     }
     
     
@@ -137,7 +140,7 @@ extension JudoPayView: JudoPayInputDelegate {
     */
     public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
         if input == self.secureCodeInputField {
-            if JudoKit.avsEnabled {
+            if JudoKit.theme.avsEnabled {
                 if isValid {
                     self.postCodeInputField.textField.becomeFirstResponder()
                     self.toggleAVSVisibility(true, completion: { () -> () in
@@ -148,16 +151,17 @@ extension JudoPayView: JudoPayInputDelegate {
         }
     }
     
+    
     /**
      Delegate method that is called whenever any input field has been manipulated
      
      - parameter input: The input field calling the delegate method
      */
     public func judoPayInputDidChangeText(input: JudoPayInputField) {
-        self.resetTimerWithInput(input)
+        self.showHintAfterDefaultDelay(input)
         var allFieldsValid = false
         allFieldsValid = self.cardInputField.isValid() && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
-        if JudoKit.avsEnabled {
+        if JudoKit.theme.avsEnabled {
             allFieldsValid = allFieldsValid && self.postCodeInputField.isValid() && self.billingCountryInputField.isValid()
         }
         if self.cardInputField.cardNetwork == .Maestro {
@@ -166,4 +170,25 @@ extension JudoPayView: JudoPayInputDelegate {
         self.paymentEnabled(allFieldsValid)
     }
     
+    
+    /**
+     helper method to show an alert message on the hint label and take care of the security message animation if necessary
+     
+     - parameter message: the message that needs to be displayed
+     */
+    public func showAlertOnHintLabel(message: String) {
+        self.hintLabel.showAlert(message)
+        self.updateSecurityMessagePosition(toggleUp: false)
+    }
+    
+    
+    /**
+     helper method to hide an alert message on the hint label if visible
+     */
+    public func hideAlertOnHintLabel() {
+        self.hintLabel.hideAlert()
+        self.updateSecurityMessagePosition(toggleUp: true)
+    }
+    
 }
+

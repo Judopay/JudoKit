@@ -27,6 +27,9 @@ import PassKit
 import JudoKit
 import Judo
 
+let token       = "<#YOUR TOKEN#>"
+let secret      = "<#YOUR SECRET#>"
+
 let judoID      = "<#YOUR JUDO-ID#>"
 let reference   = Reference(consumerRef: "Consumer Reference")
 
@@ -34,8 +37,11 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
 
     let applePayButton = PKPaymentButton(type: .Buy, style: .Black)
     
+    let myJudoKitSession = JudoKit(token: token, secret: secret)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.applePayButton.addTarget(self, action:Selector("applePayButtonPressed"), forControlEvents:.TouchUpInside)
 
         self.view.addSubview(self.applePayButton)
@@ -171,7 +177,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     */
     func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: PKPaymentAuthorizationStatus -> Void) {
         
-        JudoKit.applePayPayment(judoID, amount: Amount(amountString: "0.99", currency: .GBP), reference: reference!, payment: payment) { (response, error) -> () in
+        myJudoKitSession.applePayPayment(judoID, amount: Amount(amountString: "0.99", currency: .GBP), reference: reference!, payment: payment) { (response, error) -> () in
             if let _ = error {
                 completion(.Failure)
             } else {

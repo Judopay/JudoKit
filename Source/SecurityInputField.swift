@@ -141,8 +141,7 @@ public class SecurityInputField: JudoPayInputField {
      */
     override public func hintLabelText() -> String {
         if isTokenPayment {
-            let cardNetwork = self.cardNetwork == .AMEX ? "CIDV" : "CVC"
-            return "For security, please re-enter the card \(cardNetwork)"
+            return "For security, please re-enter the card \(self.cardNetwork.securityCodeTitle())"
         }
         return "Security code"
     }
