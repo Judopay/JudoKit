@@ -124,15 +124,6 @@ extension JudoPayView: JudoPayInputDelegate {
     - parameter billingCountry: The billing country that has been selected
     */
     public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
-        if billingCountry == .Other {
-            input.errorAnimation(true)
-            postCodeInputField.userInteractionEnabled = false
-            self.showAlertOnHintLabel("We only accept cards issued in UK, USA and Canada.")
-        } else {
-            input.dismissError()
-            postCodeInputField.userInteractionEnabled = true
-            self.hideAlertOnHintLabel()
-        }
         self.postCodeInputField.billingCountry = billingCountry
         // FIXME: maybe check if the postcode is still valid and then delete if nessecary
         self.postCodeInputField.textField.text = ""
