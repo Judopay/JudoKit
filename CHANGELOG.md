@@ -28,7 +28,6 @@ Potential released on 2016-02-18
 - Hint text will only be shown when the field is completely empty after 5 seconds of being idle.
 - Start and expiry dates now have a maximum/minimum allowed threshold of 10 years to the current date.
 - unified Postcode and billingcountry fields into one line instead of two
-- Other countries are now restricted and will no longer be allowed to make a transaction from the OOTB UI. An alert message will be shown in case Other is selected (AVS)
 
 #### Fixed
 - Example projects have been adjusted for new SDKs.
