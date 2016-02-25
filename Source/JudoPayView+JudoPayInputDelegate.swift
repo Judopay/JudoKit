@@ -82,6 +82,9 @@ extension JudoPayView: JudoPayInputDelegate {
     */
     public func dateInput(input: DateInputField, error: JudoError) {
         input.errorAnimation(error.code != .InputLengthMismatchError)
+        if let message = error.message {
+            self.showAlertOnHintLabel(message)
+        }
     }
     
     
