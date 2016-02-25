@@ -40,6 +40,8 @@ public extension TransactionType {
             return JudoKit.theme.registerCardTitle
         case .Refund:
             return JudoKit.theme.refundTitle
+        default:
+            return "Invalid"
         }
     }
 }
