@@ -44,7 +44,7 @@ public class PostCodeInputField: JudoPayInputField {
             default:
                 self.textField.keyboardType = .NumberPad
             }
-            self.textField.placeholder = self.billingCountry.titleDescription()
+            self.textField.placeholder = "Billing " + self.billingCountry.titleDescription()
         }
     }
     
@@ -128,7 +128,21 @@ public class PostCodeInputField: JudoPayInputField {
         
         self.didChangeInputText()
         
-        self.delegate?.judoPayInput(self, isValid: self.isValid())
+        let valid = self.isValid()
+        
+        self.delegate?.judoPayInput(self, isValid: valid)
+        
+        if !valid {
+            guard let characterCount = self.textField.text?.characters.count else { return }
+            switch billingCountry {
+            case .UK where characterCount >= 7, .Canada where characterCount >= 6:
+                self.errorAnimation(true)
+                self.delegate?.postCodeInputField(self, didEnterInvalidPostCodeWithError: JudoError(.InvalidPostCode, "Check " + self.billingCountry.titleDescription()))
+            default:
+                return
+            }
+        }
+        
     }
     
     
@@ -138,17 +152,7 @@ public class PostCodeInputField: JudoPayInputField {
      - returns: A string that is the title of the receiver
      */
     override public func title() -> String {
-        return self.billingCountry.titleDescription()
-    }
-    
-    
-    /**
-     hint label of the receiver input field
-     
-     - returns: A string that is the hint text of the receiver
-     */
-    public override func hintLabelText() -> String {
-        return "Billing address \(self.billingCountry.titleDescription())"
+        return "Billing " + self.billingCountry.titleDescription()
     }
     
     

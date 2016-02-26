@@ -95,6 +95,7 @@ extension JudoPayView: JudoPayInputDelegate {
      - parameter date:  The valid date that has been entered
      */
     public func dateInput(input: DateInputField, didFindValidDate date: String) {
+        self.hideAlertOnHintLabel()
         if input == self.startDateInputField {
             self.issueNumberInputField.textField.becomeFirstResponder()
         } else {
@@ -132,6 +133,19 @@ extension JudoPayView: JudoPayInputDelegate {
         self.postCodeInputField.textField.text = ""
     }
     
+    
+    /**
+     Delegate method that is triggered when the post code input field encountered an error
+     
+     - parameter input: The input field calling the delegate method
+     - parameter error: The encountered error
+     */
+    public func postCodeInputField(input: PostCodeInputField, didEnterInvalidPostCodeWithError error: JudoError) {
+        if let errorMessage = error.message {
+            self.showAlertOnHintLabel(errorMessage)
+        }
+    }
+    
     // MARK: JudoPayInputDelegate
     
     
@@ -151,6 +165,8 @@ extension JudoPayView: JudoPayInputDelegate {
                     })
                 }
             }
+        } else if input == self.postCodeInputField {
+            self.hideAlertOnHintLabel()
         }
     }
     

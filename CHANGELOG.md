@@ -28,6 +28,7 @@ Potential released on 2016-02-18
 - Hint text will only be shown when the field is completely empty after 5 seconds of being idle.
 - Start and expiry dates now have a maximum/minimum allowed threshold of 10 years to the current date.
 - unified Postcode and billingcountry fields into one line instead of two
+- fixed typos and wording on the fields errors and hints
 
 #### Fixed
 - Example projects have been adjusted for new SDKs.
@@ -40,6 +41,7 @@ Potential released on 2016-02-18
 - The maestro input fields negative top and bottom constraints would lead to overlapping other fields.
 - After the first correct entering of any input field fixed an unwanted animation
 - removed an unused title label and fixed some issues around that
+- an issue where the security message would move down without any hint text shown
 
 ## [5.6.0](https://github.com/JudoPay/JudoKit/releases/tag/5.6.0)
 Released on 2016-02-18

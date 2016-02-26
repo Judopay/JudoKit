@@ -387,7 +387,11 @@ public class JudoPayView: UIView {
         self.hintLabel.hideHint()
         self.updateSecurityMessagePosition(toggleUp: true)
         NSTimer.schedule(3.0, handler: { (timer) -> Void in
-            if input.textField.text?.characters.count == 0 && input.textField.isFirstResponder() {
+            let hintLabelText = input.hintLabelText()
+            if hintLabelText.characters.count > 0
+                && input.textField.text?.characters.count == 0
+                && input.textField.isFirstResponder() {
+                
                 self.updateSecurityMessagePosition(toggleUp: false)
                 self.hintLabel.showHint(input.hintLabelText())
             }
