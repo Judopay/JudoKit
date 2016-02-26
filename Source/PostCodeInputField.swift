@@ -89,7 +89,7 @@ public class PostCodeInputField: JudoPayInputField {
             return newString.isNumeric() && newString.characters.count <= 8
         }
     }
-
+    
     // MARK: Custom methods
     
     
@@ -99,6 +99,9 @@ public class PostCodeInputField: JudoPayInputField {
     - returns: True if valid input
     */
     override public func isValid() -> Bool {
+        if self.billingCountry == .Other {
+            return true
+        }
         guard let newString = self.textField.text?.uppercaseString else { return false }
         
         let usaRegex = try! NSRegularExpression(pattern: kUSARegexString, options: .AnchorsMatchLines)

@@ -129,8 +129,9 @@ extension JudoPayView: JudoPayInputDelegate {
     */
     public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
         self.postCodeInputField.billingCountry = billingCountry
-        // FIXME: maybe check if the postcode is still valid and then delete if nessecary
         self.postCodeInputField.textField.text = ""
+        self.postCodeInputField.userInteractionEnabled = billingCountry != .Other
+        self.judoPayInputDidChangeText(self.billingCountryInputField)
     }
     
     

@@ -29,6 +29,7 @@ Potential released on 2016-02-18
 - Start and expiry dates now have a maximum/minimum allowed threshold of 10 years to the current date.
 - unified Postcode and billingcountry fields into one line instead of two
 - fixed typos and wording on the fields errors and hints
+- selecting 'other' when AVS is visible will immediately show the Pay button and without the necessity and ability to enter a post code
 
 #### Fixed
 - Example projects have been adjusted for new SDKs.
