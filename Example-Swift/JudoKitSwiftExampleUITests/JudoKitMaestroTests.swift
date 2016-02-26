@@ -96,7 +96,7 @@ class JudoKitMaestroTests: XCTestCase {
         let cvvTextField = elementsQuery.textFields["CVV"]
         cvvTextField.typeText("789")
         
-        let postCodeTextField = elementsQuery.textFields["Post code"]
+        let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("RG48NL")
 
         app.navigationBars["Payment"].buttons["Pay"].tap()
