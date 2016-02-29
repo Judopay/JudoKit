@@ -216,7 +216,11 @@ public class DateInputField: JudoPayInputField {
         if self.isValid() {
             self.delegate?.dateInput(self, didFindValidDate: textField.text!)
         } else {
-            self.delegate?.dateInput(self, error: JudoError(.InvalidEntry))
+            var errorMessage = "Check expiry date"
+            if self.isStartDate {
+                errorMessage = "Check start date"
+            }
+            self.delegate?.dateInput(self, error: JudoError(.InvalidEntry, errorMessage))
         }
     }
     

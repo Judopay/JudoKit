@@ -52,7 +52,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         elementsQuery.textFields["Card number"].typeText("4976000000003436")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
-        expiryDateTextField.typeText("1215")
+        expiryDateTextField.typeText("1220")
         
         let cvv2TextField = elementsQuery.textFields["CVV2"]
         cvv2TextField.typeText("452")

@@ -88,21 +88,30 @@ public protocol JudoPayInputDelegate {
     
     
     /**
-     Delegate method that is triggered when the judoPayInputField was validated
-     
-     - parameter input:   The input field calling the delegate method
-     - parameter isValid: A boolean that indicates whether the input is valid or invalid
-     */
-    func judoPayInput(input: JudoPayInputField, isValid: Bool)
-    
-    
-    /**
      Delegate method that is triggered when the billingCountry input field selected a BillingCountry
      
      - parameter input:          The input field calling the delegate method
      - parameter billingCountry: The billing country that has been selected
      */
     func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry)
+    
+    
+    /**
+     Delegate method that is triggered when the post code input field has received an invalid entry
+     
+     - parameter input: The input field calling the delegate method
+     - parameter error: The error that occured
+     */
+    func postCodeInputField(input: PostCodeInputField, didEnterInvalidPostCodeWithError error: JudoError)
+    
+    
+    /**
+     Delegate method that is triggered when the judoPayInputField was validated
+     
+     - parameter input:   The input field calling the delegate method
+     - parameter isValid: A boolean that indicates whether the input is valid or invalid
+     */
+    func judoPayInput(input: JudoPayInputField, isValid: Bool)
     
     
     /**

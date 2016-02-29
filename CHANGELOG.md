@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [6.0.0](https://github.com/JudoPay/JudoKit/releases/tag/6.0.0)
-Potential released on 2016-02-18
+To be released on 2016-02-29
 
 #### Added
 - BRL is now a statically accessible from the Currency class.
@@ -28,6 +28,8 @@ Potential released on 2016-02-18
 - Hint text will only be shown when the field is completely empty after 5 seconds of being idle.
 - Start and expiry dates now have a maximum/minimum allowed threshold of 10 years to the current date.
 - unified Postcode and billingcountry fields into one line instead of two
+- fixed typos and wording on the fields errors and hints
+- selecting 'other' when AVS is visible will immediately show the Pay button and without the necessity and ability to enter a post code
 
 #### Fixed
 - Example projects have been adjusted for new SDKs.
@@ -40,6 +42,7 @@ Potential released on 2016-02-18
 - The maestro input fields negative top and bottom constraints would lead to overlapping other fields.
 - After the first correct entering of any input field fixed an unwanted animation
 - removed an unused title label and fixed some issues around that
+- an issue where the security message would move down without any hint text shown
 
 ## [5.6.0](https://github.com/JudoPay/JudoKit/releases/tag/5.6.0)
 Released on 2016-02-18

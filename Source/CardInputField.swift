@@ -117,7 +117,7 @@ public class CardInputField: JudoPayInputField {
                 self.delegate?.cardInput(self, didFindValidNumber: textField.text!)
                 self.dismissError()
             } else {
-                self.delegate?.cardInput(self, error: JudoError(.InvalidCardNumber, "Please check card number"))
+                self.delegate?.cardInput(self, error: JudoError(.InvalidCardNumber, "Check card number"))
             }
         }
         
