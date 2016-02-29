@@ -20,16 +20,15 @@ To be released on 2016-02-29
 - Theme object to make it easier to adjust colors, fonts and texts in the JudoKit Payment view.
 - JudoPayViewController now needs a judo session to do all transactions.
 - NSDate+Extension.swift for easier date handling.
-- Acceptance of cards now only possible from UK, USA and Canada
-- Hint label text for postcode input field
+- Hint label text for postcode input field.
 
 #### Changed
 - Removing all statically accessible methods and properties from JudoKit to favor creation of an instance that is taken care of by the project that is using JudoKit. This allows for cleaner usage of JudoKit in MVC environments.
 - Hint text will only be shown when the field is completely empty after 5 seconds of being idle.
 - Start and expiry dates now have a maximum/minimum allowed threshold of 10 years to the current date.
-- unified Postcode and billingcountry fields into one line instead of two
-- fixed typos and wording on the fields errors and hints
-- selecting 'other' when AVS is visible will immediately show the Pay button and without the necessity and ability to enter a post code
+- Unified Postcode and billingcountry fields into one line instead of two.
+- Fixed typos and wording on the fields errors and hints.
+- Selecting 'other' when AVS is visible will immediately show the Pay button and without the necessity and ability to enter a post code.
 
 #### Fixed
 - Example projects have been adjusted for new SDKs.
@@ -40,9 +39,9 @@ To be released on 2016-02-29
 - An issue where adding '.' into the card number field would cause the app to crash.
 - Wording on the hint text when a token payment is being made.
 - The maestro input fields negative top and bottom constraints would lead to overlapping other fields.
-- After the first correct entering of any input field fixed an unwanted animation
-- removed an unused title label and fixed some issues around that
-- an issue where the security message would move down without any hint text shown
+- After the first correct entering of any input field fixed an unwanted animation.
+- Removed an unused title label and fixed some issues around that.
+- An issue where the security message would move down without any hint text shown.
 
 ## [5.6.0](https://github.com/JudoPay/JudoKit/releases/tag/5.6.0)
 Released on 2016-02-18
