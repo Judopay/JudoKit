@@ -384,7 +384,11 @@ public class JudoPayView: UIView {
      - parameter input: The input field which the user is currently idling
      */
     func showHintAfterDefaultDelay(input: JudoPayInputField) {
-        self.hintLabel.hideHint()
+        if self.secureCodeInputField.isTokenPayment && self.secureCodeInputField.textField.text!.characters.count == 0 {
+            self.hintLabel.showHint(self.secureCodeInputField.hintLabelText())
+        } else {
+            self.hintLabel.hideHint()
+        }
         self.updateSecurityMessagePosition(toggleUp: true)
         NSTimer.schedule(3.0, handler: { (timer) -> Void in
             let hintLabelText = input.hintLabelText()
