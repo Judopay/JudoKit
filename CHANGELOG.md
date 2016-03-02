@@ -21,6 +21,7 @@ To be released on 2016-02-29
 - JudoPayViewController now needs a judo session to do all transactions.
 - NSDate+Extension.swift for easier date handling.
 - Hint label text for postcode input field.
+- The SDK will now report back to the backend with information of whether a transaction is made with the out of the box UI.
 
 #### Changed
 - Removing all statically accessible methods and properties from JudoKit to favor creation of an instance that is taken care of by the project that is using JudoKit. This allows for cleaner usage of JudoKit in MVC environments.

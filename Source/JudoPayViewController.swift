@@ -136,6 +136,8 @@ public class JudoPayViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
+        self.judoSession.APISession.uiClientMode = true
+        
         self.title = self.myView.transactionType.title()
         
         self.myView.threeDSecureWebView.delegate = self
