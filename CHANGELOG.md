@@ -21,6 +21,7 @@ To be released on 2016-02-29
 - JudoPayViewController now needs a judo session to do all transactions.
 - NSDate+Extension.swift for easier date handling.
 - Hint label text for postcode input field.
+- The SDK will now report back to the backend with information of whether a transaction is made with the out of the box UI.
 
 #### Changed
 - Removing all statically accessible methods and properties from JudoKit to favor creation of an instance that is taken care of by the project that is using JudoKit. This allows for cleaner usage of JudoKit in MVC environments.
@@ -29,6 +30,7 @@ To be released on 2016-02-29
 - Unified Postcode and billingcountry fields into one line instead of two.
 - Fixed typos and wording on the fields errors and hints.
 - Selecting 'other' when AVS is visible will immediately show the Pay button and without the necessity and ability to enter a post code.
+- While making a repeat payment, the hint text for re-entering CV2 appears without delay
 
 #### Fixed
 - Example projects have been adjusted for new SDKs.
