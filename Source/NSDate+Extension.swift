@@ -45,13 +45,27 @@ let AltRSSFormat = "d MMM yyyy HH:mm:ss ZZZ" // "09 Sep 2011 15:26:08 +0200"
 */
 public enum ISO8601Format: String {
     
-    case Year = "yyyy" // 1997
-    case YearMonth = "yyyy-MM" // 1997-07
-    case Date = "yyyy-MM-dd" // 1997-07-16
-    case DateTime = "yyyy-MM-dd'T'HH:mmZ" // 1997-07-16T19:20+01:00
-    case DateTimeSec = "yyyy-MM-dd'T'HH:mm:ssZ" // 1997-07-16T19:20:30+01:00
-    case DateTimeMilliSec = "yyyy-MM-dd'T'HH:mm:ss.SSSZ" // 1997-07-16T19:20:30.45+01:00
     
+    /// Year (1997)
+    case Year = "yyyy"
+    /// Year and month (1997-07)
+    case YearMonth = "yyyy-MM"
+    /// Year, month and day (1997-07-16)
+    case Date = "yyyy-MM-dd"
+    /// same as Date including hours and minutes (1997-07-16T19:20+01:00)
+    case DateTime = "yyyy-MM-dd'T'HH:mmZ"
+    /// same as DateTime including seconds (1997-07-16T19:20:30+01:00)
+    case DateTimeSec = "yyyy-MM-dd'T'HH:mm:ssZ"
+    /// same as DateTimeSec including milliseconds (1997-07-16T19:20:30.45+01:00)
+    case DateTimeMilliSec = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    
+    /**
+    designated initializer
+    
+    - parameter dateString: a date string
+    
+    - returns: a formatted ISO8601 Format
+    */
     init(dateString: String) {
         switch dateString.characters.count {
         case 4:
@@ -70,6 +84,16 @@ public enum ISO8601Format: String {
     }
 }
 
+
+/**
+ Date format enum
+ 
+ - ISO8601: ISO8601 Date format
+ - DotNet:  DotNet Date format
+ - RSS:     RSS Date format
+ - AltRSS:  AltRSS Date format
+ - Custom:  Custom Date format
+ */
 public enum DateFormat {
     case ISO8601(ISO8601Format?), DotNet, RSS, AltRSS, Custom(String)
 }
