@@ -110,40 +110,4 @@ class JudoKitMaestroTests: XCTestCase {
         button.tap()
     }
     
-    func testMaestro3DSPayment() {
-        let app = XCUIApplication()
-        app.tables.staticTexts["with default settings"].tap()
-        
-        let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("6759000000001909")
-        
-        let startDateTextField = elementsQuery.textFields["Start date"]
-        startDateTextField.tap()
-        startDateTextField.typeText("0107")
-        
-        let expiryDateTextField = elementsQuery.textFields["Expiry date"]
-        expiryDateTextField.tap()
-        expiryDateTextField.typeText("1220")
-        
-        let cvvTextField = elementsQuery.textFields["CVV"]
-        cvvTextField.typeText("784")
-        app.navigationBars["Payment"].buttons["Pay"].tap()
-        
-        let submitButton = app.buttons["Submit"]
-        let submitExistsPredicate = NSPredicate(format: "exists == 1")
-        
-        expectationForPredicate(submitExistsPredicate, evaluatedWithObject: submitButton, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
-        
-        submitButton.tap()
-        
-        let button = app.buttons["Home"]
-        let existsPredicate = NSPredicate(format: "exists == 1")
-        
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
-        
-        button.tap()
-    }
-    
 }
