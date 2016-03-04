@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [6.0.0](https://github.com/JudoPay/JudoKit/releases/tag/6.0.0)
-To be released on 2016-02-29
+Released on 2016-03-04
 
 #### Added
 - BRL is now a statically accessible from the Currency class.
