@@ -61,6 +61,9 @@
                 <a href="Classes/JudoPayViewController.html">JudoPayViewController</a>
               </li>
               <li class="nav-group-task">
+                <a href="Classes/JudoTheme.html">JudoTheme</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Classes/LoadingView.html">LoadingView</a>
               </li>
               <li class="nav-group-task">
@@ -84,13 +87,22 @@
                 <a href="Enums/CardLogoType.html">CardLogoType</a>
               </li>
               <li class="nav-group-task">
+                <a href="Enums/DateFormat.html">DateFormat</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Enums/DateInputType.html">DateInputType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/ISO8601Format.html">ISO8601Format</a>
               </li>
             </ul>
           </li>
           <li class="nav-group-name">
             <a href="Extensions.html">Extensions</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/NSDate.html">NSDate</a>
+              </li>
               <li class="nav-group-task">
                 <a href="Extensions/String.html">String</a>
               </li>
@@ -145,7 +157,7 @@
         <section>
           <section class="section">
             
-            <p><a href="https://img.shields.io/cocoapods/v/JudoKit.svg"><img src="https://img.shields.io/cocoapods/v/JudoKit.svg" alt="Cocoapods Compatible"></a>
+            <p><a href="https://img.shields.io/cocoapods/v/JudoKit.svg"><img src="https://img.shields.io/cocoapods/v/JudoKit.svg" alt="CocoaPods Compatible"></a>
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg" alt="Carthage Compatible"></a>
 <a href="http://http://cocoadocs.org/docsets/Judo"><img src="https://img.shields.io/cocoapods/l/JudoKit.svg" alt="License"></a>
 <a href="http://http://cocoadocs.org/docsets/Judo"><img src="https://img.shields.io/cocoapods/p/JudoKit.svg" alt="Platform"></a>
@@ -159,8 +171,6 @@
 
 <p>judoKit is a framework for creating easy payments inside your app with <a href="https://www.judopay.com/">judoPay</a>. It contains an exhaustive toolbelt for everything to related to making payments.</p>
 <a href='#integration' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='integration'>Integration</h2>
-
-<p><strong>Be aware that bit code should be disabled for all projects using judoKit</strong></p>
 <a href='#sign_up_to_judo_39_s_platform' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='sign_up_to_judo_39_s_platform'>Sign up to judo&rsquo;s platform</h3>
 
 <ul>
@@ -180,12 +190,14 @@
 <span class="n">platform</span> <span class="ss">:ios</span><span class="p">,</span> <span class="s1">'8.0'</span>
 <span class="n">use_frameworks!</span>
 
-<span class="n">pod</span> <span class="s1">'JudoKit'</span><span class="p">,</span> <span class="s1">'~&gt; 5.5'</span>
+<span class="n">pod</span> <span class="s1">'JudoKit'</span><span class="p">,</span> <span class="s1">'~&gt; 6.0'</span>
 </code></pre>
 
 <p>Then, run the following command:</p>
 <pre class="highlight shell"><code><span class="gp">$ </span>pod install
 </code></pre>
+
+<p>Please make sure to always <strong>use the newly generated <code>.xcworkspace</code></strong> file not not the projects <code>.xcodeproj</code> file</p>
 <a href='#carthage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='carthage'>Carthage</h4>
 
 <p><a href="https://github.com/Carthage/Carthage">Carthage</a> - decentralized dependency management.</p>
@@ -198,7 +210,7 @@
 <ul>
 <li>To integrate judo into your Xcode project using Carthage, specify it in your <code>Cartfile</code>:</li>
 </ul>
-<pre class="highlight plaintext"><code>github "JudoPay/JudoKit" &gt;= 5.5
+<pre class="highlight plaintext"><code>github "JudoPay/JudoKit" &gt;= 6.0
 </code></pre>
 
 <ul>
@@ -208,7 +220,7 @@
 </code></pre>
 
 <ul>
-<li>On your application targets’ “General” settings tab, in the “Linked Frameworks and Libraries” section, drag and drop <code>Judo.framework</code> and <code>JudoKit.framework</code> from the Carthage/Build folder and <code>JudoShield.framework</code> from the Carthage/Checkouts folder on disk.</li>
+<li>On your application targets’ “General” settings tab, in the “Embedded Binaries&quot; section, drag and drop <code>Judo.framework</code> and <code>JudoKit.framework</code> from the Carthage/Build folder and <code>JudoShield.framework</code> from the Carthage/Checkouts folder on disk.</li>
 <li>On your application targets’ “Build Phases” settings tab, click the “+” icon and choose “New Run Script Phase”. Create a Run Script with the following contents:</li>
 </ul>
 <pre class="highlight shell"><code>/usr/local/bin/carthage copy-frameworks
@@ -234,16 +246,18 @@ $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 <li>as judoKit has submodules you need to initialize them as well by cd-ing into the <code>JudoKit</code> folder and executing the following command:</li>
 </ul>
 <pre class="highlight shell"><code><span class="gp">$ </span><span class="nb">cd </span>JudoKit
-<span class="gp">$ </span>git submodule update
+<span class="gp">$ </span>git submodule update --init --recursive
 </code></pre>
 
 <ul>
 <li>Open your project and select your application in the Project Navigator (blue project icon).</li>
+<li>Drag and drop the <code>JudoKit.xcodeproj</code> project file inside the JudoKit folder into your project (just below the blue project icon inside Xcode).</li>
+<li>Drag and drop the <code>Judo.xcodeproj</code> project file inside the JudoKit/Judo-Swift folder into your project (just below the blue project icon inside Xcode).</li>
 <li>Navigate to the target configuration window and select the application target under the <q>Targets</q> heading in the sidebar.</li>
 <li>In the tab bar at the top of that window, open the <q>General</q> panel.</li>
 <li>Click on the &rsquo;+&rsquo; button in &lsquo;Embedded Binaries&rsquo; section.</li>
-<li>Click on &#39;Add Other&hellip;&rsquo; and Navigate to the JudoShield/Framework Folder and add JudoSecure.Framework .</li>
-<li>Navigate to your projects folder and add <code>JudoKit.framework</code>.</li>
+<li>Click on &#39;Add Other&hellip;&rsquo; and Navigate to the JudoKit/JudoShield/Framework Folder and add JudoShield.Framework.</li>
+<li>Click on the same &rsquo;+&rsquo; button and add <code>JudoKit.framework</code> under the JudoKit project from the <code>Products</code> folder and <code>Judo.framework</code> from the Judo project under the <code>Products</code> folder <strong>make sure not to add the Judo.framework file from the JudoKit project, these two have to be from each of the projects product folder</strong>.</li>
 <li>In the project navigator, click on the <code>+</code> button under the <q>Linked Frameworks and Libraries</q> section.</li>
 <li>Select <code>Security.framework</code>, <code>CoreTelephony.framework</code> and <code>CoreLocation.framework</code> from the list presented.</li>
 <li>Open the <q>Build Settings</q> panel.</li>
@@ -264,17 +278,17 @@ $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">token</span> <span class="o">=</span> <span class="s">"a3xQdxP6iHdWg1zy"</span>
 <span class="k">let</span> <span class="nv">secret</span> <span class="o">=</span> <span class="s">"2094c2f5484ba42557917aad2b2c2d294a35dddadb93de3c35d6910e6c461bfb"</span>
 
-<span class="kt">JudoKit</span><span class="o">.</span><span class="nf">setToken</span><span class="p">(</span><span class="n">token</span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="n">secret</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">myJudoKitSession</span> <span class="o">=</span> <span class="kt">JudoKit</span><span class="p">(</span><span class="nv">token</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="n">secret</span><span class="p">)</span>
 
 </code></pre>
 
 <p>For testing purposes, you should set the app into sandboxed mode by calling the function <code>sandboxed(value: Bool)</code> on <code>JudoKit</code>.</p>
-<pre class="highlight swift"><code><span class="kt">JudoKit</span><span class="o">.</span><span class="nf">sandboxed</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="n">myJudoKitSession</span><span class="o">.</span><span class="nf">sandboxed</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
 </code></pre>
 
 <p>When delivering your App to the App Store, make sure to remove the line.</p>
 <a href='#make_a_simple_payment' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='make_a_simple_payment'>Make a simple payment</h4>
-<pre class="highlight swift"><code><span class="kt">JudoKit</span><span class="o">.</span><span class="nf">payment</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"consumer reference"</span><span class="p">),</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+<pre class="highlight swift"><code><span class="n">myJudoKitSession</span><span class="o">.</span><span class="nf">payment</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"consumer reference"</span><span class="p">),</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
     <span class="k">self</span><span class="o">.</span><span class="nf">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
     <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
         <span class="c1">// if the user cancelled, this error is passed</span>
@@ -290,7 +304,7 @@ $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 <span class="p">})</span>
 </code></pre>
 <a href='#make_a_simple_pre_authorization' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='make_a_simple_pre_authorization'>Make a simple pre-authorization</h4>
-<pre class="highlight swift"><code><span class="kt">JudoKit</span><span class="o">.</span><span class="nf">preAuth</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"consumer reference"</span><span class="p">),</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+<pre class="highlight swift"><code><span class="n">myJudoKitSession</span><span class="o">.</span><span class="nf">preAuth</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"consumer reference"</span><span class="p">),</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
     <span class="k">self</span><span class="o">.</span><span class="nf">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
     <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
         <span class="c1">// if the user cancelled, this error is passed</span>
@@ -306,7 +320,7 @@ $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 <span class="p">})</span>
 </code></pre>
 <a href='#register_a_card' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='register_a_card'>Register a card</h4>
-<pre class="highlight swift"><code><span class="kt">JudoKit</span><span class="o">.</span><span class="nf">registerCard</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"payment reference"</span><span class="p">),</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+<pre class="highlight swift"><code><span class="n">myJudoKitSession</span><span class="o">.</span><span class="nf">registerCard</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"payment reference"</span><span class="p">),</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
     <span class="k">self</span><span class="o">.</span><span class="nf">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
     <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
         <span class="c1">// if the user cancelled, this error is passed</span>
@@ -323,7 +337,7 @@ $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 </code></pre>
 <a href='#make_a_repeat_payment' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='make_a_repeat_payment'>Make a repeat payment</h4>
 <pre class="highlight swift"><code><span class="k">if</span> <span class="k">let</span> <span class="nv">cardDetails</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">cardDetails</span><span class="p">,</span> <span class="k">let</span> <span class="nv">payToken</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">paymentToken</span> <span class="p">{</span>
-    <span class="kt">JudoKit</span><span class="o">.</span><span class="nf">tokenPayment</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"consumer reference"</span><span class="p">),</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="n">cardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="n">payToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+    <span class="n">myJudoKitSession</span><span class="o">.</span><span class="nf">tokenPayment</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"consumer reference"</span><span class="p">),</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="n">cardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="n">payToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
         <span class="k">self</span><span class="o">.</span><span class="nf">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
         <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
             <span class="c1">// if the user cancelled, this error is passed</span>
@@ -343,7 +357,7 @@ $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 </code></pre>
 <a href='#make_a_repeat_pre_authorization' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='make_a_repeat_pre_authorization'>Make a repeat pre-authorization</h4>
 <pre class="highlight swift"><code><span class="k">if</span> <span class="k">let</span> <span class="nv">cardDetails</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">cardDetails</span><span class="p">,</span> <span class="k">let</span> <span class="nv">payToken</span> <span class="o">=</span> <span class="k">self</span><span class="o">.</span><span class="n">paymentToken</span> <span class="p">{</span>
-    <span class="kt">JudoKit</span><span class="o">.</span><span class="nf">tokenPreAuth</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"consumer reference"</span><span class="p">),</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="n">cardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="n">payToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+    <span class="n">myJudoKitSession</span><span class="o">.</span><span class="nf">tokenPreAuth</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"consumer reference"</span><span class="p">),</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="n">cardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="n">payToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
         <span class="k">self</span><span class="o">.</span><span class="nf">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
         <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
             <span class="c1">// if the user cancelled, this error is passed</span>
@@ -370,7 +384,7 @@ $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 </code></pre>
 
 <p>In case you want to add the capability of accepting AMEX you need to add this as following:</p>
-<pre class="highlight swift"><code><span class="kt">JudoKit</span><span class="o">.</span><span class="n">acceptedCardNetworks</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">Visa</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">MasterCard</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">AMEX</span><span class="p">,</span> <span class="mi">15</span><span class="p">)]</span>
+<pre class="highlight swift"><code><span class="kt">JudoKit</span><span class="o">.</span><span class="n">theme</span><span class="o">.</span><span class="n">acceptedCardNetworks</span> <span class="o">=</span> <span class="p">[</span><span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">Visa</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">MasterCard</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="kt">Card</span><span class="o">.</span><span class="kt">Configuration</span><span class="p">(</span><span class="o">.</span><span class="kt">AMEX</span><span class="p">,</span> <span class="mi">15</span><span class="p">)]</span>
 </code></pre>
 
 <p>Any other card configuration that is available can be added for the UI to accept the card. <strong>BE AWARE</strong> you do need to configure your account with Judo Payments for any other Card Type payments to be processed successfully.</p>
@@ -381,15 +395,9 @@ $(SRCROOT)/Carthage/Checkouts/JudoShield/Framework/JudoShield.framework
 <img src="http://judopay.github.io/JudoKit/ressources/darktheme2.png" alt="darktheme1" title="Dark Theme Example Image"></p>
 
 <p>judoKit comes with our new customisable, stacked UI. Note that if you have implemented with our Objective-C repository, you will have to use this Swift framework in your Obj-C project to use the new customisable UI. To do this, replace the legacy &#39;judoPay&rsquo; implementation in your app with the &#39;judoKit&rsquo; implementation.</p>
-<a href='#manual_integration_amp_carthage' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='manual_integration_amp_carthage'>Manual integration &amp; Carthage</h3>
+<a href='#theme_class' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='theme_class'>Theme class</h3>
 
-<p>For manual integration and usage of Carthage, you need to create a fork of the existing judoKit repository on GitHub.</p>
-<a href='#cocoapods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='cocoapods'>CocoaPods</h3>
-
-<p>If you need to make changes to the Theme while using CocoaPods, you need to unlock the source code files from judoKit inside your Pods project. With these changes, make sure you track your CocoaPods inside your git (or other versioning system).</p>
-<a href='#theme_classes' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='theme_classes'>Theme classes</h3>
-
-<p>To customize colors, have a look at the <code>UIColor+Judo.swift</code> file. To customize strings, have a look at the <code>JudoPayView.swift</code> file.</p>
+<p>The color declaration are not yet openly handled.</p>
 <a href='#code_uicolor_judo_swift_code' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='code_uicolor_judo_swift_code'><code>UIColor+Judo.swift</code></h4>
 <pre class="highlight plaintext"><code>func judoDarkGrayColor()
 func judoInputFieldTextColor()
@@ -403,35 +411,76 @@ func judoRedColor()
 func judoLoadingBlockViewColor()
 func judoInputFieldBackgroundColor()
 </code></pre>
-<a href='#code_judopayview_swift_code' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='code_judopayview_swift_code'><code>JudoPayView.swift</code></h4>
-<pre class="highlight plaintext"><code>// Buttons
-let kPaymentButtonTitle = "Pay"
-let kRegisterCardButtonTitle = "Add card"
-let kRegisterCardNavBarButtonTitle = "Add"
 
-let kBackButtonTitle = "Back"
+<p>The following parameters can be accessed through <code>JudoKit.theme</code></p>
+<pre class="highlight plaintext"><code>/// A tint color that is used to generate a theme for the judo payment form
+public var tintColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
 
-// Titles
-let kPaymentTitle = "Payment"
-let kRegisterCardTitle = "Add card"
-let kRefundTitle = "Refund"
-let kAuthenticationTitle = "Authentication"
+/// Set the address verification service to true to prompt the user to input his country and post code information
+public var avsEnabled: Bool = false
 
-// Loading
-let kLoadingIndicatorRegisterCardTitle = "Adding card..."
-let kLoadingIndicatorProcessingTitle = "Processing payment..."
-let kRedirecting3DSTitle = "Redirecting..."
-let kVerifying3DSPaymentTitle = "Verifying payment"
-let kVerifying3DSRegisterCardTitle = "Verifying card"
+/// a boolean indicating whether a security message should be shown below the input
+public var showSecurityMessage: Bool = false
 
-// InputFields
-let inputFieldHeight: CGFloat = 48
+/// An array of accepted card configurations (card network and card number length)
+public var acceptedCardNetworks: [Card.Configuration] = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.Maestro, 16)]
+
+
+// MARK: Buttons
+
+/// the title for the payment button
+public var paymentButtonTitle = "Pay"
+/// the title for the button when registering a card
+public var registerCardButtonTitle = "Add card"
+/// the title for the back button of the navigation controller
+public var registerCardNavBarButtonTitle = "Add"
+/// the title for the back button
+public var backButtonTitle = "Back"
+
+
+// MARK: Titles
+
+/// the title for a payment
+public var paymentTitle = "Payment"
+/// the title for a card registration
+public var registerCardTitle = "Add card"
+/// the title for a refund
+public var refundTitle = "Refund"
+/// the title for an authentication
+public var authenticationTitle = "Authentication"
+
+// MARK: Loading
+
+/// when a register card transaction is currently running
+public var loadingIndicatorRegisterCardTitle = "Adding card..."
+/// the title of the loading indicator during a transaction
+public var loadingIndicatorProcessingTitle = "Processing payment..."
+/// the title of the loading indicator during a redirect to a 3DS webview
+public var redirecting3DSTitle = "Redirecting..."
+/// the title of the loading indicator during the verification of the transaction
+public var verifying3DSPaymentTitle = "Verifying payment"
+/// the title of the loading indicator during the verification of the card registration
+public var verifying3DSRegisterCardTitle = "Verifying card"
+
+// MARK: Input fields
+
+/// the height of the input fields
+public var inputFieldHeight: CGFloat = 48
+
+// MARK: Security message
+
+/// the message that is shown below the input fields the ensure safety when entering card information
+public var securityMessageString = "Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers."
+
+/// the text size of the security message
+public var securityMessageTextSize: CGFloat = 12
+
 </code></pre>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-01-27)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-03-04)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.5.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

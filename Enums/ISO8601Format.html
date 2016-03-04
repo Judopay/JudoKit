@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>CardLogoType Enum Reference</title>
+    <title>ISO8601Format Enum Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/CardLogoType" class="dashAnchor"></a>
-    <a title="CardLogoType Enum Reference"></a>
+    <a name="//apple_ref/swift/Enum/ISO8601Format" class="dashAnchor"></a>
+    <a title="ISO8601Format Enum Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">JudoKit Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">JudoKit Reference</a>
         <img id="carat" src="../img/carat.png" />
-        CardLogoType Enum Reference
+        ISO8601Format Enum Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -157,24 +157,25 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>CardLogoType</h1>
+            <h1>ISO8601Format</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CardLogoType</span></code></pre>
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">ISO8601Format</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                 </div>
               </div>
-            <p>Card Logo Type enum</p>
+            <p>Helper enum for ISO8601 Formatted datestrings</p>
 
-<ul>
-<li>Visa:       Visa card logo</li>
-<li>MasterCard: MasterCard card logo</li>
-<li>AMEX:       AMEX card logo</li>
-<li>Maestro:    Maestro card logo</li>
-<li>CIDV:       CIDV logo</li>
-<li>CVC:        CVC logo</li>
-<li>Unknown:    Unknown placeholder logo</li>
-</ul>
+<p><li>Year:             Year</li>
+<li>YearMonth:        Year and month</li>
+<div class="aside aside-date">
+    <p class="aside-title">Date</p>
+    Year, month and day</p>
+
+<p></div>
+<li>DateTime:         same as Date including hours and minutes</li>
+<li>DateTimeSec:      same as DateTime including seconds</li>
+<li>DateTimeMilliSec: same as DateTimeSec including milliseconds</li></p>
 
           </section>
           <section class="section task-group-section">
@@ -183,9 +184,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO7JudoKit12CardLogoType4VisaFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Visa" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO7JudoKit12CardLogoType4VisaFMS0_S0_">Visa</a>
+                    <a name="/s:FO7JudoKit13ISO8601Format4YearFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/Year" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO7JudoKit13ISO8601Format4YearFMS0_S0_">Year</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -193,19 +194,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Visa card logo</p>
+                        <p>Year (1997)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Visa</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Year</span> <span class="o">=</span> <span class="s">"yyyy"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/CardLogoView.swift#L40">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/NSDate+Extension.swift#L50">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -217,9 +218,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO7JudoKit12CardLogoType10MasterCardFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/MasterCard" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO7JudoKit12CardLogoType10MasterCardFMS0_S0_">MasterCard</a>
+                    <a name="/s:FO7JudoKit13ISO8601Format9YearMonthFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/YearMonth" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO7JudoKit13ISO8601Format9YearMonthFMS0_S0_">YearMonth</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -227,19 +228,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>MasterCard card logo</p>
+                        <p>Year and month (1997-07)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">MasterCard</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">YearMonth</span> <span class="o">=</span> <span class="s">"yyyy-MM"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/CardLogoView.swift#L42">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/NSDate+Extension.swift#L52">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -251,9 +252,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO7JudoKit12CardLogoType4AMEXFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/AMEX" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO7JudoKit12CardLogoType4AMEXFMS0_S0_">AMEX</a>
+                    <a name="/s:FO7JudoKit13ISO8601Format4DateFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/Date" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO7JudoKit13ISO8601Format4DateFMS0_S0_">Date</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -261,19 +262,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>AMEX card logo</p>
+                        <p>Year, month and day (1997-07-16)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">AMEX</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Date</span> <span class="o">=</span> <span class="s">"yyyy-MM-dd"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/CardLogoView.swift#L44">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/NSDate+Extension.swift#L54">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -285,9 +286,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO7JudoKit12CardLogoType7MaestroFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Maestro" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO7JudoKit12CardLogoType7MaestroFMS0_S0_">Maestro</a>
+                    <a name="/s:FO7JudoKit13ISO8601Format8DateTimeFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/DateTime" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO7JudoKit13ISO8601Format8DateTimeFMS0_S0_">DateTime</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -295,19 +296,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Maestro card logo</p>
+                        <p>same as Date including hours and minutes (1997-07-16T19:20+01:00)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Maestro</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">DateTime</span> <span class="o">=</span> <span class="s">"yyyy-MM-dd'T'HH:mmZ"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/CardLogoView.swift#L46">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/NSDate+Extension.swift#L56">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -319,9 +320,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO7JudoKit12CardLogoType4CIDVFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/CIDV" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO7JudoKit12CardLogoType4CIDVFMS0_S0_">CIDV</a>
+                    <a name="/s:FO7JudoKit13ISO8601Format11DateTimeSecFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/DateTimeSec" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO7JudoKit13ISO8601Format11DateTimeSecFMS0_S0_">DateTimeSec</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -329,19 +330,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>CIDV logo</p>
+                        <p>same as DateTime including seconds (1997-07-16T19:20:30+01:00)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">CIDV</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">DateTimeSec</span> <span class="o">=</span> <span class="s">"yyyy-MM-dd'T'HH:mm:ssZ"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/CardLogoView.swift#L48">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/NSDate+Extension.swift#L58">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -353,9 +354,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FO7JudoKit12CardLogoType3CVCFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/CVC" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO7JudoKit12CardLogoType3CVCFMS0_S0_">CVC</a>
+                    <a name="/s:FO7JudoKit13ISO8601Format16DateTimeMilliSecFMS0_S0_"></a>
+                    <a name="//apple_ref/swift/Element/DateTimeMilliSec" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FO7JudoKit13ISO8601Format16DateTimeMilliSecFMS0_S0_">DateTimeMilliSec</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -363,53 +364,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>CVC logo</p>
+                        <p>same as DateTimeSec including milliseconds (1997-07-16T19:20:30.45+01:00)</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">CVC</span></code></pre>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">DateTimeMilliSec</span> <span class="o">=</span> <span class="s">"yyyy-MM-dd'T'HH:mm:ss.SSSZ"</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/CardLogoView.swift#L50">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:FO7JudoKit12CardLogoType7UnknownFMS0_S0_"></a>
-                    <a name="//apple_ref/swift/Element/Unknown" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FO7JudoKit12CardLogoType7UnknownFMS0_S0_">Unknown</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Unknown placeholder logo</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Unknown</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/CardLogoView.swift#L52">Show on GitHub</a>
+                        <a href="https://github.com/judopay/JudoKit/tree/6.0.0/Source/NSDate+Extension.swift#L60">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
