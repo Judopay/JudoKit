@@ -95,7 +95,16 @@ public enum ISO8601Format: String {
  - Custom:  Custom Date format
  */
 public enum DateFormat {
-    case ISO8601(ISO8601Format?), DotNet, RSS, AltRSS, Custom(String)
+    /// ISO8601 Date format
+    case ISO8601(ISO8601Format?)
+    /// DotNet Date format
+    case DotNet
+    /// RSS Date format
+    case RSS
+    /// AltRSS Date format
+    case AltRSS
+    /// Custom Date format
+    case Custom(String)
 }
 
 public extension NSDate {
