@@ -95,7 +95,7 @@ public extension UIColor {
     
     
     /**
-     Light dark gray color
+     Light gray color
      
      - returns: A UIColor object
      */
@@ -110,7 +110,7 @@ public extension UIColor {
     
     
     /**
-     Light dark gray color
+     Light gray color
      
      - returns: A UIColor object
      */

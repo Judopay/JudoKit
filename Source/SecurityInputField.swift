@@ -119,7 +119,7 @@ public class SecurityInputField: JudoPayInputField {
      - returns: An optional CardLogoView
      */
     override public func logoView() -> CardLogoView? {
-        let type: CardLogoType = self.cardNetwork == .AMEX ? .CIDV : .CVC
+        let type: CardLogoType = self.cardNetwork == .AMEX ? .CID : .CVC
         return CardLogoView(type: type)
     }
     

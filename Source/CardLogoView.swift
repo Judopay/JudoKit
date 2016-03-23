@@ -31,7 +31,7 @@ import Foundation
  - MasterCard: MasterCard card logo
  - AMEX:       AMEX card logo
  - Maestro:    Maestro card logo
- - CIDV:       CIDV logo
+ - CID:        CID logo
  - CVC:        CVC logo
  - Unknown:    Unknown placeholder logo
  */
@@ -44,8 +44,8 @@ public enum CardLogoType {
     case AMEX
     /// Maestro card logo
     case Maestro
-    /// CIDV logo
-    case CIDV
+    /// CID logo
+    case CID
     /// CVC logo
     case CVC
     /// Unknown placeholder logo
@@ -99,8 +99,8 @@ public class CardLogoView: UIView {
             drawCardAmex()
         case .Maestro:
             drawCardMaestro()
-        case .CIDV:
-            drawCardCIDV()
+        case .CID:
+            drawCardCID()
         case .CVC:
             drawCardCVC()
         default:
@@ -5816,9 +5816,9 @@ public func drawCardCVC() {
 
 
 /**
- draw a CIDV card logo
+ draw a CID card logo
  */
-public func drawCardCIDV() {
+public func drawCardCID() {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -5836,7 +5836,7 @@ public func drawCardCIDV() {
         //// Gradient Declarations
         let sVGID_5_2 = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), [gradientColor.CGColor, gradientColor2.CGColor, gradientColor3.CGColor], [0, 0.68, 1])!
 
-        //// ic_card_cidv Group
+        //// ic_card_cid Group
         //// Group 2
         //// Bezier Drawing
         let bezierPath = UIBezierPath()

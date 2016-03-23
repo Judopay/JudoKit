@@ -135,9 +135,9 @@
 			children = (
 				DAB051371BD797CA00888E06 /* FloatingTextField.swift */,
 				DA3902451B983959001A703C /* JudoPayInputField.swift */,
-				DA7418C71BA0538E00C4D323 /* IssueNumberInputField.swift */,
 				DAD13A211B7C9E76007BB196 /* CardInputField.swift */,
 				DA3902361B95DC62001A703C /* DateInputField.swift */,
+				DA7418C71BA0538E00C4D323 /* IssueNumberInputField.swift */,
 				DA39023D1B96092B001A703C /* SecurityInputField.swift */,
 				DA7418C31BA039FF00C4D323 /* PostCodeInputField.swift */,
 				DA7418C51BA0448D00C4D323 /* BillingCountryInputField.swift */,
