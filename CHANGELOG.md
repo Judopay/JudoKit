@@ -16,13 +16,13 @@ All notable changes to this project will be documented in this file.
 Released on 2016-03-30
 
 #### Changed
-- Falling back to a more secure method to detect a valid coordinate when making a transaction using the Judo UI
-- Updated Selectors to conform to Swift 3
-- Simplified updating the security message position updating method
+- Falling back to a more secure method to detect a valid coordinate when making a transaction using the judo UI.
+- Updated Selectors to conform to Swift 3.
+- Simplified the security message position updating method.
 
 #### Fixed
-- Fixed the security code title for AMEX cards (CID instead of CIDV)
-- Typos in the header documentation
+- Fixed the security code label for Amex cards (CID instead of CIDV).
+- Fixed typos in the header documentation.
 
 ---
 ## [6.0.0](https://github.com/JudoPay/JudoKit/releases/tag/6.0.0)
