@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601)
+- `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.6.x` Releases - [5.6.0](#560)
 - `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551) | [5.5.2](#552) | [5.5.3](#553) | [5.5.4](#554)
 - `5.4.x` Releases - [5.4.0](#540)
@@ -12,17 +12,24 @@ All notable changes to this project will be documented in this file.
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
+## [6.0.2](https://github.com/JudoPay/JudoKit/releases/tag/6.0.2)
+Released on 2016-03-30
+
+#### Changed
+- Updated podspec
+
+---
 ## [6.0.1](https://github.com/JudoPay/JudoKit/releases/tag/6.0.1)
 Released on 2016-03-30
 
 #### Changed
-- Falling back to a more secure method to detect a valid coordinate when making a transaction using the Judo UI
-- Updated Selectors to conform to Swift 3
-- Simplified updating the security message position updating method
+- Falling back to a more secure method to detect a valid coordinate when making a transaction using the judo UI.
+- Updated Selectors to conform to Swift 3.
+- Simplified the security message position updating method.
 
 #### Fixed
-- Fixed the security code title for AMEX cards (CID instead of CIDV)
-- Typos in the header documentation
+- Fixed the security code label for Amex cards (CID instead of CIDV).
+- Fixed typos in the header documentation.
 
 ---
 ## [6.0.0](https://github.com/JudoPay/JudoKit/releases/tag/6.0.0)
