@@ -97,7 +97,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         self.textField.textColor = .judoInputFieldTextColor()
         self.textField.tintColor = JudoKit.theme.tintColor
         self.textField.font = UIFont.boldSystemFontOfSize(14)
-        self.textField.addTarget(self, action: Selector("textFieldDidChangeValue:"), forControlEvents: .EditingChanged)
+        self.textField.addTarget(self, action: #selector(JudoPayInputField.textFieldDidChangeValue(_:)), forControlEvents: .EditingChanged)
         
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField]))
         
@@ -221,7 +221,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     
     /**
-    Check if this input field is valid
+    Checks if the receiving input field has content that is valid
     
     - returns: true if valid input
     */

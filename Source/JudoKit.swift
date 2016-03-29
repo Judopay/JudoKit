@@ -77,7 +77,7 @@ import Judo
     /**
     Make a pre-auth using this method
     
-    - parameter judoID:       The judoID of the merchant to receive the payment
+    - parameter judoID:       The judoID of the merchant to receive the pre-auth
     - parameter amount:       The amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
@@ -95,7 +95,7 @@ import Judo
     /**
     Initiates a card registration
     
-    - parameter judoID:       The judoID of the merchant to receive the payment
+    - parameter judoID:       The judoID of the merchant to receive the pre-auth
     - parameter amount:       The amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
@@ -127,7 +127,7 @@ import Judo
     /**
     Initiates the token pre-auth process
     
-    - parameter judoID:       The judoID of the merchant to receive the payment
+    - parameter judoID:       The judoID of the merchant to receive the pre-auth
     - parameter amount:       The amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter cardDetails:  The card details to present in the input fields
@@ -160,7 +160,7 @@ import Judo
     /**
     Executes an Apple Pay pre-auth transaction
     
-    - parameter judoID:     The judoID of the merchant to receive the payment
+    - parameter judoID:     The judoID of the merchant to receive the pre-auth
     - parameter amount:     The amount and currency of the payment (default is GBP)
     - parameter reference:  Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter payment:    The PKPayment object that is generated during an ApplePay process

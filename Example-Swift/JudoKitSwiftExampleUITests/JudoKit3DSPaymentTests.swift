@@ -123,7 +123,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cvv2TextField = elementsQuery.textFields["CIDV"]
+        let cvv2TextField = elementsQuery.textFields["CID"]
         cvv2TextField.typeText("5464")
         
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()

@@ -84,6 +84,7 @@ public class JudoPayViewController: UIViewController {
      - parameter reference:        A Reference for the transaction
      - parameter transactionType:  The type of the transaction
      - parameter completion:       Completion block called when transaction has been finished
+     - parameter currentSession:   The current judo apiSession
      - parameter cardDetails:      An object containing all card information - default: nil
      - parameter paymentToken:     A payment token if a payment by token is to be made - default: nil
      
@@ -145,11 +146,11 @@ public class JudoPayViewController: UIViewController {
         // Button actions
         let payButtonTitle = self.myView.transactionType == .RegisterCard ? JudoKit.theme.registerCardNavBarButtonTitle : JudoKit.theme.paymentButtonTitle
 
-        self.myView.paymentButton.addTarget(self, action: Selector("payButtonAction:"), forControlEvents: .TouchUpInside)
-        self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .Done, target: self, action: Selector("payButtonAction:"))
+        self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), forControlEvents: .TouchUpInside)
+        self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .Done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
         self.myView.paymentNavBarButton!.enabled = false
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: JudoKit.theme.backButtonTitle, style: .Plain, target: self, action: Selector("doneButtonAction:"))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: JudoKit.theme.backButtonTitle, style: .Plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
         
         self.navigationController?.navigationBar.tintColor = .judoDarkGrayColor()
@@ -191,7 +192,7 @@ public class JudoPayViewController: UIViewController {
         self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
             if let _ = error as? JudoError {
                 // silently fail
-            } else if coordinate.latitude != CLLocationDegrees(NSIntegerMax) {
+            } else if CLLocationCoordinate2DIsValid(coordinate) {
                 self.currentLocation = coordinate
             }
         }

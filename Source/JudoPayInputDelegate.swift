@@ -34,15 +34,6 @@ import Judo
 public protocol JudoPayInputDelegate {
     
     /**
-     Delegate method that is triggered when the issueNumberInputField entered a code
-     
-     - parameter input:       The issueNumberInputField calling the delegate method
-     - parameter issueNumber: The issue number that has been entered as a String
-     */
-    func issueNumberInputDidEnterCode(input: IssueNumberInputField, issueNumber: String)
-    
-    
-    /**
      Delegate method that is triggered when the CardInputField encountered an error
      
      - parameter input: The input field calling the delegate method
@@ -85,6 +76,15 @@ public protocol JudoPayInputDelegate {
      - parameter date:  The valid date that has been entered
      */
     func dateInput(input: DateInputField, didFindValidDate date: String)
+    
+    
+    /**
+     Delegate method that is triggered when the issueNumberInputField entered a code
+     
+     - parameter input:       The issueNumberInputField calling the delegate method
+     - parameter issueNumber: The issue number that has been entered as a String
+     */
+    func issueNumberInputDidEnterCode(input: IssueNumberInputField, issueNumber: String)
     
     
     /**

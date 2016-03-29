@@ -104,15 +104,12 @@ public class DateInputField: JudoPayInputField {
         self.datePicker.delegate = self
         self.datePicker.dataSource = self
         
-        switch self.dateInputType {
-        case .Picker:
+        if self.dateInputType == .Picker {
             self.textField.inputView = self.datePicker
             let month = NSString(format: "%02i", currentMonth)
             let year = NSString(format: "%02i", currentYear - 2000)
             self.textField.text = "\(month)/\(year)"
             self.datePicker.selectRow(currentMonth - 1, inComponent: 0, animated: false)
-        case .Text:
-            self.textField.keyboardType = .NumberPad
         }
     }
     
@@ -137,8 +134,7 @@ public class DateInputField: JudoPayInputField {
         guard textField == self.textField else { return false }
         
         // Get old and new text
-        let oldString = textField.text!
-        let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
         
         if newString.characters.count == 0 {
             return true

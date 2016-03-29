@@ -125,8 +125,8 @@ class JudoKitAVSPaymentTests: XCTestCase {
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cidvTextField = elementsQuery.textFields["CIDV"]
-        cidvTextField.typeText("3469")
+        let cidTextField = elementsQuery.textFields["CID"]
+        cidTextField.typeText("3469")
         
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("NW67BB")

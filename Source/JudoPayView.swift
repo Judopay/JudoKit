@@ -120,8 +120,8 @@ public class JudoPayView: UIView {
         
         self.setupView()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(JudoPayView.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(JudoPayView.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     
@@ -409,19 +409,9 @@ public class JudoPayView: UIView {
      - parameter toggleUp: whether the label should move up or down
      */
     func updateSecurityMessagePosition(toggleUp toggleUp: Bool) {
-        if toggleUp && !self.hintLabel.isActive() {
-            self.contentView.layoutIfNeeded()
-            self.securityMessageTopConstraint?.constant = -self.hintLabel.bounds.height
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                self.contentView.layoutIfNeeded()
-            })
-        } else {
-            self.contentView.layoutIfNeeded()
-            self.securityMessageTopConstraint?.constant = 14.0
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                self.contentView.layoutIfNeeded()
-            })
-        }
+        self.contentView.layoutIfNeeded()
+        self.securityMessageTopConstraint?.constant = (toggleUp && !self.hintLabel.isActive()) ? -self.hintLabel.bounds.height : 14
+        UIView.animateWithDuration(0.3) { self.contentView.layoutIfNeeded() }
     }
     
 }
