@@ -12,6 +12,17 @@ All notable changes to this project will be documented in this file.
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
+
+## [6.1.0](https://github.com/JudoPay/JudoKit/releases/tag/6.1.0)
+to be Released
+
+#### Changed
+- Merged Judo-Swift into JudoKit
+
+#### Removed
+- Theme static accessor
+
+---
 ## [6.0.2](https://github.com/JudoPay/JudoKit/releases/tag/6.0.2)
 Released on 2016-03-30
 
