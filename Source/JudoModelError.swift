@@ -1,6 +1,6 @@
 //
-//  CardNetwork+CardLogoType.swift
-//  JudoKit
+//  JudoModelError.swift
+//  Judo
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -21,29 +21,37 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
-//
 
 import Foundation
 
-public extension CardNetwork {
+/// Judo Model Error object
+public class JudoModelError: NSObject {
+    /// The error code of the model error
+    public var code: JudoModelErrorCode?
+    /// The field name of the error
+    public var fieldName: String?
+    /// The message of the error
+    public var message: String?
+    /// The detail of the error
+    public var detail: String?
+    /// Raw value of the information passed
+    public var rawValue: JSONDictionary?
+    
     
     /**
-     Get a CardLogoType from the receiving CardNetwork
+     Designated initializer with an object received from the judo API
      
-     - returns: a CardLogoType
+     - parameter dict: a key value storage containing model error information
+     
+     - returns: a JudoModelError object
      */
-    public func cardLogoType() -> CardLogoType {
-        switch self {
-        case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:
-            return .Visa
-        case .MasterCard, .MasterCardDebit:
-            return .MasterCard
-        case .AMEX:
-            return .AMEX
-        case .Maestro:
-            return .Maestro
-        default:
-            return .Unknown
-        }
+    public init(dict: JSONDictionary) {
+        self.code = JudoModelErrorCode(rawValue: dict["code"] as! Int)
+        self.fieldName = dict["fieldName"] as? String
+        self.message = dict["message"] as? String
+        self.detail = dict["detail"] as? String
+        self.rawValue = dict
+        super.init()
     }
+    
 }

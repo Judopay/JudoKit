@@ -1,6 +1,6 @@
 //
-//  JudoKitTests.swift
-//  JudoKitTests
+//  JudoTestCase.swift
+//  JudoTests
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -24,52 +24,35 @@
 
 import XCTest
 @testable import JudoKit
-@testable import Judo
 
-class JudoKitTests: XCTestCase {
+let token = "<#YOUR TOKEN#>"
+let secret = "<#YOUR SECRET#>"
+
+class JudoTestCase: XCTestCase {
+    
+    let myJudoID = "100000009"
+    
+    let judo = Judo(token: token, secret: secret)
+    
+    let validVisaTestCard = Card(number: "4976000000003436", expiryDate: "12/20", cv2: "452")
+    let declinedVisaTestCard = Card(number: "4221690000004963", expiryDate: "12/20", cv2: "125")
+    
+    let oneGBPAmount = Amount(amountString: "1.00", currency: .GBP)
+    let invalidAmount = Amount(amountString: "", currency: .GBP)
+    let invalidCurrencyAmount = Amount(amountString: "1.00", currency: Currency(""))
+    
+    let validReference = Reference(consumerRef: "consumer reference")!
+    
+    let invalidReference = Reference(consumerRef: "")!
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        judo.sandboxed = true
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        judo.sandboxed = false
         super.tearDown()
     }
-    
-    func testCardNumberFormat() {
-        // Given
-        let visaCardNumber = "46231344642" // VISA
-        
-        // When
-        let visaCardFormatted = try! visaCardNumber.cardPresentationString([Card.Configuration(.Visa, 16)])
-        
-        // Then
-        XCTAssertEqual(visaCardFormatted, "4623 1344 642")
-        
-        
-        // Given
-        let masterCardNumber = "5546231344642" // MasterCard
-        
-        // When
-        let masterCardFormatted = try! masterCardNumber.cardPresentationString([Card.Configuration(.MasterCard, 16)])
-        
-        // Then
-        XCTAssertEqual(masterCardFormatted, "5546 2313 4464 2")
-        
-        
-        // Given
-        let amexCardNumber = "3446231344642" // MasterCard
-        
-        // When
-        let amexCardFormatted = try! amexCardNumber.cardPresentationString([Card.Configuration(.AMEX, 15)])
-        
-        // Then
-        XCTAssertEqual(amexCardFormatted, "3446 231344 642")
-        
-        
-    }
-    
     
 }

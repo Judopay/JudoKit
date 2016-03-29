@@ -24,37 +24,97 @@
 
 import Foundation
 import PassKit
-import Judo
+
+
+/**
+ A method that checks if the device it is currently running on is jailbroken or not
+ 
+ - returns: true if device is jailbroken
+ */
+public func isCurrentDeviceJailbroken() -> Bool {
+    let fileManager = NSFileManager.defaultManager()
+    return fileManager.fileExistsAtPath("/private/var/lib/apt/")
+}
+
 
 /// Entry point for interacting with judoKit
-@objc public class JudoKit: NSObject {
+public class JudoKit: NSObject {
     
     /// JudoKit local judo session
-    public let judoSession: Judo
+    public let apiSession: Session
     
     /// the theme of any judoSession
-    public static var theme: JudoTheme = JudoTheme()
+    public var theme: JudoTheme = JudoTheme()
+    
     
     /**
      designated initializer of JudoKit
+     
+     - Parameter token:                  a string object representing the token
+     - Parameter secret:                 a string object representing the secret
+     - parameter allowJailbrokenDevices: boolean that indicates whether jailbroken devices are restricted
+     
+     - Throws JailbrokenDeviceDisallowedError: In case jailbroken devices are not allowed, this method will throw an exception if it is run on a jailbroken device
+     
+     - returns: a new instance of JudoKit
+     */
+    public init(token: String, secret: String, allowJailbrokenDevices: Bool) throws {
+        // Check if device is jailbroken and SDK was set to restrict access
+        if !allowJailbrokenDevices && isCurrentDeviceJailbroken() {
+            throw JudoError(.JailbrokenDeviceDisallowedError)
+        }
+        
+        self.setToken(token, secret: secret)
+    }
+    
+    
+    /**
+     convenience initializer of JudoKit
      
      - Parameter token:  a string object representing the token
      - Parameter secret: a string object representing the secret
      
      - returns: a new instance of JudoKit
      */
-    @objc public init(token: String, secret: String) {
-        judoSession = Judo(token: token, secret: secret)
+    convenience public init(token: String, secret: String) {
+        try! self.init(token: token, secret: secret, allowJailbrokenDevices: true)
+    }
+    
+    
+    // MARK: Configuration
+    
+    /**
+     Set the app to sandboxed mode
+     
+     - parameter enabled: true to set the SDK to sandboxed mode
+     */
+    public func sandboxed(enabled: Bool) {
+        self.apiSession.sandboxed = enabled
     }
     
     
     /**
-    Set the app to sandboxed mode
+     A mandatory function that sets the token and secret for making payments with judo
+     
+     - Parameter token:  a string object representing the token
+     - Parameter secret: a string object representing the secret
+     */
+    public func setToken(token: String, secret: String) {
+        let plainString = token + ":" + secret
+        let plainData = plainString.dataUsingEncoding(NSISOLatin1StringEncoding)
+        let base64String = plainData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.init(rawValue: 0))
+        
+        self.apiSession.authorizationHeader = "Basic " + base64String
+    }
     
-    - parameter enabled: true to set the SDK to sandboxed mode
-    */
-    @objc public func sandboxed(enabled: Bool) {
-        judoSession.sandboxed = enabled
+    
+    /**
+     A function to check whether a token and secret has been set
+     
+     - Returns: a Boolean indicating whether the parameters have been set
+     */
+    public func didSetTokenAndSecret() -> Bool {
+        return self.apiSession.authorizationHeader != nil
     }
     
     // MARK: Transactions
@@ -68,7 +128,7 @@ import Judo
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public func payment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+    public func payment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
         let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, currentSession: judoSession)
         self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
     }
@@ -82,7 +142,7 @@ import Judo
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public func preAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+    public func preAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
         let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: judoSession)
         self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
     }
@@ -100,7 +160,7 @@ import Judo
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public func registerCard(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+    public func registerCard(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
         let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: judoSession)
         self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
     }
@@ -118,7 +178,7 @@ import Judo
     - parameter paymentToken: The consumer and card token to make a token payment with
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
+    public func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
         let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, currentSession: judoSession, cardDetails: cardDetails, paymentToken: paymentToken))
         self.showViewController(vc)
     }
@@ -134,7 +194,7 @@ import Judo
     - parameter paymentToken: The consumer and card token to make a token payment with
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    @objc public func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
+    public func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
         let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: judoSession, cardDetails: cardDetails, paymentToken: paymentToken))
         self.showViewController(vc)
     }
@@ -148,7 +208,7 @@ import Judo
     - parameter reference:  Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter payment:    The PKPayment object that is generated during an ApplePay process
     */
-    @objc public func applePayPayment(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
+    public func applePayPayment(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
         do {
             try judoSession.payment(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {
@@ -165,7 +225,7 @@ import Judo
     - parameter reference:  Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter payment:    The PKPayment object that is generated during an ApplePay process
     */
-    @objc public func applePayPreAuth(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
+    public func applePayPreAuth(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
         do {
             try judoSession.preAuth(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {

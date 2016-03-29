@@ -1,6 +1,6 @@
 //
-//  CardNetwork+CardLogoType.swift
-//  JudoKit
+//  JudoErrorCategory.swift
+//  Judo
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -21,29 +21,54 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
-//
 
 import Foundation
 
-public extension CardNetwork {
+
+/**
+ Mirror of the judo API Error category
+
+ - Unknown:          Unknown Error Cateogry
+ - RequestError:     Request Error Category
+ - ModelError:       Model Error Category
+ - ConfigError:      Config Error Category
+ - ProcessingError:  Processing Error Category
+ - ExceptionError:   Exception Error Category
+ */
+public enum JudoErrorCategory: Int {
+    /// Unknown
+    case Unknown = 0
+    /// RequestError
+    case RequestError = 1
+    /// ModelError
+    case ModelError = 2
+    /// ConfigError
+    case ConfigError = 3
+    /// ProcessingError
+    case ProcessingError = 4
+    /// ExceptionError
+    case ExceptionError = 5
+    
     
     /**
-     Get a CardLogoType from the receiving CardNetwork
+     String value of the receiving error cateogory
      
-     - returns: a CardLogoType
+     - returns: a String representation of the receiver
      */
-    public func cardLogoType() -> CardLogoType {
+    public func stringValue() -> String {
         switch self {
-        case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:
-            return .Visa
-        case .MasterCard, .MasterCardDebit:
-            return .MasterCard
-        case .AMEX:
-            return .AMEX
-        case .Maestro:
-            return .Maestro
-        default:
-            return .Unknown
+        case Unknown:
+            return "Unknown"
+        case RequestError:
+            return "RequestError"
+        case ModelError:
+            return "ModelError"
+        case ConfigError:
+            return "ConfigError"
+        case ProcessingError:
+            return "ProcessingError"
+        case ExceptionError:
+            return "ExceptionError"
         }
     }
 }

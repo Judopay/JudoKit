@@ -1,6 +1,6 @@
 //
-//  CardNetwork+CardLogoType.swift
-//  JudoKit
+//  SessionTests.swift
+//  JudoTests
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -21,29 +21,19 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
-//
 
-import Foundation
+import XCTest
+import CoreLocation
+@testable import JudoKit
 
-public extension CardNetwork {
+class SessionTests: JudoTestCase {
     
-    /**
-     Get a CardLogoType from the receiving CardNetwork
-     
-     - returns: a CardLogoType
-     */
-    public func cardLogoType() -> CardLogoType {
-        switch self {
-        case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:
-            return .Visa
-        case .MasterCard, .MasterCardDebit:
-            return .MasterCard
-        case .AMEX:
-            return .AMEX
-        case .Maestro:
-            return .Maestro
-        default:
-            return .Unknown
-        }
+    func testLuhnCheck() {
+        let validLuhnNumber = "100963875"
+        XCTAssertTrue(validLuhnNumber.isLuhnValid())
+        let invalidLuhnNumber = "100963874"
+        XCTAssertFalse(invalidLuhnNumber.isLuhnValid())
+
     }
+    
 }

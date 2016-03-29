@@ -23,8 +23,6 @@
 //  SOFTWARE.
 
 import Foundation
-import Judo
-
 
 public extension String {
     

@@ -1,6 +1,6 @@
 //
-//  CardNetwork+CardLogoType.swift
-//  JudoKit
+//  Collection.swift
+//  Judo
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -21,29 +21,28 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
-//
 
 import Foundation
 
-public extension CardNetwork {
-    
-    /**
-     Get a CardLogoType from the receiving CardNetwork
-     
-     - returns: a CardLogoType
-     */
-    public func cardLogoType() -> CardLogoType {
-        switch self {
-        case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:
-            return .Visa
-        case .MasterCard, .MasterCardDebit:
-            return .MasterCard
-        case .AMEX:
-            return .AMEX
-        case .Maestro:
-            return .Maestro
-        default:
-            return .Unknown
+
+/** 
+A Collection transaction is the counterpart to a Pre-authorization transaction. While the Pre-auth transaction reserves funds on a Consumer's card, the Collection initiates the transfer of those reserved funds into your judo account.
+
+### collection by ID and amount
+```swift
+    muJudoSession.collection(receiptID, amount: amount).completion({ (dict, error) -> () in
+        if let error = error {
+            // error
+        } else {
+            // success
         }
-    }
+    })
+```
+
+*/
+public class Collection: TransactionProcess, TransactionPath {
+    
+    /// path variable for a collection of a pre-authorization
+    public static var path: String { get { return "/transactions/collections" } }
+    
 }

@@ -1,6 +1,6 @@
 //
-//  CardNetwork+CardLogoType.swift
-//  JudoKit
+//  Refund.swift
+//  Judo
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -21,29 +21,28 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
-//
 
 import Foundation
 
-public extension CardNetwork {
-    
-    /**
-     Get a CardLogoType from the receiving CardNetwork
-     
-     - returns: a CardLogoType
-     */
-    public func cardLogoType() -> CardLogoType {
-        switch self {
-        case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:
-            return .Visa
-        case .MasterCard, .MasterCardDebit:
-            return .MasterCard
-        case .AMEX:
-            return .AMEX
-        case .Maestro:
-            return .Maestro
-        default:
-            return .Unknown
+
+/** 
+Refunding a successful payment is easy, simply identify the original receipt ID for the payment and the amount you wish to refund. When we've received this request, we check to ensure there is a sufficient balance to process the refund and then process the request accordingly. Here is an example to how you can make a Refund with the SDK.
+
+### Refund by ID and amount
+```swift
+    myJudoSession.refund(receiptID, amount: amount).completion({ (dict, error) -> () in
+        if let error = error {
+            // error
+        } else {
+            // success
         }
-    }
+    })
+```
+
+*/
+public class Refund: TransactionProcess, TransactionPath {
+    
+    /// path variable for a refund of a payment
+    public static var path: String { get { return "/transactions/refunds" } }
+    
 }

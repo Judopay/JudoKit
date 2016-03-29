@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 import UIKit
-import Judo
+
 
 extension JudoPayView: JudoPayInputDelegate {
     

@@ -1,6 +1,6 @@
 //
-//  CardNetwork+CardLogoType.swift
-//  JudoKit
+//  JudoTests.swift
+//  JudoTests
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
 //
@@ -21,29 +21,34 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
-//
 
-import Foundation
+import XCTest
+@testable import JudoKit
 
-public extension CardNetwork {
+class JudoTests: JudoTestCase {
     
-    /**
-     Get a CardLogoType from the receiving CardNetwork
-     
-     - returns: a CardLogoType
-     */
-    public func cardLogoType() -> CardLogoType {
-        switch self {
-        case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:
-            return .Visa
-        case .MasterCard, .MasterCardDebit:
-            return .MasterCard
-        case .AMEX:
-            return .AMEX
-        case .Maestro:
-            return .Maestro
-        default:
-            return .Unknown
-        }
+    func testJudoErrorDomain() {
+        let errorDomain = JudoErrorDomain
+        XCTAssertNotNil(errorDomain)
     }
+    
+    
+    func testJudoSandboxMode() {
+        judo.sandboxed = false
+        XCTAssertEqual(judo.APISession.endpoint, "https://gw1.judopay.com/")
+        judo.sandboxed = true
+        XCTAssertEqual(judo.APISession.endpoint, "https://gw1.judopay-sandbox.com/")
+    }
+    
+    
+    func testSetTokenAndSecret() {
+        // Given
+        
+        // When
+        judo.setToken(token, secret: secret)
+        
+        // Then
+        XCTAssertTrue(judo.didSetTokenAndSecret())
+    }
+
 }
