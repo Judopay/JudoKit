@@ -138,8 +138,17 @@ public class JudoPayViewController: UIViewController {
         
         self.judoKitSession.apiSession.uiClientMode = true
         
-        self.title = self.myView.transactionType.title()
-        
+        switch self.myView.transactionType {
+        case .Payment, .PreAuth:
+            self.title = self.judoKitSession.theme.paymentTitle
+        case .RegisterCard:
+            self.title = self.judoKitSession.theme.registerCardTitle
+        case .Refund:
+            self.title = self.judoKitSession.theme.refundTitle
+        default:
+            self.title = "Invalid"
+        }
+
         self.myView.threeDSecureWebView.delegate = self
         
         // Button actions
@@ -268,8 +277,8 @@ public class JudoPayViewController: UIViewController {
                             self.myView.loadingView.stopAnimating()
                             self.completionBlock?(nil, error as? JudoError)
                         }
-                        self.myView.loadingView.actionLabel.text = JudoKit.theme.redirecting3DSTitle
-                        self.title = JudoKit.theme.authenticationTitle
+                        self.myView.loadingView.actionLabel.text = self.judoKitSession.theme.redirecting3DSTitle
+                        self.title = self.judoKitSession.theme.authenticationTitle
                         self.myView.paymentEnabled(false)
                     } else {
                         self.completionBlock?(nil, error)
