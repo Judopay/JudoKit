@@ -56,7 +56,7 @@ let discoverPrefixes: [String]     = {
  
  Card objects store all the necessary card information for making transactions
 */
-public class Card: NSObject {
+public struct Card {
     
     /// The minimum card length constant
     public static let minimumLength = 12
@@ -103,7 +103,7 @@ public class Card: NSObject {
      
      Card Configuration consists of a Card Network and a given length
     */
-    public class Configuration: NSObject {
+    public struct Configuration {
         /// The network of the configuration
         public let cardNetwork: CardNetwork
         /// The length of the card for this configuration
@@ -268,7 +268,7 @@ The CardNetwork enum depicts the Card Network type of a given Card object
 - UATP:             UATP Network
 - Unknown:          Unknown
 */
- public enum CardNetwork: Int {
+public enum CardNetwork: Int {
     
     /// Unknown
     case Unknown = 0

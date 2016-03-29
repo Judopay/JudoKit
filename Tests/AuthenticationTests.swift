@@ -36,7 +36,7 @@ class AuthenticationTests: JudoTestCase {
         let myLuhnValidJudoId = "1000009"
         
         // When I access the API
-        let myJudoSession = Judo(token: myToken, secret: mySecret)
+        let myJudoSession = JudoKit(token: myToken, secret: mySecret)
         
         // Then I can make a request
         let request = try! myJudoSession.transaction(.Payment, judoID: myLuhnValidJudoId, amount: oneGBPAmount, reference: validReference)
@@ -52,7 +52,7 @@ class AuthenticationTests: JudoTestCase {
         
         let myLuhnValidJudoId = "1000009"
         
-        let myInvalidJudoSession = Judo(token: invalidToken, secret: invalidSecret)
+        let myInvalidJudoSession = JudoKit(token: invalidToken, secret: invalidSecret)
         
         let expectation = self.expectationWithDescription("testTransactionInvalidTokenSecretNoPaymentMethod")
         
@@ -83,7 +83,7 @@ class AuthenticationTests: JudoTestCase {
         
         let myLuhnValidJudoId = "1000009"
         
-        let myInvalidJudoSession = Judo(token: invalidToken, secret: invalidSecret)
+        let myInvalidJudoSession = JudoKit(token: invalidToken, secret: invalidSecret)
         
         let expectation = self.expectationWithDescription("testTransactionInvalidTokenSecretValidCard")
         

@@ -25,7 +25,7 @@
 import Foundation
 
 /// Judo Model Error object
-public class JudoModelError: NSObject {
+public struct JudoModelError {
     /// The error code of the model error
     public var code: JudoModelErrorCode?
     /// The field name of the error
@@ -51,7 +51,6 @@ public class JudoModelError: NSObject {
         self.message = dict["message"] as? String
         self.detail = dict["detail"] as? String
         self.rawValue = dict
-        super.init()
     }
     
 }

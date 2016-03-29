@@ -105,7 +105,7 @@ public enum BillingCountry: Int {
  
  The Address object stores information around the address that is related to a card
 */
-public class Address: NSObject {
+public struct Address {
     /// Line one of the address
     public let line1: String?
     /// Line two of the address

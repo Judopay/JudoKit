@@ -29,6 +29,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3B5A60031CAACE3C00E98AC6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA3048871C038932000E1B79 /* JudoKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3B02A0711CAA7BEA00953312;
+			remoteInfo = JudoKitTests;
+		};
 		DA3048711C036192000E1B79 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA7A987E1B7E3291005754F1 /* Project object */;
@@ -144,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				DA30488E1C038932000E1B79 /* JudoKit.framework */,
+				3B5A60041CAACE3C00E98AC6 /* JudoKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -273,6 +281,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		3B5A60041CAACE3C00E98AC6 /* JudoKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = JudoKitTests.xctest;
+			remoteRef = 3B5A60031CAACE3C00E98AC6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		DA30488E1C038932000E1B79 /* JudoKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;

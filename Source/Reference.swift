@@ -44,7 +44,7 @@ import Foundation
  If the value is nil, wait and get the value again later. This happens, for example, after the device has been restarted but before the user has unlocked the device.
 
 */
-public class Reference: NSObject {
+public struct Reference {
     /// Your reference for this consumer
     public let yourConsumerReference: String
     /// Your reference for this payment
@@ -77,7 +77,7 @@ public class Reference: NSObject {
      
      - returns: a Reference object
      */
-    public convenience init?(consumerRef: String, metaData: [String : String]? = nil) {
+    public init?(consumerRef: String, metaData: [String : String]? = nil) {
         guard let uuidString = UIDevice.currentDevice().identifierForVendor?.UUIDString else { return nil }
         let finalString = String((uuidString + String(NSDate())).characters.filter { ![":", "-", "+"].contains(String($0)) }).stringByReplacingOccurrencesOfString(" ", withString: "")
         self.init(consumerRef: consumerRef, paymentRef: finalString.substringToIndex(finalString.endIndex.advancedBy(-4)), metaData: metaData)

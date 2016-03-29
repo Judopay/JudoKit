@@ -70,6 +70,8 @@ class PaymentTests: JudoTestCase {
     }
     
     func testJudoMakePaymentWithoutAmount() {
+        let expectation = self.expectationWithDescription("payment expectation")
+        
         do {
             // Given I have a Payment
             // When I do not provide an amount
@@ -77,10 +79,8 @@ class PaymentTests: JudoTestCase {
             
             payment.card(validVisaTestCard)
             
-            // Then I should receive an error
-            let expectation = self.expectationWithDescription("payment expectation")
-            
             try payment.completion({ (response, error) -> () in
+                // Then I should receive an error
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                 }

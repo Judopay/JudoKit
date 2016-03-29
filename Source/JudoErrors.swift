@@ -33,7 +33,7 @@ public let JudoErrorDomain = "com.judopay.error"
  
  The JudoError object holds all the information about errors that occurred within the SDK or at any stage when making a call to the judo API
  */
-public class JudoError: NSObject, ErrorType {
+public struct JudoError: ErrorType {
     
     /// The judo error code
     public var code: JudoErrorCode
@@ -78,7 +78,6 @@ public class JudoError: NSObject, ErrorType {
         self.message = message
         self.category = category
         self.details = details
-        super.init()
     }
     
     
@@ -125,8 +124,6 @@ public class JudoError: NSObject, ErrorType {
             detailsArray.forEach { modelItemArray.append(JudoModelError(dict: $0)) }
             self.details = modelItemArray
         }
-        
-        super.init()
     }
     
     
@@ -144,7 +141,6 @@ public class JudoError: NSObject, ErrorType {
         self.message = nil
         self.details = nil
         self.payload = payload
-        super.init()
     }
     
     
@@ -162,7 +158,6 @@ public class JudoError: NSObject, ErrorType {
         self.message = nil
         self.details = nil
         self.bridgedError = bridgedError
-        super.init()
     }
     
     
@@ -179,7 +174,6 @@ public class JudoError: NSObject, ErrorType {
         self.category = nil
         self.message = message
         self.details = nil
-        super.init()
     }
     
     
@@ -226,7 +220,7 @@ public class JudoError: NSObject, ErrorType {
             userInfoDict["category"] = category.rawValue
         }
         if let details = self.details {
-            userInfoDict["details"] = details
+            userInfoDict["details"] = details as? AnyObject
         }
         if let modelErrors = self.details {
             userInfoDict["modelErrors"] = modelErrors.map({ $0.rawValue }).flatMap({ $0 })

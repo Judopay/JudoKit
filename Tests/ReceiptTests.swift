@@ -29,7 +29,7 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceipt() {
         // Given
-        let receiptID = "1491273"
+        let receiptID = "3374881"
         
         let expectation = self.expectationWithDescription("receipt fetch expectation")
         

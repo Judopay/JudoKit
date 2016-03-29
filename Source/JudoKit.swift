@@ -41,7 +41,7 @@ public func isCurrentDeviceJailbroken() -> Bool {
 public struct JudoKit {
     
     /// JudoKit local judo session
-    public let apiSession = Session()
+    public var apiSession = Session()
     
     /// the theme of the current judoKitSession
     public var theme: Theme = Theme()
@@ -88,7 +88,7 @@ public struct JudoKit {
      
      - parameter enabled: true to set the SDK to sandboxed mode
      */
-    public func sandboxed(enabled: Bool) {
+    public mutating func sandboxed(enabled: Bool) {
         self.apiSession.sandboxed = enabled
     }
     
@@ -99,7 +99,7 @@ public struct JudoKit {
      - Parameter token:  a string object representing the token
      - Parameter secret: a string object representing the secret
      */
-    public func setToken(token: String, secret: String) {
+    public mutating func setToken(token: String, secret: String) {
         let plainString = token + ":" + secret
         let plainData = plainString.dataUsingEncoding(NSISOLatin1StringEncoding)
         let base64String = plainData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.init(rawValue: 0))

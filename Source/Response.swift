@@ -36,7 +36,7 @@ import Foundation
  
  
 */
-public class Response: NSObject, GeneratorType, ArrayLiteralConvertible {
+public struct Response: GeneratorType, ArrayLiteralConvertible {
     /// The current pagination response
     public let pagination: Pagination?
     /// The array that contains the transaction response objects
@@ -52,7 +52,7 @@ public class Response: NSObject, GeneratorType, ArrayLiteralConvertible {
      
      - returns: a Response object
      */
-    public convenience required init(arrayLiteral elements: TransactionData...) {
+    public init(arrayLiteral elements: TransactionData...) {
         self.init()
         for element in elements {
             self.append(element)
@@ -77,7 +77,7 @@ public class Response: NSObject, GeneratorType, ArrayLiteralConvertible {
     
     - Parameter element: the element to add to the items Array
     */
-    public func append(element: TransactionData) {
+    public mutating func append(element: TransactionData) {
         self.items.append(element)
     }
     
@@ -100,7 +100,7 @@ public class Response: NSObject, GeneratorType, ArrayLiteralConvertible {
     
     - returns: generated next element
     */
-    public func next() -> TransactionData? {
+    public mutating func next() -> TransactionData? {
         switch items {
         case _ where !items.isEmpty:
             if indexInSequence < items.count {

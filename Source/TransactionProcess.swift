@@ -25,7 +25,7 @@
 import Foundation
 
 /// Superclass Helper for Collection, Void and Refund
-public class TransactionProcess: NSObject {
+public class TransactionProcess {
     
     /// The receipt ID for a collection, void or refund
     public private (set) var receiptID: String
@@ -49,7 +49,6 @@ public class TransactionProcess: NSObject {
         // Initialize variables
         self.receiptID = receiptID
         self.amount = amount
-        super.init()
         
         guard let uuidString = UIDevice.currentDevice().identifierForVendor?.UUIDString else {
             throw JudoError(.UnknownError)

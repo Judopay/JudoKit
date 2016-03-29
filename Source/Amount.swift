@@ -30,7 +30,7 @@ import Foundation
  
  Amount object stores information about an amount and the corresponding currency for a transaction
 */
-public class Amount: NSObject {
+public struct Amount {
     /// The currency ISO Code - GBP is default
     public var currency: Currency = .GBP
     /// The amount to process, to two decimal places
@@ -68,7 +68,7 @@ public class Amount: NSObject {
 
 
 /// Collection of static identifiers for all supported currencies
-public class Currency: NSObject {
+public struct Currency {
     /// Raw value of the currency as a String
     public let rawValue: String
     

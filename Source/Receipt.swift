@@ -51,7 +51,7 @@ Alternatively, you can receive a list of all the transactions. By default it wil
     })
 ```
 */
-public class Receipt: NSObject {
+public class Receipt {
     
     /// the receipt ID - nil for a list of all receipts
     private (set) var receiptID: String?
@@ -72,7 +72,6 @@ public class Receipt: NSObject {
     init(receiptID: String? = nil) throws {
         // luhn check the receipt id
         self.receiptID = receiptID
-        super.init()
 
         // validate receiptID format
         if let recID = receiptID where !recID.isLuhnValid() {

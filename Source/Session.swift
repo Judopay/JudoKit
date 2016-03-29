@@ -35,7 +35,7 @@ public typealias JSONDictionary = [String : AnyObject]
 public typealias JudoCompletionBlock = (Response?, JudoError?) -> ()
 
 /// The Session struct is a wrapper for the REST API calls
-public class Session {
+public struct Session {
     
     /// The endpoint for REST API calls to the judo API
     private (set) var endpoint = "https://gw1.judopay.com/"
@@ -185,13 +185,11 @@ public class Session {
         // json configuration header
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("5.0.0", forHTTPHeaderField: "API-Version")
+        request.addValue("5.1.0", forHTTPHeaderField: "API-Version")
         
         // Adds the version and lang of the SDK to the header
-        var bundle = NSBundle(identifier: "com.judo.JudoKit")
-        if bundle == nil {
-            bundle = NSBundle(forClass: self.dynamicType)
-        }
+        let bundle = NSBundle(identifier: "com.judo.JudoKit")
+        
         let version = bundle!.infoDictionary?["CFBundleShortVersionString"] ?? "Unknown"
         request.addValue("iOS-Version/\(version) lang/(Swift)", forHTTPHeaderField: "User-Agent")
         
@@ -288,7 +286,7 @@ public class Session {
                 paginationResponse = Pagination(pageSize: pageSize.integerValue, offset: offset.integerValue, sort: Sort(rawValue: sort)!)
             }
             
-            let result = Response(paginationResponse)
+            var result = Response(paginationResponse)
             
             
             do {
