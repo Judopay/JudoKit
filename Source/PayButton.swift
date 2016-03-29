@@ -31,6 +31,8 @@ import UIKit
  */
 public class PayButton: UIButton {
     
+    let theme: Theme
+    
     // MARK: initialization
     
     /**
@@ -38,7 +40,8 @@ public class PayButton: UIButton {
     
     - returns: A PayButton object
     */
-    public init() {
+    public init(currentTheme: Theme) {
+        self.theme = currentTheme
         super.init(frame: CGRectZero)
         self.setupView()
     }
@@ -52,7 +55,7 @@ public class PayButton: UIButton {
      - returns: A PayButton object
      */
     convenience override public init(frame: CGRect) {
-        self.init()
+        self.init(currentTheme: Theme())
     }
     
     
@@ -64,7 +67,7 @@ public class PayButton: UIButton {
      - returns: A PayButton object
      */
     convenience required public init?(coder aDecoder: NSCoder) {
-        self.init()
+        self.init(currentTheme: Theme())
     }
     
     // MARK: View Setup
@@ -74,9 +77,9 @@ public class PayButton: UIButton {
     */
     public func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = .judoButtonColor()
+        self.backgroundColor = self.theme.judoButtonColor()
         self.setTitle("Pay", forState: .Normal)
-        self.setTitleColor(.judoButtonTitleColor(), forState: .Normal)
+        self.setTitleColor(self.theme.judoButtonTitleColor(), forState: .Normal)
         self.titleLabel?.font = UIFont.boldSystemFontOfSize(22)
     }
     

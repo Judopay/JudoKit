@@ -27,6 +27,7 @@ import UIKit
 class FloatingTextField: UITextField {
     let animationDuration = 0.3
     var title = UILabel()
+    let theme: Theme
     
     // MARK: - Properties
     override var accessibilityLabel: String! {
@@ -90,12 +91,19 @@ class FloatingTextField: UITextField {
     }
     
     // MARK: - Init
+    init(currentTheme: Theme) {
+        self.theme = currentTheme
+        super.init(frame: CGRectZero)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
+        self.theme = Theme()
         super.init(coder:aDecoder)
         setup()
     }
     
     override init(frame: CGRect) {
+        self.theme = Theme()
         super.init(frame: frame)
         setup()
     }
@@ -155,7 +163,7 @@ class FloatingTextField: UITextField {
     
     private func setup() {
         borderStyle = UITextBorderStyle.None
-        titleActiveTextColour = .judoButtonColor()
+        titleActiveTextColour = self.theme.judoButtonColor()
         // Set up title label
         title.alpha = 0.0
         title.font = titleFont

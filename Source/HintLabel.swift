@@ -30,6 +30,33 @@ public class HintLabel: UILabel {
     var alertText: NSAttributedString?
     /// The hint text if a hint is being shown
     var hintText: NSAttributedString?
+    /// the theme of the current session
+    let theme: Theme
+    
+    
+    /**
+     designated initializer
+     
+     - parameter currentTheme: the theme for the HintLabel UI
+     
+     - returns: a HintLabel instance
+     */
+    public init(currentTheme: Theme) {
+        self.theme = currentTheme
+        super.init(frame: CGRectZero)
+    }
+    
+    
+    /**
+     required initializer
+     
+     - parameter aDecoder: a decoder
+     
+     - returns: a HintLabel instance
+     */
+    required convenience public init(coder aDecoder: NSCoder) {
+        self.init(currentTheme: Theme())
+    }
     
     
     /**
@@ -46,7 +73,7 @@ public class HintLabel: UILabel {
      - parameter text: The hint text string to show
      */
     public func showHint(text: String) {
-        self.hintText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor()])
+        self.hintText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:self.theme.judoDarkGrayColor()])
         if self.alertText == nil {
             self.addAnimation()
             

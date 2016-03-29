@@ -25,7 +25,7 @@
 import Foundation
 
 /// A class which can be used to easily customize the SDKs view
-public class JudoTheme: NSObject {
+public struct Theme {
     
     /// A tint color that is used to generate a theme for the judo payment form
     public var tintColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
@@ -88,5 +88,153 @@ public class JudoTheme: NSObject {
     
     /// the text size of the security message
     public var securityMessageTextSize: CGFloat = 12
+    
+    
+    /**
+     Helper method to identifiy whether to use a dark or light theme
+     
+     - returns: A boolean indicating to use dark or light mode
+     */
+    public func colorMode() -> Bool {
+        return self.tintColor.greyScale() < 0.5
+    }
+    
+    
+    /**
+     Dark gray color
+     
+     - returns: A UIColor object
+     */
+    public func judoDarkGrayColor() -> UIColor {
+        let dgc = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        if self.colorMode() {
+            return dgc
+        } else {
+            return dgc.inverseColor()
+        }
+    }
+    
+    
+    /**
+     Dark gray color
+     
+     - returns: A UIColor object
+     */
+    public func judoInputFieldTextColor() -> UIColor {
+        return UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+    }
+    
+    
+    /**
+     Light gray color
+     
+     - returns: A UIColor object
+     */
+    public func judoLightGrayColor() -> UIColor {
+        let lgc = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
+        if self.colorMode() {
+            return lgc
+        } else {
+            return lgc.inverseColor()
+        }
+    }
+    
+    
+    /**
+     Light gray color
+     
+     - returns: A UIColor object
+     */
+    public func judoInputFieldBorderColor() -> UIColor {
+        return UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
+    }
+    
+    
+    /**
+     Gray color
+     
+     - returns: A UIColor object
+     */
+    public func judoContentViewBackgroundColor() -> UIColor {
+        let gc = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
+        if self.colorMode() {
+            return gc
+        } else {
+            return UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1)
+        }
+    }
+    
+    
+    /**
+     Button color
+     
+     - returns: A UIColor object
+     */
+    public func judoButtonColor() -> UIColor {
+        return self.tintColor
+    }
+    
+    
+    /**
+     Button title color
+     
+     - returns: A UIColor object
+     */
+    public func judoButtonTitleColor() -> UIColor {
+        if self.colorMode() {
+            return .whiteColor()
+        } else {
+            return .blackColor()
+        }
+    }
+    
+    
+    /**
+     Background color of the loadingView
+     
+     - returns: A UIColor object
+     */
+    public func judoLoadingBackgroundColor() -> UIColor {
+        let lbc = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 0.8)
+        if self.colorMode() {
+            return lbc
+        } else {
+            return lbc.inverseColor()
+        }
+    }
+    
+    
+    /**
+     Red color
+     
+     - returns: A UIColor object
+     */
+    public func judoRedColor() -> UIColor {
+        return UIColor(red: 235/255, green: 55/255, blue: 45/255, alpha: 1.0)
+    }
+    
+    
+    /**
+     Loading block color
+     
+     - returns: A UIColor object
+     */
+    public func judoLoadingBlockViewColor() -> UIColor {
+        if self.colorMode() {
+            return .whiteColor()
+        } else {
+            return .blackColor()
+        }
+    }
+    
+    
+    /**
+     Input field background color
+     
+     - returns: A UIColor object
+     */
+    public func judoInputFieldBackgroundColor() -> UIColor {
+        return .whiteColor()
+    }
     
 }

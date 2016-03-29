@@ -36,7 +36,7 @@ public class JudoPayViewController: UIViewController {
     // MARK: Transaction variables
     
     /// the current JudoKit Session
-    public var judoSession: Judo
+    public var judoKitSession: JudoKit
     
     /// The amount and currency to process, amount to two decimal places and currency in string
     public private (set) var amount: Amount?
@@ -89,15 +89,15 @@ public class JudoPayViewController: UIViewController {
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, currentSession: Judo, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
+    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
         self.judoID = judoID
         self.amount = amount
         self.reference = reference
         self.paymentToken = paymentToken
         self.completionBlock = completion
         
-        self.judoSession = currentSession
-        self.myView = JudoPayView(type: transactionType, cardDetails: cardDetails)
+        self.judoKitSession = currentSession
+        self.myView = JudoPayView(type: transactionType, currentTheme: currentSession.theme, cardDetails: cardDetails)
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -136,27 +136,27 @@ public class JudoPayViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-        self.judoSession.APISession.uiClientMode = true
+        self.judoKitSession.apiSession.uiClientMode = true
         
         self.title = self.myView.transactionType.title()
         
         self.myView.threeDSecureWebView.delegate = self
         
         // Button actions
-        let payButtonTitle = self.myView.transactionType == .RegisterCard ? JudoKit.theme.registerCardNavBarButtonTitle : JudoKit.theme.paymentButtonTitle
+        let payButtonTitle = self.myView.transactionType == .RegisterCard ? self.judoKitSession.theme.registerCardNavBarButtonTitle : self.judoKitSession.theme.paymentButtonTitle
 
         self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), forControlEvents: .TouchUpInside)
         self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .Done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
         self.myView.paymentNavBarButton!.enabled = false
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: JudoKit.theme.backButtonTitle, style: .Plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .Plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
         
-        self.navigationController?.navigationBar.tintColor = .judoDarkGrayColor()
-        if !UIColor.colorMode() {
+        self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.judoDarkGrayColor()
+        if !self.judoKitSession.theme.colorMode() {
             self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         }
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.judoDarkGrayColor()]
         
     }
     
@@ -224,7 +224,7 @@ public class JudoPayViewController: UIViewController {
         self.myView.loadingView.startAnimating()
         
         do {
-            let transaction = try judoSession.transaction(self.myView.transactionType, judoID: judoID, amount: amount, reference: reference)
+            let transaction = try self.judoKitSession.transaction(self.myView.transactionType, judoID: judoID, amount: amount, reference: reference)
             
             if let payToken = self.paymentToken {
                 payToken.cv2 = self.myView.secureCodeInputField.textField.text
@@ -232,7 +232,7 @@ public class JudoPayViewController: UIViewController {
             } else {
                 // I expect that all the texts are available because the Pay Button would not be active otherwise
                 var address: Address? = nil
-                if JudoKit.theme.avsEnabled {
+                if self.judoKitSession.theme.avsEnabled {
                     guard let postCode = self.myView.postCodeInputField.textField.text else { return }
                     
                     address = Address(postCode: postCode, country: self.myView.billingCountryInputField.selectedCountry)
@@ -340,12 +340,12 @@ extension JudoPayViewController: UIWebViewDelegate {
             
             if let receiptID = self.pending3DSReceiptID {
                 if self.myView.transactionType == .RegisterCard {
-                    self.myView.loadingView.actionLabel.text = JudoKit.theme.verifying3DSRegisterCardTitle
+                    self.myView.loadingView.actionLabel.text = self.judoKitSession.theme.verifying3DSRegisterCardTitle
                 } else {
-                    self.myView.loadingView.actionLabel.text = JudoKit.theme.verifying3DSPaymentTitle
+                    self.myView.loadingView.actionLabel.text = self.judoKitSession.theme.verifying3DSPaymentTitle
                 }
                 self.myView.loadingView.startAnimating()
-                self.title = JudoKit.theme.authenticationTitle
+                self.title = self.judoKitSession.theme.authenticationTitle
                 self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { (resp, error) -> () in
                     self.myView.loadingView.stopAnimating()
                     if let error = error {

@@ -43,8 +43,8 @@ public class JudoKit: NSObject {
     /// JudoKit local judo session
     public let apiSession: Session
     
-    /// the theme of any judoSession
-    public var theme: JudoTheme = JudoTheme()
+    /// the theme of the current judoKitSession
+    public var theme: Theme = Theme()
     
     
     /**
@@ -129,7 +129,7 @@ public class JudoKit: NSObject {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public func payment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, currentSession: judoSession)
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, currentSession: self)
         self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
     }
     
@@ -143,7 +143,7 @@ public class JudoKit: NSObject {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public func preAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: judoSession)
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self)
         self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
     }
     
@@ -161,7 +161,7 @@ public class JudoKit: NSObject {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public func registerCard(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: judoSession)
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: self)
         self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
     }
     
@@ -179,7 +179,7 @@ public class JudoKit: NSObject {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public func tokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, currentSession: judoSession, cardDetails: cardDetails, paymentToken: paymentToken))
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken))
         self.showViewController(vc)
     }
     
@@ -195,7 +195,7 @@ public class JudoKit: NSObject {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public func tokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: judoSession, cardDetails: cardDetails, paymentToken: paymentToken))
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken))
         self.showViewController(vc)
     }
     
@@ -210,7 +210,7 @@ public class JudoKit: NSObject {
     */
     public func applePayPayment(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
         do {
-            try judoSession.payment(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
+            try self.payment(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {
             completion(nil, JudoError(.ParameterError))
         }
@@ -227,7 +227,7 @@ public class JudoKit: NSObject {
     */
     public func applePayPreAuth(judoID: String, amount: Amount, reference: Reference, payment: PKPayment, completion: (Response?, JudoError?) -> ()) {
         do {
-            try judoSession.preAuth(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
+            try self.preAuth(judoID, amount: amount, reference: reference).pkPayment(payment).completion(completion)
         } catch {
             completion(nil, JudoError(.ParameterError))
         }
