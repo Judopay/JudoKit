@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 import UIKit
-import Judo
 
 
 /**
@@ -50,7 +49,7 @@ public class CardInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a textfield
     */
-    @objc public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // Only handle delegate calls for own text field
         guard textField == self.textField else { return false }
@@ -66,7 +65,7 @@ public class CardInputField: JudoPayInputField {
         var result: String?
         
         do {
-            result = try self.textField.text?.cardPresentationString(JudoKit.theme.acceptedCardNetworks)
+            result = try self.textField.text?.cardPresentationString(self.theme.acceptedCardNetworks)
             self.dismissError()
         } catch let error {
             self.delegate?.cardInput(self, error: error as! JudoError)
@@ -103,14 +102,14 @@ public class CardInputField: JudoPayInputField {
         self.didChangeInputText()
         
         do {
-            self.textField.text = try self.textField.text?.cardPresentationString(JudoKit.theme.acceptedCardNetworks)
+            self.textField.text = try self.textField.text?.cardPresentationString(self.theme.acceptedCardNetworks)
             self.delegate?.cardInput(self, didDetectNetwork: textField.text!.cardNetwork())
             self.dismissError()
         } catch let error {
             self.delegate?.cardInput(self, error: error as! JudoError)
         }
         
-        let lowestNumber = JudoKit.theme.acceptedCardNetworks.filter({ $0.cardNetwork == self.textField.text?.cardNetwork() }).sort(<)
+        let lowestNumber = self.theme.acceptedCardNetworks.filter({ $0.cardNetwork == self.textField.text?.cardNetwork() }).sort(<)
         
         if let textCount = textField.text?.stripped.characters.count where textCount == lowestNumber.first?.cardLength {
             if textField.text!.isCardNumberValid() {
@@ -130,7 +129,7 @@ public class CardInputField: JudoPayInputField {
      - returns: an Attributed String that is the placeholder of the receiver
      */
     override public func placeholder() -> NSAttributedString? {
-        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
+        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.judoLightGrayColor()])
     }
     
     

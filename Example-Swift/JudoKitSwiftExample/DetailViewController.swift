@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 import UIKit
-import Judo
+import JudoKit
 
 class DetailViewController: UIViewController {
     

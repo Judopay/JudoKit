@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 import UIKit
-import Judo
 
 
 /**
@@ -37,7 +36,10 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     /// The delegate for the input field validation methods
     public var delegate: JudoPayInputDelegate?
-
+    
+    /// the theme of the current judoKit session
+    public var theme: Theme
+    
     let textField: FloatingTextField = FloatingTextField()
     
     lazy var logoContainerView: UIView = UIView()
@@ -45,20 +47,34 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     private let redBlock: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.judoRedColor()
         return view
     }()
     
     // MARK: Initializers
     
     /**
-    Designated Initializer for JudoPayInputField
+     Designated Initializer for JudoPayInputField
+     
+     - parameter theme: the theme to use
+     
+     - returns: a JudoPayInputField instance
+     */
+    public init(theme: Theme) {
+        self.theme = theme
+        super.init(frame: CGRectZero)
+        self.setupView()
+    }
     
-    - parameter layoutType: The layout type to use for
     
-    - returns: a JudoPayInputField instance
-    */
+    /**
+     Designated Initializer for JudoPayInputField
+     
+     - parameter frame: the frame of the input view
+     
+     - returns: a JudoPayInputField instance
+     */
     override public init(frame: CGRect) {
+        self.theme = Theme()
         super.init(frame: CGRectZero)
         self.setupView()
     }
@@ -80,11 +96,13 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
      Helper method to initialize the view
      */
     func setupView() {
-        self.backgroundColor = .judoInputFieldBackgroundColor()
+        self.redBlock.backgroundColor = self.theme.judoRedColor()
+
+        self.backgroundColor = self.theme.judoInputFieldBackgroundColor()
         self.clipsToBounds = true
         
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.borderColor = UIColor.judoInputFieldBorderColor().CGColor
+        self.layer.borderColor = self.theme.judoInputFieldBorderColor().CGColor
         self.layer.borderWidth = 0.5
         
         self.textField.delegate = self
@@ -94,8 +112,8 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         self.addSubview(self.redBlock)
         
         self.textField.translatesAutoresizingMaskIntoConstraints = false
-        self.textField.textColor = .judoInputFieldTextColor()
-        self.textField.tintColor = JudoKit.theme.tintColor
+        self.textField.textColor = self.theme.judoInputFieldTextColor()
+        self.textField.tintColor = self.theme.tintColor
         self.textField.font = UIFont.boldSystemFontOfSize(14)
         self.textField.addTarget(self, action: #selector(JudoPayInputField.textFieldDidChangeValue(_:)), forControlEvents: .EditingChanged)
         
@@ -103,7 +121,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         
         self.setActive(false)
         
-        self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName: UIColor.judoLightGrayColor()])
+        self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName: self.theme.judoLightGrayColor()])
         
         if self.containsLogo() {
             let logoView = self.logoView()!
@@ -151,7 +169,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
             
             UIView.animateWithDuration(0.2, animations: { () -> Void in
                 self.redBlock.frame = CGRectMake(0, self.bounds.height - 4, self.bounds.width, 4.0)
-                self.textField.textColor = UIColor.judoRedColor()
+                self.textField.textColor = self.theme.judoRedColor()
                 }, completion: blockAnimation)
         } else {
             blockAnimation(true)
@@ -191,7 +209,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         if self.redBlock.bounds.size.height > 0 {
             UIView.animateWithDuration(0.4) { () -> Void in
                 self.redBlock.frame = CGRectMake(0.0, self.bounds.height, self.bounds.width, 4.0)
-                self.textField.textColor = .judoDarkGrayColor()
+                self.textField.textColor = self.theme.judoDarkGrayColor()
             }
         }
     }

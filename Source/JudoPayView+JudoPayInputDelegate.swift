@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 import UIKit
-import Judo
+
 
 extension JudoPayView: JudoPayInputDelegate {
     
@@ -158,7 +158,7 @@ extension JudoPayView: JudoPayInputDelegate {
     */
     public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
         if input == self.secureCodeInputField {
-            if JudoKit.theme.avsEnabled {
+            if self.theme.avsEnabled {
                 if isValid {
                     self.postCodeInputField.textField.becomeFirstResponder()
                     self.toggleAVSVisibility(true, completion: { () -> () in
@@ -181,7 +181,7 @@ extension JudoPayView: JudoPayInputDelegate {
         self.showHintAfterDefaultDelay(input)
         var allFieldsValid = false
         allFieldsValid = self.cardInputField.isValid() && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
-        if JudoKit.theme.avsEnabled {
+        if self.theme.avsEnabled {
             allFieldsValid = allFieldsValid && self.postCodeInputField.isValid() && self.billingCountryInputField.isValid()
         }
         if self.cardInputField.cardNetwork == .Maestro {

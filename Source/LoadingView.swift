@@ -34,6 +34,8 @@ public class LoadingView: UIView {
     private let blockView = UIView()
     private let activityIndicatorView = UIActivityIndicatorView()
     
+    let theme: Theme
+    
     /// The label that shows a description text
     let actionLabel = UILabel()
     
@@ -43,7 +45,8 @@ public class LoadingView: UIView {
      
      - returns: A LoadingView object
      */
-    public init() {
+    public init(currentTheme: Theme) {
+        self.theme = currentTheme
         super.init(frame: CGRectZero)
         self.setupView()
     }
@@ -57,7 +60,7 @@ public class LoadingView: UIView {
      - returns: a LoadingView object
      */
     convenience override public init(frame: CGRect) {
-        self.init()
+        self.init(currentTheme: Theme())
     }
     
     
@@ -69,7 +72,7 @@ public class LoadingView: UIView {
      - returns: a LoadingView object
      */
     convenience required public init?(coder aDecoder: NSCoder) {
-        self.init()
+        self.init(currentTheme: Theme())
     }
     
     
@@ -77,7 +80,7 @@ public class LoadingView: UIView {
      Helper method to setup the view
      */
     func setupView() {
-        self.backgroundColor = .judoLoadingBackgroundColor()
+        self.backgroundColor = self.theme.judoLoadingBackgroundColor()
 
         self.translatesAutoresizingMaskIntoConstraints = false
         self.alpha = 0.0
@@ -86,9 +89,9 @@ public class LoadingView: UIView {
         self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         self.actionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.blockView.backgroundColor = .judoLoadingBlockViewColor()
+        self.blockView.backgroundColor = self.theme.judoLoadingBlockViewColor()
         self.activityIndicatorView.activityIndicatorViewStyle = .Gray
-        self.actionLabel.textColor = .judoDarkGrayColor()
+        self.actionLabel.textColor = self.theme.judoDarkGrayColor()
         
         self.blockView.clipsToBounds = true
         self.blockView.layer.cornerRadius = 5.0

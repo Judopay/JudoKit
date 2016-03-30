@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 import UIKit
-import Judo
 
 
 /**
@@ -67,7 +66,7 @@ public class DateInputField: JudoPayInputField {
     /// Boolean stating whether input field should identify as a start or end date
     public var isStartDate: Bool = false {
         didSet {
-            self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
+            self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.judoLightGrayColor()])
         }
     }
     
@@ -227,7 +226,7 @@ public class DateInputField: JudoPayInputField {
      - returns: an Attributed String that is the placeholder of the receiver
      */
     override public func placeholder() -> NSAttributedString? {
-        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:UIColor.judoLightGrayColor()])
+        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.judoLightGrayColor()])
     }
     
     

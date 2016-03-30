@@ -24,7 +24,6 @@
 //
 
 import Foundation
-import Judo
 
 public extension CardNetwork {
     

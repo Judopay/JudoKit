@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 import UIKit
-import Judo
 
 
 /// JudoPayView - the main view in the transaction journey
@@ -38,20 +37,22 @@ public class JudoPayView: UIView {
         return scrollView
     }()
     
+    let theme: Theme
+    
     /// The card input field object
-    let cardInputField = CardInputField()
+    let cardInputField: CardInputField
     /// The expiry date input field object
-    let expiryDateInputField = DateInputField()
+    let expiryDateInputField: DateInputField
     /// The secure code input field object
-    let secureCodeInputField = SecurityInputField()
+    let secureCodeInputField: SecurityInputField
     /// The start date input field object
-    let startDateInputField = DateInputField()
+    let startDateInputField: DateInputField
     /// The issue number input field object
-    let issueNumberInputField = IssueNumberInputField()
+    let issueNumberInputField: IssueNumberInputField
     /// The billing country input field object
-    let billingCountryInputField = BillingCountryInputField()
+    let billingCountryInputField: BillingCountryInputField
     /// The post code input field object
-    let postCodeInputField = PostCodeInputField()
+    let postCodeInputField: PostCodeInputField
     
     /// The card details object
     var cardDetails: CardDetails?
@@ -71,23 +72,13 @@ public class JudoPayView: UIView {
     var currentKeyboardHeight: CGFloat = 0.0
     
     /// The hint label object
-    let hintLabel = HintLabel(frame: CGRectZero)
+    let hintLabel: HintLabel
     
     /// the security message label that is shown if showSecurityMessage is set to true
     let securityMessageLabel: UILabel = {
         let label = UILabel(frame: CGRectZero)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-        let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor(), NSFontAttributeName:UIFont.boldSystemFontOfSize(JudoKit.theme.securityMessageTextSize)])
-        attributedString.appendAttributedString(NSAttributedString(string: JudoKit.theme.securityMessageString, attributes: [NSForegroundColorAttributeName:UIColor.judoDarkGrayColor(), NSFontAttributeName:UIFont.systemFontOfSize(JudoKit.theme.securityMessageTextSize)]))
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .Justified
-        paragraphStyle.lineSpacing = 3
-        
-        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
-        label.attributedText = attributedString
-        
         return label
     }()
     
@@ -113,9 +104,20 @@ public class JudoPayView: UIView {
      
      - returns: a JudoPayView object
      */
-    public init(type: TransactionType, cardDetails: CardDetails? = nil) {
+    public init(type: TransactionType, currentTheme: Theme, cardDetails: CardDetails? = nil) {
         self.transactionType = type
         self.cardDetails = cardDetails
+        self.theme = currentTheme
+        self.hintLabel = HintLabel(currentTheme: currentTheme)
+        
+        self.cardInputField = CardInputField(theme: currentTheme)
+        self.expiryDateInputField = DateInputField(theme: currentTheme)
+        self.secureCodeInputField = SecurityInputField(theme: currentTheme)
+        self.startDateInputField = DateInputField(theme: currentTheme)
+        self.issueNumberInputField = IssueNumberInputField(theme: currentTheme)
+        self.billingCountryInputField = BillingCountryInputField(theme: currentTheme)
+        self.postCodeInputField = PostCodeInputField(theme: currentTheme)
+        
         super.init(frame: UIScreen.mainScreen().bounds)
         
         self.setupView()
@@ -198,8 +200,18 @@ public class JudoPayView: UIView {
     // MARK: View LifeCycle
     
     func setupView() {
-        let payButtonTitle = self.transactionType == .RegisterCard ? JudoKit.theme.registerCardTitle : JudoKit.theme.paymentButtonTitle
-        self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? JudoKit.theme.loadingIndicatorRegisterCardTitle : JudoKit.theme.loadingIndicatorProcessingTitle
+        let payButtonTitle = self.transactionType == .RegisterCard ? self.theme.registerCardTitle : self.theme.paymentButtonTitle
+        self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle
+        
+        let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:self.theme.judoDarkGrayColor(), NSFontAttributeName:UIFont.boldSystemFontOfSize(self.theme.securityMessageTextSize)])
+        attributedString.appendAttributedString(NSAttributedString(string: self.theme.securityMessageString, attributes: [NSForegroundColorAttributeName:self.theme.judoDarkGrayColor(), NSFontAttributeName:UIFont.systemFontOfSize(self.theme.securityMessageTextSize)]))
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .Justified
+        paragraphStyle.lineSpacing = 3
+        
+        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+        self.securityMessageLabel.attributedText = attributedString
         
         self.paymentButton.setTitle(payButtonTitle, forState: .Normal)
         
@@ -209,7 +221,7 @@ public class JudoPayView: UIView {
         self.addSubview(contentView)
         self.contentView.contentSize = self.bounds.size
         
-        self.backgroundColor = .judoContentViewBackgroundColor()
+        self.backgroundColor = self.theme.judoContentViewBackgroundColor()
         
         self.contentView.addSubview(cardInputField)
         self.contentView.addSubview(startDateInputField)
@@ -264,14 +276,14 @@ public class JudoPayView: UIView {
         
         self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-(12)-[securityMessage]-(12)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["securityMessage":securityMessageLabel]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[start]-(-1)-[expiry(fieldHeight)]-(-1)-[billing]-(20)-[hint(18)]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":JudoKit.theme.inputFieldHeight], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "hint":hintLabel]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[issue(==start)]-(-1)-[security(fieldHeight)]-(-1)-[post]-(20)-[hint]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":JudoKit.theme.inputFieldHeight], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "hint":hintLabel]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[start]-(-1)-[expiry(fieldHeight)]-(-1)-[billing]-(20)-[hint(18)]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":self.theme.inputFieldHeight], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField, "hint":hintLabel]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-75-[card(fieldHeight)]-(-1)-[issue(==start)]-(-1)-[security(fieldHeight)]-(-1)-[post]-(20)-[hint]-(15)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":self.theme.inputFieldHeight], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "hint":hintLabel]))
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 1.0)
         self.avsFieldsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 0.0)
         self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .Top, relatedBy: .Equal, toItem: self.hintLabel, attribute: .Bottom, multiplier: 1.0, constant: -self.hintLabel.bounds.height)
         
-        self.securityMessageLabel.hidden = !(JudoKit.theme.showSecurityMessage ?? false)
+        self.securityMessageLabel.hidden = !(self.theme.showSecurityMessage ?? false)
         
         self.startDateInputField.addConstraint(maestroFieldsHeightConstraint!)
         self.billingCountryInputField.addConstraint(avsFieldsHeightConstraint!)
@@ -301,7 +313,7 @@ public class JudoPayView: UIView {
      - parameter isVisible: Whether start date and issue number fields should be visible
      */
     public func toggleStartDateVisibility(isVisible: Bool) {
-        self.maestroFieldsHeightConstraint?.constant = isVisible ? JudoKit.theme.inputFieldHeight : 1
+        self.maestroFieldsHeightConstraint?.constant = isVisible ? self.theme.inputFieldHeight : 1
         self.issueNumberInputField.setNeedsUpdateConstraints()
         self.startDateInputField.setNeedsUpdateConstraints()
         
@@ -324,7 +336,7 @@ public class JudoPayView: UIView {
      - parameter completion: Block that is called when animation was finished
      */
     public func toggleAVSVisibility(isVisible: Bool, completion: (() -> ())? = nil) {
-        self.avsFieldsHeightConstraint?.constant = isVisible ? JudoKit.theme.inputFieldHeight : 0
+        self.avsFieldsHeightConstraint?.constant = isVisible ? self.theme.inputFieldHeight : 0
         self.billingCountryInputField.setNeedsUpdateConstraints()
         self.postCodeInputField.setNeedsUpdateConstraints()
         

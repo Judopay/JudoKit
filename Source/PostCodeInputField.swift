@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 import UIKit
-import Judo
 
 let kUSARegexString = "(^\\d{5}$)|(^\\d{5}-\\d{4}$)"
 let kUKRegexString = "(GIR 0AA)|((([A-Z-[QVX]][0-9][0-9]?)|(([A-Z-[QVX]][A-Z-[IJZ]][0-9][0-9]?)|(([A-Z-[QVX‌​]][0-9][A-HJKSTUW])|([A-Z-[QVX]][A-Z-[IJZ]][0-9][ABEHMNPRVWXY]))))\\s?[0-9][A-Z-[C‌​IKMOV]]{2})"
