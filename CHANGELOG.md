@@ -17,19 +17,19 @@ All notable changes to this project will be documented in this file.
 Released on 2016-03-30
 
 #### Changed
-- Merged Judo-Swift into JudoKit
-- Switching from classes to structs
+- Merged Judo-Swift into judoKit.
+- Switching from classes to structs.
 
 #### Removed
-- Theme static accessor
-- ObjC sample App
+- Theme static accessor.
+- Objective-C sample app.
 
 ---
 ## [6.0.2](https://github.com/JudoPay/JudoKit/releases/tag/6.0.2)
 Released on 2016-03-30
 
 #### Changed
-- Updated podspec
+- Updated podspec.
 
 ---
 ## [6.0.1](https://github.com/JudoPay/JudoKit/releases/tag/6.0.1)
