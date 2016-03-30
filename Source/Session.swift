@@ -185,7 +185,7 @@ public struct Session {
         // json configuration header
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("5.1.0", forHTTPHeaderField: "API-Version")
+        request.addValue("5.0.0", forHTTPHeaderField: "API-Version")
         
         // Adds the version and lang of the SDK to the header
         let bundle = NSBundle(identifier: "com.judo.JudoKit")
