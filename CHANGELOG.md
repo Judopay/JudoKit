@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
 
 
 ## [6.1.0](https://github.com/JudoPay/JudoKit/releases/tag/6.1.0)
-to be Released
+Released on 2016-03-30
 
 #### Changed
 - Merged Judo-Swift into JudoKit
