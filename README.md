@@ -7,7 +7,7 @@
 
 # judoKit Native SDK for iOS
 
-This is the official judo iOS SDK. It is built using the [JudoShield](https://github.com/judopay/judoshield)) framework combining them with additional tools to enable easy integration of payments into your app. If your written in ObjC we highly recommend you to use the [JudoKitObjC](https://github.com/judopay/JudoKitObjC) port.
+This is the official judo iOS SDK. It is built using the [JudoShield](https://github.com/judopay/judoshield)) framework combined with additional tools to enable easy integration of payments into your app. If your writinng your App in ObjC we highly recommend you to use the [JudoKitObjC](https://github.com/judopay/JudoKitObjC) port.
 
 ##### **\*\*\*Due to industry-wide security updates, versions below 5.5.1 of this SDK will no longer be supported after 1st Oct 2016. For more information regarding these updates, please read our blog [here](http://hub.judopay.com/pci31-security-updates/).*****
 

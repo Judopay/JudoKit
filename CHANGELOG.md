@@ -21,6 +21,7 @@ to be Released
 
 #### Removed
 - Theme static accessor
+- ObjC sample App
 
 ---
 ## [6.0.2](https://github.com/JudoPay/JudoKit/releases/tag/6.0.2)
