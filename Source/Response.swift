@@ -164,7 +164,7 @@ extension Response: SequenceType, CollectionType {
  
  A PaymentToken object which is one part to be used in any token transactions
 */
-public class PaymentToken: NSObject {
+public struct PaymentToken {
     /// Our unique reference for this Consumer. Used in conjunction with the card token in repeat transactions.
     public let consumerToken: String
     /// Can be used to charge future payments against this card.
@@ -185,7 +185,6 @@ public class PaymentToken: NSObject {
         self.consumerToken = consumerToken
         self.cardToken = cardToken
         self.cv2 = cv2
-        super.init()
     }
     
 }
@@ -196,7 +195,7 @@ public class PaymentToken: NSObject {
  
  Consumer stores information about a reference and a consumer token to be used in any kind of token transaction.
 */
-public class Consumer: NSObject {
+public struct Consumer {
     /// Our unique reference for this Consumer. Used in conjunction with the card token in repeat transactions.
     public let consumerToken: String
     /// Your reference for this Consumer as you sent in your request.
@@ -213,7 +212,6 @@ public class Consumer: NSObject {
     public init(_ dict: JSONDictionary) {
         self.consumerToken = dict["consumerToken"] as! String
         self.yourConsumerReference = dict["yourConsumerReference"] as! String
-        super.init()
     }
     
     
@@ -228,7 +226,6 @@ public class Consumer: NSObject {
     public init(consumerToken: String, consumerReference: String) {
         self.consumerToken = consumerToken
         self.yourConsumerReference = consumerReference
-        super.init()
     }
 
 }
@@ -239,7 +236,7 @@ public class Consumer: NSObject {
  
  TransactionData is an object that references all information in correspondance with a Transaction with the judo API
 */
-public class TransactionData: NSObject {
+public struct TransactionData {
     /// Our reference for this transaction. Keep track of this as it's needed to process refunds or collections later
     public let receiptID: String
     /// Your original reference for this payment
@@ -312,7 +309,6 @@ public class TransactionData: NSObject {
                 self.cardDetails = CardDetails(nil)
                 self.consumer = Consumer(consumerToken: "", consumerReference: "")
                 self.rawData = [String : AnyObject]()
-                super.init()
                 throw JudoError(.ResponseParseError)
         }
         
@@ -349,8 +345,6 @@ public class TransactionData: NSObject {
         self.cardDetails = CardDetails(cardDetailsDict)
         self.consumer = Consumer(consumerDict)
         self.rawData = dict
-        
-        super.init()
     }
     
     

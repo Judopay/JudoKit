@@ -18,6 +18,7 @@ Released on 2016-03-30
 
 #### Changed
 - Merged Judo-Swift into JudoKit
+- Switching from classes to structs
 
 #### Removed
 - Theme static accessor

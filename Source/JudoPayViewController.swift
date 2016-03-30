@@ -235,7 +235,7 @@ public class JudoPayViewController: UIViewController {
         do {
             let transaction = try self.judoKitSession.transaction(self.myView.transactionType, judoID: judoID, amount: amount, reference: reference)
             
-            if let payToken = self.paymentToken {
+            if var payToken = self.paymentToken {
                 payToken.cv2 = self.myView.secureCodeInputField.textField.text
                 transaction.paymentToken(payToken)
             } else {

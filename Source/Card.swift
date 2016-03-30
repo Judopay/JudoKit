@@ -268,7 +268,7 @@ The CardNetwork enum depicts the Card Network type of a given Card object
 - UATP:             UATP Network
 - Unknown:          Unknown
 */
-public enum CardNetwork: Int {
+public enum CardNetwork: Int64 {
     
     /// Unknown
     case Unknown = 0
@@ -550,7 +550,7 @@ public class CardDetails: NSObject, NSCoding {
         dict["cardNumber"] = cardNumber
         
         guard let expiryMonth = expiryMonth, let expiryYear = expiryYear else { self.init(dict); return }
-
+        
         let dateComponents = NSDateComponents()
         dateComponents.month = expiryMonth
         dateComponents.year = expiryYear
@@ -580,7 +580,7 @@ public class CardDetails: NSObject, NSCoding {
         self.endDate = dict?["endDate"] as? String
         self.cardToken = dict?["cardToken"] as? String
         self.cardNumber = dict?["cardNumber"] as? String
-        if let cardType = dict?["cardType"] as? Int {
+        if let cardType = dict?["cardType"] as? Int64 {
             self.cardNetwork = CardNetwork(rawValue: cardType)
         } else {
             self.cardNetwork = .Unknown
@@ -600,12 +600,12 @@ public class CardDetails: NSObject, NSCoding {
         let cardLastFour = decoder.decodeObjectForKey("cardLastFour") as? String?
         let endDate = decoder.decodeObjectForKey("endDate") as? String?
         let cardToken = decoder.decodeObjectForKey("cardToken") as? String?
-        let cardNetwork = decoder.decodeIntForKey("cardNetwork")
+        let cardNetwork = decoder.decodeInt64ForKey("cardNetwork")
         
         self.cardLastFour = cardLastFour ?? nil
         self.endDate = endDate ?? nil
         self.cardToken = cardToken ?? nil
-        self.cardNetwork = CardNetwork(rawValue: Int(cardNetwork))
+        self.cardNetwork = CardNetwork(rawValue: Int64(cardNetwork))
         self.cardNumber = nil
         super.init()
     }
@@ -621,9 +621,9 @@ public class CardDetails: NSObject, NSCoding {
         aCoder.encodeObject(self.endDate, forKey: "endDate")
         aCoder.encodeObject(self.cardToken, forKey: "cardToken")
         if let cardNetwork = self.cardNetwork {
-            aCoder.encodeInt(Int32(cardNetwork.rawValue), forKey: "cardNetwork")
+            aCoder.encodeInt64(cardNetwork.rawValue, forKey: "cardNetwork")
         } else {
-            aCoder.encodeInt(0, forKey: "cardNetwork")
+            aCoder.encodeInt64(0, forKey: "cardNetwork")
         }
     }
     
