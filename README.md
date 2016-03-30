@@ -142,7 +142,7 @@ self.judoKitSession.sandboxed(true)
 ### Examples
 
 #### Token and Secret
-- The token and secret are accessible from your judo dashboard [here](https://portal.judopay.com/Developer) after you have created an app, and you can either generate sandbox or live tokens. We recommend you to set this in your AppDelegate in the `didFinishLaunchingWithOptions` method.
+- The token and secret are accessible from your judo dashboard [here](https://portal.judopay.com/Developer) after you have created an app, and you can either generate sandbox or live tokens.
 
 ```swift
 let token = "a3xQdxP6iHdWg1zy"
