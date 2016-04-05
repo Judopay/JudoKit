@@ -17,7 +17,7 @@ judoKit is a framework for integrating easy, fast and secure payments inside you
 
 ## Requirements
 
-This SDK requires Xcode 7.3 and Swift 2.2
+This SDK requires Xcode 7.3 and Swift 2.2.
 
 ## Integration
 
