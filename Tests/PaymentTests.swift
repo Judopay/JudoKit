@@ -161,7 +161,7 @@ class PaymentTests: JudoTestCase {
     }
     
     
-    func testJudoMakeInvalidJudoIDPayment() throws {
+    func testJudoMakeInvalidJudoIdPayment() throws {
         // Given
         // allowed length for judoID is 6 to 10 chars
         let tooShortJudoID = "33412" // 5 chars not allowed

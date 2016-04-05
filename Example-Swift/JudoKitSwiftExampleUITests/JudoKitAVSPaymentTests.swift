@@ -108,7 +108,7 @@ class JudoKitAVSPaymentTests: XCTestCase {
         button.tap()
     }
     
-    func testAMEXPayment() {
+    func testAMEXPaymentAVS() {
         let app = XCUIApplication()
         app.toolbars.buttons["Settings"].tap()
         

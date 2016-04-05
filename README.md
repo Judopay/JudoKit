@@ -15,6 +15,10 @@ This is the official judo iOS SDK. It incorporates our mobile specific security 
 
 judoKit is a framework for integrating easy, fast and secure payments inside your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick.
 
+## Requirements
+
+This SDK requires Xcode 7.3 and Swift 2.2
+
 ## Integration
 
 ### Sign up to judo's platform

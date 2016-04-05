@@ -44,7 +44,7 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         super.tearDown()
     }
     
-    func testVISAPayment() {
+    func testVISAPaymentDeclined() {
         
         let app = XCUIApplication()
         app.tables.staticTexts["with default settings"].tap()
@@ -68,7 +68,7 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         button.tap()
     }
     
-    func testMasterCardPayment() {
+    func testMasterCardPaymentDeclined() {
         let app = XCUIApplication()
         app.tables.staticTexts["with default settings"].tap()
         
@@ -92,7 +92,7 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         button.tap()
     }
     
-    func testAMEXPayment() {
+    func testAMEXPaymentDeclined() {
         let app = XCUIApplication()
         app.tables.staticTexts["with default settings"].tap()
         
