@@ -307,7 +307,7 @@ public var avsEnabled: Bool = false
 public var showSecurityMessage: Bool = false
 
 /// An array of accepted card configurations (card network and card number length)
-public var acceptedCardNetworks: [Card.Configuration] = [Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.Maestro, 16)]
+public var acceptedCardNetworks: [Card.Configuration] = [Card.Configuration(.AMEX, 15), Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.Maestro, 16)]
 
 ```
 
