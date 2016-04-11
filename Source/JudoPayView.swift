@@ -87,9 +87,9 @@ public class JudoPayView: UIView {
     /// Payment navbar button
     var paymentNavBarButton: UIBarButtonItem?
     /// The payment button object
-    let paymentButton = PayButton()
+    var paymentButton: PayButton
     
-    let loadingView = LoadingView()
+    var loadingView: LoadingView
     let threeDSecureWebView = _DSWebView()
     
     /// The transactionType of the current journey
@@ -109,7 +109,9 @@ public class JudoPayView: UIView {
         self.cardDetails = cardDetails
         self.theme = currentTheme
         self.hintLabel = HintLabel(currentTheme: currentTheme)
-        
+        self.paymentButton = PayButton(currentTheme: currentTheme)
+        self.loadingView = LoadingView(currentTheme: currentTheme)
+
         self.cardInputField = CardInputField(theme: currentTheme)
         self.expiryDateInputField = DateInputField(theme: currentTheme)
         self.secureCodeInputField = SecurityInputField(theme: currentTheme)
