@@ -379,7 +379,9 @@ public struct JudoKit {
         vc.modalPresentationStyle = .FormSheet
        
         var viewController = UIApplication.sharedApplication().keyWindow?.rootViewController
+        
         if let presented = viewController?.presentedViewController {
+            
             if presented.isKindOfClass(UINavigationController) {
                 let navigationController = presented as! UINavigationController
                 viewController = navigationController.viewControllers.last!
