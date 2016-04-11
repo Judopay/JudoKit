@@ -14,11 +14,14 @@ All notable changes to this project will be documented in this file.
 
 
 ## [6.1.0](https://github.com/JudoPay/JudoKit/releases/tag/6.1.0)
-Released on 2016-03-30
+Released on 2016-04-12
 
 #### Changed
 - Merged Judo-Swift into judoKit.
 - Switching from classes to structs.
+
+#### Fixed
+- an issue where presentation on TableViewControllers would fail (Thanks to @andproff)
 
 #### Removed
 - Theme static accessor.
