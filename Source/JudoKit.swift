@@ -377,7 +377,21 @@ public struct JudoKit {
      */
     func showViewController(vc: UIViewController) {
         vc.modalPresentationStyle = .FormSheet
-        UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(vc, animated: true, completion: nil)
+       
+        var viewController = UIApplication.sharedApplication().keyWindow?.rootViewController
+        if let presented = viewController?.presentedViewController {
+            if presented.isKindOfClass(UINavigationController) {
+                let navigationController = presented as! UINavigationController
+                viewController = navigationController.viewControllers.last!
+            }
+            
+            if presented.isKindOfClass(UITabBarController) {
+                let tabBarController = presented as! UITabBarController
+                viewController = tabBarController.selectedViewController!
+            }
+        }
+        
+        viewController?.presentViewController(vc, animated:true, completion:nil)
     }
     
     
