@@ -382,14 +382,23 @@ public struct JudoKit {
         
         if let presented = viewController?.presentedViewController {
             
-            if presented.isKindOfClass(UINavigationController) {
+            switch presented {
+            case is UINavigationController:
                 let navigationController = presented as! UINavigationController
                 viewController = navigationController.viewControllers.last!
-            }
-            
-            if presented.isKindOfClass(UITabBarController) {
+                if let presentedVC = viewController?.presentedViewController {
+                    viewController = presentedVC
+                }
+                
+            case is UITabBarController:
                 let tabBarController = presented as! UITabBarController
                 viewController = tabBarController.selectedViewController!
+                if let presentedVC = viewController?.presentedViewController {
+                    viewController = presentedVC
+                }
+                
+            default:
+                viewController = presented
             }
         }
         
