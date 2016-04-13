@@ -80,7 +80,7 @@ public class LoadingView: UIView {
      Helper method to setup the view
      */
     func setupView() {
-        self.backgroundColor = self.theme.judoLoadingBackgroundColor()
+        self.backgroundColor = self.theme.getLoadingBackgroundColor()
 
         self.translatesAutoresizingMaskIntoConstraints = false
         self.alpha = 0.0
@@ -89,9 +89,9 @@ public class LoadingView: UIView {
         self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         self.actionLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.blockView.backgroundColor = self.theme.judoLoadingBlockViewColor()
+        self.blockView.backgroundColor = self.theme.getLoadingBlockViewColor()
         self.activityIndicatorView.activityIndicatorViewStyle = .Gray
-        self.actionLabel.textColor = self.theme.judoDarkGrayColor()
+        self.actionLabel.textColor = self.theme.getTextColor()
         
         self.blockView.clipsToBounds = true
         self.blockView.layer.cornerRadius = 5.0

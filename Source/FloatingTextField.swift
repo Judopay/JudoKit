@@ -163,7 +163,7 @@ class FloatingTextField: UITextField {
     
     private func setup() {
         borderStyle = UITextBorderStyle.None
-        titleActiveTextColour = self.theme.judoButtonColor()
+        titleActiveTextColour = self.theme.getButtonColor()
         // Set up title label
         title.alpha = 0.0
         title.font = titleFont

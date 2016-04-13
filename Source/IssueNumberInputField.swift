@@ -94,7 +94,7 @@ public class IssueNumberInputField: JudoPayInputField {
      - returns: an Attributed String that is the placeholder of the receiver
      */
     override public func placeholder() -> NSAttributedString? {
-        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.judoLightGrayColor()])
+        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
     }
     
     
