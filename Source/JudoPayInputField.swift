@@ -199,6 +199,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
      */
     public func setActive(isActive: Bool) {
         self.textField.alpha = isActive ? 1.0 : 0.5
+        self.logoContainerView.alpha = isActive ? 1.0 : 0.5
     }
     
     
