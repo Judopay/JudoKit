@@ -161,11 +161,11 @@ public class JudoPayViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .Plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
         
-        self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.judoDarkGrayColor()
+        self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.getTextColor()
         if !self.judoKitSession.theme.colorMode() {
             self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         }
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.judoDarkGrayColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getTextColor()]
         
     }
     
