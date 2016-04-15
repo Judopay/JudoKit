@@ -40,9 +40,9 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     /// the theme of the current judoKit session
     public var theme: Theme
     
-    let textField: FloatingTextField = FloatingTextField()
+    internal final let textField: FloatingTextField = FloatingTextField()
     
-    lazy var logoContainerView: UIView = UIView()
+    internal lazy var logoContainerView: UIView = UIView()
     
     
     private let redBlock: UIView = {
