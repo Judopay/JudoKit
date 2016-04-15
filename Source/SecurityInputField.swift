@@ -37,6 +37,12 @@ public class SecurityInputField: JudoPayInputField {
     /// if it is a token payment, a different hint label text should appear
     public var isTokenPayment: Bool = false
     
+    
+    override func setupView() {
+        self.textField.secureTextEntry = true
+        super.setupView()
+    }
+    
     // MARK: UITextFieldDelegate Methods
     
     
@@ -53,6 +59,10 @@ public class SecurityInputField: JudoPayInputField {
         
         // Only handle delegate calls for own text field
         guard textField == self.textField else { return false }
+        
+        if string.characters.count > 0 && self.textField.secureTextEntry {
+            self.textField.secureTextEntry = false
+        }
         
         // Get old and new text
         let oldString = textField.text!
