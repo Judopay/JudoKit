@@ -255,7 +255,7 @@ public class JudoPayViewController: UIViewController {
                     startDate = self.myView.startDateInputField.textField.text
                 }
                 
-                transaction.card(Card(number: self.myView.cardInputField.textField.text!.strippedWhitespaces, expiryDate: self.myView.expiryDateInputField.textField.text!, cv2: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
+                transaction.card(Card(number: self.myView.cardInputField.textField.text!.strippedWhitespaces, expiryDate: self.myView.expiryDateInputField.textField.text!, securityCode: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
             
             // If location was fetched until now, get it

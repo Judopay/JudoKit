@@ -96,9 +96,9 @@ public class Transaction: SessionProtocol {
     /// The card info of the transaction
     public private (set) var card: Card? {
         didSet {
-            self.parameters["cardNumber"] = card?.number
+            self.parameters["cardNumber"] = card?._number
             self.parameters["expiryDate"] = card?.expiryDate
-            self.parameters["cv2"] = card?.cv2
+            self.parameters["cv2"] = card?._securityCode
             self.parameters["cardAddress"] = card?.address?.dictionaryRepresentation()
             self.parameters["startDate"] = card?.startDate
             self.parameters["issueNumber"] = card?.issueNumber

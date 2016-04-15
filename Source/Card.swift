@@ -63,13 +63,28 @@ public struct Card {
     /// The maximum card length constant
     public static let maximumLength = 19
     
+    internal let _number: String
+    
     /// The card number should be submitted without any whitespace or non-numeric characters
-    public let number: String
+    public var number: String {
+        get {
+            return "****"
+        }
+        set {}
+    }
     /// The expiry date should be submitted as MM/YY
     public let expiryDate: String
+    
+    internal let _securityCode: String
+    
     /// CV2 from the credit card, also known as the card verification value (CVV) or security code. It's the 3 or 4 digit number on the back of your credit card
-    public let cv2: String
-    /// The registered address for the card
+    public var securityCode: String {
+        get {
+            return "***"
+        }
+        set { }
+    }
+    /// The registered add  ress for the card
     public let address: Address?
     /// The start date if the card is a Maestro
     public let startDate: String?
@@ -89,10 +104,10 @@ public struct Card {
      
      - returns: a Card object
      */
-    public init(number: String, expiryDate: String, cv2: String, address: Address? = nil, startDate: String? = nil, issueNumber: String? = nil) {
-        self.number = number
+    public init(number: String, expiryDate: String, securityCode: String, address: Address? = nil, startDate: String? = nil, issueNumber: String? = nil) {
+        self._number = number
         self.expiryDate = expiryDate
-        self.cv2 = cv2
+        self._securityCode = securityCode
         self.address = address
         self.startDate = startDate
         self.issueNumber = issueNumber
@@ -526,8 +541,16 @@ public class CardDetails: NSObject, NSCoding {
     public let cardToken: String?
     /// The card network
     public let cardNetwork: CardNetwork?
+    
+    internal let _cardNumber: String?
+    
     /// The card number if available
-    public let cardNumber: String?
+    public var cardNumber: String? {
+        get {
+            return self.formattedLastFour()
+        }
+        set {}
+    }
     /// Description string for print functions
     override public var description: String {
         let formattedLastFour = self.formattedLastFour() ?? "N/A"
@@ -579,7 +602,7 @@ public class CardDetails: NSObject, NSCoding {
         self.cardLastFour = dict?["cardLastfour"] as? String
         self.endDate = dict?["endDate"] as? String
         self.cardToken = dict?["cardToken"] as? String
-        self.cardNumber = dict?["cardNumber"] as? String
+        self._cardNumber = dict?["cardNumber"] as? String
         if let cardType = dict?["cardType"] as? Int64 {
             self.cardNetwork = CardNetwork(rawValue: cardType)
         } else {
@@ -606,7 +629,7 @@ public class CardDetails: NSObject, NSCoding {
         self.endDate = endDate ?? nil
         self.cardToken = cardToken ?? nil
         self.cardNetwork = CardNetwork(rawValue: Int64(cardNetwork))
-        self.cardNumber = nil
+        self._cardNumber = nil
         super.init()
     }
     
