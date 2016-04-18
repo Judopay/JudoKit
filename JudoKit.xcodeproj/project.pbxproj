@@ -53,6 +53,8 @@
 		3B5A602B1CAAD9F000E98AC6 /* JudoShield.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B125B931C5FC67E0086BB18 /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3BAA702D1C69FCD600E6586E /* NSDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA702C1C69FCD600E6586E /* NSDate+Extension.swift */; };
 		3BC4C0D01C6204A60010CE14 /* JudoPayView+JudoPayInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4C0CF1C6204A60010CE14 /* JudoPayView+JudoPayInputDelegate.swift */; };
+		70043EBE1CC533F8000EF5FB /* UIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70043EBD1CC533F8000EF5FB /* UIError.swift */; };
+		70043EC01CC53574000EF5FB /* UIErrorMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70043EBF1CC53574000EF5FB /* UIErrorMap.swift */; };
 		708E1F891CBFDB4500114057 /* ErrorMessageContentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708E1F881CBFDB4500114057 /* ErrorMessageContentsTests.swift */; };
 		DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C19B81B986B5400CD2613 /* CardLogoView.swift */; };
 		DA3902351B95B5DF001A703C /* JudoPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902341B95B5DF001A703C /* JudoPayViewController.swift */; };
@@ -147,6 +149,8 @@
 		3B5A600D1CAACF6100E98AC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3BAA702C1C69FCD600E6586E /* NSDate+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Extension.swift"; sourceTree = "<group>"; };
 		3BC4C0CF1C6204A60010CE14 /* JudoPayView+JudoPayInputDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JudoPayView+JudoPayInputDelegate.swift"; sourceTree = "<group>"; };
+		70043EBD1CC533F8000EF5FB /* UIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIError.swift; sourceTree = "<group>"; };
+		70043EBF1CC53574000EF5FB /* UIErrorMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIErrorMap.swift; sourceTree = "<group>"; };
 		708E1F881CBFDB4500114057 /* ErrorMessageContentsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageContentsTests.swift; sourceTree = "<group>"; };
 		DA0C19B81B986B5400CD2613 /* CardLogoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CardLogoView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DA3902341B95B5DF001A703C /* JudoPayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = JudoPayViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -224,6 +228,8 @@
 				3B02A0401CAA76B000953312 /* JudoModelError.swift */,
 				3B02A0411CAA76B000953312 /* JudoModelErrorCode.swift */,
 				3B02A0421CAA76B000953312 /* JudoErrorCategory.swift */,
+				70043EBD1CC533F8000EF5FB /* UIError.swift */,
+				70043EBF1CC53574000EF5FB /* UIErrorMap.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -551,9 +557,11 @@
 				3B02A0431CAA76B000953312 /* Response.swift in Sources */,
 				3B286FC81C3FCED400094D48 /* HintLabel.swift in Sources */,
 				DA39023E1B96092B001A703C /* SecurityInputField.swift in Sources */,
+				70043EBE1CC533F8000EF5FB /* UIError.swift in Sources */,
 				3B02A04A1CAA76B000953312 /* JudoModelError.swift in Sources */,
 				3B02A0341CAA76A500953312 /* VoidTransaction.swift in Sources */,
 				DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */,
+				70043EC01CC53574000EF5FB /* UIErrorMap.swift in Sources */,
 				3B02A0331CAA76A500953312 /* Collection.swift in Sources */,
 				DAD13A241B7CABA7007BB196 /* String+Card.swift in Sources */,
 				DA7418C41BA039FF00C4D323 /* PostCodeInputField.swift in Sources */,
