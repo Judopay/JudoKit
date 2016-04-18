@@ -35,6 +35,31 @@ public let JudoErrorDomain = "com.judopay.error"
  */
 public struct JudoError: ErrorType {
     
+    private let UnableToProcessRequestErrorDesc = "Sorry, we're currently unable to process this request."
+    private let UnableToVaildteErrorDesc = "Sorry, we've been unable to validate your card. Please check your details and try again or use an alternative card."
+    private let UnableToAcceptErrorDesc = "Sorry, but we are currently unable to accept payments to this account. Please contact customer services."
+    
+    private let UnableToProcessRequestErrorTitle = "Unable to process"
+    private let UnableToValidateErrorTitle = "Unable to validate"
+    private let UnableToAcceptErrorTitle = "Unable to accept"
+    
+    private let ParameterError = "A parameter entered into the dictionary (request body to Judo API) is faulty"
+    private let ResponseParseError = "An error with the response from the backend API"
+    private let LuhnValidationError = "Luhn validation checks failed"
+    private let JudoIDInvalidError = "Luhn validation on JudoID failed"
+    private let SerializationError = "The information returned by the backend API does not return proper JSON data"
+    private let RequestError = "The request failed when trying to communicate to the API"
+    private let TokenSecretError = "Token and secret information is not provided"
+    private let CardAndTokenError = "Both a card and a token were provided in the transaction request"
+    private let AmountMissingError = "An amount object was not provided in the transaction request"
+    private let CardOrTokenMissingError = "The card object and the token object were not provided in the transaction request"
+    private let PKPaymentMissingError = "The pkPayment object was not provided in the ApplePay transaction"
+    private let JailbrokenDeviceDisallowedError = "The device the code is currently running is jailbroken. Jailbroken devices are not allowed when instantiating a new Judo session"
+    private let InvalidOperationError = "It is not possible to create a transaction object with anything else than Payment, PreAuth or RegisterCard"
+    private let Failed3DSError = "After receiving the 3DS payload, when the payload has faulty data, the WebView fails to load the 3DS Page or the resolution page"
+    private let UnknownError = "An unknown error that can occur when making API calls"
+    private let UserDidCancel = "Received when user cancels the payment journey"
+    
     /// The judo error code
     public var code: JudoErrorCode
     /// The message of the error
@@ -43,6 +68,15 @@ public struct JudoError: ErrorType {
     public var category: JudoErrorCategory?
     /// An array of model errors if available
     public var details: [JudoModelError]?
+    
+    //The suggested display title.
+    public var suggestedDisplayTitle : String?
+    
+    //The suggested display message.
+    public var suggestedDisplayMessage : String?
+    
+    //A (hopefully) helpful hint for the developer consuning this error
+    public var developerHint : String?
     
     /// A reference for a NSError version of the receiver
     public var bridgedError: NSError?
@@ -78,6 +112,7 @@ public struct JudoError: ErrorType {
         self.message = message
         self.category = category
         self.details = details
+        self.setDisplayAndHintPropertiesBasedOnErrorType()
     }
     
     
@@ -124,6 +159,8 @@ public struct JudoError: ErrorType {
             detailsArray.forEach { modelItemArray.append(JudoModelError(dict: $0)) }
             self.details = modelItemArray
         }
+        
+        self.setDisplayAndHintPropertiesBasedOnErrorType()
     }
     
     
@@ -141,6 +178,8 @@ public struct JudoError: ErrorType {
         self.message = nil
         self.details = nil
         self.payload = payload
+        
+        self.setDisplayAndHintPropertiesBasedOnErrorType()
     }
     
     
@@ -158,6 +197,8 @@ public struct JudoError: ErrorType {
         self.message = nil
         self.details = nil
         self.bridgedError = bridgedError
+        
+        self.setDisplayAndHintPropertiesBasedOnErrorType()
     }
     
     
@@ -174,6 +215,8 @@ public struct JudoError: ErrorType {
         self.category = nil
         self.message = message
         self.details = nil
+        
+        self.setDisplayAndHintPropertiesBasedOnErrorType()
     }
     
     
@@ -228,5 +271,110 @@ public struct JudoError: ErrorType {
         return NSError(domain: JudoErrorDomain, code: self.code.rawValue, userInfo: userInfoDict)
     }
     
+    private mutating func setDisplayAndHintPropertiesBasedOnErrorType()
+    {
+        guard code != .Unknown else { return }
+        
+        switch(code)
+        {
+            case .ParameterError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.ParameterError
+            break
+            
+            case .LuhnValidationError:
+                self.suggestedDisplayTitle = self.UnableToValidateErrorTitle
+                self.suggestedDisplayMessage = self.UnableToVaildteErrorDesc
+                self.developerHint = self.LuhnValidationError
+            break
+            
+            case .JudoIDInvalidError:
+                self.suggestedDisplayTitle = self.UnableToAcceptErrorTitle
+                self.suggestedDisplayMessage = self.UnableToAcceptErrorDesc
+                self.developerHint = self.JudoIDInvalidError
+            break
+            
+            case .ResponseParseError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.ResponseParseError
+            break
+            
+            case .SerializationError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.SerializationError
+            break
+            
+            case .RequestError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.RequestError
+            break
+            
+            case .TokenSecretError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.TokenSecretError
+            break
+            
+            case .CardAndTokenError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.CardAndTokenError
+            break
+            
+            case .AmountMissingError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.AmountMissingError
+            break
+            
+            case .CardOrTokenMissingError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.CardOrTokenMissingError
+            break
+            
+            case .PKPaymentMissingError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.PKPaymentMissingError
+            break
+            
+            case .JailbrokenDeviceDisallowedError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.JailbrokenDeviceDisallowedError
+            break
+            
+            case .InvalidOperationError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.InvalidOperationError
+            break
+            
+            case .Failed3DSError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.Failed3DSError
+            break
+            
+            case .UnknownError:
+                self.suggestedDisplayTitle = self.UnableToProcessRequestErrorTitle
+                self.suggestedDisplayMessage = self.UnableToProcessRequestErrorDesc
+                self.developerHint = self.UnknownError
+            break
+            
+            case .UserDidCancel:
+                self.developerHint = self.UserDidCancel
+            break
+            
+            default:
+            
+            break
+        }
+    }
 }
 
