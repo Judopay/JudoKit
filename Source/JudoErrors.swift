@@ -105,7 +105,7 @@ public struct JudoError: ErrorType {
             self.category = category
             self.details = details
             
-            if code == .Unknown {
+            if code != .Unknown {
                 let item = code.messageValues()
                 self.title = item?.0
                 self.message = self.message ?? item?.1
