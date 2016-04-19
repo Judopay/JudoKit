@@ -63,6 +63,7 @@ public struct Theme {
     /// the title for an authentication
     public var authenticationTitle = "Authentication"
     
+    
     // MARK: Loading
     
     /// when a register card transaction is currently running
@@ -75,6 +76,7 @@ public struct Theme {
     public var verifying3DSPaymentTitle = "Verifying payment"
     /// the title of the loading indicator during the verification of the card registration
     public var verifying3DSRegisterCardTitle = "Verifying card"
+    
     
     // MARK: Input fields
     
@@ -90,6 +92,8 @@ public struct Theme {
     public var securityMessageTextSize: CGFloat = 12
     
     
+    // MARK: Colors
+    
     /**
      Helper method to identifiy whether to use a dark or light theme
      
@@ -99,13 +103,49 @@ public struct Theme {
         return self.tintColor.greyScale() < 0.5
     }
     
+    /// The default text color
+    public var judoTextColor: UIColor?
+    
+    /// The color that is used for active input fields
+    public var judoInputFieldTextColor: UIColor?
+    
+    /// The color that is used for the placeholders of the input fields
+    public var judoPlaceholderTextColor: UIColor?
+    
+    /// The color that is used for the border color of the input fields
+    public var judoInputFieldBorderColor: UIColor?
+    
+    /// The background color of the contentView
+    public var judoContentViewBackgroundColor: UIColor?
+    
+    /// The button color
+    public var judoButtonColor: UIColor?
+    
+    /// The title color of the button
+    public var judoButtonTitleColor: UIColor?
+    
+    /// The background color of the loadingView
+    public var judoLoadingBackgroundColor: UIColor?
+    
+    /// The color that is used when an error occurs during entry
+    public var judoErrorColor: UIColor?
+    
+    /// The color of the block that is shown when something is loading
+    public var judoLoadingBlockViewColor: UIColor?
+    
+    /// Input field background color
+    public var judoInputFieldBackgroundColor: UIColor?
+    
     
     /**
-     Dark gray color
+     The default text color
      
      - returns: A UIColor object
      */
-    public func judoDarkGrayColor() -> UIColor {
+    public func getTextColor() -> UIColor {
+        if self.judoTextColor != nil {
+            return self.judoTextColor!
+        }
         let dgc = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
         if self.colorMode() {
             return dgc
@@ -116,21 +156,24 @@ public struct Theme {
     
     
     /**
-     Dark gray color
+     The color that is used for active input fields
      
      - returns: A UIColor object
      */
-    public func judoInputFieldTextColor() -> UIColor {
-        return UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+    public func getInputFieldTextColor() -> UIColor {
+        return self.judoInputFieldTextColor ?? UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
     }
     
     
     /**
-     Light gray color
+     The color that is used for the placeholders of the input fields
      
      - returns: A UIColor object
      */
-    public func judoLightGrayColor() -> UIColor {
+    public func getPlaceholderTextColor() -> UIColor {
+        if self.judoPlaceholderTextColor != nil {
+            return self.judoPlaceholderTextColor!
+        }
         let lgc = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
         if self.colorMode() {
             return lgc
@@ -141,21 +184,24 @@ public struct Theme {
     
     
     /**
-     Light gray color
+     The color that is used for the border color of the input fields
      
      - returns: A UIColor object
      */
-    public func judoInputFieldBorderColor() -> UIColor {
-        return UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
+    public func getInputFieldBorderColor() -> UIColor {
+        return self.judoInputFieldBorderColor ?? UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
     }
     
     
     /**
-     Gray color
+     The background color of the contentView
      
      - returns: A UIColor object
      */
-    public func judoContentViewBackgroundColor() -> UIColor {
+    public func getContentViewBackgroundColor() -> UIColor {
+        if self.judoContentViewBackgroundColor != nil {
+            return self.judoContentViewBackgroundColor!
+        }
         let gc = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1)
         if self.colorMode() {
             return gc
@@ -166,21 +212,24 @@ public struct Theme {
     
     
     /**
-     Button color
+     The button color
      
      - returns: A UIColor object
      */
-    public func judoButtonColor() -> UIColor {
-        return self.tintColor
+    public func getButtonColor() -> UIColor {
+        return self.judoButtonColor ?? self.tintColor
     }
     
     
     /**
-     Button title color
+     The title color of the button
      
      - returns: A UIColor object
      */
-    public func judoButtonTitleColor() -> UIColor {
+    public func getButtonTitleColor() -> UIColor {
+        if self.judoButtonTitleColor != nil {
+            return self.judoButtonTitleColor!
+        }
         if self.colorMode() {
             return .whiteColor()
         } else {
@@ -190,11 +239,14 @@ public struct Theme {
     
     
     /**
-     Background color of the loadingView
+     The background color of the loadingView
      
      - returns: A UIColor object
      */
-    public func judoLoadingBackgroundColor() -> UIColor {
+    public func getLoadingBackgroundColor() -> UIColor {
+        if self.judoLoadingBackgroundColor != nil {
+            return self.judoLoadingBackgroundColor!
+        }
         let lbc = UIColor(red: 210/255, green: 210/255, blue: 210/255, alpha: 0.8)
         if self.colorMode() {
             return lbc
@@ -205,21 +257,24 @@ public struct Theme {
     
     
     /**
-     Red color
+     The color that is used when an error occurs during entry
      
      - returns: A UIColor object
      */
-    public func judoRedColor() -> UIColor {
-        return UIColor(red: 235/255, green: 55/255, blue: 45/255, alpha: 1.0)
+    public func getErrorColor() -> UIColor {
+        return self.judoErrorColor ?? UIColor(red: 235/255, green: 55/255, blue: 45/255, alpha: 1.0)
     }
     
     
     /**
-     Loading block color
+     The color of the block that is shown when something is loading
      
      - returns: A UIColor object
      */
-    public func judoLoadingBlockViewColor() -> UIColor {
+    public func getLoadingBlockViewColor() -> UIColor {
+        if self.judoLoadingBlockViewColor != nil {
+            return self.judoLoadingBlockViewColor!
+        }
         if self.colorMode() {
             return .whiteColor()
         } else {
@@ -233,8 +288,8 @@ public struct Theme {
      
      - returns: A UIColor object
      */
-    public func judoInputFieldBackgroundColor() -> UIColor {
-        return .whiteColor()
+    public func getInputFieldBackgroundColor() -> UIColor {
+        return self.judoInputFieldBackgroundColor ?? .whiteColor()
     }
     
 }

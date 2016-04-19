@@ -77,9 +77,9 @@ public class PayButton: UIButton {
     */
     public func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = self.theme.judoButtonColor()
+        self.backgroundColor = self.theme.getButtonColor()
         self.setTitle("Pay", forState: .Normal)
-        self.setTitleColor(self.theme.judoButtonTitleColor(), forState: .Normal)
+        self.setTitleColor(self.theme.getButtonTitleColor(), forState: .Normal)
         self.titleLabel?.font = UIFont.boldSystemFontOfSize(22)
     }
     

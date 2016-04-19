@@ -205,8 +205,8 @@ public class JudoPayView: UIView {
         let payButtonTitle = self.transactionType == .RegisterCard ? self.theme.registerCardTitle : self.theme.paymentButtonTitle
         self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle
         
-        let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:self.theme.judoDarkGrayColor(), NSFontAttributeName:UIFont.boldSystemFontOfSize(self.theme.securityMessageTextSize)])
-        attributedString.appendAttributedString(NSAttributedString(string: self.theme.securityMessageString, attributes: [NSForegroundColorAttributeName:self.theme.judoDarkGrayColor(), NSFontAttributeName:UIFont.systemFontOfSize(self.theme.securityMessageTextSize)]))
+        let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:self.theme.getTextColor(), NSFontAttributeName:UIFont.boldSystemFontOfSize(self.theme.securityMessageTextSize)])
+        attributedString.appendAttributedString(NSAttributedString(string: self.theme.securityMessageString, attributes: [NSForegroundColorAttributeName:self.theme.getTextColor(), NSFontAttributeName:UIFont.systemFontOfSize(self.theme.securityMessageTextSize)]))
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .Justified
@@ -223,7 +223,7 @@ public class JudoPayView: UIView {
         self.addSubview(contentView)
         self.contentView.contentSize = self.bounds.size
         
-        self.backgroundColor = self.theme.judoContentViewBackgroundColor()
+        self.backgroundColor = self.theme.getContentViewBackgroundColor()
         
         self.contentView.addSubview(cardInputField)
         self.contentView.addSubview(startDateInputField)

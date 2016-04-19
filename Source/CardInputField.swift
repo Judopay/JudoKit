@@ -38,6 +38,11 @@ public class CardInputField: JudoPayInputField {
     /// if it is a token payment, different validation criteria apply
     public var isTokenPayment: Bool = false
     
+    override func setupView() {
+        self.textField.secureTextEntry = true
+        super.setupView()
+    }
+    
     // MARK: UITextFieldDelegate
     
     /**
@@ -53,6 +58,10 @@ public class CardInputField: JudoPayInputField {
         
         // Only handle delegate calls for own text field
         guard textField == self.textField else { return false }
+        
+        if string.characters.count > 0 && self.textField.secureTextEntry {
+            self.textField.secureTextEntry = false
+        }
         
         // Get old and new text
         let oldString = textField.text!
@@ -129,7 +138,7 @@ public class CardInputField: JudoPayInputField {
      - returns: an Attributed String that is the placeholder of the receiver
      */
     override public func placeholder() -> NSAttributedString? {
-        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.judoLightGrayColor()])
+        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
     }
     
     

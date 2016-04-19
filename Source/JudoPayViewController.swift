@@ -161,11 +161,11 @@ public class JudoPayViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .Plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
         
-        self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.judoDarkGrayColor()
+        self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.getTextColor()
         if !self.judoKitSession.theme.colorMode() {
             self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         }
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.judoDarkGrayColor()]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getTextColor()]
         
     }
     
@@ -255,7 +255,7 @@ public class JudoPayViewController: UIViewController {
                     startDate = self.myView.startDateInputField.textField.text
                 }
                 
-                transaction.card(Card(number: self.myView.cardInputField.textField.text!.strippedWhitespaces, expiryDate: self.myView.expiryDateInputField.textField.text!, cv2: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
+                transaction.card(Card(number: self.myView.cardInputField.textField.text!.strippedWhitespaces, expiryDate: self.myView.expiryDateInputField.textField.text!, securityCode: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
             
             // If location was fetched until now, get it
