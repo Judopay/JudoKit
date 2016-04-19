@@ -34,7 +34,7 @@ public let JudoErrorDomain = "com.judopay.error"
  The JudoError object holds all the information about errors that occurred within the SDK or at any stage when making a call to the judo API
  */
 public struct JudoError: ErrorType {
-    
+
     /// The judo error code
     public var code: JudoErrorCode
     /// The message of the error
@@ -45,14 +45,8 @@ public struct JudoError: ErrorType {
     public var details: [JudoModelError]?
     
     //The suggested display title.
-    public var suggestedDisplayTitle : String?
-    
-    //The suggested display message.
-    public var suggestedDisplayMessage : String?
-    
-    //A (hopefully) helpful hint for the developer consuning this error
-    public var developerHint : String?
-    
+    public var title : String?
+
     /// A reference for a NSError version of the receiver
     public var bridgedError: NSError?
     
@@ -248,15 +242,21 @@ public struct JudoError: ErrorType {
     
     private mutating func setDisplayAndHintPropertiesBasedOnErrorType()
     {
-        guard code != .Unknown else { return }
+        guard self.code != .Unknown else { return }
         
-        let uiErrorMap = UIErrorMap()
-
-        if let map = uiErrorMap.mapErrorCodeToUIError(code)
+        if let item = code.messageValues()
         {
-            self.suggestedDisplayTitle = map.title
-            self.suggestedDisplayMessage = map.message
-            self.developerHint = map.hint
+            self.title = item.0
+            
+            if self.message == nil
+            {
+                self.message = item.1
+            }
+            
+            if self.resolution == nil
+            {
+                self.resolution = item.2
+            }
         }
     }
 }

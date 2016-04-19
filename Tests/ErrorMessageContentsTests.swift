@@ -41,9 +41,9 @@ class ErrorMessageContentsTests: JudoTestCase {
     {
         let actual = JudoError(errorCode)
 
-        XCTAssertEqual(actual.suggestedDisplayTitle,expectedTitle)
-        XCTAssertEqual(actual.suggestedDisplayMessage, expectedDesc)
-        XCTAssertEqual(actual.developerHint, expectedDevHint)
+        XCTAssertEqual(actual.title,expectedTitle)
+        XCTAssertEqual(actual.message, expectedDesc)
+        XCTAssertEqual(actual.resolution, expectedDevHint)
     }
     
     func test_ParameterError()
