@@ -25,17 +25,17 @@
 import XCTest
 @testable import JudoKit
 
-let token = "<#YOUR TOKEN#>"
-let secret = "<#YOUR SECRET#>"
+let token = "hkDjZ1Sgt7ZtdHJx"
+let secret = "607d4559c6d3b2ce1a1a3df4c48767dbe38e38eb342ca95bae25fdedf6e042ad"
 
 class JudoTestCase: XCTestCase {
     
-    let myJudoID = "100000009"
+    let myJudoID = "100972777"
     
     var judo = JudoKit(token: token, secret: secret)
     
-    let validVisaTestCard = Card(number: "4976000000003436", expiryDate: "12/20", cv2: "452")
-    let declinedVisaTestCard = Card(number: "4221690000004963", expiryDate: "12/20", cv2: "125")
+    let validVisaTestCard = Card(number: "4976000000003436", expiryDate: "12/20", securityCode: "452")
+    let declinedVisaTestCard = Card(number: "4221690000004963", expiryDate: "12/20", securityCode: "125")
     
     let oneGBPAmount = Amount(amountString: "1.00", currency: .GBP)
     let invalidAmount = Amount(amountString: "", currency: .GBP)
