@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Currency Struct Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/Currency" class="dashAnchor"></a>
+    <a title="Currency Struct Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">JudoKit Docs</a> (99% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">JudoKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Currency Struct Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BillingCountryInputField.html">BillingCountryInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardDetails.html">CardDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardInputField.html">CardInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardLogoView.html">CardLogoView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Collection.html">Collection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DateInputField.html">DateInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HintLabel.html">HintLabel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IssueNumberInputField.html">IssueNumberInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayInputField.html">JudoPayInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayView.html">JudoPayView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayViewController.html">JudoPayViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LoadingView.html">LoadingView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayButton.html">PayButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Payment.html">Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PostCodeInputField.html">PostCodeInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PreAuth.html">PreAuth</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Receipt.html">Receipt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Refund.html">Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RegisterCard.html">RegisterCard</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SecurityInputField.html">SecurityInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TransactionProcess.html">TransactionProcess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidTransaction.html">VoidTransaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/_DSWebView.html">_DSWebView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v7JudoKit15JudoErrorDomainSS">JudoErrorDomain</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/BillingCountry.html">BillingCountry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CardLogoType.html">CardLogoType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CardNetwork.html">CardNetwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CardType.html">CardType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DateFormat.html">DateFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DateInputType.html">DateInputType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ISO8601Format.html">ISO8601Format</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/JudoErrorCategory.html">JudoErrorCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/JudoErrorCode.html">JudoErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/JudoModelErrorCode.html">JudoModelErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Sort.html">Sort</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionResult.html">TransactionResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionType.html">TransactionType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSDate.html">NSDate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi1lFTVVS_4Card13ConfigurationS1__Sb">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi2leFTVVS_4Card13ConfigurationS1__Sb">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi2eeFTVVS_4Card13ConfigurationS1__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi1gFTVVS_4Card13ConfigurationS1__Sb">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi2geFTVVS_4Card13ConfigurationS1__Sb">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardAmexFT_T_">drawCardAmex()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit11drawCardCIDFT_T_">drawCardCID()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit11drawCardCVCFT_T_">drawCardCVC()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardMaestroFT_T_">drawCardMaestro()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit18drawCardMasterCardFT_T_">drawCardMasterCard()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardUnknownFT_T_">drawCardUnknown()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardVisaFT_T_">drawCardVisa()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit25isCurrentDeviceJailbrokenFT_Sb">isCurrentDeviceJailbroken()</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/JudoInputType.html">JudoInputType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/JudoPayInputDelegate.html">JudoPayInputDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SessionProtocol.html">SessionProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TransactionPath.html">TransactionPath</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Address.html">Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Amount.html">Amount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Card.html">Card</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Consumer.html">Consumer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Currency.html">Currency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/JudoError.html">JudoError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/JudoKit.html">JudoKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/JudoModelError.html">JudoModelError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:V7JudoKit10Pagination">Pagination</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentToken.html">PaymentToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Reference.html">Reference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Response.html">Response</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Session.html">Session</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Theme.html">Theme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionData.html">TransactionData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:7JudoKit14JSONDictionary">JSONDictionary</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Currency</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">Currency</span></code></pre>
+
+                </div>
+              </div>
+            <p>Collection of static identifiers for all supported currencies</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vV7JudoKit8Currency8rawValueSS"></a>
+                    <a name="//apple_ref/swift/Property/rawValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vV7JudoKit8Currency8rawValueSS">rawValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Raw value of the currency as a String</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FV7JudoKit8CurrencycFSSS0_"></a>
+                    <a name="//apple_ref/swift/Method/init(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV7JudoKit8CurrencycFSSS0_">init(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Designated initializer</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">fromRaw</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>fromRaw</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>raw string value of the currency based on ISO standards</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>a Currency object</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3AUDS0_"></a>
+                    <a name="//apple_ref/swift/Variable/AUD" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3AUDS0_">AUD</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Australian Dollars</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">AUD</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"AUD"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3BRLS0_"></a>
+                    <a name="//apple_ref/swift/Variable/BRL" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3BRLS0_">BRL</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Brazilian Real</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">BRL</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"BRL"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3CADS0_"></a>
+                    <a name="//apple_ref/swift/Variable/CAD" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3CADS0_">CAD</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Canadian Dollars</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">CAD</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"CAD"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3CHFS0_"></a>
+                    <a name="//apple_ref/swift/Variable/CHF" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3CHFS0_">CHF</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Swiss Franks</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">CHF</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"CHF"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3CZKS0_"></a>
+                    <a name="//apple_ref/swift/Variable/CZK" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3CZKS0_">CZK</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Czech Republic Koruna</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">CZK</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"CZK"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3DKKS0_"></a>
+                    <a name="//apple_ref/swift/Variable/DKK" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3DKKS0_">DKK</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Danish Krone</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">DKK</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"DKK"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3EURS0_"></a>
+                    <a name="//apple_ref/swift/Variable/EUR" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3EURS0_">EUR</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Euro</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">EUR</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"EUR"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3GBPS0_"></a>
+                    <a name="//apple_ref/swift/Variable/GBP" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3GBPS0_">GBP</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>British Pound</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">GBP</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"GBP"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3HKDS0_"></a>
+                    <a name="//apple_ref/swift/Variable/HKD" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3HKDS0_">HKD</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Hong Kong Dollar</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">HKD</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"HKD"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3HUFS0_"></a>
+                    <a name="//apple_ref/swift/Variable/HUF" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3HUFS0_">HUF</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Hungarian Forint</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">HUF</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"HUF"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3JPYS0_"></a>
+                    <a name="//apple_ref/swift/Variable/JPY" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3JPYS0_">JPY</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Japanese Yen</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">JPY</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"JPY"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3NOKS0_"></a>
+                    <a name="//apple_ref/swift/Variable/NOK" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3NOKS0_">NOK</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Norwegian Krone</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">NOK</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"NOK"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3NZDS0_"></a>
+                    <a name="//apple_ref/swift/Variable/NZD" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3NZDS0_">NZD</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>New Zealand Dollar</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">NZD</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"NZD"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3PLNS0_"></a>
+                    <a name="//apple_ref/swift/Variable/PLN" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3PLNS0_">PLN</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Polish Zloty</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">PLN</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"PLN"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3SEKS0_"></a>
+                    <a name="//apple_ref/swift/Variable/SEK" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3SEKS0_">SEK</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Swedish Krone</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">SEK</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"SEK"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3USDS0_"></a>
+                    <a name="//apple_ref/swift/Variable/USD" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3USDS0_">USD</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>United States Dollar</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">USD</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"USD"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3ZARS0_"></a>
+                    <a name="//apple_ref/swift/Variable/ZAR" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3ZARS0_">ZAR</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>South African Rand</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">ZAR</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"ZAR"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:ZvV7JudoKit8Currency3XORS0_"></a>
+                    <a name="//apple_ref/swift/Variable/XOR" class="dashAnchor"></a>
+                    <a class="token" href="#/s:ZvV7JudoKit8Currency3XORS0_">XOR</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Unsupported Currency</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">XOR</span> <span class="o">=</span> <span class="kt">Currency</span><span class="p">(</span><span class="s">"Unsupported Currency"</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2016 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2016-04-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,1591 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Transaction Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/Transaction" class="dashAnchor"></a>
+    <a title="Transaction Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">JudoKit Docs</a> (99% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">JudoKit Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        Transaction Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/BillingCountryInputField.html">BillingCountryInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardDetails.html">CardDetails</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardInputField.html">CardInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/CardLogoView.html">CardLogoView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Collection.html">Collection</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/DateInputField.html">DateInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/HintLabel.html">HintLabel</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/IssueNumberInputField.html">IssueNumberInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayInputField.html">JudoPayInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayView.html">JudoPayView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/JudoPayViewController.html">JudoPayViewController</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LoadingView.html">LoadingView</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PayButton.html">PayButton</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Payment.html">Payment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PostCodeInputField.html">PostCodeInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/PreAuth.html">PreAuth</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Receipt.html">Receipt</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Refund.html">Refund</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/RegisterCard.html">RegisterCard</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/SecurityInputField.html">SecurityInputField</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/Transaction.html">Transaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/TransactionProcess.html">TransactionProcess</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/VoidTransaction.html">VoidTransaction</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/_DSWebView.html">_DSWebView</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Global Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Global Variables.html#/s:v7JudoKit15JudoErrorDomainSS">JudoErrorDomain</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enums</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/BillingCountry.html">BillingCountry</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CardLogoType.html">CardLogoType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CardNetwork.html">CardNetwork</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CardType.html">CardType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DateFormat.html">DateFormat</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/DateInputType.html">DateInputType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/ISO8601Format.html">ISO8601Format</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/JudoErrorCategory.html">JudoErrorCategory</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/JudoErrorCode.html">JudoErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/JudoModelErrorCode.html">JudoModelErrorCode</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/Sort.html">Sort</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionResult.html">TransactionResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/TransactionType.html">TransactionType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/NSDate.html">NSDate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/UIColor.html">UIColor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Functions.html">Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi1lFTVVS_4Card13ConfigurationS1__Sb">&lt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi2leFTVVS_4Card13ConfigurationS1__Sb">&lt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi2eeFTVVS_4Card13ConfigurationS1__Sb">==(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi1gFTVVS_4Card13ConfigurationS1__Sb">&gt;(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:ZF7JudoKitoi2geFTVVS_4Card13ConfigurationS1__Sb">&gt;=(_:_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardAmexFT_T_">drawCardAmex()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit11drawCardCIDFT_T_">drawCardCID()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit11drawCardCVCFT_T_">drawCardCVC()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardMaestroFT_T_">drawCardMaestro()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit18drawCardMasterCardFT_T_">drawCardMasterCard()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit15drawCardUnknownFT_T_">drawCardUnknown()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit12drawCardVisaFT_T_">drawCardVisa()</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Functions.html#/s:F7JudoKit25isCurrentDeviceJailbrokenFT_Sb">isCurrentDeviceJailbroken()</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/JudoInputType.html">JudoInputType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/JudoPayInputDelegate.html">JudoPayInputDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/SessionProtocol.html">SessionProtocol</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/TransactionPath.html">TransactionPath</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structs</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/Address.html">Address</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Amount.html">Amount</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Card.html">Card</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Consumer.html">Consumer</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Currency.html">Currency</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/JudoError.html">JudoError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/JudoKit.html">JudoKit</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/JudoModelError.html">JudoModelError</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs.html#/s:V7JudoKit10Pagination">Pagination</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/PaymentToken.html">PaymentToken</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Reference.html">Reference</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Response.html">Response</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Session.html">Session</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Theme.html">Theme</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/TransactionData.html">TransactionData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Typealiases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:7JudoKit14JSONDictionary">JSONDictionary</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>Transaction</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Transaction</span><span class="p">:</span> <span class="kt">SessionProtocol</span></code></pre>
+
+                </div>
+              </div>
+            <p>Superclass Helper for Payment, Pre-auth and RegisterCard</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction10APISessionGSqVS_7Session_"></a>
+                    <a name="//apple_ref/swift/Property/APISession" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction10APISessionGSqVS_7Session_">APISession</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The current Session to access the Judo API</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">APISession</span><span class="p">:</span> <span class="kt">Session</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction6judoIDSS"></a>
+                    <a name="//apple_ref/swift/Property/judoID" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction6judoIDSS">judoID</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The judo ID for the transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction9referenceVS_9Reference"></a>
+                    <a name="//apple_ref/swift/Property/reference" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction9referenceVS_9Reference">reference</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The reference of the transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction6amountGSqVS_6Amount_"></a>
+                    <a name="//apple_ref/swift/Property/amount" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction6amountGSqVS_6Amount_">amount</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The amount and currency of the transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction4cardGSqVS_4Card_"></a>
+                    <a name="//apple_ref/swift/Property/card" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction4cardGSqVS_4Card_">card</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The card info of the transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">card</span><span class="p">:</span> <span class="kt">Card</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction8payTokenGSqVS_12PaymentToken_"></a>
+                    <a name="//apple_ref/swift/Property/payToken" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction8payTokenGSqVS_12PaymentToken_">payToken</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The payment token of the transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">payToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction8locationGSqVSC22CLLocationCoordinate2D_"></a>
+                    <a name="//apple_ref/swift/Property/location" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction8locationGSqVSC22CLLocationCoordinate2D_">location</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Location coordinate for fraud prevention in this transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">location</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction12deviceSignalGSqGVs10DictionarySSPs9AnyObject___"></a>
+                    <a name="//apple_ref/swift/Property/deviceSignal" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction12deviceSignalGSqGVs10DictionarySSPs9AnyObject___">deviceSignal</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Device identification for this transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">deviceSignal</span><span class="p">:</span> <span class="kt">JSONDictionary</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction12mobileNumberGSqSS_"></a>
+                    <a name="//apple_ref/swift/Property/mobileNumber" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction12mobileNumberGSqSS_">mobileNumber</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Mobile number of the entity initiating the transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">mobileNumber</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction12emailAddressGSqSS_"></a>
+                    <a name="//apple_ref/swift/Property/emailAddress" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction12emailAddressGSqSS_">emailAddress</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Email address of the entity initiating the transaction</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">emailAddress</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction9pkPaymentGSqCSo9PKPayment_"></a>
+                    <a name="//apple_ref/swift/Property/pkPayment" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction9pkPaymentGSqCSo9PKPayment_">pkPayment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Support for Apple Pay transactions added in Base</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">pkPayment</span><span class="p">:</span> <span class="kt">PKPayment</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:vC7JudoKit11Transaction23initialRecurringPaymentSb"></a>
+                    <a name="//apple_ref/swift/Property/initialRecurringPayment" class="dashAnchor"></a>
+                    <a class="token" href="#/s:vC7JudoKit11Transaction23initialRecurringPaymentSb">initialRecurringPayment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>hidden parameter to enable recurring payments</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">private</span> <span class="p">(</span><span class="k">set</span><span class="p">)</span> <span class="k">var</span> <span class="nv">initialRecurringPayment</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11TransactioncFzT6judoIDSS6amountGSqVS_6Amount_9referenceVS_9Reference_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init(judoID:amount:reference:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11TransactioncFzT6judoIDSS6amountGSqVS_6Amount_9referenceVS_9Reference_S0_">init(judoID:amount:reference:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Starting point and a reactive method to create a payment or pre-auth</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter judoID: the number (e.g. <q>123-456</q> or <q>654321</q>) identifying the Merchant you wish to pay - has to be between 6 and 10 characters and luhn-valid
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter amount: The amount to process
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter reference: the reference</p>
+
+</div>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>JudoIDInvalidError judoID does not match the given length or is not luhn valid</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">?,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>judoID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the number (e.g. <q>123-456</q> or <q>654321</q>) identifying the Merchant you wish to pay - has to be between 6 and 10 characters and luhn-valid</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>amount</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The amount to process</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>reference</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the reference</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11TransactioncFT_S0_"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11TransactioncFT_S0_">init()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Internal initializer for the purpose of creating an instance for listing payments or preAuths</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">required</span> <span class="nf">init</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction4cardFVS_4CardDS0_"></a>
+                    <a name="//apple_ref/swift/Method/card(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction4cardFVS_4CardDS0_">card(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If making a card payment, add the details here</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter card: a card object containing the information from which to make a payment</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>reactive self</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">card</span><span class="p">(</span><span class="nv">card</span><span class="p">:</span> <span class="kt">Card</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>card</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a card object containing the information from which to make a payment</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>reactive self</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction12paymentTokenFVS_12PaymentTokenDS0_"></a>
+                    <a name="//apple_ref/swift/Method/paymentToken(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction12paymentTokenFVS_12PaymentTokenDS0_">paymentToken(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>If a card payment or a card registration has been previously made, add the token to make a repeat payment</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter token: a token-string from a previous payment or registration</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>reactive self</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">paymentToken</span><span class="p">(</span><span class="nv">token</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>token</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a token-string from a previous payment or registration</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>reactive self</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction8locationFVSC22CLLocationCoordinate2DDS0_"></a>
+                    <a name="//apple_ref/swift/Method/location(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction8locationFVSC22CLLocationCoordinate2DDS0_">location(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reactive method to set location information of the user, this method is optional and is used for fraud prevention</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter location: a CLLocationCoordinate2D which represents the current location of the user</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>reactive self</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">location</span><span class="p">(</span><span class="nv">location</span><span class="p">:</span> <span class="kt">CLLocationCoordinate2D</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>location</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a CLLocationCoordinate2D which represents the current location of the user</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>reactive self</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction12deviceSignalFGVs10DictionarySSPs9AnyObject__DS0_"></a>
+                    <a name="//apple_ref/swift/Method/deviceSignal(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction12deviceSignalFGVs10DictionarySSPs9AnyObject__DS0_">deviceSignal(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reactive method to set device signal information of the device, this method is optional and is used for fraud prevention</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter deviceSignal: a Dictionary which contains information about the device</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>reactive self</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">deviceSignal</span><span class="p">(</span><span class="nv">deviceSignal</span><span class="p">:</span> <span class="kt">JSONDictionary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>deviceSignal</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a Dictionary which contains information about the device</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>reactive self</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction7contactFTGSqSS_GSqSS__DS0_"></a>
+                    <a name="//apple_ref/swift/Method/contact(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction7contactFTGSqSS_GSqSS__DS0_">contact(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Reactive method to set contact information of the user such as mobile number and email address, this method is optional</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter mobileNumber: a mobile number String
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter emailAddress: an email address String</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>reactive self</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">contact</span><span class="p">(</span><span class="nv">mobileNumber</span> <span class="p">:</span> <span class="kt">String</span><span class="p">?,</span> <span class="n">_</span> <span class="nv">emailAddress</span> <span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>mobileNumber</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a mobile number String</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>emailAddress</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>an email address String</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>reactive self</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction9pkPaymentFCSo9PKPaymentDS0_"></a>
+                    <a name="//apple_ref/swift/Method/pkPayment(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction9pkPaymentFCSo9PKPaymentDS0_">pkPayment(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>For creating an Apple Pay Transaction, use this method to add the PKPayment object</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter payment: the PKPayment object</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>reactive self</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pkPayment</span><span class="p">(</span><span class="nv">payment</span><span class="p">:</span> <span class="kt">PKPayment</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>payment</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the PKPayment object</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>reactive self</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction10apiSessionFVS_7SessionDS0_"></a>
+                    <a name="//apple_ref/swift/Method/apiSession(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction10apiSessionFVS_7SessionDS0_">apiSession(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>apiSession caller - this method sets the session variable and returns itself for further use</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter session: the API session which is used to call the Judo endpoints</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>reactive self</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">apiSession</span><span class="p">(</span><span class="nv">session</span><span class="p">:</span> <span class="kt">Session</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>session</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the API session which is used to call the Judo endpoints</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>reactive self</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction10completionFzFTGSqVS_8Response_GSqVS_9JudoError__T_DS0_"></a>
+                    <a name="//apple_ref/swift/Method/completion(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction10completionFzFTGSqVS_8Response_GSqVS_9JudoError__T_DS0_">completion(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Completion caller - this method will automatically trigger a Session Call to the judo REST API and execute the request based on the information that were set in the previous methods</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter block: a completion block that is called when the request finishes</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>reactive self</p>
+
+</div>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>ParameterError one or more of the given parameters were in the incorrect format or nil</p>
+
+</div>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>CardAndTokenError multiple methods of payment have been provided, please make sure to only provide one method</p>
+
+</div>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>CardOrTokenMissingError no method of transaction was provided, please provide either a card, paymentToken or PKPayment</p>
+
+</div>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>AmountMissingError no amount has been provided</p>
+
+</div>
+
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    <p>DuplicateTransactionError please provide a new Reference object if this transaction is not a duplicate</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">completion</span><span class="p">(</span><span class="nv">block</span><span class="p">:</span> <span class="kt">JudoCompletionBlock</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a completion block that is called when the request finishes</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>reactive self</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction12threeDSecureFTGVs10DictionarySSPs9AnyObject__9receiptIDSS5blockFTGSqVS_8Response_GSqVS_9JudoError__T__DS0_"></a>
+                    <a name="//apple_ref/swift/Method/threeDSecure(_:receiptID:block:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction12threeDSecureFTGVs10DictionarySSPs9AnyObject__9receiptIDSS5blockFTGSqVS_8Response_GSqVS_9JudoError__T__DS0_">threeDSecure(_:receiptID:block:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>threeDSecure call - this method will automatically trigger a Session Call to the judo REST API and execute the finalizing 3DS call on top of the information that had been sent in the previous methods</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter dictionary: the dictionary that contains all the information from the 3DS UIWebView Request
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter receiptID: the receipt for the given Transaction
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    <p>Parameter block: a completion block that is called when the request finishes</p>
+
+</div>
+
+<div class="aside aside-returns">
+    <p class="aside-title">Returns</p>
+    <p>reactive self</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">threeDSecure</span><span class="p">(</span><span class="nv">dictionary</span><span class="p">:</span> <span class="kt">JSONDictionary</span><span class="p">,</span> <span class="nv">receiptID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">block</span><span class="p">:</span> <span class="kt">JudoCompletionBlock</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Self</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>dictionary</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the dictionary that contains all the information from the 3DS UIWebView Request</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>receiptID</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>the receipt for the given Transaction</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a completion block that is called when the request finishes</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>reactive self</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction4listFFTGSqVS_8Response_GSqVS_9JudoError__T_T_"></a>
+                    <a name="//apple_ref/swift/Method/list(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction4listFFTGSqVS_8Response_GSqVS_9JudoError__T_T_">list(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method will return a list of transactions, filtered to just show the payment or preAuth transactions. The method will show the first 10 items in a Time Descending order</p>
+
+<p>See <a href="https://www.judopay.com/docs/v4_1/restful-api/api-reference/#transactions">List all transactions</a> for more information.</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter block: a completion block that is called when the request finishes
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">list</span><span class="p">(</span><span class="nv">block</span><span class="p">:</span> <span class="kt">JudoCompletionBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a completion block that is called when the request finishes</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction4listFTGSqVS_10Pagination_5blockFTGSqVS_8Response_GSqVS_9JudoError__T__T_"></a>
+                    <a name="//apple_ref/swift/Method/list(_:block:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction4listFTGSqVS_10Pagination_5blockFTGSqVS_8Response_GSqVS_9JudoError__T__T_">list(_:block:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>This method will return a list of transactions, filtered to just show the payment or pre-auth transactions.</p>
+
+<p>See <a href="https://www.judopay.com/docs/v4_1/restful-api/api-reference/#transactions">List all transactions</a> for more information.</p>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter pagination: The offset, number of items and order in which to return the items
+
+</div>
+
+<div class="aside aside-parameter">
+    <p class="aside-title">Parameter</p>
+    Parameter block: a completion block that is called when the request finishes
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">list</span><span class="p">(</span><span class="nv">pagination</span><span class="p">:</span> <span class="kt">Pagination</span><span class="p">?,</span> <span class="nv">block</span><span class="p">:</span> <span class="kt">JudoCompletionBlock</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>pagination</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The offset, number of items and order in which to return the items</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>a completion block that is called when the request finishes</p>
+
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:FC7JudoKit11Transaction4pathFT_SS"></a>
+                    <a name="//apple_ref/swift/Method/path()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FC7JudoKit11Transaction4pathFT_SS">path()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Helper method for extensions of this class to be able to access the dynamic path value</p>
+
+<p>:returns: the rest api access path of the current class</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2016 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2016-04-20)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
