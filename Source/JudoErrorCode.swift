@@ -144,6 +144,7 @@ import Foundation
  - UserDidCancel:                                         UserDidCancel
  */
 public enum JudoErrorCode: Int {
+    
     /// General_Error   
     case General_Error = 0
     /// General_Model_Error
@@ -380,4 +381,77 @@ public enum JudoErrorCode: Int {
     // MARK: User Errors
     /// Received when user cancels the payment
     case UserDidCancel = -999
+    
+    func messageValues() -> (String?, String?, String?)? {
+        
+        let UnableToProcessRequestErrorDesc = "Sorry, we're currently unable to process this request."
+        let UnableToProcessRequestErrorTitle = "Unable to process"
+        
+        var title: String? = UnableToProcessRequestErrorTitle
+        var message: String? = UnableToProcessRequestErrorDesc
+        var hint: String?
+        
+        switch self {
+            
+            case .ParameterError:
+                hint = "A parameter entered into the dictionary (request body to Judo API) is faulty"
+
+            case .ResponseParseError:
+                hint = "An error with the response from the backend API"
+            
+            case .LuhnValidationError:
+                hint = "Luhn validation checks failed"
+                title = "Unable to validate"
+                message = "Sorry, we've been unable to validate your card. Please check your details and try again or use an alternative card."
+            
+            case .JudoIDInvalidError:
+                hint = "Luhn validation on JudoID failed"
+                title = "Unable to accept"
+                message = "Sorry, but we are currently unable to accept payments to this account. Please contact customer services."
+   
+            case .SerializationError:
+                hint = "The information returned by the backend API does not return proper JSON data"
+            
+            case .RequestError:
+                hint = "The request failed when trying to communicate to the API"
+            
+            case .TokenSecretError:
+                hint = "Token and secret information is not provided"
+            
+            case .CardAndTokenError:
+                hint = "Both a card and a token were provided in the transaction request"
+            
+            case .AmountMissingError:
+                hint = "An amount object was not provided in the transaction request"
+ 
+            case .CardOrTokenMissingError:
+                hint = "The card object and the token object were not provided in the transaction request"
+    
+            case .PKPaymentMissingError:
+                hint = "The pkPayment object was not provided in the ApplePay transaction"
+
+            case .JailbrokenDeviceDisallowedError:
+                hint = "The device the code is currently running is jailbroken. Jailbroken devices are not allowed when instantiating a new Judo session"
+ 
+            case .InvalidOperationError:
+                hint = "It is not possible to create a transaction object with anything else than Payment, PreAuth or RegisterCard"
+    
+            case .Failed3DSError:
+                hint = "After receiving the 3DS payload, when the payload has faulty data, the WebView fails to load the 3DS Page or the resolution page"
+    
+            case .UnknownError:
+                hint = "An unknown error that can occur when making API calls"
+
+            case .UserDidCancel:
+                hint = "Received when user cancels the payment journey"
+                title = nil
+                message = nil
+            
+            default:
+                return nil
+        }
+        
+        return (title, message, hint)
+    }
 }
+

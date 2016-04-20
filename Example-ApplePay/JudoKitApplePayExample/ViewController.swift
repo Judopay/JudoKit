@@ -176,7 +176,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     attempt to decrypt the payment token on device.
     */
     func paymentAuthorizationViewController(controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: PKPaymentAuthorizationStatus -> Void) {
-        
+
         myJudoKitSession.applePayPayment(judoID, amount: Amount(amountString: "0.99", currency: .GBP), reference: reference!, payment: payment) { (response, error) -> () in
             if let _ = error {
                 completion(.Failure)
