@@ -24,6 +24,12 @@
 
 import Foundation
 
+let dateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "yyyyMMddHHmmss"
+    return formatter
+}()
+
 
 /**
  
@@ -52,7 +58,6 @@ public struct Reference {
     /// An object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
     public let yourPaymentMetaData: [String : String]?
     
-    
     /**
      Private designated initializer
      
@@ -79,7 +84,7 @@ public struct Reference {
      */
     public init?(consumerRef: String, metaData: [String : String]? = nil) {
         guard let uuidString = UIDevice.currentDevice().identifierForVendor?.UUIDString else { return nil }
-        let finalString = String((uuidString + String(NSDate())).characters.filter { ![":", "-", "+"].contains(String($0)) }).stringByReplacingOccurrencesOfString(" ", withString: "")
+        let finalString = String(uuidString.characters.filter { ![":", "-", "+"].contains(String($0)) }).stringByReplacingOccurrencesOfString(" ", withString: "") + dateFormatter.stringFromDate(NSDate())
         self.init(consumerRef: consumerRef, paymentRef: finalString.substringToIndex(finalString.endIndex.advancedBy(-4)), metaData: metaData)
     }
     
