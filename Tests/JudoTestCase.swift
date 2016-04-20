@@ -34,8 +34,8 @@ class JudoTestCase: XCTestCase {
     
     var judo = JudoKit(token: token, secret: secret)
     
-    let validVisaTestCard = Card(number: "4976000000003436", expiryDate: "12/20", cv2: "452")
-    let declinedVisaTestCard = Card(number: "4221690000004963", expiryDate: "12/20", cv2: "125")
+    let validVisaTestCard = Card(number: "4976000000003436", expiryDate: "12/20", securityCode: "452")
+    let declinedVisaTestCard = Card(number: "4221690000004963", expiryDate: "12/20", securityCode: "125")
     
     let oneGBPAmount = Amount(amountString: "1.00", currency: .GBP)
     let invalidAmount = Amount(amountString: "", currency: .GBP)

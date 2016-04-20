@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
+- `6.1.x` Releases - [6.1.0](#610)
 - `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.6.x` Releases - [5.6.0](#560)
 - `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551) | [5.5.2](#552) | [5.5.3](#553) | [5.5.4](#554)
@@ -19,9 +20,11 @@ Released on 2016-04-12
 #### Changed
 - Merged Judo-Swift into judoKit.
 - Switching from classes to structs.
+- More descriptive name for the card security code
 
 #### Fixed
-- an issue where presentation on TableViewControllers would fail (Thanks to @andproff)
+- An issue where presentation on TableViewControllers would fail (Thanks to @andproff)
+- An issue where devices set to 12-hour format would fail generating a proper payment reference string
 
 #### Removed
 - Theme static accessor.

@@ -216,7 +216,7 @@ class PaymentTests: JudoTestCase {
     func testJudoValidation() {
         // Given
         guard let references = Reference(consumerRef: "consumer0053252") else { return }
-        let card = Card(number: "4976000000003436", expiryDate: "12/20", cv2: "452")
+        let card = Card(number: "4976000000003436", expiryDate: "12/20", securityCode: "452")
         let amount = Amount(amountString: "30", currency: .GBP)
         let emailAddress = "hans@email.com"
         let mobileNumber = "07100000000"
