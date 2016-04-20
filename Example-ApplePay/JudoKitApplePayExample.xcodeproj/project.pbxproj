@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DA3048CE1C047279000E1B79 /* Judo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3048CB1C047270000E1B79 /* Judo.framework */; };
-		DA3048CF1C047279000E1B79 /* Judo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA3048CB1C047270000E1B79 /* Judo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DA3048D31C047286000E1B79 /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3048D21C047286000E1B79 /* PassKit.framework */; };
 		DA44EA961BD4DBE4003B302A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44EA951BD4DBE4003B302A /* AppDelegate.swift */; };
 		DA44EA981BD4DBE4003B302A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA44EA971BD4DBE4003B302A /* ViewController.swift */; };
@@ -25,27 +23,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		DA3048CA1C047270000E1B79 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DA3048C51C047270000E1B79 /* Judo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DAFA3FF21B5939E50094CFCA;
-			remoteInfo = Judo;
-		};
-		DA3048CC1C047270000E1B79 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DA3048C51C047270000E1B79 /* Judo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DAFA3FFC1B5939E60094CFCA;
-			remoteInfo = JudoTests;
-		};
-		DA3048D01C047279000E1B79 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DA3048C51C047270000E1B79 /* Judo.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = DAFA3FF11B5939E50094CFCA;
-			remoteInfo = Judo;
-		};
 		DA44EAAE1BD4E3A8003B302A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DA44EAA81BD4E3A8003B302A /* JudoKit.xcodeproj */;
@@ -69,7 +46,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				DA3048CF1C047279000E1B79 /* Judo.framework in CopyFiles */,
 				DAC7E7011BD535AF00054AF1 /* JudoShield.framework in CopyFiles */,
 				DAC7E6FD1BD5357D00054AF1 /* JudoKit.framework in CopyFiles */,
 			);
@@ -78,7 +54,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DA3048C51C047270000E1B79 /* Judo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Judo.xcodeproj; path = "../Judo-Swift/Judo.xcodeproj"; sourceTree = "<group>"; };
 		DA3048D21C047286000E1B79 /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
 		DA44EA921BD4DBE4003B302A /* JudoKitApplePayExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JudoKitApplePayExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA44EA951BD4DBE4003B302A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,7 +76,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA3048D31C047286000E1B79 /* PassKit.framework in Frameworks */,
-				DA3048CE1C047279000E1B79 /* Judo.framework in Frameworks */,
 				DAC7E7081BD5361400054AF1 /* Security.framework in Frameworks */,
 				DAC7E7061BD5361100054AF1 /* CoreLocation.framework in Frameworks */,
 				DAC7E7041BD5360C00054AF1 /* CoreTelephony.framework in Frameworks */,
@@ -113,15 +87,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		DA3048C61C047270000E1B79 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				DA3048CB1C047270000E1B79 /* Judo.framework */,
-				DA3048CD1C047270000E1B79 /* JudoTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		DA44EA891BD4DBE4003B302A = {
 			isa = PBXGroup;
 			children = (
@@ -167,7 +132,6 @@
 			children = (
 				DA3048D21C047286000E1B79 /* PassKit.framework */,
 				DA44EAA81BD4E3A8003B302A /* JudoKit.xcodeproj */,
-				DA3048C51C047270000E1B79 /* Judo.xcodeproj */,
 				DAC7E7071BD5361400054AF1 /* Security.framework */,
 				DAC7E7051BD5361100054AF1 /* CoreLocation.framework */,
 				DAC7E7031BD5360C00054AF1 /* CoreTelephony.framework */,
@@ -191,7 +155,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				DA3048D11C047279000E1B79 /* PBXTargetDependency */,
 			);
 			name = JudoKitApplePayExample;
 			productName = JudoKitApplePayExample;
@@ -232,10 +195,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = DA3048C61C047270000E1B79 /* Products */;
-					ProjectRef = DA3048C51C047270000E1B79 /* Judo.xcodeproj */;
-				},
-				{
 					ProductGroup = DA44EAA91BD4E3A8003B302A /* Products */;
 					ProjectRef = DA44EAA81BD4E3A8003B302A /* JudoKit.xcodeproj */;
 				},
@@ -248,20 +207,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		DA3048CB1C047270000E1B79 /* Judo.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Judo.framework;
-			remoteRef = DA3048CA1C047270000E1B79 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		DA3048CD1C047270000E1B79 /* JudoTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = JudoTests.xctest;
-			remoteRef = DA3048CC1C047270000E1B79 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		DA44EAAF1BD4E3A8003B302A /* JudoKit.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -302,14 +247,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		DA3048D11C047279000E1B79 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Judo;
-			targetProxy = DA3048D01C047279000E1B79 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DA44EA991BD4DBE4003B302A /* Main.storyboard */ = {
