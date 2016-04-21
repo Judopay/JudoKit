@@ -325,8 +325,12 @@ public struct Session {
     
     - returns: a Dictionary containing all the information to submit for a refund or a collection
     */
-    func progressionParameters(receiptId: String, amount: Amount, paymentReference: String) -> JSONDictionary {
-        return ["receiptId":receiptId, "amount": amount.amount, "yourPaymentReference": paymentReference]
+    func progressionParameters(receiptId: String, amount: Amount, paymentReference: String, deviceSignal: JSONDictionary?) -> JSONDictionary {
+        var dictionary = ["receiptId":receiptId, "amount": amount.amount, "yourPaymentReference": paymentReference]
+        if let deviceSignal = deviceSignal {
+            dictionary["clientDetails"] = deviceSignal
+        }
+        return dictionary
     }
     
     

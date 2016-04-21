@@ -33,6 +33,8 @@ public class TransactionProcess {
     public private (set) var amount: Amount
     /// The payment reference String for a collection, void or refund
     public private (set) var paymentReference: String = ""
+    /// Device identification for this transaction to prevent fraud
+    public private (set) var deviceSignal: JSONDictionary?
     /// The current Session to access the Judo API
     public var APISession: Session?
     
@@ -77,6 +79,19 @@ public class TransactionProcess {
     
     
     /**
+     Reactive method to set device signal information of the device, this method is optional and is used for fraud prevention
+     
+     - Parameter deviceSignal: a Dictionary which contains information about the device
+     
+     - Returns: reactive self
+     */
+    public func deviceSignal(deviceSignal: JSONDictionary) -> Self {
+        self.deviceSignal = deviceSignal
+        return self
+    }
+    
+    
+    /**
      Completion caller - this method will automatically trigger a Session Call to the judo REST API and execute the request based on the information that were set in the previous methods
      
      - Parameter block: a completion block that is called when the request finishes
@@ -85,7 +100,7 @@ public class TransactionProcess {
      */
     public func completion(block: JudoCompletionBlock) -> Self {
         
-        guard let parameters = self.APISession?.progressionParameters(self.receiptID, amount: self.amount, paymentReference: self.paymentReference) else { return self }
+        guard let parameters = self.APISession?.progressionParameters(self.receiptID, amount: self.amount, paymentReference: self.paymentReference, deviceSignal: self.deviceSignal) else { return self }
         
         self.APISession?.POST(self.path(), parameters: parameters) { (dict, error) -> Void in
             block(dict, error)

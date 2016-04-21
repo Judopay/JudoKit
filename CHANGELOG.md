@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `6.1.x` Releases - [6.1.0](#610)
+- `6.1.x` Releases - [6.1.0](#610) | [6.1.1](#611)
 - `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.6.x` Releases - [5.6.0](#560)
 - `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551) | [5.5.2](#552) | [5.5.3](#553) | [5.5.4](#554)
@@ -13,7 +13,14 @@ All notable changes to this project will be documented in this file.
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
+## [6.1.0](https://github.com/JudoPay/JudoKit/releases/tag/6.1.0)
+Released on 2016-04-28
 
+#### Changed
+- Including deviceDNA in direct API calls.
+- Allowing empty paymentData in Simulator.
+
+---
 ## [6.1.0](https://github.com/JudoPay/JudoKit/releases/tag/6.1.0)
 Released on 2016-04-12
 
