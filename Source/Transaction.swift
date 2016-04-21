@@ -161,7 +161,10 @@ public class Transaction: SessionProtocol {
             do {
                 tokenDict["paymentData"] = try NSJSONSerialization.JSONObjectWithData(pkPayment.token.paymentData, options: NSJSONReadingOptions.MutableLeaves) as? JSONDictionary
             } catch {
-                return // BAIL
+                // Allow empty paymentData on simulator for test cards
+                #if !(arch(i386) || arch(x86_64)) && (os(iOS) || os(watchOS) || os(tvOS))
+                    return
+                #endif
             }
             
             self.parameters["pkPayment"] = ["token":tokenDict]
