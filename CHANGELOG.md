@@ -20,6 +20,9 @@ Released on 2016-04-28
 - Including deviceDNA in direct API calls.
 - Allowing empty paymentData in Simulator.
 
+#### Fixed
+- An issue where generating a new payment reference would fail.
+
 ---
 ## [6.1.0](https://github.com/JudoPay/JudoKit/releases/tag/6.1.0)
 Released on 2016-04-21

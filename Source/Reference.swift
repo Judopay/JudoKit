@@ -85,7 +85,7 @@ public struct Reference {
     public init?(consumerRef: String, metaData: [String : String]? = nil) {
         guard let uuidString = UIDevice.currentDevice().identifierForVendor?.UUIDString else { return nil }
         let finalString = String(uuidString.characters.filter { ![":", "-", "+"].contains(String($0)) }).stringByReplacingOccurrencesOfString(" ", withString: "") + dateFormatter.stringFromDate(NSDate())
-        self.init(consumerRef: consumerRef, paymentRef: finalString.substringToIndex(finalString.endIndex.advancedBy(-4)), metaData: metaData)
+        self.init(consumerRef: consumerRef, paymentRef: finalString, metaData: metaData)
     }
     
 }
