@@ -23,7 +23,6 @@
 //  SOFTWARE.
 
 import UIKit
-import JudoShield
 
 
 /**
@@ -46,10 +45,6 @@ public class JudoPayViewController: UIViewController {
     public private (set) var reference: Reference?
     /// Card token and Consumer token
     public private (set) var paymentToken: PaymentToken?
-    
-    // MARK: Fraud Prevention
-    private let judoShield = JudoShield()
-    private var currentLocation: CLLocationCoordinate2D?
     
     // MARK: 3DS variables
     private var pending3DSTransaction: Transaction?
@@ -197,14 +192,6 @@ public class JudoPayViewController: UIViewController {
     public override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.judoShield.locationWithCompletion { (coordinate, error) -> Void in
-            if let _ = error as? JudoError {
-                // silently fail
-            } else if CLLocationCoordinate2DIsValid(coordinate) {
-                self.currentLocation = coordinate
-            }
-        }
-        
         if self.myView.cardInputField.textField.text?.characters.count > 0 {
             self.myView.secureCodeInputField.textField.becomeFirstResponder()
         } else {
@@ -258,12 +245,7 @@ public class JudoPayViewController: UIViewController {
                 transaction.card(Card(number: self.myView.cardInputField.textField.text!.strippedWhitespaces, expiryDate: self.myView.expiryDateInputField.textField.text!, securityCode: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
             
-            // If location was fetched until now, get it
-            if let location = self.currentLocation {
-                transaction.location(location)
-            }
-            
-            self.pending3DSTransaction = try transaction.deviceSignal(self.judoShield.deviceSignal()).completion({ (response, error) -> () in
+            self.pending3DSTransaction = try transaction.completion({ (response, error) -> () in
                 if let error = error {
                     if error.domain == JudoErrorDomain && error.code == .ThreeDSAuthRequest {
                         guard let payload = error.payload else {
