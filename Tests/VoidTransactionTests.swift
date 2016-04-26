@@ -53,7 +53,7 @@ class VoidTransactionTests: JudoTestCase {
                 
                 // When I perform a void
                 do {
-                    let collection = try self.judo.voidTransaction(receiptId, amount: amount).completion({ (response, error) -> () in
+                    let voidTransaction = try self.judo.voidTransaction(receiptId, amount: amount).completion({ (response, error) -> () in
                         // Then I receive a successful response
                         if let error = error {
                             XCTFail("api call failed with error: \(error)")
@@ -65,7 +65,7 @@ class VoidTransactionTests: JudoTestCase {
                         expectation.fulfill();
                     })
                     
-                    XCTAssertNotNil(collection)
+                    XCTAssertNotNil(voidTransaction)
                 } catch {
                     XCTFail("exception thrown: \(error)")
                     expectation.fulfill();
