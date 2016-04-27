@@ -72,7 +72,7 @@ public class BillingCountryInputField: JudoPayInputField {
     
     - returns: true if valid input
     */
-    override public func isValid() -> Bool {
+    public func isValid() -> Bool {
         return true
     }
     
@@ -82,7 +82,7 @@ public class BillingCountryInputField: JudoPayInputField {
      
      - returns: a string that is the title of the receiver
      */
-    override public func title() -> String {
+    public func title() -> String {
         return "Billing country"
     }
     
@@ -92,7 +92,7 @@ public class BillingCountryInputField: JudoPayInputField {
      
      - returns: width of the title
      */
-    override public func titleWidth() -> Int {
+    public func titleWidth() -> Int {
         return 120
     }
     

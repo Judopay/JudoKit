@@ -245,30 +245,30 @@ public class JudoPayViewController: UIViewController {
                 transaction.card(Card(number: self.myView.cardInputField.textField.text!.strippedWhitespaces, expiryDate: self.myView.expiryDateInputField.textField.text!, securityCode: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
             
-            self.pending3DSTransaction = try transaction.completion({ (response, error) -> () in
+            self.pending3DSTransaction = try transaction.completion({ [weak self] (response, error) -> () in
                 if let error = error {
                     if error.domain == JudoErrorDomain && error.code == .ThreeDSAuthRequest {
                         guard let payload = error.payload else {
-                            self.completionBlock?(nil, JudoError(.ResponseParseError))
+                            self?.completionBlock?(nil, JudoError(.ResponseParseError))
                             return // BAIL
                         }
                         
                         do {
-                            self.pending3DSReceiptID = try self.myView.threeDSecureWebView.load3DSWithPayload(payload)
+                            self?.pending3DSReceiptID = try self?.myView.threeDSecureWebView.load3DSWithPayload(payload)
                         } catch {
-                            self.myView.loadingView.stopAnimating()
-                            self.completionBlock?(nil, error as? JudoError)
+                            self?.myView.loadingView.stopAnimating()
+                            self?.completionBlock?(nil, error as? JudoError)
                         }
-                        self.myView.loadingView.actionLabel.text = self.judoKitSession.theme.redirecting3DSTitle
-                        self.title = self.judoKitSession.theme.authenticationTitle
-                        self.myView.paymentEnabled(false)
+                        self?.myView.loadingView.actionLabel.text = self?.judoKitSession.theme.redirecting3DSTitle
+                        self?.title = self?.judoKitSession.theme.authenticationTitle
+                        self?.myView.paymentEnabled(false)
                     } else {
-                        self.completionBlock?(nil, error)
-                        self.myView.loadingView.stopAnimating()
+                        self?.completionBlock?(nil, error)
+                        self?.myView.loadingView.stopAnimating()
                     }
                 } else if let response = response {
-                    self.completionBlock?(response, nil)
-                    self.myView.loadingView.stopAnimating()
+                    self?.completionBlock?(response, nil)
+                    self?.myView.loadingView.stopAnimating()
                 }
             })
             
@@ -337,14 +337,14 @@ extension JudoPayViewController: UIWebViewDelegate {
                 }
                 self.myView.loadingView.startAnimating()
                 self.title = self.judoKitSession.theme.authenticationTitle
-                self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { (resp, error) -> () in
-                    self.myView.loadingView.stopAnimating()
+                self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { [weak self] (resp, error) -> () in
+                    self?.myView.loadingView.stopAnimating()
                     if let error = error {
-                        self.completionBlock?(nil, error)
+                        self?.completionBlock?(nil, error)
                     } else if let resp = resp {
-                        self.completionBlock?(resp, nil)
+                        self?.completionBlock?(resp, nil)
                     } else {
-                        self.completionBlock?(nil, JudoError(.Unknown))
+                        self?.completionBlock?(nil, JudoError(.Unknown))
                     }
                 })
             } else {

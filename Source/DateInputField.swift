@@ -181,7 +181,7 @@ public class DateInputField: JudoPayInputField {
     
     - returns: true if valid input
     */
-    override public func isValid() -> Bool {
+    public func isValid() -> Bool {
         guard let dateString = textField.text where dateString.characters.count == 5,
             let beginningOfMonthDate = self.dateFormatter.dateFromString(dateString) else { return false }
         if self.isStartDate {
@@ -200,7 +200,7 @@ public class DateInputField: JudoPayInputField {
      
      - parameter textField: the textfield of which the content has changed
      */
-    override public func textFieldDidChangeValue(textField: UITextField) {
+    public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
         self.didChangeInputText()
@@ -225,7 +225,7 @@ public class DateInputField: JudoPayInputField {
      
      - returns: an Attributed String that is the placeholder of the receiver
      */
-    override public func placeholder() -> NSAttributedString? {
+    public func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
     }
     
@@ -235,7 +235,7 @@ public class DateInputField: JudoPayInputField {
      
      - returns: a string that is the title of the receiver
      */
-    override public func title() -> String {
+    public func title() -> String {
         return isStartDate ? "Start date" : "Expiry date"
     }
     
@@ -245,7 +245,7 @@ public class DateInputField: JudoPayInputField {
      
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */
-    override public func hintLabelText() -> String {
+    public func hintLabelText() -> String {
         return "MM/YY"
     }
 

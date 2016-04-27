@@ -97,7 +97,7 @@ public class PostCodeInputField: JudoPayInputField {
     
     - returns: True if valid input
     */
-    override public func isValid() -> Bool {
+    public func isValid() -> Bool {
         if self.billingCountry == .Other {
             return true
         }
@@ -125,7 +125,7 @@ public class PostCodeInputField: JudoPayInputField {
      
      - parameter textField: The text field of which the content has changed
      */
-    override public func textFieldDidChangeValue(textField: UITextField) {
+    public func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
         self.didChangeInputText()
@@ -153,7 +153,7 @@ public class PostCodeInputField: JudoPayInputField {
      
      - returns: A string that is the title of the receiver
      */
-    override public func title() -> String {
+    public func title() -> String {
         return "Billing " + self.billingCountry.titleDescription()
     }
     
@@ -163,7 +163,7 @@ public class PostCodeInputField: JudoPayInputField {
      
      - returns: Width of the title
      */
-    override public func titleWidth() -> Int {
+    public func titleWidth() -> Int {
         return 120
     }
     
