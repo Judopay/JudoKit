@@ -50,12 +50,12 @@ class JudoKit3DSPaymentTests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("4976350000006891")
+        elementsQuery.secureTextFields["Card number"].typeText("4976350000006891")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cvv2TextField = elementsQuery.textFields["CVV2"]
+        let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("341")
         
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
@@ -84,12 +84,12 @@ class JudoKit3DSPaymentTests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("5100000000001907")
+        elementsQuery.secureTextFields["Card number"].typeText("5100000000001907")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cvv2TextField = elementsQuery.textFields["CVC2"]
+        let cvv2TextField = elementsQuery.secureTextFields["CVC2"]
         cvv2TextField.typeText("654")
         
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
@@ -118,12 +118,12 @@ class JudoKit3DSPaymentTests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("340000061790712")
+        elementsQuery.secureTextFields["Card number"].typeText("340000061790712")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cvv2TextField = elementsQuery.textFields["CID"]
+        let cvv2TextField = elementsQuery.secureTextFields["CID"]
         cvv2TextField.typeText("5464")
         
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
@@ -151,7 +151,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("6759000000001909")
+        elementsQuery.secureTextFields["Card number"].typeText("6759000000001909")
         
         let startDateTextField = elementsQuery.textFields["Start date"]
         startDateTextField.tap()
@@ -161,7 +161,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         expiryDateTextField.tap()
         expiryDateTextField.typeText("1220")
         
-        let cvvTextField = elementsQuery.textFields["CVV"]
+        let cvvTextField = elementsQuery.secureTextFields["CVV"]
         cvvTextField.typeText("784")
         app.navigationBars["Payment"].buttons["Pay"].tap()
         

@@ -49,7 +49,7 @@ class JudoKitMaestroTests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
 
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("6759000000005462")
+        elementsQuery.secureTextFields["Card number"].typeText("6759000000005462")
         
         let startDateTextField = elementsQuery.textFields["Start date"]
         startDateTextField.tap()
@@ -59,7 +59,7 @@ class JudoKitMaestroTests: XCTestCase {
         expiryDateTextField.tap()
         expiryDateTextField.typeText("1220")
         
-        let cvvTextField = elementsQuery.textFields["CVV"]
+        let cvvTextField = elementsQuery.secureTextFields["CVV"]
         cvvTextField.typeText("789")
         app.navigationBars["Payment"].buttons["Pay"].tap()
         
@@ -83,7 +83,7 @@ class JudoKitMaestroTests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("6759000000005462")
+        elementsQuery.secureTextFields["Card number"].typeText("6759000000005462")
         
         let startDateTextField = elementsQuery.textFields["Start date"]
         startDateTextField.tap()
@@ -93,7 +93,7 @@ class JudoKitMaestroTests: XCTestCase {
         expiryDateTextField.tap()
         expiryDateTextField.typeText("1220")
         
-        let cvvTextField = elementsQuery.textFields["CVV"]
+        let cvvTextField = elementsQuery.secureTextFields["CVV"]
         cvvTextField.typeText("789")
         
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
