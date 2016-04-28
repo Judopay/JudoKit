@@ -42,15 +42,15 @@ class PreAuthTests: JudoTestCase {
     func testJudoMakeValidPreAuth() {
         do {
             // Given I have a Pre-authorization
-            let payment = try judo.preAuth(myJudoID, amount: oneGBPAmount, reference: validReference)
+            let preAuth = try judo.preAuth(myJudoID, amount: oneGBPAmount, reference: validReference)
             
             // When I provide all the required fields
-            payment.card(validVisaTestCard)
+            preAuth.card(validVisaTestCard)
             
             // Then I should be able to make a Pre-authorization
             let expectation = self.expectationWithDescription("payment expectation")
             
-            try payment.completion({ (response, error) -> () in
+            try preAuth.completion({ (response, error) -> () in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                 }
@@ -59,8 +59,8 @@ class PreAuthTests: JudoTestCase {
                 expectation.fulfill()
             })
             
-            XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoID, myJudoID)
+            XCTAssertNotNil(preAuth)
+            XCTAssertEqual(preAuth.judoID, myJudoID)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -68,19 +68,51 @@ class PreAuthTests: JudoTestCase {
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
     
+<<<<<<< HEAD
+=======
+    func testJudoMakePreAuthWithoutAmount() {
+        do {
+            // Given I have a Pre-authorization
+            // When I do not provide an amount
+            let preAuth = try judo.preAuth(myJudoID, amount: invalidAmount, reference: validReference)
+            
+            preAuth.card(validVisaTestCard)
+            
+            // Then I should receive an error
+            let expectation = self.expectationWithDescription("payment expectation")
+            
+            try preAuth.completion({ (response, error) -> () in
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
+                }
+                XCTAssertNotNil(response)
+                XCTAssertNotNil(response?.first)
+                expectation.fulfill()
+            })
+            
+            XCTAssertNotNil(preAuth)
+            XCTAssertEqual(preAuth.judoID, myJudoID)
+        } catch {
+            XCTFail("exception thrown: \(error)")
+        }
+        
+        self.waitForExpectationsWithTimeout(30, handler: nil)
+    }
+    
+>>>>>>> master
     
     func testJudoMakePreAuthWithoutCurrency() {
         do {
             // Given I have a Pre-authorization
             // When I do not provide a currency
-            let payment = try judo.preAuth(myJudoID, amount: invalidCurrencyAmount, reference: validReference)
+            let preAuth = try judo.preAuth(myJudoID, amount: invalidCurrencyAmount, reference: validReference)
             
-            payment.card(validVisaTestCard)
+            preAuth.card(validVisaTestCard)
             
             // Then I should receive an error
             let expectation = self.expectationWithDescription("payment expectation")
             
-            try payment.completion({ (response, error) -> () in
+            try preAuth.completion({ (response, error) -> () in
                 XCTAssertNil(response)
                 XCTAssertNotNil(error)
                 XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
@@ -90,8 +122,8 @@ class PreAuthTests: JudoTestCase {
                 expectation.fulfill()
             })
             
-            XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoID, myJudoID)
+            XCTAssertNotNil(preAuth)
+            XCTAssertEqual(preAuth.judoID, myJudoID)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -104,14 +136,14 @@ class PreAuthTests: JudoTestCase {
         do {
             // Given I have a Pre-authorization
             // When I do not provide a consumer reference
-            let payment = try judo.preAuth(myJudoID, amount: oneGBPAmount, reference: invalidReference)
+            let preAuth = try judo.preAuth(myJudoID, amount: oneGBPAmount, reference: invalidReference)
             
-            payment.card(validVisaTestCard)
+            preAuth.card(validVisaTestCard)
             
             // Then I should receive an error
             let expectation = self.expectationWithDescription("payment expectation")
             
-            try payment.completion({ (response, error) -> () in
+            try preAuth.completion({ (response, error) -> () in
                 XCTAssertNil(response)
                 XCTAssertNotNil(error)
                 XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
@@ -121,8 +153,8 @@ class PreAuthTests: JudoTestCase {
                 expectation.fulfill()
             })
             
-            XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoID, myJudoID)
+            XCTAssertNotNil(preAuth)
+            XCTAssertEqual(preAuth.judoID, myJudoID)
         } catch {
             XCTFail("exception thrown: \(error)")
         }

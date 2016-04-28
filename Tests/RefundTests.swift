@@ -33,9 +33,9 @@ class RefundTests: JudoTestCase {
         
         do {
             // Given I have made a payment
-            let preAuth = try judo.payment(myJudoID, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
+            let payment = try judo.payment(myJudoID, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
             
-            try preAuth.completion({ (response, error) -> () in
+            try payment.completion({ (response, error) -> () in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                     expectation.fulfill()
@@ -53,7 +53,7 @@ class RefundTests: JudoTestCase {
                 
                 // When I perform a refund up to the original amount
                 do {
-                    let collection = try self.judo.refund(receiptId, amount: amount).completion({ (response, error) -> () in
+                    let refund = try self.judo.refund(receiptId, amount: amount).completion({ (response, error) -> () in
                         // Then I receive a successful response
                         if let error = error {
                             XCTFail("api call failed with error: \(error)")
@@ -65,15 +65,15 @@ class RefundTests: JudoTestCase {
                         expectation.fulfill();
                     })
                     
-                    XCTAssertNotNil(collection)
+                    XCTAssertNotNil(refund)
                 } catch {
                     XCTFail("exception thrown: \(error)")
                     expectation.fulfill();
                 }
             })
             
-            XCTAssertNotNil(preAuth)
-            XCTAssertEqual(preAuth.judoID, myJudoID)
+            XCTAssertNotNil(payment)
+            XCTAssertEqual(payment.judoID, myJudoID)
         } catch {
             XCTFail("exception thrown: \(error)")
             expectation.fulfill();
