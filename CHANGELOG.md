@@ -17,12 +17,13 @@ All notable changes to this project will be documented in this file.
 TBD
 
 #### Added
-- protocol extension for Card to safely mask important information
+- Protocol extension for Card to safely mask important information.
 
 #### Changed
+- Implemented a protocol as extension in JudoPayInputField.
 
 #### Fixed
-
+- UI Testing.
 
 ---
 
