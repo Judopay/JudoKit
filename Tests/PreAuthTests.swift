@@ -68,38 +68,6 @@ class PreAuthTests: JudoTestCase {
         self.waitForExpectationsWithTimeout(30, handler: nil)
     }
     
-<<<<<<< HEAD
-=======
-    func testJudoMakePreAuthWithoutAmount() {
-        do {
-            // Given I have a Pre-authorization
-            // When I do not provide an amount
-            let preAuth = try judo.preAuth(myJudoID, amount: invalidAmount, reference: validReference)
-            
-            preAuth.card(validVisaTestCard)
-            
-            // Then I should receive an error
-            let expectation = self.expectationWithDescription("payment expectation")
-            
-            try preAuth.completion({ (response, error) -> () in
-                if let error = error {
-                    XCTFail("api call failed with error: \(error)")
-                }
-                XCTAssertNotNil(response)
-                XCTAssertNotNil(response?.first)
-                expectation.fulfill()
-            })
-            
-            XCTAssertNotNil(preAuth)
-            XCTAssertEqual(preAuth.judoID, myJudoID)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
-        
-        self.waitForExpectationsWithTimeout(30, handler: nil)
-    }
-    
->>>>>>> master
     
     func testJudoMakePreAuthWithoutCurrency() {
         do {
