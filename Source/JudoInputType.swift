@@ -31,7 +31,7 @@ import Foundation
     /**
      Helper method for the hintLabel to disappear or reset the timer when called. This is triggered by the `shouldChangeCharactersInRange:` method in each of the `inputField` subclasses
      */
-    func didChangeInputText()
+    @objc func didChangeInputText()
     
     
     /**
@@ -39,7 +39,7 @@ import Foundation
      
      - parameter textField: the `UITextField` that has a changed value
      */
-    func textFieldDidChangeValue(textField: UITextField)
+    @objc func textFieldDidChangeValue(textField: UITextField)
     
     
     /**
@@ -47,7 +47,7 @@ import Foundation
      
      - returns: an NSAttributedString depending on color and configuration
      */
-    func placeholder() -> NSAttributedString?
+    @objc func placeholder() -> NSAttributedString?
     
     
     /**
@@ -55,7 +55,7 @@ import Foundation
      
      - returns: a boolean indication whether logo should be shown
      */
-    func containsLogo() -> Bool
+    @objc func containsLogo() -> Bool
     
     
     /**
@@ -63,7 +63,7 @@ import Foundation
      
      - returns: the logo of an inputField
      */
-    func logoView() -> CardLogoView?
+    @objc func logoView() -> CardLogoView?
     
     
     /**
@@ -71,7 +71,7 @@ import Foundation
      
      - returns: the title of an inputField
      */
-    func title() -> String
+    @objc func title() -> String
  
     
     /**
@@ -79,7 +79,7 @@ import Foundation
      
      - returns: a title width in integer
      */
-    func titleWidth() -> Int
+    @objc func titleWidth() -> Int
     
     
     /**
@@ -87,7 +87,7 @@ import Foundation
      
      - returns: a String with instructions for a given inputField that pops up after 3 seconds of being idle
      */
-    func hintLabelText() -> String
+    @objc func hintLabelText() -> String
     
     
     /**
@@ -95,7 +95,7 @@ import Foundation
      
      - returns: true if information in field is valid
      */
-    func isValid() -> Bool
+    @objc func isValid() -> Bool
 }
 
 public extension JudoInputType where Self: JudoPayInputField {

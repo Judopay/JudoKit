@@ -95,7 +95,7 @@ public class CardInputField: JudoPayInputField {
     
     - returns: true if valid input
     */
-    public func isValid() -> Bool {
+    public override func isValid() -> Bool {
         return self.isTokenPayment || self.textField.text?.isCardNumberValid() ?? false
     }
     
@@ -105,7 +105,7 @@ public class CardInputField: JudoPayInputField {
      
      - parameter textField: the textfield of which the content has changed
      */
-    public func textFieldDidChangeValue(textField: UITextField) {
+    public override func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
         self.didChangeInputText()
@@ -137,7 +137,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: an Attributed String that is the placeholder of the receiver
      */
-    public func placeholder() -> NSAttributedString? {
+    public override func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
     }
     
@@ -147,7 +147,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: true if inputField shows a Logo
      */
-    public func containsLogo() -> Bool {
+    public override func containsLogo() -> Bool {
         return true
     }
     
@@ -157,7 +157,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: an optional CardLogoView
      */
-    public func logoView() -> CardLogoView? {
+    public override func logoView() -> CardLogoView? {
         return CardLogoView(type: self.cardNetwork.cardLogoType())
     }
     
@@ -167,7 +167,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: a string that is the title of the receiver
      */
-    public func title() -> String {
+    public override func title() -> String {
         return "Card number"
     }
     
@@ -177,7 +177,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */
-    public func hintLabelText() -> String {
+    public override func hintLabelText() -> String {
         return "Long card number"
     }
 
