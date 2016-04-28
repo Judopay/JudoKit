@@ -70,7 +70,7 @@ public struct Card {
         get {
             return "****"
         }
-        set {}
+        set { }
     }
     /// The expiry date should be submitted as MM/YY
     public let expiryDate: String
@@ -181,6 +181,14 @@ public struct Card {
     
 }
 
+// MARK: - Card Protocol extensions
+
+extension Card: CustomStringConvertible {
+    public var description: String {
+        return "number: \(self.number), expiryDate: \(self.expiryDate), securityCode: \(self.securityCode), address: \(self.address), startDate: \(self.startDate), issueNumber: \(self.issueNumber)"
+    }
+}
+
 // MARK: - Card.Configurations Protocol extensions
 extension Card.Configuration: Comparable { }
 
@@ -248,6 +256,8 @@ public func >(x: Card.Configuration, y: Card.Configuration) -> Bool {
 public func >=(x: Card.Configuration, y: Card.Configuration) -> Bool {
     return x.cardLength >= y.cardLength
 }
+
+// MARK - Additional card helpers
 
 /**
 The CardType enum is a value type for CardNetwork to further identify card types
@@ -525,6 +535,8 @@ public enum CardNetwork: Int64 {
 }
 
 
+// MARK - CardDetails
+
 /**
  **CardDetails**
  
@@ -688,5 +700,4 @@ public class CardDetails: NSObject, NSCoding {
     }
     
 }
-
 

@@ -32,11 +32,16 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DAD13A001B7B8BD6007BB196"
+               BlueprintIdentifier = "3B5A60081CAACF6100E98AC6"
                BuildableName = "JudoKitTests.xctest"
                BlueprintName = "JudoKitTests"
                ReferencedContainer = "container:JudoKit.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "PaymentTests/testJudoValidation()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

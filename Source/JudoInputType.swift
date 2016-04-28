@@ -27,11 +27,11 @@ import Foundation
 /**
  *  The type for all the input fields to conform to
  */
-public protocol JudoInputType {
+@objc public protocol JudoInputType {
     /**
      Helper method for the hintLabel to disappear or reset the timer when called. This is triggered by the `shouldChangeCharactersInRange:` method in each of the `inputField` subclasses
      */
-    func didChangeInputText()
+    @objc func didChangeInputText()
     
     
     /**
@@ -39,7 +39,7 @@ public protocol JudoInputType {
      
      - parameter textField: the `UITextField` that has a changed value
      */
-    func textFieldDidChangeValue(textField: UITextField)
+    @objc func textFieldDidChangeValue(textField: UITextField)
     
     
     /**
@@ -47,7 +47,7 @@ public protocol JudoInputType {
      
      - returns: an NSAttributedString depending on color and configuration
      */
-    func placeholder() -> NSAttributedString?
+    @objc func placeholder() -> NSAttributedString?
     
     
     /**
@@ -55,7 +55,7 @@ public protocol JudoInputType {
      
      - returns: a boolean indication whether logo should be shown
      */
-    func containsLogo() -> Bool
+    @objc func containsLogo() -> Bool
     
     
     /**
@@ -63,7 +63,7 @@ public protocol JudoInputType {
      
      - returns: the logo of an inputField
      */
-    func logoView() -> CardLogoView?
+    @objc func logoView() -> CardLogoView?
     
     
     /**
@@ -71,7 +71,7 @@ public protocol JudoInputType {
      
      - returns: the title of an inputField
      */
-    func title() -> String
+    @objc func title() -> String
  
     
     /**
@@ -79,7 +79,7 @@ public protocol JudoInputType {
      
      - returns: a title width in integer
      */
-    func titleWidth() -> Int
+    @objc func titleWidth() -> Int
     
     
     /**
@@ -87,7 +87,7 @@ public protocol JudoInputType {
      
      - returns: a String with instructions for a given inputField that pops up after 3 seconds of being idle
      */
-    func hintLabelText() -> String
+    @objc func hintLabelText() -> String
     
     
     /**
@@ -95,5 +95,97 @@ public protocol JudoInputType {
      
      - returns: true if information in field is valid
      */
-    func isValid() -> Bool
+    @objc func isValid() -> Bool
+}
+
+public extension JudoInputType where Self: JudoPayInputField {
+    
+    /**
+     Checks if the receiving input field has content that is valid
+     
+     - returns: true if valid input
+     */
+    public func isValid() -> Bool {
+        return false
+    }
+    
+    
+    /**
+     Helper call for delegate method
+     */
+    public func didChangeInputText() {
+        self.delegate?.judoPayInputDidChangeText(self)
+    }
+    
+    
+    /**
+     Subclassed method that is called when text field content was changed
+     
+     - parameter textField: the textfield of which the content has changed
+     */
+    public func textFieldDidChangeValue(textField: UITextField) {
+        self.dismissError()
+        // Method for subclassing
+    }
+    
+    
+    /**
+     The placeholder string for the current input field
+     
+     - returns: an Attributed String that is the placeholder of the receiver
+     */
+    public func placeholder() -> NSAttributedString? {
+        return nil
+    }
+    
+    
+    /**
+     Boolean indicating whether the receiver has to show a logo
+     
+     - returns: true if inputField shows a Logo
+     */
+    public func containsLogo() -> Bool {
+        return false
+    }
+    
+    
+    /**
+     If the receiving input field contains a logo, this method returns Some
+     
+     - returns: an optional CardLogoView
+     */
+    public func logoView() -> CardLogoView? {
+        return nil
+    }
+    
+    
+    /**
+     Title of the receiver input field
+     
+     - returns: a string that is the title of the receiver
+     */
+    public func title() -> String {
+        return ""
+    }
+    
+    
+    /**
+     Width of the title
+     
+     - returns: width of the title
+     */
+    public func titleWidth() -> Int {
+        return 50
+    }
+    
+    
+    /**
+     Hint label text
+     
+     - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
+     */
+    public func hintLabelText() -> String {
+        return ""
+    }
+    
 }

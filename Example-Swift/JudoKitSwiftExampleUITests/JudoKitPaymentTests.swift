@@ -50,12 +50,12 @@ class JudoKitPaymentTests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.textFields["Card number"].typeText("4976000000003436")
+        elementsQuery.secureTextFields["Card number"].typeText("4976000000003436")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cvv2TextField = elementsQuery.textFields["CVV2"]
+        let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
@@ -73,13 +73,13 @@ class JudoKitPaymentTests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        let cardNumberTextField = elementsQuery.textFields["Card number"]
+        let cardNumberTextField = elementsQuery.secureTextFields["Card number"]
         cardNumberTextField.typeText("5100000000005460")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cvc2TextField = elementsQuery.textFields["CVC2"]
+        let cvc2TextField = elementsQuery.secureTextFields["CVC2"]
         cvc2TextField.typeText("524")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
@@ -97,13 +97,13 @@ class JudoKitPaymentTests: XCTestCase {
         app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
-        let cardNumberTextField = elementsQuery.textFields["Card number"]
+        let cardNumberTextField = elementsQuery.secureTextFields["Card number"]
         cardNumberTextField.typeText("340000432128428")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
         
-        let cidTextField = elementsQuery.textFields["CID"]
+        let cidTextField = elementsQuery.secureTextFields["CID"]
         cidTextField.typeText("3469")
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         

@@ -83,7 +83,7 @@ public class SecurityInputField: JudoPayInputField {
     
     - returns: True if valid input
     */
-    override public func isValid() -> Bool {
+    public override func isValid() -> Bool {
         return self.textField.text?.characters.count == self.cardNetwork.securityCodeLength()
     }
     
@@ -93,7 +93,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - parameter textField: The text field of which the content has changed
      */
-    override public func textFieldDidChangeValue(textField: UITextField) {
+    public override func textFieldDidChangeValue(textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         self.didChangeInputText()
         guard let text = textField.text else { return }
@@ -107,7 +107,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: An Attributed String that is the placeholder of the receiver
      */
-    override public func placeholder() -> NSAttributedString? {
+    public override func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
     }
     
@@ -117,7 +117,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: True if input field shows a Logo
      */
-    override public func containsLogo() -> Bool {
+    public override func containsLogo() -> Bool {
         return true
     }
     
@@ -127,7 +127,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: An optional CardLogoView
      */
-    override public func logoView() -> CardLogoView? {
+    public override func logoView() -> CardLogoView? {
         let type: CardLogoType = self.cardNetwork == .AMEX ? .CID : .CVC
         return CardLogoView(type: type)
     }
@@ -138,7 +138,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: A string that is the title of the receiver
      */
-    override public func title() -> String {
+    public override func title() -> String {
         return self.cardNetwork.securityCodeTitle()
     }
     
@@ -148,7 +148,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: String that is shown as a hint when user resides in a input field for more than 5 seconds
      */
-    override public func hintLabelText() -> String {
+    public override func hintLabelText() -> String {
         if isTokenPayment {
             return "Please re-enter the card security code"
         }

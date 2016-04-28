@@ -32,7 +32,7 @@ import UIKit
  It is not recommended to use this class directly but rather use the subclasses of JudoPayInputField that are also provided in judoKit as this class does not do any validation which are necessary for making any kind of transaction.
  
  */
-public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
+public class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
     
     /// The delegate for the input field validation methods
     public var delegate: JudoPayInputDelegate?
@@ -44,11 +44,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     
     internal lazy var logoContainerView: UIView = UIView()
     
-    
-    private let redBlock: UIView = {
-        let view = UIView()
-        return view
-    }()
+    let redBlock = UIView()
     
     // MARK: Initializers
     
@@ -115,7 +111,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         self.textField.textColor = self.theme.getInputFieldTextColor()
         self.textField.tintColor = self.theme.tintColor
         self.textField.font = UIFont.boldSystemFontOfSize(14)
-        self.textField.addTarget(self, action: #selector(JudoPayInputField.textFieldDidChangeValue(_:)), forControlEvents: .EditingChanged)
+        self.textField.addTarget(self, action: #selector(JudoInputType.textFieldDidChangeValue(_:)), forControlEvents: .EditingChanged)
         
         self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[text]|", options: .AlignAllBaseline, metrics: nil, views: ["text":textField]))
         
@@ -143,38 +139,6 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     }
     
     // MARK: Helpers
-    
-    
-    /**
-    Helper method that will wiggle the input field and show a red line at the bottom in which is was executed
-    
-    - parameter redBlock: Boolean stating whether to show a red line at the bottom or not
-    */
-    public func errorAnimation(redBlock: Bool) {
-        // Animate the red block on the bottom
-        
-        let blockAnimation = { (didFinish: Bool) -> Void in
-            let contentViewAnimation = CAKeyframeAnimation()
-            contentViewAnimation.keyPath = "position.x"
-            contentViewAnimation.values = [0, 10, -8, 6, -4, 2, 0]
-            contentViewAnimation.keyTimes = [0, (1 / 11.0), (3 / 11.0), (5 / 11.0), (7 / 11.0), (9 / 11.0), 1]
-            contentViewAnimation.duration = 0.4
-            contentViewAnimation.additive = true
-            
-            self.layer.addAnimation(contentViewAnimation, forKey: "wiggle")
-        }
-        
-        if redBlock {
-            self.redBlock.frame = CGRectMake(0, self.bounds.height, self.bounds.width, 4.0)
-            
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
-                self.redBlock.frame = CGRectMake(0, self.bounds.height - 4, self.bounds.width, 4.0)
-                self.textField.textColor = self.theme.getErrorColor()
-                }, completion: blockAnimation)
-        } else {
-            blockAnimation(true)
-        }
-    }
     
     
     /**
@@ -235,15 +199,15 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
         self.setActive(textField.text?.characters.count > 0)
     }
     
-    
-    // MARK: JudoInputType
-    
+}
+
+extension JudoPayInputField: JudoInputType {
     
     /**
-    Checks if the receiving input field has content that is valid
-    
-    - returns: true if valid input
-    */
+     Checks if the receiving input field has content that is valid
+     
+     - returns: true if valid input
+     */
     public func isValid() -> Bool {
         return false
     }
@@ -328,3 +292,4 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, JudoInputType {
     }
     
 }
+
