@@ -93,7 +93,11 @@ public class JudoPayViewController: UIViewController {
         
         self.judoKitSession = currentSession
         self.myView = JudoPayView(type: transactionType, currentTheme: currentSession.theme, cardDetails: cardDetails)
-        
+
+        if paymentToken != nil {
+            self.myView.isTokenPayment = true
+        }
+
         super.init(nibName: nil, bundle: nil)
     }
     

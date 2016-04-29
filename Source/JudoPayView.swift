@@ -95,6 +95,7 @@ public class JudoPayView: UIView {
     /// The transactionType of the current journey
     var transactionType: TransactionType
     
+    internal var isTokenPayment = false
     
     /**
      Designated initializer
@@ -293,17 +294,16 @@ public class JudoPayView: UIView {
         self.contentView.addConstraint(securityMessageTopConstraint!)
         
         // If card details are available, fill out the fields
-        if let cardDetails = self.cardDetails,
-            let formattedLastFour = cardDetails.formattedLastFour(),
-            let expiryDate = cardDetails.formattedEndDate() {
-                self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
-                self.cardInputField.textField.text = formattedLastFour
-                self.expiryDateInputField.textField.text = expiryDate
-                self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
-                self.secureCodeInputField.isTokenPayment = true
-                self.cardInputField.isTokenPayment = true
-                self.cardInputField.userInteractionEnabled = false
-                self.expiryDateInputField.userInteractionEnabled = false
+        if let cardDetails = self.cardDetails, let formattedLastFour = cardDetails.formattedLastFour(), let expiryDate = cardDetails.formattedEndDate() {
+            self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
+            self.cardInputField.textField.text = formattedLastFour
+            self.expiryDateInputField.textField.text = expiryDate
+            self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
+            self.secureCodeInputField.isTokenPayment = self.isTokenPayment
+            self.cardInputField.isTokenPayment = self.isTokenPayment
+            self.cardInputField.userInteractionEnabled = false
+            self.expiryDateInputField.userInteractionEnabled = false
+            self.cardInputField.textField.secureTextEntry = false
         }
     }
     
