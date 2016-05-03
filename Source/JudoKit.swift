@@ -145,8 +145,8 @@ public struct JudoKit {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public mutating func invokePayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, currentSession: self)
-        self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, currentSession: self, cardDetails: cardDetails)
+        self.initiateAndShow(judoPayViewController)
     }
     
     
@@ -159,8 +159,8 @@ public struct JudoKit {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public mutating func invokePreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self)
-        self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails)
+        self.initiateAndShow(judoPayViewController)
     }
     
     
@@ -177,8 +177,8 @@ public struct JudoKit {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public mutating func invokeRegisterCard(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: self)
-        self.initiateAndShow(judoPayViewController, cardDetails: cardDetails)
+        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: self, cardDetails: cardDetails)
+        self.initiateAndShow(judoPayViewController)
     }
     
     
@@ -379,9 +379,9 @@ public struct JudoKit {
     - parameter viewController: the viewController to initiate and show
     - parameter cardDetails:    optional dictionary that contains card info
     */
-    mutating func initiateAndShow(viewController: JudoPayViewController, cardDetails: CardDetails? = nil) {
-        viewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
-        viewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
+    mutating func initiateAndShow(viewController: JudoPayViewController) {
+//        viewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
+//        viewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
         self.activeViewController = viewController
         self.showViewController(UINavigationController(rootViewController: viewController))
     }

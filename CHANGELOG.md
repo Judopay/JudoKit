@@ -24,6 +24,7 @@ TBD
 
 #### Fixed
 - UI Testing.
+- An issue where injected card details would not utilize the card number properly.
 
 ---
 

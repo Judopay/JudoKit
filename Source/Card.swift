@@ -546,13 +546,25 @@ public enum CardNetwork: Int64 {
 */
 public class CardDetails: NSObject, NSCoding {
     /// The last four digits of the card used for this transaction
-    public let cardLastFour: String?
+    public var cardLastFour: String?
     /// Expiry date of the card used for this transaction formatted as a two digit month and year i.e. MM/YY
     public let endDate: String?
     /// Can be used to charge future payments against this card
     public let cardToken: String?
-    /// The card network
-    public let cardNetwork: CardNetwork?
+    
+    private var _cardNetwork: CardNetwork?
+    /// The computed card network
+    public var cardNetwork: CardNetwork? {
+        get {
+            if let computedCardNetwork = self._cardNumber?.cardNetwork() where self._cardNetwork == .Unknown && self._cardNumber != nil {
+                self._cardNetwork = computedCardNetwork
+            }
+            return self._cardNetwork
+        }
+        set {
+            self._cardNetwork = newValue
+        }
+    }
     
     internal let _cardNumber: String?
     
@@ -563,6 +575,14 @@ public class CardDetails: NSObject, NSCoding {
         }
         set {}
     }
+    
+    public var isCardNumberValid: Bool {
+        get {
+            return self._cardNumber?.isCardNumberValid() ?? false
+        }
+        set { }
+    }
+    
     /// Description string for print functions
     override public var description: String {
         let formattedLastFour = self.formattedLastFour() ?? "N/A"
@@ -615,12 +635,12 @@ public class CardDetails: NSObject, NSCoding {
         self.endDate = dict?["endDate"] as? String
         self.cardToken = dict?["cardToken"] as? String
         self._cardNumber = dict?["cardNumber"] as? String
+        super.init()
         if let cardType = dict?["cardType"] as? Int64 {
             self.cardNetwork = CardNetwork(rawValue: cardType)
         } else {
             self.cardNetwork = .Unknown
         }
-        super.init()
     }
     
     
@@ -640,9 +660,9 @@ public class CardDetails: NSObject, NSCoding {
         self.cardLastFour = cardLastFour ?? nil
         self.endDate = endDate ?? nil
         self.cardToken = cardToken ?? nil
-        self.cardNetwork = CardNetwork(rawValue: Int64(cardNetwork))
         self._cardNumber = nil
         super.init()
+        self.cardNetwork = CardNetwork(rawValue: Int64(cardNetwork))
     }
     
     
@@ -669,14 +689,19 @@ public class CardDetails: NSObject, NSCoding {
      - returns: a string with the last four digits with the right format
      */
     public func formattedLastFour() -> String? {
-        guard let cardLastFour = self.cardLastFour else { return nil }
-        guard let cardNetwork = self.cardNetwork else { return "**** \(cardLastFour)" }
+        if self.cardLastFour == nil && self._cardNumber == nil {
+            return nil
+        } else if let cardNumber = self._cardNumber {
+            self.cardLastFour = cardNumber.substringFromIndex(cardNumber.endIndex.advancedBy(-4))
+        }
+        
+        guard let cardNetwork = self.cardNetwork else { return "**** \(cardLastFour!)" }
         
         switch cardNetwork {
         case .AMEX:
-            return "**** ****** *\(cardLastFour)"
+            return "**** ****** *\(cardLastFour!)"
         default:
-            return "**** **** **** \(cardLastFour)"
+            return "**** **** **** \(cardLastFour!)"
         }
     }
     
