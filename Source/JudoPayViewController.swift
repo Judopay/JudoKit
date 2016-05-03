@@ -92,12 +92,8 @@ public class JudoPayViewController: UIViewController {
         self.completionBlock = completion
         
         self.judoKitSession = currentSession
-        self.myView = JudoPayView(type: transactionType, currentTheme: currentSession.theme, cardDetails: cardDetails)
-
-        if paymentToken != nil {
-            self.myView.isTokenPayment = true
-        }
-
+        self.myView = JudoPayView(type: transactionType, currentTheme: currentSession.theme, cardDetails: cardDetails, isTokenPayment: paymentToken != nil)
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -246,7 +242,13 @@ public class JudoPayViewController: UIViewController {
                     startDate = self.myView.startDateInputField.textField.text
                 }
                 
-                transaction.card(Card(number: self.myView.cardInputField.textField.text!.strippedWhitespaces, expiryDate: self.myView.expiryDateInputField.textField.text!, securityCode: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
+                var cardNumberString = self.myView.cardDetails?._cardNumber
+                
+                if cardNumberString == nil {
+                    cardNumberString = self.myView.cardInputField.textField.text!.strippedWhitespaces
+                }
+                
+                transaction.card(Card(number: cardNumberString!, expiryDate: self.myView.expiryDateInputField.textField.text!, securityCode: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
             
             self.pending3DSTransaction = try transaction.completion({ [weak self] (response, error) -> () in

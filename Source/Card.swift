@@ -575,6 +575,14 @@ public class CardDetails: NSObject, NSCoding {
         }
         set {}
     }
+    
+    public var isCardNumberValid: Bool {
+        get {
+            return self._cardNumber?.isCardNumberValid() ?? false
+        }
+        set { }
+    }
+    
     /// Description string for print functions
     override public var description: String {
         let formattedLastFour = self.formattedLastFour() ?? "N/A"
@@ -686,13 +694,14 @@ public class CardDetails: NSObject, NSCoding {
         } else if let cardNumber = self._cardNumber {
             self.cardLastFour = cardNumber.substringFromIndex(cardNumber.endIndex.advancedBy(-4))
         }
-        guard let cardNetwork = self.cardNetwork else { return "**** \(cardLastFour)" }
+        
+        guard let cardNetwork = self.cardNetwork else { return "**** \(cardLastFour!)" }
         
         switch cardNetwork {
         case .AMEX:
-            return "**** ****** *\(cardLastFour)"
+            return "**** ****** *\(cardLastFour!)"
         default:
-            return "**** **** **** \(cardLastFour)"
+            return "**** **** **** \(cardLastFour!)"
         }
     }
     

@@ -180,7 +180,7 @@ extension JudoPayView: JudoPayInputDelegate {
     public func judoPayInputDidChangeText(input: JudoPayInputField) {
         self.showHintAfterDefaultDelay(input)
         var allFieldsValid = false
-        allFieldsValid = self.cardInputField.isValid() && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
+        allFieldsValid = (self.cardDetails?.isCardNumberValid ?? false || self.cardInputField.isValid()) && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
         if self.theme.avsEnabled {
             allFieldsValid = allFieldsValid && self.postCodeInputField.isValid() && self.billingCountryInputField.isValid()
         }

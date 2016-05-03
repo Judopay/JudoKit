@@ -95,7 +95,7 @@ public class JudoPayView: UIView {
     /// The transactionType of the current journey
     var transactionType: TransactionType
     
-    internal var isTokenPayment = false
+    internal let isTokenPayment: Bool
     
     /**
      Designated initializer
@@ -105,7 +105,7 @@ public class JudoPayView: UIView {
      
      - returns: a JudoPayView object
      */
-    public init(type: TransactionType, currentTheme: Theme, cardDetails: CardDetails? = nil) {
+    public init(type: TransactionType, currentTheme: Theme, cardDetails: CardDetails? = nil, isTokenPayment: Bool = false) {
         self.transactionType = type
         self.cardDetails = cardDetails
         self.theme = currentTheme
@@ -120,6 +120,8 @@ public class JudoPayView: UIView {
         self.issueNumberInputField = IssueNumberInputField(theme: currentTheme)
         self.billingCountryInputField = BillingCountryInputField(theme: currentTheme)
         self.postCodeInputField = PostCodeInputField(theme: currentTheme)
+        
+        self.isTokenPayment = isTokenPayment
         
         super.init(frame: UIScreen.mainScreen().bounds)
         
