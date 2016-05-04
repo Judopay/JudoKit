@@ -39,7 +39,7 @@ class AuthenticationTests: JudoTestCase {
         let myJudoSession = JudoKit(token: myToken, secret: mySecret)
         
         // Then I can make a request
-        let request = try! myJudoSession.transaction(.Payment, judoID: myLuhnValidJudoId, amount: oneGBPAmount, reference: validReference)
+        let request = try! myJudoSession.transaction(.Payment, judoId: myLuhnValidJudoId, amount: oneGBPAmount, reference: validReference)
         
         XCTAssertNotNil(request)
     }
@@ -137,7 +137,7 @@ class AuthenticationTests: JudoTestCase {
     func testValidTransaction() {
         // Given I have a Transaction
         // And I have a valid judo ID
-        let payment = try! judo.payment(myJudoID, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
+        let payment = try! judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
         
         let expectation = self.expectationWithDescription("testValidTransaction")
         

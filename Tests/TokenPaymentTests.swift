@@ -31,7 +31,7 @@ class TokenPaymentTests: JudoTestCase {
         do {
             // Given I have an SDK
             // When I provide the required fields
-            let registerCard = try judo.registerCard(myJudoID, reference: validReference).card(validVisaTestCard)
+            let registerCard = try judo.registerCard(myJudoId, reference: validReference).card(validVisaTestCard)
             
             let expectation = self.expectationWithDescription("token payment expectation")
             
@@ -46,7 +46,7 @@ class TokenPaymentTests: JudoTestCase {
                     let payToken = PaymentToken(consumerToken: uData.items.first!.consumer.consumerToken, cardToken: uData.items.first!.cardDetails.cardToken!)
                     do {
                         // Then I should be able to make a token payment
-                        try self.judo.payment(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference).paymentToken(payToken).completion({ (data, error) -> () in
+                        try self.judo.payment(self.myJudoId, amount: self.oneGBPAmount, reference: self.validReference).paymentToken(payToken).completion({ (data, error) -> () in
                             if let error = error {
                                 XCTFail("api call failed with error: \(error)")
                             }
@@ -58,7 +58,7 @@ class TokenPaymentTests: JudoTestCase {
                 }
             })
             XCTAssertNotNil(registerCard)
-            XCTAssertEqual(registerCard.judoID, myJudoID)
+            XCTAssertEqual(registerCard.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -70,7 +70,7 @@ class TokenPaymentTests: JudoTestCase {
     func testJudoMakeTokenPaymentWithoutToken() {
         do {
             // Given I have an SDK
-            let registerCard = try judo.registerCard(myJudoID, reference: validReference).card(validVisaTestCard)
+            let registerCard = try judo.registerCard(myJudoId, reference: validReference).card(validVisaTestCard)
             
             let expectation = self.expectationWithDescription("token payment expectation")
             
@@ -81,7 +81,7 @@ class TokenPaymentTests: JudoTestCase {
                     
                     // When I do not provide a card token
                     do {
-                        try self.judo.payment(self.myJudoID, amount: self.oneGBPAmount, reference: self.validReference).completion({ (data, error) -> () in
+                        try self.judo.payment(self.myJudoId, amount: self.oneGBPAmount, reference: self.validReference).completion({ (data, error) -> () in
                             XCTFail("api call failed with error: \(error)")
                             expectation.fulfill()
                         })
@@ -97,7 +97,7 @@ class TokenPaymentTests: JudoTestCase {
                 }
             })
             XCTAssertNotNil(registerCard)
-            XCTAssertEqual(registerCard.judoID, myJudoID)
+            XCTAssertEqual(registerCard.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -109,7 +109,7 @@ class TokenPaymentTests: JudoTestCase {
     func testJudoMakeTokenPaymentWithoutReference() {
         do {
             // Given I have an SDK
-            let registerCard = try judo.registerCard(myJudoID, reference: validReference).card(validVisaTestCard)
+            let registerCard = try judo.registerCard(myJudoId, reference: validReference).card(validVisaTestCard)
             
             let expectation = self.expectationWithDescription("token payment expectation")
             
@@ -126,7 +126,7 @@ class TokenPaymentTests: JudoTestCase {
                     do {
                         // When I do not provide a consumer reference
                         // Then I should receive an error
-                        try self.judo.payment(self.myJudoID, amount: self.oneGBPAmount, reference: self.invalidReference).paymentToken(payToken).completion({ (response, error) -> () in
+                        try self.judo.payment(self.myJudoId, amount: self.oneGBPAmount, reference: self.invalidReference).paymentToken(payToken).completion({ (response, error) -> () in
                             XCTAssertNil(response)
                             XCTAssertNotNil(error)
                             XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
@@ -141,7 +141,7 @@ class TokenPaymentTests: JudoTestCase {
                 }
             })
             XCTAssertNotNil(registerCard)
-            XCTAssertEqual(registerCard.judoID, myJudoID)
+            XCTAssertEqual(registerCard.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -153,7 +153,7 @@ class TokenPaymentTests: JudoTestCase {
     func testJudoMakeTokenPaymentWithoutAmount() {
         do {
             // Given I have an SDK
-            let registerCard = try judo.registerCard(myJudoID, reference: validReference).card(validVisaTestCard)
+            let registerCard = try judo.registerCard(myJudoId, reference: validReference).card(validVisaTestCard)
             
             let expectation = self.expectationWithDescription("token payment expectation")
             
@@ -170,7 +170,7 @@ class TokenPaymentTests: JudoTestCase {
                     do {
                         // When I do not provide an amount
                         // Then I should receive an error
-                        try self.judo.payment(self.myJudoID, amount: self.invalidCurrencyAmount, reference: self.validReference).paymentToken(payToken).completion({ (response, error) -> () in
+                        try self.judo.payment(self.myJudoId, amount: self.invalidCurrencyAmount, reference: self.validReference).paymentToken(payToken).completion({ (response, error) -> () in
                             XCTAssertNil(response)
                             XCTAssertNotNil(error)
                             XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
@@ -186,7 +186,7 @@ class TokenPaymentTests: JudoTestCase {
             })
             // Then
             XCTAssertNotNil(registerCard)
-            XCTAssertEqual(registerCard.judoID, myJudoID)
+            XCTAssertEqual(registerCard.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }

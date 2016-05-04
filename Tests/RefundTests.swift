@@ -33,7 +33,7 @@ class RefundTests: JudoTestCase {
         
         do {
             // Given I have made a payment
-            let payment = try judo.payment(myJudoID, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
+            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
             
             try payment.completion({ (response, error) -> () in
                 if let error = error {
@@ -44,7 +44,7 @@ class RefundTests: JudoTestCase {
                 
                 // And I have a receipt ID of a given transaction
                 // And I have the amount of that transaction
-                guard let receiptId = response?.first?.receiptID,
+                guard let receiptId = response?.first?.receiptId,
                     let amount = response?.first?.amount else {
                         XCTFail("receipt ID was not available in response")
                         expectation.fulfill()
@@ -73,7 +73,7 @@ class RefundTests: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoID, myJudoID)
+            XCTAssertEqual(payment.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
             expectation.fulfill();

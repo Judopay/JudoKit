@@ -30,7 +30,7 @@ Refunding a successful payment is easy, simply identify the original receipt ID 
 
 ### Refund by ID and amount
 ```swift
-    myJudoSession.refund(receiptID, amount: amount).completion({ (dict, error) -> () in
+    myJudoSession.refund(receiptId, amount: amount).completion({ (dict, error) -> () in
         if let error = error {
             // error
         } else {

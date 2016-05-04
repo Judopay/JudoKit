@@ -31,7 +31,7 @@ class RegisterCardTests: JudoTestCase {
     
     func testRegisterCard() {
         do {
-            let payment = try judo.registerCard(myJudoID, reference: validReference)
+            let payment = try judo.registerCard(myJudoId, reference: validReference)
             XCTAssertNotNil(payment)
         } catch {
             XCTFail()
@@ -42,7 +42,7 @@ class RegisterCardTests: JudoTestCase {
     func testJudoMakeValidRegisterCard() {
         do {
             // Given I have a Register Card
-            let payment = try judo.registerCard(myJudoID, reference: validReference)
+            let payment = try judo.registerCard(myJudoId, reference: validReference)
             
             // When I provide all the required fields
             payment.card(validVisaTestCard)
@@ -60,7 +60,7 @@ class RegisterCardTests: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoID, myJudoID)
+            XCTAssertEqual(payment.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -73,7 +73,7 @@ class RegisterCardTests: JudoTestCase {
         do {
             // Given I have a Register Card
             // When I do not provide a consumer reference
-            let payment = try judo.registerCard(myJudoID, reference: invalidReference)
+            let payment = try judo.registerCard(myJudoId, reference: invalidReference)
             
             payment.card(validVisaTestCard)
             
@@ -91,7 +91,7 @@ class RegisterCardTests: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoID, myJudoID)
+            XCTAssertEqual(payment.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
