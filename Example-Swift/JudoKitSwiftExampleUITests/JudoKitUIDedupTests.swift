@@ -1,5 +1,5 @@
 //
-//  JudoKitTokenPaymentTests.swift
+//  JudoKitUIDedupTests.swift
 //  JudoKitSwiftExample
 //
 //  Copyright (c) 2016 Alternative Payments Ltd
@@ -24,7 +24,7 @@
 
 import XCTest
 
-class JudoKitTokenPaymentTests: XCTestCase {
+class JudoKitUIDedupTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -35,7 +35,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         continueAfterFailure = false
         // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
         XCUIApplication().launch()
-
+        
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
     
@@ -44,10 +44,9 @@ class JudoKitTokenPaymentTests: XCTestCase {
         super.tearDown()
     }
     
-    func testVISATokenPayment() {
+    func testSuccessfulDedupPayment() {
         let app = XCUIApplication()
-        let tablesQuery = app.tables
-        tablesQuery.staticTexts["to be stored for future transactions"].tap()
+        app.tables.staticTexts["with default settings"].tap()
         
         let elementsQuery = app.scrollViews.otherElements
         elementsQuery.secureTextFields["Card number"].typeText("4976000000003436")
@@ -57,76 +56,36 @@ class JudoKitTokenPaymentTests: XCTestCase {
         
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
-        
-        app.buttons["Add card"].tap()
-        
-        let tableQuery = tablesQuery.staticTexts["Token payment"]
-        let tableQueryExistsPredicate = NSPredicate(format: "exists == 1")
-        
-        expectationForPredicate(tableQueryExistsPredicate, evaluatedWithObject: tableQuery, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
-        
-        tableQuery.tap()
-        
-        let cvv2TextField2 = elementsQuery.secureTextFields["CVV"]
-        cvv2TextField2.typeText("452")
-        
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        waitForExpectationsWithTimeout(10, handler: nil)
         
         button.tap()
+        
+        app.tables.staticTexts["with default settings"].tap()
+        
+        let elementsQuery2 = app.scrollViews.otherElements
+        elementsQuery2.secureTextFields["Card number"].typeText("4976000000003436")
+        
+        let expiryDateTextField2 = elementsQuery.textFields["Expiry date"]
+        expiryDateTextField2.typeText("1220")
+        
+        let cvv2TextField2 = elementsQuery.secureTextFields["CVV2"]
+        cvv2TextField2.typeText("452")
+        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+        
+        let button2 = app.buttons["Home"]
+        let existsPredicate2 = NSPredicate(format: "exists == 1")
+        
+        expectationForPredicate(existsPredicate2, evaluatedWithObject: button2, handler: nil)
+        waitForExpectationsWithTimeout(10, handler: nil)
+        
+        button2.tap()
+        
     }
     
-    func testMaestroTokenPayment() {
-        let app = XCUIApplication()
-        let tablesQuery = app.tables
-        tablesQuery.staticTexts["to be stored for future transactions"].tap()
-        
-        let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.secureTextFields["Card number"].typeText("6759000000005462")
-        
-        let startDateTextField = elementsQuery.textFields["Start date"]
-        startDateTextField.tap()
-        startDateTextField.typeText("0107")
-        
-        let expiryDateTextField = elementsQuery.textFields["Expiry date"]
-        expiryDateTextField.tap()
-        expiryDateTextField.typeText("1220")
-        
-        let cvvTextField = elementsQuery.secureTextFields["CVV"]
-        cvvTextField.typeText("789")
-        
-        app.buttons["Add card"].tap()
-        
-        let tableQuery = tablesQuery.staticTexts["Token payment"]
-        let tableQueryExistsPredicate = NSPredicate(format: "exists == 1")
-        
-        expectationForPredicate(tableQueryExistsPredicate, evaluatedWithObject: tableQuery, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
-        
-        tableQuery.tap()
-        
-        let startDateTextField2 = elementsQuery.textFields["Start date"]
-        startDateTextField2.tap()
-        startDateTextField2.typeText("0107")
-        
-        let cvvTextField2 = elementsQuery.secureTextFields["CVV"]
-        cvvTextField2.tap()
-        cvvTextField2.typeText("789")
-        
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
-        
-        let button = app.buttons["Home"]
-        let existsPredicate = NSPredicate(format: "exists == 1")
-        
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(195, handler: nil)
-        
-        button.tap()
-    }
 }
