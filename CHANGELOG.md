@@ -22,6 +22,7 @@ TBD
 
 #### Changed
 - Implemented a protocol as extension in JudoPayInputField.
+- Switched casing from 'ID' to 'Id' for correct camel casing.
 
 #### Fixed
 - UI Testing.
