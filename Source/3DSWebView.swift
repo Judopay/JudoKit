@@ -87,7 +87,7 @@ public class _DSWebView: UIWebView {
     
     - throws: `Failed3DSError` when payload contains faulty information
     
-    - returns: the receiptID of the transaction
+    - returns: the receiptId of the transaction
     */
     public func load3DSWithPayload(payload: [String : AnyObject]) throws -> String {
         let allowedCharacterSet = NSCharacterSet(charactersInString: ":/=,!$&'()*+;[]@#?").invertedSet
@@ -95,7 +95,7 @@ public class _DSWebView: UIWebView {
         guard let urlString = payload["acsUrl"] as? String,
             let acsURL = NSURL(string: urlString),
             let md = payload["md"],
-            let receiptID = payload["receiptId"] as? String,
+            let receiptId = payload["receiptId"] as? String,
             let paReqString = payload["paReq"],
             let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet),
             let termURLString = "https://pay.judopay.com/iOS/Parse3DS".stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) else {
@@ -113,7 +113,7 @@ public class _DSWebView: UIWebView {
             throw JudoError(.Failed3DSError)
         }
         
-        return receiptID // save it for later
+        return receiptId // save it for later
     }
     
 }

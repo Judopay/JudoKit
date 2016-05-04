@@ -238,7 +238,7 @@ public struct Consumer {
 */
 public struct TransactionData {
     /// Our reference for this transaction. Keep track of this as it's needed to process refunds or collections later
-    public let receiptID: String
+    public let receiptId: String
     /// Your original reference for this payment
     public let yourPaymentReference: String
     /// The type of Transaction, either "Payment" or "Refund"
@@ -250,7 +250,7 @@ public struct TransactionData {
     /// A message detailing the result.
     public let message: String?
     /// The number (e.g. "123-456" or "654321") identifying the Merchant to whom payment has been made
-    public let judoID: String
+    public let judoId: String
     /// The trading name of the Merchant to whom payment has been made
     public let merchantName: String
     /// How the Merchant will appear on the Consumers statement
@@ -278,7 +278,7 @@ public struct TransactionData {
     - Returns: a TransactionData object
     */
     public init(_ dict: JSONDictionary) throws {
-        guard let receiptID = dict["receiptId"] as? String,
+        guard let receiptId = dict["receiptId"] as? String,
             let yourPaymentReference = dict["yourPaymentReference"] as? String,
             let typeString = dict["type"] as? String,
             let type = TransactionType(rawValue: typeString),
@@ -286,20 +286,20 @@ public struct TransactionData {
             let createdAt = ISO8601DateFormatter.dateFromString(createdAtString),
             let resultString = dict["result"] as? String,
             let result = TransactionResult(rawValue: resultString),
-            let judoID = dict["judoId"] as? NSNumber,
+            let judoId = dict["judoId"] as? NSNumber,
             let merchantName = dict["merchantName"] as? String,
             let appearsOnStatementAs = dict["appearsOnStatementAs"] as? String,
             let currency = dict["currency"] as? String,
             let amountString = dict["amount"] as? String,
             let cardDetailsDict = dict["cardDetails"] as? JSONDictionary,
             let consumerDict = dict["consumer"] as? JSONDictionary else {
-                self.receiptID = ""
+                self.receiptId = ""
                 self.yourPaymentReference = ""
                 self.type = TransactionType.Payment
                 self.createdAt = NSDate()
                 self.result = TransactionResult.Error
                 self.message = ""
-                self.judoID = ""
+                self.judoId = ""
                 self.merchantName = ""
                 self.appearsOnStatementAs = ""
                 self.refunds = Amount(amountString: "1", currency: .XOR)
@@ -312,13 +312,13 @@ public struct TransactionData {
                 throw JudoError(.ResponseParseError)
         }
         
-        self.receiptID = receiptID
+        self.receiptId = receiptId
         self.yourPaymentReference = yourPaymentReference
         self.type = type
         self.createdAt = createdAt
         self.result = result
         self.message = dict["message"] as? String
-        self.judoID = String(judoID.integerValue)
+        self.judoId = String(judoId.integerValue)
         self.merchantName = merchantName
         self.appearsOnStatementAs = appearsOnStatementAs
         

@@ -28,7 +28,7 @@ import Foundation
 public class TransactionProcess {
     
     /// The receipt ID for a collection, void or refund
-    public private (set) var receiptID: String
+    public private (set) var receiptId: String
     /// The amount of the collection, void or refund
     public private (set) var amount: Amount
     /// The payment reference String for a collection, void or refund
@@ -42,14 +42,14 @@ public class TransactionProcess {
     /**
      Starting point and a reactive method to create a collection, void or refund
      
-     - Parameter receiptID: the receiptID identifying the transaction you wish to collect, void or refund - has to be luhn-valid
+     - Parameter receiptId: the receiptId identifying the transaction you wish to collect, void or refund - has to be luhn-valid
      - Parameter amount: The amount to process
      
-     - Throws: LuhnValidationError judoID does not match the given length or is not luhn valid
+     - Throws: LuhnValidationError judoId does not match the given length or is not luhn valid
      */
-    init(receiptID: String, amount: Amount) throws {
+    init(receiptId: String, amount: Amount) throws {
         // Initialize variables
-        self.receiptID = receiptID
+        self.receiptId = receiptId
         self.amount = amount
         
         guard let uuidString = UIDevice.currentDevice().identifierForVendor?.UUIDString else {
@@ -59,7 +59,7 @@ public class TransactionProcess {
         self.paymentReference = finalString.substringToIndex(finalString.endIndex.advancedBy(-4))
         
         // Luhn check the receipt ID
-        if !receiptID.isLuhnValid() {
+        if !receiptId.isLuhnValid() {
             throw JudoError(.LuhnValidationError)
         }
     }
@@ -100,7 +100,7 @@ public class TransactionProcess {
      */
     public func completion(block: JudoCompletionBlock) -> Self {
         
-        guard let parameters = self.APISession?.progressionParameters(self.receiptID, amount: self.amount, paymentReference: self.paymentReference, deviceSignal: self.deviceSignal) else { return self }
+        guard let parameters = self.APISession?.progressionParameters(self.receiptId, amount: self.amount, paymentReference: self.paymentReference, deviceSignal: self.deviceSignal) else { return self }
         
         self.APISession?.POST(self.path(), parameters: parameters) { (dict, error) -> Void in
             block(dict, error)

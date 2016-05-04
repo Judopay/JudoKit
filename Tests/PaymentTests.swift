@@ -32,7 +32,7 @@ class PaymentTests: JudoTestCase {
         guard let references = Reference(consumerRef: "consumer0053252") else { return }
         let amount = Amount(amountString: "30", currency: .GBP)
         do {
-            let payment = try judo.payment(myJudoID, amount: amount, reference: references)
+            let payment = try judo.payment(myJudoId, amount: amount, reference: references)
             XCTAssertNotNil(payment)
         } catch {
             XCTFail()
@@ -43,7 +43,7 @@ class PaymentTests: JudoTestCase {
     func testJudoMakeValidPayment() {
         do {
             // Given I have a Payment
-            let payment = try judo.payment(myJudoID, amount: oneGBPAmount, reference: validReference)
+            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference)
             
             // When I provide all the required fields
             payment.card(validVisaTestCard)
@@ -61,7 +61,7 @@ class PaymentTests: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoID, myJudoID)
+            XCTAssertEqual(payment.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -74,7 +74,7 @@ class PaymentTests: JudoTestCase {
         do {
             // Given I have a Payment
             // When I do not provide a currency
-            let payment = try judo.payment(myJudoID, amount: invalidCurrencyAmount, reference: validReference)
+            let payment = try judo.payment(myJudoId, amount: invalidCurrencyAmount, reference: validReference)
             
             payment.card(validVisaTestCard)
             
@@ -92,7 +92,7 @@ class PaymentTests: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoID, myJudoID)
+            XCTAssertEqual(payment.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -105,7 +105,7 @@ class PaymentTests: JudoTestCase {
         do {
             // Given I have a Payment
             // When I do not provide a consumer reference
-            let payment = try judo.payment(myJudoID, amount: oneGBPAmount, reference: invalidReference)
+            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: invalidReference)
             
             payment.card(validVisaTestCard)
             
@@ -123,7 +123,7 @@ class PaymentTests: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoID, myJudoID)
+            XCTAssertEqual(payment.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -134,7 +134,7 @@ class PaymentTests: JudoTestCase {
     
     func testJudoMakeInvalidJudoIdPayment() throws {
         // Given
-        // allowed length for judoID is 6 to 10 chars
+        // allowed length for judoId is 6 to 10 chars
         let tooShortJudoID = "33412" // 5 chars not allowed
         let tooLongJudoID = "33224433441" // 11 chars not allowed
         let luhnInvalidJudoID = "33224433"
@@ -198,7 +198,7 @@ class PaymentTests: JudoTestCase {
         
         // When
         do {
-            let makePayment = try judo.payment(myJudoID, amount: amount, reference: references).card(card).location(location).contact(mobileNumber, emailAddress).validate { dict, error in
+            let makePayment = try judo.payment(myJudoId, amount: amount, reference: references).card(card).location(location).contact(mobileNumber, emailAddress).validate { dict, error in
                 if let error = error {
                     XCTAssertEqual(error.code, JudoErrorCode.Validation_Passed)
                 } else {
@@ -208,7 +208,7 @@ class PaymentTests: JudoTestCase {
             }
             // Then
             XCTAssertNotNil(makePayment)
-            XCTAssertEqual(makePayment.judoID, myJudoID)
+            XCTAssertEqual(makePayment.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }

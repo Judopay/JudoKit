@@ -30,7 +30,7 @@ A Collection transaction is the counterpart to a Pre-authorization transaction. 
 
 ### collection by ID and amount
 ```swift
-    muJudoSession.collection(receiptID, amount: amount).completion({ (dict, error) -> () in
+    muJudoSession.collection(receiptId, amount: amount).completion({ (dict, error) -> () in
         if let error = error {
             // error
         } else {
