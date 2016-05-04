@@ -18,6 +18,7 @@ TBD
 
 #### Added
 - Protocol extension for Card to safely mask important information.
+- UI and Integration Tests for dedup.
 
 #### Changed
 - Implemented a protocol as extension in JudoPayInputField.
