@@ -82,4 +82,51 @@ class JudoKitTokenPaymentTests: XCTestCase {
         button.tap()
     }
     
+    func testMaestroTokenPayment() {
+        let app = XCUIApplication()
+        let tablesQuery = app.tables
+        tablesQuery.staticTexts["to be stored for future transactions"].tap()
+        
+        let elementsQuery = app.scrollViews.otherElements
+        elementsQuery.secureTextFields["Card number"].typeText("6759000000005462")
+        
+        let startDateTextField = elementsQuery.textFields["Start date"]
+        startDateTextField.tap()
+        startDateTextField.typeText("0107")
+        
+        let expiryDateTextField = elementsQuery.textFields["Expiry date"]
+        expiryDateTextField.tap()
+        expiryDateTextField.typeText("1220")
+        
+        let cvvTextField = elementsQuery.secureTextFields["CVV"]
+        cvvTextField.typeText("789")
+        
+        app.buttons["Add card"].tap()
+        
+        let tableQuery = tablesQuery.staticTexts["Token payment"]
+        let tableQueryExistsPredicate = NSPredicate(format: "exists == 1")
+        
+        expectationForPredicate(tableQueryExistsPredicate, evaluatedWithObject: tableQuery, handler: nil)
+        waitForExpectationsWithTimeout(15, handler: nil)
+        
+        tableQuery.tap()
+        
+        let startDateTextField2 = elementsQuery.textFields["Start date"]
+        startDateTextField2.tap()
+        startDateTextField2.typeText("0107")
+        
+        let cvvTextField2 = elementsQuery.secureTextFields["CVV"]
+        cvvTextField2.tap()
+        cvvTextField2.typeText("789")
+        
+        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+        
+        let button = app.buttons["Home"]
+        let existsPredicate = NSPredicate(format: "exists == 1")
+        
+        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
+        waitForExpectationsWithTimeout(195, handler: nil)
+        
+        button.tap()
+    }
 }
