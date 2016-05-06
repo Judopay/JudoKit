@@ -5,17 +5,13 @@
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
 [![Build Status](https://travis-ci.org/JudoPay/JudoKit.svg)](http://travis-ci.org/JudoPay/JudoKit)
 
-# judoKit Swift iOS SDK
+# Judo Swift SDK for iOS
 
-This is the official judoKit iOS SDK written in Swift. It incorporates our mobile specific security toolkit, [judoShield](https://github.com/judopay/judoshield), with additional modules to enable easy native integration of payments. If you are integrating your app in Objective-C, we highly recommend you to use the [judoKitObjC](https://github.com/judopay/JudoKitObjC) port.
+The judo Swift SDK is a framework for integrating easy, fast and secure payments inside your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick. If you are integrating your app in Objective-C, we highly recommend you to use the [judoKitObjC](https://github.com/judopay/JudoKitObjC) port.
 
 Use our UI components for a seamless user experience for card data capture. Minimise your [PCI scope](https://www.pcisecuritystandards.org/pci_security/completing_self_assessment) with a UI that can be themed or customised to match the look and feel of your app.
 
 ##### **\*\*\*Due to industry-wide security updates, versions below 5.5.1 of this SDK will no longer be supported after 1st Oct 2016. For more information regarding these updates, please read our blog [here](http://hub.judopay.com/pci31-security-updates/).*****
-
-### What is this project for?
-
-judoKit is a framework for integrating easy, fast and secure payments inside your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick.
 
 ## Requirements
 
@@ -49,13 +45,13 @@ pod 'JudoKit', '~> 6.1'
 $ pod install
 ```
 
-- Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file.
+- Please make sure to always **use the newly generated `.xcworkspace`** file, not the projects `.xcodeproj` file.
 
 ### Initial setup
 
 - Add `import JudoKit` to the top of the file where you want to use the SDK.
 
-- You can set your key and secret here when initializing the session:
+- You can set your token and secret here when initializing the session:
 
 ```swift
 // initialize the SDK by setting it up with a token and a secret
@@ -92,4 +88,4 @@ myJudoKitSession.invokePayment(judoID, amount: Amount(42, currentCurrency), refe
 
 ## Next steps
 
-JudoKit supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKit/wiki/).
+Judo's Swift SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKit/wiki/).
