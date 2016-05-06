@@ -31,7 +31,7 @@ Alternatively, you can receive a list of all the transactions. By default it wil
 
 ### Receipt by ID
 ```swift
-    myJudoSession.receipt(receiptID).completion({ (dict, error) -> () in
+    myJudoSession.receipt(receiptId).completion({ (dict, error) -> () in
         if let _ = error {
             // error
         } else {
@@ -54,7 +54,7 @@ Alternatively, you can receive a list of all the transactions. By default it wil
 public class Receipt {
     
     /// the receipt ID - nil for a list of all receipts
-    private (set) var receiptID: String?
+    private (set) var receiptId: String?
     /// The current Session to access the Judo API
     public var APISession: Session?
     
@@ -63,18 +63,18 @@ public class Receipt {
     
     If you want to use the receipt function, you need to enable it in your judo Dashboard
     
-    - Parameter receiptID: the receipt ID as a String - if nil, completion function will return a list of all transactions
+    - Parameter receiptId: the receipt ID as a String - if nil, completion function will return a list of all transactions
     
     - Returns: a Receipt Object for reactive usage
     
-    - Throws: LuhnValidationError if the receiptID does not match
+    - Throws: LuhnValidationError if the receiptId does not match
     */
-    init(receiptID: String? = nil) throws {
+    init(receiptId: String? = nil) throws {
         // luhn check the receipt id
-        self.receiptID = receiptID
+        self.receiptId = receiptId
 
-        // validate receiptID format
-        if let recID = receiptID where !recID.isLuhnValid() {
+        // validate receiptId format
+        if let recID = receiptId where !recID.isLuhnValid() {
             throw JudoError(.LuhnValidationError)
         }
     }
@@ -103,7 +103,7 @@ public class Receipt {
     public func completion(block: JudoCompletionBlock) -> Self {
         var path = "transactions"
 
-        if let rec = self.receiptID {
+        if let rec = self.receiptId {
             path += "/\(rec)"
         }
         

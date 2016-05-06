@@ -67,9 +67,9 @@ public class Transaction: SessionProtocol {
     public var APISession: Session?
     
     /// The judo ID for the transaction
-    public private (set) var judoID: String {
+    public private (set) var judoId: String {
         didSet {
-            self.parameters["judoId"] = judoID
+            self.parameters["judoId"] = judoId
         }
     }
     
@@ -182,18 +182,18 @@ public class Transaction: SessionProtocol {
     /**
     Starting point and a reactive method to create a payment or pre-auth
     
-    - Parameter judoID: the number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay - has to be between 6 and 10 characters and luhn-valid
+    - Parameter judoId: the number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay - has to be between 6 and 10 characters and luhn-valid
     - Parameter amount: The amount to process
     - Parameter reference: the reference
     
-    - Throws: JudoIDInvalidError judoID does not match the given length or is not luhn valid
+    - Throws: JudoIDInvalidError judoId does not match the given length or is not luhn valid
     */
-    public init(judoID: String, amount: Amount?, reference: Reference) throws {
-        self.judoID = judoID
+    public init(judoId: String, amount: Amount?, reference: Reference) throws {
+        self.judoId = judoId
         self.amount = amount
         self.reference = reference
         
-        self.parameters["judoId"] = judoID
+        self.parameters["judoId"] = judoId
         self.parameters["yourConsumerReference"] = reference.yourConsumerReference
         self.parameters["yourPaymentReference"] = reference.yourPaymentReference
         if let metaData = reference.yourPaymentMetaData {
@@ -206,14 +206,14 @@ public class Transaction: SessionProtocol {
         }
         
         // judo ID validation
-        let strippedJudoID = judoID.stripped
+        let strippedJudoID = judoId.stripped
         
         if !strippedJudoID.isLuhnValid() {
             throw JudoError(.LuhnValidationError)
         }
         
         if kJudoIDLenght ~= strippedJudoID.characters.count  {
-            self.judoID = strippedJudoID
+            self.judoId = strippedJudoID
         } else {
             throw JudoError(.JudoIDInvalidError)
         }
@@ -224,7 +224,7 @@ public class Transaction: SessionProtocol {
      Internal initializer for the purpose of creating an instance for listing payments or preAuths
      */
     public required init() {
-        self.judoID = ""
+        self.judoId = ""
         self.amount = nil
         self.reference = Reference(consumerRef: "")!
     }
@@ -363,12 +363,12 @@ public class Transaction: SessionProtocol {
     threeDSecure call - this method will automatically trigger a Session Call to the judo REST API and execute the finalizing 3DS call on top of the information that had been sent in the previous methods
     
     - Parameter dictionary: the dictionary that contains all the information from the 3DS UIWebView Request
-    - Parameter receiptID: the receipt for the given Transaction
+    - Parameter receiptId: the receipt for the given Transaction
     - Parameter block: a completion block that is called when the request finishes
     
     - Returns: reactive self
     */
-    public func threeDSecure(dictionary: JSONDictionary, receiptID: String, block: JudoCompletionBlock) -> Self {
+    public func threeDSecure(dictionary: JSONDictionary, receiptId: String, block: JudoCompletionBlock) -> Self {
         
         var paymentDetails = JSONDictionary()
         
@@ -380,9 +380,9 @@ public class Transaction: SessionProtocol {
             paymentDetails["md"] = md
         }
         
-        paymentDetails["receiptID"] = receiptID
+        paymentDetails["receiptId"] = receiptId
         
-        self.APISession?.PUT("transactions/" + receiptID, parameters: paymentDetails, completion: block)
+        self.APISession?.PUT("transactions/" + receiptId, parameters: paymentDetails, completion: block)
 
         return self
     }

@@ -29,12 +29,12 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceipt() {
         // Given
-        let receiptID = "3374881"
+        let receiptId = "3374881"
         
         let expectation = self.expectationWithDescription("receipt fetch expectation")
         
         do {
-            try judo.receipt(receiptID).completion({ (dict, error) -> () in
+            try judo.receipt(receiptId).completion({ (dict, error) -> () in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                 }

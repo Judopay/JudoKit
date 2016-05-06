@@ -30,7 +30,7 @@ import Foundation
  
  ### void by ID and amount
  ```swift
-    myJudoSession.void(receiptID, amount: amount).completion({ (dict, error) -> () in
+    myJudoSession.void(receiptId, amount: amount).completion({ (dict, error) -> () in
         if let error = error {
             // error
         } else {

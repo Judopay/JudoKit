@@ -40,7 +40,7 @@ public class JudoPayViewController: UIViewController {
     /// The amount and currency to process, amount to two decimal places and currency in string
     public private (set) var amount: Amount?
     /// The number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
-    public private (set) var judoID: String?
+    public private (set) var judoId: String?
     /// Your reference for this consumer, this payment and an object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
     public private (set) var reference: Reference?
     /// Card token and Consumer token
@@ -73,7 +73,7 @@ public class JudoPayViewController: UIViewController {
     /**
      Initializer to start a payment journey
      
-     - parameter judoID:           The judoID of the recipient
+     - parameter judoId:           The judoId of the recipient
      - parameter amount:           An amount and currency for the transaction
      - parameter reference:        A Reference for the transaction
      - parameter transactionType:  The type of the transaction
@@ -84,8 +84,8 @@ public class JudoPayViewController: UIViewController {
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoID: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
-        self.judoID = judoID
+    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
+        self.judoId = judoId
         self.amount = amount
         self.reference = reference
         self.paymentToken = paymentToken
@@ -209,7 +209,7 @@ public class JudoPayViewController: UIViewController {
     - parameter sender: The payment button
     */
     func payButtonAction(sender: AnyObject) {
-        guard let reference = self.reference, let amount = self.amount, let judoID = self.judoID else {
+        guard let reference = self.reference, let amount = self.amount, let judoId = self.judoId else {
             self.completionBlock?(nil, JudoError(.ParameterError))
             return // BAIL
         }
@@ -220,7 +220,7 @@ public class JudoPayViewController: UIViewController {
         self.myView.loadingView.startAnimating()
         
         do {
-            let transaction = try self.judoKitSession.transaction(self.myView.transactionType, judoID: judoID, amount: amount, reference: reference)
+            let transaction = try self.judoKitSession.transaction(self.myView.transactionType, judoId: judoId, amount: amount, reference: reference)
             
             if var payToken = self.paymentToken {
                 payToken.cv2 = self.myView.secureCodeInputField.textField.text
@@ -335,7 +335,7 @@ extension JudoPayViewController: UIWebViewDelegate {
                 }
             }
             
-            if let receiptID = self.pending3DSReceiptID {
+            if let receiptId = self.pending3DSReceiptID {
                 if self.myView.transactionType == .RegisterCard {
                     self.myView.loadingView.actionLabel.text = self.judoKitSession.theme.verifying3DSRegisterCardTitle
                 } else {
@@ -343,7 +343,7 @@ extension JudoPayViewController: UIWebViewDelegate {
                 }
                 self.myView.loadingView.startAnimating()
                 self.title = self.judoKitSession.theme.authenticationTitle
-                self.pending3DSTransaction?.threeDSecure(results, receiptID: receiptID, block: { [weak self] (resp, error) -> () in
+                self.pending3DSTransaction?.threeDSecure(results, receiptId: receiptId, block: { [weak self] (resp, error) -> () in
                     self?.myView.loadingView.stopAnimating()
                     if let error = error {
                         self?.completionBlock?(nil, error)

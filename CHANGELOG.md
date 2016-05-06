@@ -14,17 +14,20 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [6.1.2](https://github.com/JudoPay/JudoKit/releases/tag/6.1.2)
-TBD
+Released on 2016-05-06
 
 #### Added
 - Protocol extension for Card to safely mask important information.
+- UI and Integration Tests for duplicate transaction prevention.
 
 #### Changed
 - Implemented a protocol as extension in JudoPayInputField.
+- Switched casing from 'ID' to 'Id' for correct camel casing.
 
 #### Fixed
-- UI Testing.
+- An issue where a secure text field was not found in UI testing.
 - An issue where injected card details would not utilize the card number properly.
+- An issue where the card type was not parsed correctly.
 
 ---
 
@@ -32,7 +35,7 @@ TBD
 Released on 2016-04-28
 
 #### Changed
-- Including deviceDNA in direct API calls.
+- Including DeviceDNA in direct API calls.
 - Allowing empty paymentData in Simulator.
 
 #### Fixed

@@ -139,13 +139,13 @@ public struct JudoKit {
     /**
     Main payment method
     
-    - parameter judoID:       The judoID of the merchant to receive the payment
+    - parameter judoId:       The judoId of the merchant to receive the payment
     - parameter amount:       The amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public mutating func invokePayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, completion: completion, currentSession: self, cardDetails: cardDetails)
+    public mutating func invokePayment(judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+        let judoPayViewController = JudoPayViewController(judoId: judoId, amount: amount, reference: reference, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
     
@@ -153,13 +153,13 @@ public struct JudoKit {
     /**
     Make a pre-auth using this method
     
-    - parameter judoID:       The judoID of the merchant to receive the pre-auth
+    - parameter judoId:       The judoId of the merchant to receive the pre-auth
     - parameter amount:       The amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public mutating func invokePreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails)
+    public mutating func invokePreAuth(judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+        let judoPayViewController = JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
     
@@ -171,13 +171,13 @@ public struct JudoKit {
     /**
     Initiates a card registration
     
-    - parameter judoID:       The judoID of the merchant to receive the pre-auth
+    - parameter judoId:       The judoId of the merchant to receive the pre-auth
     - parameter amount:       The amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public mutating func invokeRegisterCard(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
-        let judoPayViewController = JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: self, cardDetails: cardDetails)
+    public mutating func invokeRegisterCard(judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: (Response?, JudoError?) -> ()) {
+        let judoPayViewController = JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
     
@@ -187,15 +187,15 @@ public struct JudoKit {
     /**
     Initiates the token payment process
     
-    - parameter judoID:       The judoID of the merchant to receive the payment
+    - parameter judoId:       The judoId of the merchant to receive the payment
     - parameter amount:       The amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter cardDetails:  The card details to present in the input fields
     - parameter paymentToken: The consumer and card token to make a token payment with
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public func invokeTokenPayment(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .Payment, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken))
+    public func invokeTokenPayment(judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .Payment, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken))
         self.showViewController(vc)
     }
     
@@ -203,15 +203,15 @@ public struct JudoKit {
     /**
     Initiates the token pre-auth process
     
-    - parameter judoID:       The judoID of the merchant to receive the pre-auth
+    - parameter judoId:       The judoId of the merchant to receive the pre-auth
     - parameter amount:       The amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter cardDetails:  The card details to present in the input fields
     - parameter paymentToken: The consumer and card token to make a token payment with
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public func invokeTokenPreAuth(judoID: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
-        let vc = UINavigationController(rootViewController: JudoPayViewController(judoID: judoID, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken))
+    public func invokeTokenPreAuth(judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: (Response?, JudoError?) -> ()) {
+        let vc = UINavigationController(rootViewController: JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken))
         self.showViewController(vc)
     }
     
@@ -220,23 +220,23 @@ public struct JudoKit {
      Starting point and a reactive method to create a transaction that is sent to a certain judo ID
      
      - Parameter transactionType: The type of the transaction (payment, pre-auth or registercard)
-     - Parameter judoID:          The recipient - has to be between 6 and 10 characters and luhn-valid
+     - Parameter judoId:          The recipient - has to be between 6 and 10 characters and luhn-valid
      - Parameter amount:          The amount of the Payment
      - Parameter reference:       The reference
      
-     - Throws: JudoIDInvalidError    judoID does not match the given length or is not luhn valid
+     - Throws: JudoIDInvalidError    judoId does not match the given length or is not luhn valid
      - Throws: InvalidOperationError if you call this method with .Refund as a transactionType
      
      - Returns: a Payment Object
      */
-    public func transaction(transactionType: TransactionType, judoID: String, amount: Amount, reference: Reference) throws -> Transaction {
+    public func transaction(transactionType: TransactionType, judoId: String, amount: Amount, reference: Reference) throws -> Transaction {
         switch transactionType {
         case .Payment:
-            return try self.payment(judoID, amount: amount, reference: reference)
+            return try self.payment(judoId, amount: amount, reference: reference)
         case .PreAuth:
-            return try self.preAuth(judoID, amount: amount, reference: reference)
+            return try self.preAuth(judoId, amount: amount, reference: reference)
         case .RegisterCard:
-            return try self.registerCard(judoID, reference: reference)
+            return try self.registerCard(judoId, reference: reference)
         default:
             throw JudoError(.InvalidOperationError)
         }
@@ -246,48 +246,48 @@ public struct JudoKit {
     /**
      Starting point and a reactive method to create a payment that is sent to a certain judo ID
      
-     - Parameter judoID:    The recipient - has to be between 6 and 10 characters and luhn-valid
+     - Parameter judoId:    The recipient - has to be between 6 and 10 characters and luhn-valid
      - Parameter amount:    The amount of the Payment
      - Parameter reference: The reference
      
-     - Throws: JudoIDInvalidError judoID does not match the given length or is not luhn valid
+     - Throws: JudoIDInvalidError judoId does not match the given length or is not luhn valid
      
      - Returns: a Payment Object
      */
-    public func payment(judoID: String, amount: Amount, reference: Reference) throws -> Payment {
-        return try Payment(judoID: judoID, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+    public func payment(judoId: String, amount: Amount, reference: Reference) throws -> Payment {
+        return try Payment(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
     }
     
     
     /**
      Starting point and a reactive method to create a pre-auth that is sent to a certain judo ID
      
-     - Parameter judoID:    The recipient - has to be between 6 and 10 characters and LUHN valid
+     - Parameter judoId:    The recipient - has to be between 6 and 10 characters and LUHN valid
      - Parameter amount:    The amount of the pre-auth
      - Parameter reference: The reference
      
-     - Throws: JudoIDInvalidError judoID does not match the given length or is not LUHN valid
+     - Throws: JudoIDInvalidError judoId does not match the given length or is not LUHN valid
      
      - Returns: pre-auth Object
      */
-    public func preAuth(judoID: String, amount: Amount, reference: Reference) throws -> PreAuth {
-        return try PreAuth(judoID: judoID, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+    public func preAuth(judoId: String, amount: Amount, reference: Reference) throws -> PreAuth {
+        return try PreAuth(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
     }
     
     
     /**
      Starting point and a reactive method to create a RegisterCard that is sent to a certain judo ID
      
-     - Parameter judoID:    The recipient - has to be between 6 and 10 characters and LUHN valid
+     - Parameter judoId:    The recipient - has to be between 6 and 10 characters and LUHN valid
      - Parameter amount:    The amount of the RegisterCard
      - Parameter reference: The reference
      
-     - Throws: JudoIDInvalidError judoID does not match the given length or is not LUHN valid
+     - Throws: JudoIDInvalidError judoId does not match the given length or is not LUHN valid
      
      - Returns: a RegisterCard Object
      */
-    public func registerCard(judoID: String, reference: Reference) throws -> RegisterCard {
-        return try RegisterCard(judoID: judoID, amount: nil, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+    public func registerCard(judoId: String, reference: Reference) throws -> RegisterCard {
+        return try RegisterCard(judoId: judoId, amount: nil, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
     }
     
     
@@ -298,62 +298,62 @@ public struct JudoKit {
      
      If you want to use the receipt function - you need to enable that in the judo Dashboard - Your Apps - Permissions for the given App
      
-     - Parameter receiptID: The receipt ID as a String
+     - Parameter receiptId: The receipt ID as a String
      
-     - Throws: LuhnValidationError if the receiptID does not match
+     - Throws: LuhnValidationError if the receiptId does not match
      
      - Returns: a Receipt Object for reactive usage
      */
-    public func receipt(receiptID: String? = nil) throws -> Receipt {
-        return try Receipt(receiptID: receiptID).apiSession(self.apiSession)
+    public func receipt(receiptId: String? = nil) throws -> Receipt {
+        return try Receipt(receiptId: receiptId).apiSession(self.apiSession)
     }
     
     
     /**
      Creates a Collection object which can be used to collect a previously pre-authorized transaction
      
-     - Parameter receiptID:        The receipt of the previously authorized transaction
+     - Parameter receiptId:        The receipt of the previously authorized transaction
      - Parameter amount:           The amount to be transacted
      - Parameter paymentReference: The payment reference string
      
-     - Throws: LuhnValidationError judoID does not match the given length or is not LUHN valid
+     - Throws: LuhnValidationError judoId does not match the given length or is not LUHN valid
      
      - Returns: a Collection object for reactive usage
      */
-    public func collection(receiptID: String, amount: Amount) throws -> Collection {
-        return try Collection(receiptID: receiptID, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+    public func collection(receiptId: String, amount: Amount) throws -> Collection {
+        return try Collection(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
     }
     
     
     /**
      Creates a Refund object which can be used to refund a previous transaction
      
-     - Parameter receiptID:        The receipt of the previous transaction
+     - Parameter receiptId:        The receipt of the previous transaction
      - Parameter amount:           The amount to be refunded (will check if funds are available in your account)
      - Parameter paymentReference: The payment reference string
      
-     - Throws: LuhnValidationError judoID does not match the given length or is not LUHN valid
+     - Throws: LuhnValidationError judoId does not match the given length or is not LUHN valid
      
      - Returns: a Refund object for reactive usage
      */
-    public func refund(receiptID: String, amount: Amount) throws -> Refund {
-        return try Refund(receiptID: receiptID, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+    public func refund(receiptId: String, amount: Amount) throws -> Refund {
+        return try Refund(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
     }
     
     
     /**
      Creates a VoidTransaction object which can be used to void a previous preAuth
      
-     - Parameter receiptID:        The receipt of the previous transaction
+     - Parameter receiptId:        The receipt of the previous transaction
      - Parameter amount:           The amount to be refunded (will check if funds are available in your account)
      - Parameter paymentReference: The payment reference string
      
-     - Throws: LuhnValidationError judoID does not match the given length or is not LUHN valid
+     - Throws: LuhnValidationError judoId does not match the given length or is not LUHN valid
      
      - Returns: a Void object for reactive usage
      */
-    public func voidTransaction(receiptID: String, amount: Amount) throws -> VoidTransaction {
-        return try VoidTransaction(receiptID: receiptID, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+    public func voidTransaction(receiptId: String, amount: Amount) throws -> VoidTransaction {
+        return try VoidTransaction(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
     }
     
     

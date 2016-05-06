@@ -33,7 +33,7 @@ class CollectionTests: JudoTestCase {
         
         do {
             // Given I have made a pre-authorisation
-            let preAuth = try judo.preAuth(myJudoID, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
+            let preAuth = try judo.preAuth(myJudoId, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
             
             try preAuth.completion({ (response, error) -> () in
                 if let error = error {
@@ -44,7 +44,7 @@ class CollectionTests: JudoTestCase {
                 
                 // And I have a receipt ID of a given transaction
                 // And I have the amount of that transaction
-                guard let receiptId = response?.first?.receiptID,
+                guard let receiptId = response?.first?.receiptId,
                     let amount = response?.first?.amount else {
                     XCTFail("receipt ID was not available in response")
                     expectation.fulfill()
@@ -73,7 +73,7 @@ class CollectionTests: JudoTestCase {
             })
             
             XCTAssertNotNil(preAuth)
-            XCTAssertEqual(preAuth.judoID, myJudoID)
+            XCTAssertEqual(preAuth.judoId, myJudoId)
         } catch {
             XCTFail("exception thrown: \(error)")
             expectation.fulfill();
