@@ -107,7 +107,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let tableQueryExistsPredicate = NSPredicate(format: "exists == 1")
         
         expectationForPredicate(tableQueryExistsPredicate, evaluatedWithObject: tableQuery, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        waitForExpectationsWithTimeout(125, handler: nil)
         
         tableQuery.tap()
         

@@ -636,8 +636,8 @@ public class CardDetails: NSObject, NSCoding {
         self.cardToken = dict?["cardToken"] as? String
         self._cardNumber = dict?["cardNumber"] as? String
         super.init()
-        if let cardType = dict?["cardType"] as? Int64 {
-            self.cardNetwork = CardNetwork(rawValue: cardType)
+        if let cardType = dict?["cardType"] as? Int {
+            self.cardNetwork = CardNetwork(rawValue: Int64(cardType))
         } else {
             self.cardNetwork = .Unknown
         }

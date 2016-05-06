@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [6.1.2](https://github.com/JudoPay/JudoKit/releases/tag/6.1.2)
-TBD
+Released on 2016-05-06
 
 #### Added
 - Protocol extension for Card to safely mask important information.
@@ -27,6 +27,7 @@ TBD
 #### Fixed
 - UI Testing.
 - An issue where injected card details would not utilize the card number properly.
+- An issue where the card type was not parsed correctly.
 
 ---
 
