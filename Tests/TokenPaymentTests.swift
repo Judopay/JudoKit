@@ -46,7 +46,7 @@ class TokenPaymentTests: JudoTestCase {
                     let payToken = PaymentToken(consumerToken: uData.items.first!.consumer.consumerToken, cardToken: uData.items.first!.cardDetails.cardToken!)
                     do {
                         // Then I should be able to make a token payment
-                        try self.judo.payment(sself., amount: self.oneGBPAmount, reference: self.validReference).paymentToken(payToken).completion({ (data, error) -> () in
+                        try self.judo.payment(myJudoId, amount: self.oneGBPAmount, reference: self.validReference).paymentToken(payToken).completion({ (data, error) -> () in
                             if let error = error {
                                 XCTFail("api call failed with error: \(error)")
                             }
