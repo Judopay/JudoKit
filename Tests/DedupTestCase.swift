@@ -43,7 +43,7 @@ class DedupTestCase: JudoTestCase {
                 
                 do {
                     
-                    let payment2 = try self.judo.payment(self.myJudoId, amount: self.oneGBPAmount, reference: Reference(consumerRef: "consumer reference")!)
+                    let payment2 = try self.judo.payment(myJudoId, amount: self.oneGBPAmount, reference: Reference(consumerRef: "consumer reference")!)
                     
                     payment2.card(self.validVisaTestCard)
                     
