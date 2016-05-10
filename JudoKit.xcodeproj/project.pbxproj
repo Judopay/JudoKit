@@ -51,6 +51,7 @@
 		3B5A60261CAAD34D00E98AC6 /* TokenPreAuthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0551CAA7B0000953312 /* TokenPreAuthTests.swift */; };
 		3B5A60271CAAD3EA00E98AC6 /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B125B931C5FC67E0086BB18 /* JudoShield.framework */; };
 		3B5A602B1CAAD9F000E98AC6 /* JudoShield.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B125B931C5FC67E0086BB18 /* JudoShield.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3B8D60481CE21ACD00EA7533 /* JudoKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = DA76A5FD1B7B73D30033E553 /* JudoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3BA69A881CCFC02500F79680 /* ErrorAnimatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BA69A871CCFC02500F79680 /* ErrorAnimatable.swift */; };
 		3BAA702D1C69FCD600E6586E /* NSDate+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BAA702C1C69FCD600E6586E /* NSDate+Extension.swift */; };
 		3BC4C0D01C6204A60010CE14 /* JudoPayView+JudoPayInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4C0CF1C6204A60010CE14 /* JudoPayView+JudoPayInputDelegate.swift */; };
@@ -96,6 +97,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				3B8D60481CE21ACD00EA7533 /* JudoKit.framework in CopyFiles */,
 				3B5A602B1CAAD9F000E98AC6 /* JudoShield.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
