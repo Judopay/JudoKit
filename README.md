@@ -88,4 +88,4 @@ myJudoKitSession.invokePayment(judoID, amount: Amount(42, currentCurrency), refe
 
 ## Next steps
 
-Judo's Swift SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKit/wiki/).
+Judo's Swift SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKit/wiki/) or [API reference](https://judopay.github.io/JudoKit).
