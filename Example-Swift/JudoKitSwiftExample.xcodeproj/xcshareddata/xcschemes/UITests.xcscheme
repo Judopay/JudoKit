@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0730"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "DA7A98851B7E3291005754F1"
-               BuildableName = "JudoKitSwiftExample.app"
-               BlueprintName = "JudoKitSwiftExample"
-               ReferencedContainer = "container:JudoKitSwiftExample.xcodeproj">
+               BlueprintIdentifier = "DA76A5FC1B7B73D30033E553"
+               BuildableName = "JudoKit.framework"
+               BlueprintName = "JudoKit"
+               ReferencedContainer = "container:../JudoKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -42,10 +42,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DA7A98851B7E3291005754F1"
-            BuildableName = "JudoKitSwiftExample.app"
-            BlueprintName = "JudoKitSwiftExample"
-            ReferencedContainer = "container:JudoKitSwiftExample.xcodeproj">
+            BlueprintIdentifier = "DA76A5FC1B7B73D30033E553"
+            BuildableName = "JudoKit.framework"
+            BlueprintName = "JudoKit"
+            ReferencedContainer = "container:../JudoKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -61,16 +61,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DA7A98851B7E3291005754F1"
-            BuildableName = "JudoKitSwiftExample.app"
-            BlueprintName = "JudoKitSwiftExample"
-            ReferencedContainer = "container:JudoKitSwiftExample.xcodeproj">
+            BlueprintIdentifier = "DA76A5FC1B7B73D30033E553"
+            BuildableName = "JudoKit.framework"
+            BlueprintName = "JudoKit"
+            ReferencedContainer = "container:../JudoKit.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,16 +79,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "DA7A98851B7E3291005754F1"
-            BuildableName = "JudoKitSwiftExample.app"
-            BlueprintName = "JudoKitSwiftExample"
-            ReferencedContainer = "container:JudoKitSwiftExample.xcodeproj">
+            BlueprintIdentifier = "DA76A5FC1B7B73D30033E553"
+            BuildableName = "JudoKit.framework"
+            BlueprintName = "JudoKit"
+            ReferencedContainer = "container:../JudoKit.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
