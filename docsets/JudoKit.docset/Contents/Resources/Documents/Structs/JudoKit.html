@@ -15,6 +15,7 @@
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">JudoKit Docs</a> (99% documented)</p>
+        <p class="header-right"><a href="https://github.com/judopay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -218,6 +219,9 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/ErrorAnimatable.html">ErrorAnimatable</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/JudoInputType.html">JudoInputType</a>
               </li>
               <li class="nav-group-task">
@@ -331,6 +335,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L45">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -358,6 +365,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L48">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -384,6 +394,9 @@
                           <pre class="highlight"><code><span class="kd">public</span> <span class="k">weak</span> <span class="k">var</span> <span class="nv">activeViewController</span><span class="p">:</span> <span class="kt">JudoPayViewController</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L51">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -481,6 +494,9 @@
                         <p>a new instance of JudoKit</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L69-L84">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -558,6 +574,9 @@
                         <p>a new instance of JudoKit</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L95-L97">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -615,6 +634,9 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L107-L109">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -688,6 +710,9 @@
                           </tbody>
                         </table>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L118-L124">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -726,6 +751,9 @@
                         <p>a Boolean indicating whether the parameters have been set</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L132-L134">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -760,7 +788,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">invokePayment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">invokePayment</span><span class="p">(</span><span class="nv">judoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -771,12 +799,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>judoID</em>
+                                <em>judoId</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The judoID of the merchant to receive the payment</p>
+                                  <p>The judoId of the merchant to receive the payment</p>
 
                                 </div>
                               </td>
@@ -822,6 +850,9 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L147-L150">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -846,7 +877,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">invokePreAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">invokePreAuth</span><span class="p">(</span><span class="nv">judoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -857,12 +888,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>judoID</em>
+                                <em>judoId</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The judoID of the merchant to receive the pre-auth</p>
+                                  <p>The judoId of the merchant to receive the pre-auth</p>
 
                                 </div>
                               </td>
@@ -908,6 +939,9 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L161-L164">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -943,7 +977,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">invokeRegisterCard</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">invokeRegisterCard</span><span class="p">(</span><span class="nv">judoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -954,12 +988,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>judoID</em>
+                                <em>judoId</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The judoID of the merchant to receive the pre-auth</p>
+                                  <p>The judoId of the merchant to receive the pre-auth</p>
 
                                 </div>
                               </td>
@@ -1005,6 +1039,9 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L179-L182">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1040,7 +1077,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">invokeTokenPayment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">invokeTokenPayment</span><span class="p">(</span><span class="nv">judoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -1051,12 +1088,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>judoID</em>
+                                <em>judoId</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The judoID of the merchant to receive the payment</p>
+                                  <p>The judoId of the merchant to receive the payment</p>
 
                                 </div>
                               </td>
@@ -1128,6 +1165,9 @@
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L197-L200">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1152,7 +1192,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">invokeTokenPreAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">invokeTokenPreAuth</span><span class="p">(</span><span class="nv">judoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">,</span> <span class="nv">cardDetails</span><span class="p">:</span> <span class="kt">CardDetails</span><span class="p">,</span> <span class="nv">paymentToken</span><span class="p">:</span> <span class="kt">PaymentToken</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">(</span><span class="kt">Response</span><span class="p">?,</span> <span class="kt">JudoError</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">())</span></code></pre>
 
                         </div>
                       </div>
@@ -1163,12 +1203,12 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>judoID</em>
+                                <em>judoId</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The judoID of the merchant to receive the pre-auth</p>
+                                  <p>The judoId of the merchant to receive the pre-auth</p>
 
                                 </div>
                               </td>
@@ -1241,15 +1281,18 @@
                           </tbody>
                         </table>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L213-L216">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:FV7JudoKit7JudoKit11transactionFzTOS_15TransactionType6judoIDSS6amountVS_6Amount9referenceVS_9Reference_CS_11Transaction"></a>
-                    <a name="//apple_ref/swift/Method/transaction(_:judoID:amount:reference:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:FV7JudoKit7JudoKit11transactionFzTOS_15TransactionType6judoIDSS6amountVS_6Amount9referenceVS_9Reference_CS_11Transaction">transaction(_:judoID:amount:reference:)</a>
+                    <a name="/s:FV7JudoKit7JudoKit11transactionFzTOS_15TransactionType6judoIdSS6amountVS_6Amount9referenceVS_9Reference_CS_11Transaction"></a>
+                    <a name="//apple_ref/swift/Method/transaction(_:judoId:amount:reference:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:FV7JudoKit7JudoKit11transactionFzTOS_15TransactionType6judoIdSS6amountVS_6Amount9referenceVS_9Reference_CS_11Transaction">transaction(_:judoId:amount:reference:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -1267,7 +1310,7 @@
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    Parameter judoID:          The recipient - has to be between 6 and 10 characters and luhn-valid
+    Parameter judoId:          The recipient - has to be between 6 and 10 characters and luhn-valid
 
 </div>
 
@@ -1285,7 +1328,7 @@
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>JudoIDInvalidError    judoID does not match the given length or is not luhn valid</p>
+    <p>JudoIDInvalidError    judoId does not match the given length or is not luhn valid</p>
 
 </div>
 
@@ -1306,7 +1349,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transaction</span><span class="p">(</span><span class="nv">transactionType</span><span class="p">:</span> <span class="kt">TransactionType</span><span class="p">,</span> <span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Transaction</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">transaction</span><span class="p">(</span><span class="nv">transactionType</span><span class="p">:</span> <span class="kt">TransactionType</span><span class="p">,</span> <span class="nv">judoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Transaction</span></code></pre>
 
                         </div>
                       </div>
@@ -1330,7 +1373,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>judoID</em>
+                                <em>judoId</em>
                                 </code>
                               </td>
                               <td>
@@ -1373,6 +1416,9 @@
                         <h4>Return Value</h4>
                         <p>a Payment Object</p>
 
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L232-L243">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1394,7 +1440,7 @@
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    Parameter judoID:    The recipient - has to be between 6 and 10 characters and luhn-valid
+    Parameter judoId:    The recipient - has to be between 6 and 10 characters and luhn-valid
 
 </div>
 
@@ -1412,7 +1458,7 @@
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>JudoIDInvalidError judoID does not match the given length or is not luhn valid</p>
+    <p>JudoIDInvalidError judoId does not match the given length or is not luhn valid</p>
 
 </div>
 
@@ -1427,7 +1473,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">payment</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Payment</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">payment</span><span class="p">(</span><span class="nv">judoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Payment</span></code></pre>
 
                         </div>
                       </div>
@@ -1438,7 +1484,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>judoID</em>
+                                <em>judoId</em>
                                 </code>
                               </td>
                               <td>
@@ -1482,6 +1528,9 @@
                         <p>a Payment Object</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L257-L259">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1502,7 +1551,7 @@
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    Parameter judoID:    The recipient - has to be between 6 and 10 characters and LUHN valid
+    Parameter judoId:    The recipient - has to be between 6 and 10 characters and LUHN valid
 
 </div>
 
@@ -1520,7 +1569,7 @@
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>JudoIDInvalidError judoID does not match the given length or is not LUHN valid</p>
+    <p>JudoIDInvalidError judoId does not match the given length or is not LUHN valid</p>
 
 </div>
 
@@ -1535,7 +1584,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">preAuth</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PreAuth</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">preAuth</span><span class="p">(</span><span class="nv">judoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">PreAuth</span></code></pre>
 
                         </div>
                       </div>
@@ -1546,7 +1595,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>judoID</em>
+                                <em>judoId</em>
                                 </code>
                               </td>
                               <td>
@@ -1590,6 +1639,9 @@
                         <p>pre-auth Object</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L273-L275">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1610,7 +1662,7 @@
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    Parameter judoID:    The recipient - has to be between 6 and 10 characters and LUHN valid
+    Parameter judoId:    The recipient - has to be between 6 and 10 characters and LUHN valid
 
 </div>
 
@@ -1628,7 +1680,7 @@
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>JudoIDInvalidError judoID does not match the given length or is not LUHN valid</p>
+    <p>JudoIDInvalidError judoId does not match the given length or is not LUHN valid</p>
 
 </div>
 
@@ -1643,7 +1695,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerCard</span><span class="p">(</span><span class="nv">judoID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">RegisterCard</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">registerCard</span><span class="p">(</span><span class="nv">judoId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">RegisterCard</span></code></pre>
 
                         </div>
                       </div>
@@ -1654,7 +1706,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>judoID</em>
+                                <em>judoId</em>
                                 </code>
                               </td>
                               <td>
@@ -1698,6 +1750,9 @@
                         <p>a RegisterCard Object</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L289-L291">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1722,13 +1777,13 @@
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    <p>Parameter receiptID: The receipt ID as a String</p>
+    <p>Parameter receiptId: The receipt ID as a String</p>
 
 </div>
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>LuhnValidationError if the receiptID does not match</p>
+    <p>LuhnValidationError if the receiptId does not match</p>
 
 </div>
 
@@ -1743,7 +1798,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">receipt</span><span class="p">(</span><span class="nv">receiptID</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Receipt</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">receipt</span><span class="p">(</span><span class="nv">receiptId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Receipt</span></code></pre>
 
                         </div>
                       </div>
@@ -1754,7 +1809,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>receiptID</em>
+                                <em>receiptId</em>
                                 </code>
                               </td>
                               <td>
@@ -1771,6 +1826,9 @@
                         <h4>Return Value</h4>
                         <p>a Receipt Object for reactive usage</p>
 
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L307-L309">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1792,7 +1850,7 @@
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    Parameter receiptID:        The receipt of the previously authorized transaction
+    Parameter receiptId:        The receipt of the previously authorized transaction
 
 </div>
 
@@ -1810,7 +1868,7 @@
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>LuhnValidationError judoID does not match the given length or is not LUHN valid</p>
+    <p>LuhnValidationError judoId does not match the given length or is not LUHN valid</p>
 
 </div>
 
@@ -1825,7 +1883,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">collection</span><span class="p">(</span><span class="nv">receiptID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Collection</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">collection</span><span class="p">(</span><span class="nv">receiptId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Collection</span></code></pre>
 
                         </div>
                       </div>
@@ -1836,7 +1894,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>receiptID</em>
+                                <em>receiptId</em>
                                 </code>
                               </td>
                               <td>
@@ -1880,6 +1938,9 @@
                         <p>a Collection object for reactive usage</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L323-L325">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1900,7 +1961,7 @@
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    Parameter receiptID:        The receipt of the previous transaction
+    Parameter receiptId:        The receipt of the previous transaction
 
 </div>
 
@@ -1918,7 +1979,7 @@
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>LuhnValidationError judoID does not match the given length or is not LUHN valid</p>
+    <p>LuhnValidationError judoId does not match the given length or is not LUHN valid</p>
 
 </div>
 
@@ -1933,7 +1994,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">refund</span><span class="p">(</span><span class="nv">receiptID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Refund</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">refund</span><span class="p">(</span><span class="nv">receiptId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Refund</span></code></pre>
 
                         </div>
                       </div>
@@ -1944,7 +2005,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>receiptID</em>
+                                <em>receiptId</em>
                                 </code>
                               </td>
                               <td>
@@ -1988,6 +2049,9 @@
                         <p>a Refund object for reactive usage</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L339-L341">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -2008,7 +2072,7 @@
 
 <div class="aside aside-parameter">
     <p class="aside-title">Parameter</p>
-    Parameter receiptID:        The receipt of the previous transaction
+    Parameter receiptId:        The receipt of the previous transaction
 
 </div>
 
@@ -2026,7 +2090,7 @@
 
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <p>LuhnValidationError judoID does not match the given length or is not LUHN valid</p>
+    <p>LuhnValidationError judoId does not match the given length or is not LUHN valid</p>
 
 </div>
 
@@ -2041,7 +2105,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">voidTransaction</span><span class="p">(</span><span class="nv">receiptID</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">VoidTransaction</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">voidTransaction</span><span class="p">(</span><span class="nv">receiptId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">VoidTransaction</span></code></pre>
 
                         </div>
                       </div>
@@ -2052,7 +2116,7 @@
                             <tr>
                               <td>
                                 <code>
-                                <em>receiptID</em>
+                                <em>receiptId</em>
                                 </code>
                               </td>
                               <td>
@@ -2095,6 +2159,9 @@
                         <h4>Return Value</h4>
                         <p>a Void object for reactive usage</p>
 
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L355-L357">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -2148,6 +2215,9 @@
                         <p>a new instance that can be used to fetch information</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoKit.swift#L367-L371">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -2156,7 +2226,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2016-04-20)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-05-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

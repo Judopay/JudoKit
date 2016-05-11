@@ -14,6 +14,7 @@
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">JudoKit Docs</a> (99% documented)</p>
+        <p class="header-right"><a href="https://github.com/judopay/JudoKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -217,6 +218,9 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Protocols/ErrorAnimatable.html">ErrorAnimatable</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/JudoInputType.html">JudoInputType</a>
               </li>
               <li class="nav-group-task">
@@ -300,45 +304,89 @@
 <a href="http://http://cocoadocs.org/docsets/Judo"><img src="https://img.shields.io/cocoapods/p/JudoKit.svg" alt="Platform"></a>
 <a href="http://twitter.com/JudoPayments"><img src="https://img.shields.io/badge/twitter-@JudoPayments-orange.svg" alt="Twitter"></a>
 <a href="http://travis-ci.org/JudoPay/JudoKit"><img src="https://travis-ci.org/JudoPay/JudoKit.svg" alt="Build Status"></a></p>
-<a href='#judokit_ios_sdk' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='judokit_ios_sdk'>judoKit iOS SDK</h1>
+<a href='#judo_swift_sdk_for_ios' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='judo_swift_sdk_for_ios'>Judo Swift SDK for iOS</h1>
 
-<p>This is the official judo iOS SDK. It incorporates our mobile specific security toolkit, <a href="https://github.com/judopay/judoshield">judoShield</a>, with additional modules to enable easy native integration of payments. If you are writing your app in Objective-C, we highly recommend you to use the <a href="https://github.com/judopay/JudoKitObjC">judoKitObjC</a> port.</p>
+<p>The judo Swift SDK is a framework for integrating easy, fast and secure payments inside your app with <a href="https://www.judopay.com/">judo</a>. It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick. If you are integrating your app in Objective-C, we highly recommend you to use the <a href="https://github.com/judopay/JudoKitObjC">judoKitObjC</a> port.</p>
+
+<p>Use our UI components for a seamless user experience for card data capture. Minimise your <a href="https://www.pcisecuritystandards.org/pci_security/completing_self_assessment">PCI scope</a> with a UI that can be themed or customised to match the look and feel of your app.</p>
 <a href='#strong_due_to_industry_wide_security_updates_versions_below_5_5_1_of_this_sdk_will_no_longer_be_supported_after_1st_oct_2016_for_more_information_regarding_these_updates_please_read_our_blog_a_href_http_hub_judopay_com_pci31_security_updates_here_a_strong' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h5 id='strong_due_to_industry_wide_security_updates_versions_below_5_5_1_of_this_sdk_will_no_longer_be_supported_after_1st_oct_2016_for_more_information_regarding_these_updates_please_read_our_blog_a_href_http_hub_judopay_com_pci31_security_updates_here_a_strong'><strong>***Due to industry-wide security updates, versions below 5.5.1 of this SDK will no longer be supported after 1st Oct 2016. For more information regarding these updates, please read our blog <a href="http://hub.judopay.com/pci31-security-updates/">here</a>.</strong>***</h5>
-<a href='#what_is_this_project_for' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='what_is_this_project_for'>What is this project for?</h3>
-
-<p>judoKit is a framework for integrating easy, fast and secure payments inside your app with <a href="https://www.judopay.com/">judo</a>. It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick.</p>
 <a href='#requirements' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='requirements'>Requirements</h2>
 
 <p>This SDK requires Xcode 7.3 and Swift 2.2.</p>
-<a href='#integration' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='integration'>Integration</h2>
+<a href='#getting_started' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='getting_started'>Getting started</h2>
+<a href='#integrating_cocoapods' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='integrating_cocoapods'>Integrating CocoaPods</h3>
+
+<p><a href="http://cocoapods.org">CocoaPods</a> is a dependency manager for Cocoa projects.</p>
 
 <ul>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/CocoaPods">CocoaPods</a></li>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/Carthage">Carthage</a></li>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/Manual-Integration">Manual Integration</a></li>
+<li>You can install it with the following command:</li>
 </ul>
-<a href='#setup' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='setup'>Setup</h2>
+<pre class="highlight shell"><code><span class="gp">$ </span>gem install cocoapods
+</code></pre>
 
 <ul>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/Initial-Setup">Initial Setup</a></li>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/Configuration">Configuration</a></li>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/UI-Customization">UI Customization</a></li>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/Theme-reference">Theme reference</a></li>
+<li>Add judo to your <code>Podfile</code> to integrate it into your Xcode project:</li>
 </ul>
-<a href='#making_a_transaction' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='making_a_transaction'>Making a Transaction</h2>
+<pre class="highlight ruby"><code><span class="n">source</span> <span class="s1">'https://github.com/CocoaPods/Specs.git'</span>
+<span class="n">platform</span> <span class="ss">:ios</span><span class="p">,</span> <span class="s1">'8.0'</span>
+<span class="n">use_frameworks!</span>
+
+<span class="n">pod</span> <span class="s1">'JudoKit'</span><span class="p">,</span> <span class="s1">'~&gt; 6.1'</span>
+</code></pre>
 
 <ul>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/Payment">Payment</a></li>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/PreAuth">PreAuth</a></li>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/Register-Card">RegisterCard</a></li>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/Token-Payment">Token Payment</a></li>
-<li><a href="https://github.com/JudoPay/JudoKit/wiki/Token-PreAuth">Token PreAuth</a></li>
+<li>Then run the following command:</li>
 </ul>
+<pre class="highlight shell"><code><span class="gp">$ </span>pod install
+</code></pre>
+
+<ul>
+<li>Please make sure to always <strong>use the newly generated <code>.xcworkspace</code></strong> file, not the projects <code>.xcodeproj</code> file.</li>
+</ul>
+<a href='#initial_setup' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='initial_setup'>Initial setup</h3>
+
+<ul>
+<li><p>Add <code>import JudoKit</code> to the top of the file where you want to use the SDK.</p></li>
+<li><p>You can set your token and secret here when initializing the session:</p></li>
+</ul>
+<pre class="highlight swift"><code><span class="c1">// initialize the SDK by setting it up with a token and a secret</span>
+<span class="k">var</span> <span class="nv">judoKitSession</span> <span class="o">=</span> <span class="kt">JudoKit</span><span class="p">(</span><span class="nv">token</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span> <span class="nv">secret</span><span class="p">:</span> <span class="n">secret</span><span class="p">)</span>
+</code></pre>
+
+<ul>
+<li>To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:</li>
+</ul>
+<pre class="highlight swift"><code><span class="c1">// setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed</span>
+<span class="k">self</span><span class="o">.</span><span class="n">judoKitSession</span><span class="o">.</span><span class="nf">sandboxed</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+</code></pre>
+
+<ul>
+<li>When you are ready to go live you can remove this line.</li>
+</ul>
+<a href='#invoking_a_payment_screen' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='invoking_a_payment_screen'>Invoking a payment screen</h3>
+<pre class="highlight swift"><code><span class="n">myJudoKitSession</span><span class="o">.</span><span class="nf">invokePayment</span><span class="p">(</span><span class="n">judoID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="kt">Amount</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="n">currentCurrency</span><span class="p">),</span> <span class="nv">reference</span><span class="p">:</span> <span class="kt">Reference</span><span class="p">(</span><span class="nv">consumerRef</span><span class="p">:</span> <span class="s">"consumer reference"</span><span class="p">),</span> <span class="nv">completion</span><span class="p">:</span> <span class="p">{</span> <span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+    <span class="k">self</span><span class="o">.</span><span class="nf">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
+        <span class="c1">// if the user cancelled, this error is passed</span>
+        <span class="k">if</span> <span class="n">error</span> <span class="o">==</span> <span class="kt">JudoError</span><span class="o">.</span><span class="kt">UserDidCancel</span> <span class="p">{</span>
+            <span class="k">self</span><span class="o">.</span><span class="nf">dismissViewControllerAnimated</span><span class="p">(</span><span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="c1">// handle error</span>
+        <span class="k">return</span> <span class="c1">// BAIL</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="k">let</span> <span class="nv">resp</span> <span class="o">=</span> <span class="n">response</span><span class="p">,</span> <span class="n">transactionData</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">items</span><span class="o">.</span><span class="n">first</span> <span class="p">{</span>
+    <span class="c1">// handle successful transaction</span>
+    <span class="p">}</span>
+<span class="p">})</span>
+</code></pre>
+<a href='#next_steps' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='next_steps'>Next steps</h2>
+
+<p>Judo&rsquo;s Swift SDK supports a range of customization options. For more information on using judo for iOS see our <a href="https://github.com/JudoPay/JudoKit/wiki/">wiki documentation</a> or <a href="https://judopay.github.io/JudoKit">API reference</a>.</p>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2016-04-20)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-05-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -14,6 +14,7 @@
     <header>
       <div class="content-wrapper">
         <p><a href="index.html">JudoKit Docs</a> (99% documented)</p>
+        <p class="header-right"><a href="https://github.com/judopay/JudoKit"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -217,6 +218,9 @@
             <a href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Protocols/ErrorAnimatable.html">ErrorAnimatable</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/JudoInputType.html">JudoInputType</a>
               </li>
               <li class="nav-group-task">
@@ -325,6 +329,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/CardInputField.swift#L33-L184">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -357,6 +364,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/DateInputField.swift#L46-L252">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -387,9 +397,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">JudoPayInputField</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">,</span> <span class="kt">UITextFieldDelegate</span><span class="p">,</span> <span class="kt">JudoInputType</span></code></pre>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">JudoPayInputField</span><span class="p">:</span> <span class="kt">UIView</span><span class="p">,</span> <span class="kt">UITextFieldDelegate</span><span class="p">,</span> <span class="kt">ErrorAnimatable</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoPayInputField.swift#L35-L202">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -423,6 +436,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/HintLabel.swift#L28-L131">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -455,6 +471,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/SecurityInputField.swift#L32-L158">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -478,7 +497,7 @@
                         <p>A Void transaction is next to a collection the second counterpart to a Pre-authorization transaction. While the Pre-auth transaction reserves funds on a Consumer&rsquo;s card, the Collection initiates the transfer of those reserved funds into your judo account and the Void transaction cancels the previously executed pre-Authorization.</p>
 
 <p><a href='#void_by_id_and_amount' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='void_by_id_and_amount'>void by ID and amount</h3>
-<pre class="highlight swift"><code>   <span class="n">myJudoSession</span><span class="o">.</span><span class="nf">void</span><span class="p">(</span><span class="n">receiptID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+<pre class="highlight swift"><code>   <span class="n">myJudoSession</span><span class="o">.</span><span class="nf">void</span><span class="p">(</span><span class="n">receiptId</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
        <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
            <span class="c1">// error</span>
        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -496,6 +515,9 @@
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">VoidTransaction</span><span class="p">:</span> <span class="kt">TransactionProcess</span><span class="p">,</span> <span class="kt">TransactionPath</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/VoidTransaction.swift#L43-L48">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -529,6 +551,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/CardLogoView.swift#L57-L111">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -552,7 +577,7 @@
                         <p>A Collection transaction is the counterpart to a Pre-authorization transaction. While the Pre-auth transaction reserves funds on a Consumer&rsquo;s card, the Collection initiates the transfer of those reserved funds into your judo account.</p>
 
 <p><a href='#collection_by_id_and_amount' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='collection_by_id_and_amount'>collection by ID and amount</h3>
-<pre class="highlight swift"><code>    <span class="n">muJudoSession</span><span class="o">.</span><span class="nf">collection</span><span class="p">(</span><span class="n">receiptID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+<pre class="highlight swift"><code>    <span class="n">muJudoSession</span><span class="o">.</span><span class="nf">collection</span><span class="p">(</span><span class="n">receiptId</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
         <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
             <span class="c1">// error</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -570,6 +595,9 @@
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Collection</span><span class="p">:</span> <span class="kt">TransactionProcess</span><span class="p">,</span> <span class="kt">TransactionPath</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Collection.swift#L43-L48">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -603,6 +631,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/PostCodeInputField.swift#L36-L170">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -634,6 +665,9 @@
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">JudoPayView</span><span class="p">:</span> <span class="kt">UIView</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoPayView.swift#L29-L433">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -667,6 +701,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Transaction.swift#L59-L429">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -698,6 +735,9 @@
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">JudoPayViewController</span><span class="p">:</span> <span class="kt">UIViewController</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/JudoPayViewController.swift#L33-L300">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -731,6 +771,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/TransactionProcess.swift#L28-L122">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -763,6 +806,9 @@
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/3DSWebView.swift#L33-L119">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -787,7 +833,7 @@
 Alternatively, you can receive a list of all the transactions. By default it will return 10 transactions. These results are returned in time-descending order by default, so it will return the latest 10 transactions.</p>
 
 <p><a href='#receipt_by_id' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='receipt_by_id'>Receipt by ID</h3>
-<pre class="highlight swift"><code>    <span class="n">myJudoSession</span><span class="o">.</span><span class="nf">receipt</span><span class="p">(</span><span class="n">receiptID</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+<pre class="highlight swift"><code>    <span class="n">myJudoSession</span><span class="o">.</span><span class="nf">receipt</span><span class="p">(</span><span class="n">receiptId</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
         <span class="k">if</span> <span class="k">let</span> <span class="nv"><em></span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
             <span class="c1">// error</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -814,6 +860,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Receipt</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Receipt.swift#L54-L132">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -893,6 +942,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/PreAuth.swift#L73-L78">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -936,6 +988,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Card.swift#L547-L727">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -967,6 +1022,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">LoadingView</span><span class="p">:</span> <span class="kt">UIView</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/LoadingView.swift#L32-L132">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1000,6 +1058,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/PayButton.swift#L32-L86">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1032,6 +1093,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/IssueNumberInputField.swift#L32-L120">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1063,6 +1127,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">BillingCountryInputField</span><span class="p">:</span> <span class="kt">JudoPayInputField</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/BillingCountryInputField.swift#L33-L99">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1119,6 +1186,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/RegisterCard.swift#L56-L61">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1142,7 +1212,7 @@ Alternatively, you can receive a list of all the transactions. By default it wil
                         <p>Refunding a successful payment is easy, simply identify the original receipt ID for the payment and the amount you wish to refund. When we&rsquo;ve received this request, we check to ensure there is a sufficient balance to process the refund and then process the request accordingly. Here is an example to how you can make a Refund with the SDK.</p>
 
 <p><a href='#refund_by_id_and_amount' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='refund_by_id_and_amount'>Refund by ID and amount</h3>
-<pre class="highlight swift"><code>    <span class="n">myJudoSession</span><span class="o">.</span><span class="nf">refund</span><span class="p">(</span><span class="n">receiptID</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+<pre class="highlight swift"><code>    <span class="n">myJudoSession</span><span class="o">.</span><span class="nf">refund</span><span class="p">(</span><span class="n">receiptId</span><span class="p">,</span> <span class="nv">amount</span><span class="p">:</span> <span class="n">amount</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
         <span class="k">if</span> <span class="k">let</span> <span class="nv">error</span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
             <span class="c1">// error</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -1160,6 +1230,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
                           <pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">Refund</span><span class="p">:</span> <span class="kt">TransactionProcess</span><span class="p">,</span> <span class="kt">TransactionPath</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Refund.swift#L43-L48">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -1239,6 +1312,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
 
                         </div>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Payment.swift#L73-L100">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -1247,7 +1323,7 @@ Alternatively, you can receive a list of all the transactions. By default it wil
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2016-04-20)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-05-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

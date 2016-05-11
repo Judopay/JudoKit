@@ -15,6 +15,7 @@
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">JudoKit Docs</a> (99% documented)</p>
+        <p class="header-right"><a href="https://github.com/judopay/JudoKit"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -218,6 +219,9 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/ErrorAnimatable.html">ErrorAnimatable</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/JudoInputType.html">JudoInputType</a>
               </li>
               <li class="nav-group-task">
@@ -305,7 +309,7 @@
 Alternatively, you can receive a list of all the transactions. By default it will return 10 transactions. These results are returned in time-descending order by default, so it will return the latest 10 transactions.</p>
 
 <p><a href='#receipt_by_id' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='receipt_by_id'>Receipt by ID</h3>
-<pre class="highlight swift"><code>    <span class="n">myJudoSession</span><span class="o">.</span><span class="nf">receipt</span><span class="p">(</span><span class="n">receiptID</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
+<pre class="highlight swift"><code>    <span class="n">myJudoSession</span><span class="o">.</span><span class="nf">receipt</span><span class="p">(</span><span class="n">receiptId</span><span class="p">)</span><span class="o">.</span><span class="nf">completion</span><span class="p">({</span> <span class="p">(</span><span class="n">dict</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">()</span> <span class="k">in</span>
         <span class="k">if</span> <span class="k">let</span> <span class="nv"><em></span> <span class="o">=</span> <span class="n">error</span> <span class="p">{</span>
             <span class="c1">// error</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
@@ -350,6 +354,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
                           <pre class="highlight"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">APISession</span><span class="p">:</span> <span class="kt">Session</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Receipt.swift#L59">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -415,6 +422,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
                         <p>reactive self</p>
 
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Receipt.swift#L90-L93">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -478,6 +488,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
                         <h4>Return Value</h4>
                         <p>reactive self</p>
 
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Receipt.swift#L103-L114">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -553,6 +566,9 @@ Alternatively, you can receive a list of all the transactions. By default it wil
                           </tbody>
                         </table>
                       </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/judopay/JudoKit/tree/6.1.2/Source/Receipt.swift#L125-L130">Show on GitHub</a>
+                      </div>
                     </section>
                   </div>
                 </li>
@@ -561,7 +577,7 @@ Alternatively, you can receive a list of all the transactions. By default it wil
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2016 <a class="link" href="http://judopay.com/" target="_blank" rel="external">Hamon Ben Riazy</a>. All rights reserved. (Last updated: 2016-04-20)</p>
+          <p>&copy; 2016 <a class="link" href="https://judopay.com" target="_blank" rel="external">Alternative Payments</a>. All rights reserved. (Last updated: 2016-05-11)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.6.0</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
