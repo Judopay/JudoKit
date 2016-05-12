@@ -298,13 +298,13 @@ public class JudoPayView: UIView {
         // If card details are available, fill out the fields
         if let cardDetails = self.cardDetails, let formattedLastFour = cardDetails.formattedLastFour(), let expiryDate = cardDetails.formattedEndDate() {
             self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
-            self.cardInputField.textField.text = formattedLastFour
+            self.cardInputField.textField.text = self.isTokenPayment ? formattedLastFour : cardDetails._cardNumber
             self.expiryDateInputField.textField.text = expiryDate
             self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
             self.secureCodeInputField.isTokenPayment = self.isTokenPayment
             self.cardInputField.isTokenPayment = self.isTokenPayment
-            self.cardInputField.userInteractionEnabled = false
-            self.expiryDateInputField.userInteractionEnabled = false
+            self.cardInputField.userInteractionEnabled = !self.isTokenPayment
+            self.expiryDateInputField.userInteractionEnabled = !self.isTokenPayment
             self.cardInputField.textField.secureTextEntry = false
         }
     }
