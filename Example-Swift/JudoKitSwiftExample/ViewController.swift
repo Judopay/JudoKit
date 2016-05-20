@@ -246,7 +246,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     func preAuthOperation() {
         guard let ref = Reference(consumerRef: "payment reference") else { return }
-        self.judoKitSession.invokePreAuth(judoId, amount: Amount(decimalNumber: 2, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
+        let amount: Amount = "2 GBP"
+        self.judoKitSession.invokePreAuth(judoId, amount: amount, reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let error = error {
                 if error.code == .UserDidCancel {

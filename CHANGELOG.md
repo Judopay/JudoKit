@@ -16,8 +16,11 @@ All notable changes to this project will be documented in this file.
 ## [6.1.3](https://github.com/JudoPay/JudoKit/releases/tag/6.1.3)
 TBD
 
+#### Added
+- Amount is now StringLiteralConvertible.
+
 #### Changed
-- Injected card details are not masked and are manipulatable
+- Injected card details are not masked and are manipulatable.
 
 ---
 

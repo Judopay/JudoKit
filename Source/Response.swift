@@ -155,7 +155,7 @@ extension Response: SequenceType, CollectionType {
     public func generate() -> IndexingGenerator<[TransactionData]> {
         return self.items.generate()
     }
-
+    
 }
 
 

@@ -30,7 +30,7 @@ import Foundation
  
  Amount object stores information about an amount and the corresponding currency for a transaction
 */
-public struct Amount {
+public struct Amount: StringLiteralConvertible {
     /// The currency ISO Code - GBP is default
     public var currency: Currency = .GBP
     /// The amount to process, to two decimal places
@@ -62,6 +62,37 @@ public struct Amount {
     public init(amountString: String, currency: Currency) {
         self.amount = NSDecimalNumber(string: amountString)
         self.currency = currency
+    }
+    
+    
+    /**
+     possible patterns for initializing with a string literal
+     
+     - 12 GBP
+     - 12GBP
+     
+     - parameter value: a string value holding a currency and an amount
+     
+     - returns: an Amount object
+     */
+    init(amount value: String) {
+        self.amount = NSDecimalNumber(string: value.substringToIndex(value.endIndex.advancedBy(-3)))
+        self.currency = Currency(value.substringFromIndex(value.endIndex.advancedBy(-3)))
+    }
+    
+    public init(stringLiteral value: String) {
+        self.amount = NSDecimalNumber(string: value.substringToIndex(value.endIndex.advancedBy(-3)))
+        self.currency = Currency(value.substringFromIndex(value.endIndex.advancedBy(-3)))
+    }
+    
+    public init(extendedGraphemeClusterLiteral value: String) {
+        self.amount = NSDecimalNumber(string: value.substringToIndex(value.endIndex.advancedBy(-3)))
+        self.currency = Currency(value.substringFromIndex(value.endIndex.advancedBy(-3)))
+    }
+    
+    public init(unicodeScalarLiteral value: String) {
+        self.amount = NSDecimalNumber(string: value.substringToIndex(value.endIndex.advancedBy(-3)))
+        self.currency = Currency(value.substringFromIndex(value.endIndex.advancedBy(-3)))
     }
     
 }
