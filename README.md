@@ -17,7 +17,6 @@ Use our UI components for a seamless user experience for card data capture. Mini
 This SDK requires Xcode 7.3 and Swift 2.2.
 
 ## Getting started
-
 ### Integrating CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
