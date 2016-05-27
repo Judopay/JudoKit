@@ -29,23 +29,48 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceipt() {
         // Given
-        let receiptId = "3374881"
+        var receiptId = ""
         
         let expectation = self.expectationWithDescription("receipt fetch expectation")
         
         do {
-            try judo.receipt(receiptId).completion({ (dict, error) -> () in
+            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference)
+            payment.card(validVisaTestCard)
+            
+            XCTAssertNotNil(payment)
+            
+            try payment.completion({ (response, error) -> () in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                 }
-                expectation.fulfill()
+                
+                XCTAssertNotNil(response)
+                
+                let respbody = response?.first
+                
+                XCTAssertNotNil(respbody)
+                
+                receiptId = respbody!.receiptId
+                
+                do {
+                    try self.judo.receipt(receiptId).completion({ (dict, error) -> () in
+                        if let error = error {
+                            XCTFail("api call failed with error: \(error)")
+                        }
+                        expectation.fulfill()
+                    })
+                } catch {
+                    XCTFail("exception thrown: \(error)")
+                    expectation.fulfill()
+                }
+            
             })
         } catch {
-            XCTFail("exception thrown: \(error)")
+            XCTFail()
+            expectation.fulfill()
         }
         
         self.waitForExpectationsWithTimeout(30.0, handler: nil)
-        
     }
     
     
