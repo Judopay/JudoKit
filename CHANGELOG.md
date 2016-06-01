@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
-## [6.1.3](https://github.com/JudoPay/JudoKit/releases/tag/6.1.3)
+## [6.2.0](https://github.com/JudoPay/JudoKit/releases/tag/6.2.0)
 TBD
 
 #### Added
@@ -21,6 +21,10 @@ TBD
 
 #### Changed
 - Injected card details are not masked and are manipulatable.
+- Transaction gets created at initialization to enable adding and removing custom information
+
+#### Fixed
+- An issue where force unwrapping the bundle was leading to a crash in some rare cases
 
 ---
 
