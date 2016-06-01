@@ -24,7 +24,7 @@ TBD
 - Transaction gets created at initialization to enable adding and removing custom information
 
 #### Fixed
-- An issue where force unwrapping the bundle was leading to a crash in some rare cases 
+- An issue where force unwrapping the bundle was leading to a crash in some rare cases
 
 ---
 
