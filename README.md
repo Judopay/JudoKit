@@ -34,7 +34,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 6.1'
+pod 'JudoKit', '~> 6.2'
 ```
 
 - Then run the following command:
