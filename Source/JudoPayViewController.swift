@@ -46,6 +46,9 @@ public class JudoPayViewController: UIViewController {
     /// Card token and Consumer token
     public private (set) var paymentToken: PaymentToken?
     
+    /// The current transaction
+    public let transaction: Transaction
+    
     // MARK: 3DS variables
     private var pending3DSTransaction: Transaction?
     private var pending3DSReceiptID: String?
@@ -84,7 +87,7 @@ public class JudoPayViewController: UIViewController {
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) {
+    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil)  throws {
         self.judoId = judoId
         self.amount = amount
         self.reference = reference
@@ -93,6 +96,8 @@ public class JudoPayViewController: UIViewController {
         
         self.judoKitSession = currentSession
         self.myView = JudoPayView(type: transactionType, currentTheme: currentSession.theme, cardDetails: cardDetails, isTokenPayment: paymentToken != nil)
+        
+        self.transaction = try self.judoKitSession.transaction(self.myView.transactionType, judoId: judoId, amount: amount, reference: reference)
         
         super.init(nibName: nil, bundle: nil)
     }
