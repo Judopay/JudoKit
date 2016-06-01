@@ -190,7 +190,7 @@ public struct Session {
         // Adds the version and lang of the SDK to the header
         let bundle = NSBundle(identifier: "com.judo.JudoKit")
         
-        let version = bundle!.infoDictionary?["CFBundleShortVersionString"] ?? "Unknown"
+        let version = bundle?.infoDictionary?["CFBundleShortVersionString"] ?? "Unknown"
         request.addValue("iOS-Version/\(version) lang/(Swift)", forHTTPHeaderField: "User-Agent")
         
         request.addValue("iOSSwift-\(version)", forHTTPHeaderField: "Sdk-Version")
