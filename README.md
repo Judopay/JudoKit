@@ -3,7 +3,6 @@
 [![License](https://img.shields.io/cocoapods/l/JudoKit.svg)](http://http://cocoadocs.org/docsets/Judo)
 [![Platform](https://img.shields.io/cocoapods/p/JudoKit.svg)](http://http://cocoadocs.org/docsets/Judo)
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPayments)
-[![Build Status](https://travis-ci.org/JudoPay/JudoKit.svg)](http://travis-ci.org/JudoPay/JudoKit)
 
 # Judo Swift SDK for iOS
 
@@ -18,7 +17,6 @@ Use our UI components for a seamless user experience for card data capture. Mini
 This SDK requires Xcode 7.3 and Swift 2.2.
 
 ## Getting started
-
 ### Integrating CocoaPods
 
 [CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
@@ -36,7 +34,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 6.1'
+pod 'JudoKit', '~> 6.2'
 ```
 
 - Then run the following command:
@@ -88,4 +86,4 @@ myJudoKitSession.invokePayment(judoID, amount: Amount(42, currentCurrency), refe
 
 ## Next steps
 
-Judo's Swift SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKit/wiki/).
+Judo's Swift SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKit/wiki/) or [API reference](https://judopay.github.io/JudoKit).
