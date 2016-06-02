@@ -2,7 +2,8 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `6.1.x` Releases - [6.1.0](#610) | [6.1.1](#611) | [6.1.2](#612) | [6.1.3](#613)
+- `6.1.x` Releases - [6.2.0](#620)
+- `6.1.x` Releases - [6.1.0](#610) | [6.1.1](#611) | [6.1.2](#612)
 - `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.6.x` Releases - [5.6.0](#560)
 - `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551) | [5.5.2](#552) | [5.5.3](#553) | [5.5.4](#554)
@@ -14,17 +15,17 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [6.2.0](https://github.com/JudoPay/JudoKit/releases/tag/6.2.0)
-TBD
+Released on 2016-06-02
 
 #### Added
 - Amount is now StringLiteralConvertible.
 
 #### Changed
-- Injected card details are not masked and are manipulatable.
-- Transaction gets created at initialization to enable adding and removing custom information
+- Injected card details are not masked and can be changed by the user.
+- Transaction gets created at initialization to enable adding and removing of custom information.
 
 #### Fixed
-- An issue where force unwrapping the bundle was leading to a crash in some rare cases
+- An issue where force unwrapping the bundle was leading to a crash in some rare cases.
 
 ---
 
