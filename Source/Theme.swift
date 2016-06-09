@@ -106,6 +106,9 @@ public struct Theme {
     /// The default text color
     public var judoTextColor: UIColor?
     
+    /// The default navigation bar title color
+    public var judoNavigationBarTitleColor: UIColor?
+    
     /// The color that is used for active input fields
     public var judoInputFieldTextColor: UIColor?
     
@@ -145,6 +148,24 @@ public struct Theme {
     public func getTextColor() -> UIColor {
         if self.judoTextColor != nil {
             return self.judoTextColor!
+        }
+        let dgc = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        if self.colorMode() {
+            return dgc
+        } else {
+            return dgc.inverseColor()
+        }
+    }
+    
+    
+    /**
+     The default text color
+     
+     - returns: A UIColor object
+     */
+    public func getNavigationBarTitleColor() -> UIColor {
+        if self.judoNavigationBarTitleColor != nil {
+            return self.judoNavigationBarTitleColor!
         }
         let dgc = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
         if self.colorMode() {
