@@ -17,33 +17,6 @@ Use our UI components for a seamless user experience for card data capture. Mini
 This SDK requires Xcode 7.3 and Swift 2.2.
 
 ## Getting started
-### Integrating CocoaPods
-
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects.
-
-- You can install it with the following command:
-
-```bash
-$ gem install cocoapods
-```
-
-- Add judo to your `Podfile` to integrate it into your Xcode project:
-
-```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
-use_frameworks!
-
-pod 'JudoKit', '~> 6.2'
-```
-
-- Then run the following command:
-
-```bash
-$ pod install
-```
-
-- Please make sure to always **use the newly generated `.xcworkspace`** file, not the projects `.xcodeproj` file.
 
 ### Initial setup
 
