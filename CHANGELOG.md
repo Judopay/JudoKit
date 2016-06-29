@@ -19,7 +19,6 @@ Released on 2016-06-29
 
 #### Added
 - Added a navigation bar title color to the Theme object.
-- SDK now detects if device is jailbroken.
 
 ---
 
