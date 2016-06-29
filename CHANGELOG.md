@@ -15,10 +15,11 @@ All notable changes to this project will be documented in this file.
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
 
 ## [6.2.1](https://github.com/JudoPay/JudoKit/releases/tag/6.2.1)
-TBD
+Released on 2016-06-29
 
 #### Added
 - Added a navigation bar title color to the Theme object.
+- SDK now detects if device is jailbroken.
 
 ---
 
