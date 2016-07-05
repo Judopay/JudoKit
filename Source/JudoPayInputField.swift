@@ -174,7 +174,7 @@ public class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
         if self.redBlock.bounds.size.height > 0 {
             UIView.animateWithDuration(0.4) { () -> Void in
                 self.redBlock.frame = CGRectMake(0.0, self.bounds.height, self.bounds.width, 4.0)
-                self.textField.textColor = self.theme.getTextColor()
+                self.textField.textColor = self.theme.getInputFieldTextColor()
             }
         }
     }
