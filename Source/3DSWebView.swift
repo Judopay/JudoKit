@@ -98,6 +98,7 @@ public class _DSWebView: UIWebView {
             let receiptId = payload["receiptId"] as? String,
             let paReqString = payload["paReq"],
             let paReqEscapedString = paReqString.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet),
+            //This is not a real endpoint and isn't called. A guide on 3DS will be publised soon.
             let termURLString = "https://pay.judopay.com/iOS/Parse3DS".stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) else {
                 throw JudoError(.Failed3DSError)
         }
