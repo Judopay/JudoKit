@@ -40,7 +40,7 @@ self.judoKitSession.sandboxed(true)
 
 When you are ready to go live you can remove this line.
 
-#### 3. Invoking a payment screen
+#### 3. Make a payment
 
 ```swift
 myJudoKitSession.invokePayment(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
