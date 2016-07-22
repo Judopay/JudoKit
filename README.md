@@ -18,27 +18,29 @@ This SDK requires Xcode 7.3 and Swift 2.2.
 
 ## Getting started
 
-### Initial setup
+#### 1. Integration
 
-- Add `import JudoKit` to the top of the file where you want to use the SDK.
+Add `import JudoKit` to the top of the file where you want to use the SDK.
 
-- You can set your token and secret here when initializing the session:
+#### 2. Setup
+
+You can set your token and secret here when initializing the session:
 
 ```swift
 // initialize the SDK by setting it up with a token and a secret
 var judoKitSession = JudoKit(token: token, secret: secret)
 ```
 
-- To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
+To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
 
 ```swift
 // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
 self.judoKitSession.sandboxed(true)
 ```
 
-- When you are ready to go live you can remove this line.
+When you are ready to go live you can remove this line.
 
-### Invoking a payment screen
+#### 3. Invoking a payment screen
 
 ```swift
 myJudoKitSession.invokePayment(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
