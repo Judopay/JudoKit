@@ -22,6 +22,40 @@ This SDK requires Xcode 7.3 and Swift 2.2.
 
 Add `import JudoKit` to the top of the file where you want to use the SDK.
 
+If you are integrating using Cocoapods, follow the steps below (if your integration is based on Carthage, then visit https://github.com/JudoPay/JudoKit/wiki/Carthage. If you are integrating the SDK manually then follow the guide here https://github.com/JudoPay/JudoKit/wiki/Manual-integration):
+
+- You can install CocoaPods with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+- Add judo to your `Podfile` to integrate it into your Xcode project:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'JudoKit', '~> 6.2'
+```
+
+- Then run the following command:
+
+```bash
+$ pod install
+```
+
+- Please make sure to always **use the newly generated `.xcworkspace`** file not not the projects `.xcodeproj` file.
+
+- In your Xcode environment, go to your `Project Navigator` (blue project icon) called `Pods`, select the `JudoKit` target and open the tab called `Build Phases`.
+- Add a new `Run Script Phase` and drag it above the `Compile Sources` build phase.
+- In the shell script, paste the following line:
+
+```bash
+sh "${SRCROOT}/JudoShield/Framework/strip-frameworks.sh"
+```
+
 #### 2. Setup
 
 You can set your token and secret here when initializing the session:
