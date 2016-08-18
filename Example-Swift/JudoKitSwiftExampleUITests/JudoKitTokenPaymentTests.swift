@@ -68,7 +68,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         
         tableQuery.tap()
         
-        let cvv2TextField2 = elementsQuery.secureTextFields["CVV"]
+        let cvv2TextField2 = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField2.typeText("452")
         
         app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
