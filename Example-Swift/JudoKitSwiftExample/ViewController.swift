@@ -73,13 +73,6 @@ enum TableViewContent : Int {
     
 }
 
-let token               = "<#YOUR TOKEN#>"
-let secret              = "<#YOUR SECRET#>"
-
-let judoId              = "<#YOUR JUDO-ID#>"
-let tokenPayReference   = "<#YOUR REFERENCE#>"
-
-
 class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
     static let kCellIdentifier = "com.judo.judopaysample.tableviewcellidentifier"
