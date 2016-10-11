@@ -107,6 +107,7 @@ When you are ready to go live you can remove this line.
             })
     }
 ```
+**Note:** Please make sure that you are using a unique Consumer Reference for each different consumer.
 
 ## Next steps
 
