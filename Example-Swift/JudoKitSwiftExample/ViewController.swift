@@ -209,7 +209,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     func paymentOperation() {
         guard let ref = Reference(consumerRef: "payment reference") else { return }
-        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 35, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
+        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let error = error {
                 if error.code == .UserDidCancel {
@@ -269,7 +269,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     func createCardTokenOperation() {
         guard let ref = Reference(consumerRef: "payment reference") else { return }
-        try! self.judoKitSession.invokeRegisterCard(judoId, amount: Amount(decimalNumber: 1, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
+        try! self.judoKitSession.invokeRegisterCard(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
             if let error = error {
                 if error.code == .UserDidCancel {
@@ -294,7 +294,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     func repeatPaymentOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: "payment reference") {
-            try! self.judoKitSession.invokeTokenPayment(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+            try! self.judoKitSession.invokeTokenPayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 self.dismissViewControllerAnimated(true, completion: nil)
                 if let error = error {
                     if error.code == .UserDidCancel {
@@ -328,7 +328,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     func repeatPreAuthOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: "payment reference") {
-            try! self.judoKitSession.invokeTokenPreAuth(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+            try! self.judoKitSession.invokeTokenPreAuth(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 self.dismissViewControllerAnimated(true, completion: nil)
                 if let error = error {
                     if error.code == .UserDidCancel {
@@ -400,7 +400,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         An array of `PKPaymentSummaryItems` that we'd like to display on the
         sheet.
         */
-        let items = [PKPaymentSummaryItem(label: "Sub-total", amount: NSDecimalNumber(string: "30.00 £"))]
+        let items = [PKPaymentSummaryItem(label: "Sub-total", amount: NSDecimalNumber(string: "0.01 £"))]
         
         paymentRequest.paymentSummaryItems = items;
         
