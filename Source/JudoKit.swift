@@ -26,7 +26,7 @@ import Foundation
 import PassKit
 import JudoShield
 
-let JudoKitVersion = "6.2.3"
+let JudoKitVersion = "6.2.4"
 
 /**
  A method that checks if the device it is currently running on is jailbroken or not
@@ -256,7 +256,7 @@ public struct JudoKit {
      - Returns: a Payment Object
      */
     public func payment(judoId: String, amount: Amount, reference: Reference) throws -> Payment {
-        return try Payment(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+        return try Payment(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
     }
     
     
@@ -272,7 +272,7 @@ public struct JudoKit {
      - Returns: pre-auth Object
      */
     public func preAuth(judoId: String, amount: Amount, reference: Reference) throws -> PreAuth {
-        return try PreAuth(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+        return try PreAuth(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
     }
     
     
@@ -288,7 +288,7 @@ public struct JudoKit {
      - Returns: a RegisterCard Object
      */
     public func registerCard(judoId: String, reference: Reference) throws -> RegisterCard {
-        return try RegisterCard(judoId: judoId, amount: nil, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+        return try RegisterCard(judoId: judoId, amount: nil, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
     }
     
     
@@ -322,7 +322,7 @@ public struct JudoKit {
      - Returns: a Collection object for reactive usage
      */
     public func collection(receiptId: String, amount: Amount) throws -> Collection {
-        return try Collection(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+        return try Collection(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
     }
     
     
@@ -338,7 +338,7 @@ public struct JudoKit {
      - Returns: a Refund object for reactive usage
      */
     public func refund(receiptId: String, amount: Amount) throws -> Refund {
-        return try Refund(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+        return try Refund(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
     }
     
     
@@ -354,7 +354,7 @@ public struct JudoKit {
      - Returns: a Void object for reactive usage
      */
     public func voidTransaction(receiptId: String, amount: Amount) throws -> VoidTransaction {
-        return try VoidTransaction(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.deviceSignal())
+        return try VoidTransaction(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
     }
     
     
