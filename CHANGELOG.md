@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `6.2.x` Releases - [6.2.0](#620) | [6.2.1](#621)
+- `6.2.x` Releases - [6.2.0](#620) | [6.2.1](#621) | [6.2.2](#622) | [6.2.3](#623) | [6.2.1](#624)
 - `6.1.x` Releases - [6.1.0](#610) | [6.1.1](#611) | [6.1.2](#612)
 - `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.6.x` Releases - [5.6.0](#560)
@@ -13,6 +13,14 @@ All notable changes to this project will be documented in this file.
 - `5.1.x` Releases - [5.1.0](#510) | [5.1.1](#511) | [5.1.2](#512)
 - `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
 - `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
+
+## [6.2.3](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.4)
+Released on 2016-09-20
+
+#### Added
+- Latest version of JudoShield
+- Device signals are now encrypted
+- Removed redundant Apple Pay sample app
 
 ## [6.2.3](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.3)
 Released on 2016-09-20
