@@ -53,7 +53,7 @@ $ pod install
 - In the shell script, paste the following line:
 
 ```bash
-sh "${SRCROOT}/JudoShield/Framework/strip-frameworks.sh"
+sh "${SRCROOT}/JudoShield/Framework/strip-frameworks-cocoapods.sh"
 ```
 
 #### 2. Setup
@@ -77,21 +77,37 @@ When you are ready to go live you can remove this line.
 #### 3. Make a payment
 
 ```swift
-myJudoKitSession.invokePayment(judoID, amount: Amount(42, currentCurrency), reference: Reference(consumerRef: "consumer reference"), completion: { (response, error) -> () in
-    self.dismissViewControllerAnimated(true, completion: nil)
-    if let error = error {
-        // if the user cancelled, this error is passed
-        if error == JudoError.UserDidCancel {
+    func paymentOperation() {
+        guard let ref = Reference(consumerRef: "payment reference") else { return }
+        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 35, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismissViewControllerAnimated(true, completion: nil)
-        }
-        // handle error
-        return // BAIL
+            if let error = error {
+                if error.code == .UserDidCancel {
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    return
+                }
+                var errorTitle = "Error"
+                if let errorCategory = error.category {
+                    errorTitle = errorCategory.stringValue()
+                }
+                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .Alert)
+                self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
+                self.dismissViewControllerAnimated(true, completion:nil)
+                return // BAIL
+            }
+            
+            if let resp = response, transactionData = resp.first {
+                self.cardDetails = transactionData.cardDetails
+                self.paymentToken = transactionData.paymentToken()
+            }
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
+            viewController.response = response
+            self.navigationController?.pushViewController(viewController, animated: true)
+            })
     }
-    if let resp = response, transactionData = resp.items.first {
-    // handle successful transaction
-    }
-})
 ```
+**Note:** Please make sure that you are using a unique Consumer Reference for each different consumer.
 
 ## Next steps
 
