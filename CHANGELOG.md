@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `6.2.x` Releases - [6.2.0](#620) | [6.2.1](#621) | [6.2.2](#622) | [6.2.3](#623) | [6.2.1](#624)
+- `6.2.x` Releases - [6.2.0](#620) | [6.2.1](#621) | [6.2.2](#622) | [6.2.3](#623) | [6.2.4](#624)
 - `6.1.x` Releases - [6.1.0](#610) | [6.1.1](#611) | [6.1.2](#612)
 - `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
 - `5.6.x` Releases - [5.6.0](#560)
