@@ -33,11 +33,11 @@ extension Timer {
      
      - Returns: The newly-created `NSTimer` instance.
      */
-    class func schedule(_ delay: TimeInterval, handler: @escaping (Timer!) -> Void) -> Timer {
+    class func schedule(_ delay: TimeInterval, handler: @escaping (CFRunLoopTimer?) -> Void) -> CFRunLoopTimer {
         let fireDate = delay + CFAbsoluteTimeGetCurrent()
         let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0, 0, 0, handler)
         CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, CFRunLoopMode.commonModes)
-        return timer
+        return timer!
     }
     
     /**
@@ -48,11 +48,11 @@ extension Timer {
      
      - Returns: The newly-created `NSTimer` instance.
      */
-    class func schedule(repeatInterval interval: TimeInterval, handler: @escaping (Timer!) -> Void) -> Timer {
+    /*class func schedule(repeatInterval interval: TimeInterval, handler: @escaping (Timer!) -> Void) -> Timer {
         let fireDate = interval + CFAbsoluteTimeGetCurrent()
         let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, interval, 0, 0, handler)
         CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, CFRunLoopMode.commonModes)
         return timer
-    }
+    }*/
     
 }

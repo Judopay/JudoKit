@@ -141,7 +141,7 @@ public extension Date {
     init(fromString string: String, format:DateFormat)
     {
         if string.isEmpty {
-            (self as NSDate).init()
+            self.init()
             return
         }
         
@@ -156,7 +156,7 @@ public extension Date {
             let range = NSRange(location: startIndex, length: endIndex-startIndex)
             let milliseconds = (string.substring(with: range) as NSString).longLongValue
             let interval = TimeInterval(milliseconds / 1000)
-            (self as NSDate).init(timeIntervalSince1970: interval)
+            self.init(timeIntervalSince1970: interval)
             
         case .iso8601(let isoFormat):
             
@@ -166,44 +166,44 @@ public extension Date {
             formatter.timeZone = TimeZone.autoupdatingCurrent
             formatter.dateFormat = dateFormat.rawValue
             if let date = formatter.date(from: string as String) {
-                (self as NSDate).init(timeInterval:0, since:date)
+                self.init(timeInterval:0, since:date)
             } else {
-                (self as NSDate).init()
+                self.init()
             }
             
         case .rss:
             
             var s  = string
             if string.hasSuffix("Z") {
-                s = s.substring(to: s.length-1) + "GMT"
+                s = s.substring(to: s.length-1).appending("GMT") as NSString
             }
             let formatter = Date.formatter(format: RSSFormat)
             if let date = formatter.date(from: string as String) {
-                (self as NSDate).init(timeInterval:0, since:date)
+                self.init(timeInterval:0, since:date)
             } else {
-                (self as NSDate).init()
+                self.init()
             }
             
         case .altRSS:
             
             var s  = string
             if string.hasSuffix("Z") {
-                s = s.substring(to: s.length-1) + "GMT"
+                s = s.substring(to: s.length-1).appending("GMT") as NSString
             }
             let formatter = Date.formatter(format: AltRSSFormat)
             if let date = formatter.date(from: string as String) {
-                (self as NSDate).init(timeInterval:0, since:date)
+                self.init(timeInterval:0, since:date)
             } else {
-                (self as NSDate).init()
+                self.init()
             }
             
         case .custom(let dateFormat):
             
             let formatter = Date.formatter(format: dateFormat)
             if let date = formatter.date(from: string as String) {
-                (self as NSDate).init(timeInterval:0, since:date)
+                self.init(timeInterval:0, since:date)
             } else {
-                (self as NSDate).init()
+                self.init()
             }
         }
     }
@@ -522,7 +522,7 @@ public extension Date {
         //Create the date components
         var components = self.components()
         //Set the last day of this month
-        components.month += 1
+        components.month! += 1
         components.day = 0
         
         //Builds the first day of the month
@@ -902,11 +902,7 @@ public extension Date {
     */
     fileprivate static func sharedDateFormatters() -> [String: DateFormatter] {
         struct Static {
-            static var formatters: [String: DateFormatter]? = nil
-            static var once: Int = 0
-        }
-        dispatch_once(&Static.once) {
-            Static.formatters = [String: DateFormatter]()
+            static var formatters: [String: DateFormatter]? = [String: DateFormatter]()
         }
         return Static.formatters!
     }

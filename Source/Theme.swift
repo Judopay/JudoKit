@@ -252,9 +252,9 @@ public struct Theme {
             return self.judoButtonTitleColor!
         }
         if self.colorMode() {
-            return .white()
+            return .white
         } else {
-            return .black()
+            return .black
         }
     }
     
@@ -297,9 +297,9 @@ public struct Theme {
             return self.judoLoadingBlockViewColor!
         }
         if self.colorMode() {
-            return .white()
+            return .white
         } else {
-            return .black()
+            return .black
         }
     }
     
@@ -310,7 +310,7 @@ public struct Theme {
      - returns: A UIColor object
      */
     public func getInputFieldBackgroundColor() -> UIColor {
-        return self.judoInputFieldBackgroundColor ?? .white()
+        return self.judoInputFieldBackgroundColor ?? .white
     }
     
 }

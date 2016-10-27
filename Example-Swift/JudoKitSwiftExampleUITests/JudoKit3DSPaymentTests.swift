@@ -58,21 +58,21 @@ class JudoKit3DSPaymentTests: XCTestCase {
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("341")
         
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
         
         let submitButton = app.buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(submitExistsPredicate, evaluatedWithObject: submitButton, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         submitButton.tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
         
@@ -92,21 +92,21 @@ class JudoKit3DSPaymentTests: XCTestCase {
         let cvv2TextField = elementsQuery.secureTextFields["CVC2"]
         cvv2TextField.typeText("654")
         
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
         
         let submitButton = app.buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(submitExistsPredicate, evaluatedWithObject: submitButton, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         submitButton.tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
         
@@ -126,21 +126,21 @@ class JudoKit3DSPaymentTests: XCTestCase {
         let cvv2TextField = elementsQuery.secureTextFields["CID"]
         cvv2TextField.typeText("5464")
         
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
         
         let submitButton = app.buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(submitExistsPredicate, evaluatedWithObject: submitButton, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         submitButton.tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
         
@@ -168,16 +168,16 @@ class JudoKit3DSPaymentTests: XCTestCase {
         let submitButton = app.buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(submitExistsPredicate, evaluatedWithObject: submitButton, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         submitButton.tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }

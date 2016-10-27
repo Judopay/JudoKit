@@ -227,7 +227,7 @@ public struct Session {
             // Error handling
             if data == nil, let error = err {
                 DispatchQueue.main.async(execute: { () -> Void in
-                    completion(nil, JudoError.fromNSError(error))
+                    completion(nil, JudoError.fromNSError(error as NSError))
                 })
                 return // BAIL
             }

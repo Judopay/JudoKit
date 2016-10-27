@@ -66,8 +66,8 @@ class JudoKitMaestroTests: XCTestCase {
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }
@@ -104,8 +104,8 @@ class JudoKitMaestroTests: XCTestCase {
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(15, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }

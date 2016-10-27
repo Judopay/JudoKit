@@ -86,10 +86,10 @@ public extension String {
         
         for element in strippedSelf.characters {
             if patternString.characters[patternIndex] == "X" {
-                patternIndex = <#T##Collection corresponding to `patternIndex`##Collection#>.index(patternIndex, offsetBy: 1)
+                patternIndex = patternString.index(patternIndex, offsetBy: 1)
                 retString = retString + String(element)
             } else {
-                patternIndex = <#T##Collection corresponding to `patternIndex`##Collection#>.index(patternIndex, offsetBy: 2)
+                patternIndex = patternString.index(patternIndex, offsetBy: 2)
                 retString = retString + " \(element)"
             }
         }

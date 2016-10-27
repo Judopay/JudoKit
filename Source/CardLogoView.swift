@@ -4163,7 +4163,7 @@ public func drawCardAmex() {
         let fillColor4 = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1.000)
 
         //// Gradient Declarations
-        let sVGID_5_ = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: [gradientColor.cgColor, gradientColor2.cgColor, gradientColor3.cgColor], locations: [0, 0.68, 1])!
+        let sVGID_5_ = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: [gradientColor.cgColor, gradientColor2.cgColor, gradientColor3.cgColor] as CFArray, locations: [0, 0.68, 1])!
 
         //// ic_card_amex Group
         //// Group 2
@@ -5257,7 +5257,7 @@ public func drawCardAmex() {
         let rectangle2Path = UIBezierPath(rect: CGRect(x: 0.76, y: 0, width: 13.97, height: 13.97))
         context?.saveGState()
         rectangle2Path.addClip()
-        context.drawRadialGradient(sVGID_5_,
+        context?.drawRadialGradient(sVGID_5_,
             startCenter: CGPoint(x: 7.75, y: 6.99), startRadius: 0,
             endCenter: CGPoint(x: 7.75, y: 6.99), endRadius: 6.99,
             options: [CGGradientDrawingOptions.drawsBeforeStartLocation, CGGradientDrawingOptions.drawsAfterEndLocation])
@@ -5834,7 +5834,7 @@ public func drawCardCID() {
         let fillColor6 = UIColor(red: 0.232, green: 0.232, blue: 0.232, alpha: 1.000)
 
         //// Gradient Declarations
-        let sVGID_5_2 = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: [gradientColor.cgColor, gradientColor2.cgColor, gradientColor3.cgColor], locations: [0, 0.68, 1])!
+        let sVGID_5_2 = CGGradient(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: [gradientColor.cgColor, gradientColor2.cgColor, gradientColor3.cgColor] as CFArray, locations: [0, 0.68, 1])!
 
         //// ic_card_cid Group
         //// Group 2
@@ -6957,7 +6957,7 @@ public func drawCardCID() {
         let rectangle2Path = UIBezierPath(rect: CGRect(x: 0.76, y: 0, width: 13.97, height: 13.97))
         context?.saveGState()
         rectangle2Path.addClip()
-        context.drawRadialGradient(sVGID_5_2,
+        context?.drawRadialGradient(sVGID_5_2,
             startCenter: CGPoint(x: 7.75, y: 6.99), startRadius: 0,
             endCenter: CGPoint(x: 7.75, y: 6.99), endRadius: 6.99,
             options: [CGGradientDrawingOptions.drawsBeforeStartLocation, CGGradientDrawingOptions.drawsAfterEndLocation])

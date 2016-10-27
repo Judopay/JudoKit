@@ -33,23 +33,23 @@ class DetailViewController: UIViewController {
     
     var response: Response?
     
-    let inputDateFormatter: NSDateFormatter = {
-        let inputDateFormatter = NSDateFormatter()
-        let enUSPOSIXLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+    let inputDateFormatter: DateFormatter = {
+        let inputDateFormatter = DateFormatter()
+        let enUSPOSIXLocale = Locale(identifier: "en_US_POSIX")
         inputDateFormatter.locale = enUSPOSIXLocale
         inputDateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSZZZZZ"
         return inputDateFormatter
     }()
     
-    let outputDateFormatter: NSDateFormatter = {
-        let outputDateFormatter = NSDateFormatter()
+    let outputDateFormatter: DateFormatter = {
+        let outputDateFormatter = DateFormatter()
         outputDateFormatter.dateFormat = "yyyy-MM-dd, HH:mm"
         return outputDateFormatter
     }()
     
-    let currencyFormatter: NSNumberFormatter = {
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.numberStyle = .CurrencyStyle
+    let currencyFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
         return numberFormatter
     }()
     
@@ -60,25 +60,25 @@ class DetailViewController: UIViewController {
         self.navigationItem.hidesBackButton = true
         
         if let response = self.response, let transaction = response.items.first {
-            self.dateStampLabel.text = self.outputDateFormatter.stringFromDate(transaction.createdAt)
+            self.dateStampLabel.text = self.outputDateFormatter.string(from: transaction.createdAt)
             self.currencyFormatter.currencyCode = transaction.amount.currency.rawValue
             self.amountLabel.text = transaction.amount.amount.stringValue + " " + transaction.amount.currency.rawValue
             self.resolutionLabel.text = transaction.result.rawValue
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if let response = self.response, let transaction = response.items.first {
-            self.dateStampLabel.text = self.outputDateFormatter.stringFromDate(transaction.createdAt)
+            self.dateStampLabel.text = self.outputDateFormatter.string(from: transaction.createdAt)
             self.currencyFormatter.currencyCode = transaction.amount.currency.rawValue
             self.amountLabel.text = transaction.amount.amount.stringValue + " " + transaction.amount.currency.rawValue
         }
     }
     
-    @IBAction func homeButtonHandler(sender: AnyObject) {
-        self.navigationController?.popViewControllerAnimated(true)
+    @IBAction func homeButtonHandler(_ sender: AnyObject) {
+        self.navigationController?.popViewController(animated: true)
     }
     
 }

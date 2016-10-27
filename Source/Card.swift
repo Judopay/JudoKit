@@ -610,13 +610,13 @@ open class CardDetails: NSObject, NSCoding {
         dateComponents.month = expiryMonth
         dateComponents.year = expiryYear
         
-        if let gregorian = Calendar(identifier: Calendar.Identifier.gregorian) {
-            if let date = gregorian.date(from: dateComponents) {
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "MM/yy"
-                let dateString = dateFormatter.string(from: date)
-                dict["endDate"] = dateString
-            }
+        let gregorian = Calendar(identifier: Calendar.Identifier.gregorian)
+        
+        if let date = gregorian.date(from: dateComponents) {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/yy"
+            let dateString = dateFormatter.string(from: date)
+            dict["endDate"] = dateString as AnyObject?
         }
         
         self.init(dict)

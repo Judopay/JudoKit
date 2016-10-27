@@ -118,7 +118,7 @@ open class Transaction: SessionProtocol {
     open fileprivate (set) var location: CLLocationCoordinate2D? {
         didSet {
             guard let location = location else { return }
-            self.parameters["consumerLocation"] = ["latitude":NSNumber(value: location.latitude as Double), "longitude":NSNumber(value: location.longitude as Double)]
+            self.parameters["consumerLocation"] = ["latitude":NSNumber(value: location.latitude as Double), "longitude":NSNumber(value: location.longitude as Double)] as AnyObject?
         }
     }
     
@@ -167,7 +167,7 @@ open class Transaction: SessionProtocol {
                 #endif
             }
             
-            self.parameters["pkPayment"] = ["token":tokenDict]
+            self.parameters["pkPayment"] = ["token":tokenDict] as AnyObject?
         }
     }
     
@@ -336,7 +336,7 @@ open class Transaction: SessionProtocol {
     - Throws: AmountMissingError no amount has been provided
     - Throws: DuplicateTransactionError please provide a new Reference object if this transaction is not a duplicate
     */
-    open func completion(_ block: JudoCompletionBlock) throws -> Self {
+    open func completion(_ block: @escaping JudoCompletionBlock) throws -> Self {
         
         if self.card != nil && self.payToken != nil {
             throw JudoError(.cardAndTokenError)
@@ -368,7 +368,7 @@ open class Transaction: SessionProtocol {
     
     - Returns: reactive self
     */
-    open func threeDSecure(_ dictionary: JSONDictionary, receiptId: String, block: JudoCompletionBlock) -> Self {
+    open func threeDSecure(_ dictionary: JSONDictionary, receiptId: String, block: @escaping JudoCompletionBlock) -> Self {
         
         var paymentDetails = JSONDictionary()
         
@@ -395,7 +395,7 @@ open class Transaction: SessionProtocol {
     
     - Parameter block: a completion block that is called when the request finishes
     */
-    open func list(_ block: JudoCompletionBlock) {
+    open func list(_ block: @escaping JudoCompletionBlock) {
         self.list(nil, block: block)
     }
     
@@ -408,7 +408,7 @@ open class Transaction: SessionProtocol {
     - Parameter pagination: The offset, number of items and order in which to return the items
     - Parameter block: a completion block that is called when the request finishes
     */
-    open func list(_ pagination: Pagination?, block: JudoCompletionBlock) {
+    open func list(_ pagination: Pagination?, block: @escaping JudoCompletionBlock) {
         var path = self.path()
         if let pag = pagination {
             path = path + "?pageSize=\(pag.pageSize)&offset=\(pag.offset)&sort=\(pag.sort.rawValue)"

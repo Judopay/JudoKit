@@ -178,10 +178,10 @@ public struct JudoError: Error {
             userInfoDict["category"] = category.rawValue as AnyObject?
         }
         if let details = self.details {
-            userInfoDict["details"] = details as? AnyObject
+            userInfoDict["details"] = details as AnyObject?
         }
         if let modelErrors = self.details {
-            userInfoDict["modelErrors"] = modelErrors.map({ $0.rawValue }).flatMap({ $0 })
+            userInfoDict["modelErrors"] = modelErrors.map({ $0.rawValue }).flatMap({ $0 }) as AnyObject?
         }
         return NSError(domain: JudoErrorDomain, code: self.code.rawValue, userInfo: userInfoDict)
     }

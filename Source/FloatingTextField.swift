@@ -74,7 +74,7 @@ class FloatingTextField: UITextField {
         }
     }
     
-    var titleTextColour: UIColor = .gray() {
+    var titleTextColour: UIColor = .gray {
         didSet {
             if !isFirstResponder {
                 title.textColor = titleTextColour

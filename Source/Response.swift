@@ -117,9 +117,18 @@ public struct Response: IteratorProtocol, ExpressibleByArrayLiteral {
     
 }
 
-
+/*
 /// Response extensions for SequenceType and CollectionType
 extension Response: Sequence, Swift.Collection {
+    /// Returns the position immediately after the given index.
+    ///
+    /// - Parameter i: A valid index of the collection. `i` must be less than
+    ///   `endIndex`.
+    /// - Returns: The index value immediately after `i`.
+    public func index(after i: Int) -> Int {
+        return items[i]
+    }
+
     
     public typealias Index = Int
     
@@ -156,7 +165,7 @@ extension Response: Sequence, Swift.Collection {
         return self.items.makeIterator()
     }
     
-}
+}*/
 
 
 /**

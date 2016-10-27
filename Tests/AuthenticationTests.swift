@@ -147,7 +147,7 @@ class AuthenticationTests: JudoTestCase {
             // Then I receive a valid transaction response
             XCTAssertNotNil(response)
             
-            XCTAssertNotNil(response?.first)
+            XCTAssertNotNil(response?.items.first)
             
             XCTAssertNil(error)
             

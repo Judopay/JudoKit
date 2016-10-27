@@ -75,7 +75,7 @@ public extension String {
         }
         let reversedInts = self.characters.reversed().map { Int(String($0)) }
         return reversedInts.enumerated().reduce(0) { (sum, val) in
-            let odd = val.index % 2 == 1
+            let odd = val.offset % 2 == 1
             return sum + (odd ? (val.element! == 9 ? 9 : (val.element! * 2) % 9) : val.element!)
             } % 10 == 0
     }

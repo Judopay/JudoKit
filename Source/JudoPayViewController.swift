@@ -354,9 +354,9 @@ extension JudoPayViewController: UIWebViewDelegate {
                 if pair.range(of: "=") != nil {
                     let components = pair.components(separatedBy: "=")
                     let value = components[1]
-                    let escapedVal = value.stringByRemovingPercentEncoding
+                    let escapedVal = value.removingPercentEncoding
                     
-                    results[components[0]] = escapedVal
+                    results[components[0]] = escapedVal as AnyObject?
                 }
             }
             
@@ -422,7 +422,7 @@ extension JudoPayViewController: UIWebViewDelegate {
             self.myView.loadingView.stopAnimating()
         })
         if error != nil {
-            self.completionBlock?(nil, JudoError(.failed3DSError, bridgedError: error!))
+            self.completionBlock?(nil, JudoError(.failed3DSError, bridgedError: error as NSError?))
         } else {
             self.completionBlock?(nil, JudoError(.failed3DSError))
         }
