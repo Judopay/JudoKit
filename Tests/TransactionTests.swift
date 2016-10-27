@@ -41,8 +41,8 @@ class TransactionTests: JudoTestCase {
             // And the transaction is successful
             // Then I receive a successful response
             XCTAssertNotNil(response)
-            XCTAssertNotNil(response?.first)
-            XCTAssertEqual(response?.first?.result, TransactionResult.Success)
+            XCTAssertNotNil(response?.items.first)
+            XCTAssertEqual(response?.items.first?.result, TransactionResult.Success)
             
             expectation.fulfill()
         })
@@ -64,8 +64,8 @@ class TransactionTests: JudoTestCase {
             // And the transaction is successful
             // Then I receive a successful response
             XCTAssertNotNil(response)
-            XCTAssertNotNil(response?.first)
-            XCTAssertEqual(response?.first?.result, TransactionResult.Declined)
+            XCTAssertNotNil(response?.items.first)
+            XCTAssertEqual(response?.items.first?.result, TransactionResult.Declined)
             
             expectation.fulfill()
         })

@@ -55,7 +55,7 @@ class PreAuthTests: JudoTestCase {
                     XCTFail("api call failed with error: \(error)")
                 }
                 XCTAssertNotNil(response)
-                XCTAssertNotNil(response?.first)
+                XCTAssertNotNil(response?.items.first)
                 expectation.fulfill()
             })
             

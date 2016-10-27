@@ -45,7 +45,7 @@ class ListTests: JudoTestCase {
     
     func testJudoPaginatedListPayments() {
         // Given
-        let pagination = Pagination(pageSize: 14, offset: 44, sort: Sort.Descending)
+        let pagination = Pagination(pageSize: 15, offset: 44, sort: Sort.Descending)
         
         let expectation = self.expectation(description: "list all payments for given pagination")
         

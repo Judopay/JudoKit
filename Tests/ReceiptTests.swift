@@ -46,7 +46,7 @@ class ReceiptTests: JudoTestCase {
                 
                 XCTAssertNotNil(response)
                 
-                let respbody = response?.first
+                let respbody = response?.items.first
                 
                 XCTAssertNotNil(respbody)
                 
@@ -96,7 +96,7 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceiptWithPagination() {
         // Given
-        let page = Pagination(pageSize: 4, offset: 8, sort: Sort.Ascending)
+        let page = Pagination(pageSize: 5, offset: 8, sort: Sort.Ascending)
         let expectation = self.expectation(description: "all receipts fetch expectation")
         
         let receipt = try! judo.receipt()
