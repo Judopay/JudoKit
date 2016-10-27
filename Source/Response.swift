@@ -36,11 +36,11 @@ import Foundation
  
  
 */
-public struct Response: GeneratorType, ArrayLiteralConvertible {
+public struct Response: IteratorProtocol, ExpressibleByArrayLiteral {
     /// The current pagination response
     public let pagination: Pagination?
     /// The array that contains the transaction response objects
-    public private (set) var items = [TransactionData]()
+    public fileprivate (set) var items = [TransactionData]()
     /// Helper to count in case of Generation of elements for loops
     public var indexInSequence = 0
     
@@ -77,7 +77,7 @@ public struct Response: GeneratorType, ArrayLiteralConvertible {
     
     - Parameter element: the element to add to the items Array
     */
-    public mutating func append(element: TransactionData) {
+    public mutating func append(_ element: TransactionData) {
         self.items.append(element)
     }
     
@@ -105,7 +105,7 @@ public struct Response: GeneratorType, ArrayLiteralConvertible {
         case _ where !items.isEmpty:
             if indexInSequence < items.count {
                 let element = items[indexInSequence]
-                indexInSequence.advancedBy(1)
+                indexInSequence.advanced(by: 1)
                 return element
             }
             indexInSequence = 0
@@ -119,7 +119,7 @@ public struct Response: GeneratorType, ArrayLiteralConvertible {
 
 
 /// Response extensions for SequenceType and CollectionType
-extension Response: SequenceType, CollectionType {
+extension Response: Sequence, Swift.Collection {
     
     public typealias Index = Int
     
@@ -152,8 +152,8 @@ extension Response: SequenceType, CollectionType {
      
      - returns: an IndexingGenerator object
      */
-    public func generate() -> IndexingGenerator<[TransactionData]> {
-        return self.items.generate()
+    public func makeIterator() -> IndexingIterator<[TransactionData]> {
+        return self.items.makeIterator()
     }
     
 }
@@ -244,7 +244,7 @@ public struct TransactionData {
     /// The type of Transaction, either "Payment" or "Refund"
     public let type: TransactionType
     /// Date and time of the Transaction including time zone offset
-    public let createdAt: NSDate
+    public let createdAt: Date
     /// The result of this transactions, this will either be "Success" or "Declined"
     public let result: TransactionResult
     /// A message detailing the result.
@@ -283,7 +283,7 @@ public struct TransactionData {
             let typeString = dict["type"] as? String,
             let type = TransactionType(rawValue: typeString),
             let createdAtString = dict["createdAt"] as? String,
-            let createdAt = ISO8601DateFormatter.dateFromString(createdAtString),
+            let createdAt = ISO8601DateFormatter.date(from: createdAtString),
             let resultString = dict["result"] as? String,
             let result = TransactionResult(rawValue: resultString),
             let judoId = dict["judoId"] as? NSNumber,
@@ -296,7 +296,7 @@ public struct TransactionData {
                 self.receiptId = ""
                 self.yourPaymentReference = ""
                 self.type = TransactionType.Payment
-                self.createdAt = NSDate()
+                self.createdAt = Date()
                 self.result = TransactionResult.Error
                 self.message = ""
                 self.judoId = ""
@@ -309,7 +309,7 @@ public struct TransactionData {
                 self.cardDetails = CardDetails(nil)
                 self.consumer = Consumer(consumerToken: "", consumerReference: "")
                 self.rawData = [String : AnyObject]()
-                throw JudoError(.ResponseParseError)
+                throw JudoError(.responseParseError)
         }
         
         self.receiptId = receiptId
@@ -318,7 +318,7 @@ public struct TransactionData {
         self.createdAt = createdAt
         self.result = result
         self.message = dict["message"] as? String
-        self.judoId = String(judoId.integerValue)
+        self.judoId = String(judoId.intValue)
         self.merchantName = merchantName
         self.appearsOnStatementAs = appearsOnStatementAs
         
@@ -406,9 +406,9 @@ public enum TransactionResult: String {
 
 
 /// Formatter for ISO8601 Dates that are returned from the webservice
-let ISO8601DateFormatter: NSDateFormatter = {
-    let dateFormatter = NSDateFormatter()
-    let enUSPOSIXLocale = NSLocale(localeIdentifier: "en_US_POSIX")
+let ISO8601DateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    let enUSPOSIXLocale = Locale(identifier: "en_US_POSIX")
     dateFormatter.locale = enUSPOSIXLocale
     dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSZZZZZ"
     return dateFormatter

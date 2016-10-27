@@ -48,7 +48,7 @@ class PreAuthTests: JudoTestCase {
             preAuth.card(validVisaTestCard)
             
             // Then I should be able to make a Pre-authorization
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try preAuth.completion({ (response, error) -> () in
                 if let error = error {
@@ -65,7 +65,7 @@ class PreAuthTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -78,12 +78,12 @@ class PreAuthTests: JudoTestCase {
             preAuth.card(validVisaTestCard)
             
             // Then I should receive an error
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try preAuth.completion({ (response, error) -> () in
                 XCTAssertNil(response)
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
+                XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
                 
                 //This should be three. This is a known bug with the platform returning an uneeded extra model error about amount formattting.
                 XCTAssertEqual(error?.details?.count, 4)
@@ -97,7 +97,7 @@ class PreAuthTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -110,12 +110,12 @@ class PreAuthTests: JudoTestCase {
             preAuth.card(validVisaTestCard)
             
             // Then I should receive an error
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try preAuth.completion({ (response, error) -> () in
                 XCTAssertNil(response)
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
+                XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
                 
                 XCTAssertEqual(error?.details?.count, 2)
                 
@@ -128,7 +128,7 @@ class PreAuthTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -148,7 +148,7 @@ class PreAuthTests: JudoTestCase {
         } catch let error as JudoError {
             // Then
             switch error.code {
-            case .JudoIDInvalidError, .LuhnValidationError:
+            case .judoIDInvalidError, .luhnValidationError:
                 parameterError = true
             default:
                 XCTFail("exception thrown: \(error)")
@@ -162,7 +162,7 @@ class PreAuthTests: JudoTestCase {
             try judo.preAuth(tooLongJudoID, amount: amount, reference: references) // this should fail
         } catch let error as JudoError {
             switch error.code {
-            case .JudoIDInvalidError, .LuhnValidationError:
+            case .judoIDInvalidError, .luhnValidationError:
                 parameterError = true
             default:
                 XCTFail("exception thrown: \(error)")
@@ -176,7 +176,7 @@ class PreAuthTests: JudoTestCase {
             try judo.preAuth(luhnInvalidJudoID, amount: amount, reference: references) // this should fail
         } catch let error as JudoError {
             switch error.code {
-            case .JudoIDInvalidError, .LuhnValidationError:
+            case .judoIDInvalidError, .luhnValidationError:
                 parameterError = true
             default:
                 XCTFail("exception thrown: \(error)")

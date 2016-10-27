@@ -57,7 +57,7 @@ class FloatingTextField: UITextField {
         }
     }
     
-    var titleFont: UIFont = .systemFontOfSize(12.0) {
+    var titleFont: UIFont = .systemFont(ofSize: 12.0) {
         didSet {
             title.font = titleFont
             title.sizeToFit()
@@ -74,9 +74,9 @@ class FloatingTextField: UITextField {
         }
     }
     
-    var titleTextColour: UIColor = .grayColor() {
+    var titleTextColour: UIColor = .gray() {
         didSet {
-            if !isFirstResponder() {
+            if !isFirstResponder {
                 title.textColor = titleTextColour
             }
         }
@@ -84,7 +84,7 @@ class FloatingTextField: UITextField {
     
     var titleActiveTextColour: UIColor! {
         didSet {
-            if isFirstResponder() {
+            if isFirstResponder {
                 title.textColor = titleActiveTextColour
             }
         }
@@ -93,7 +93,7 @@ class FloatingTextField: UITextField {
     // MARK: - Init
     init(currentTheme: Theme) {
         self.theme = currentTheme
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -113,7 +113,7 @@ class FloatingTextField: UITextField {
     override func layoutSubviews() {
         super.layoutSubviews()
         setTitlePositionForTextAlignment()
-        let isResp = isFirstResponder()
+        let isResp = isFirstResponder
         if isResp && !text!.isEmpty {
             title.textColor = titleActiveTextColour
         } else {
@@ -129,40 +129,40 @@ class FloatingTextField: UITextField {
         }
     }
     
-    override func textRectForBounds(bounds: CGRect) -> CGRect {
-        var r = super.textRectForBounds(bounds)
+    override func textRect(forBounds bounds: CGRect) -> CGRect {
+        var r = super.textRect(forBounds: bounds)
         if !text!.isEmpty {
             var top = ceil(title.font.lineHeight + hintYPadding)
             top = min(top, maxTopInset())
             r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top, 0.0, 0.0, 0.0))
         }
-        return CGRectIntegral(r)
+        return r.integral
     }
     
-    override func editingRectForBounds(bounds: CGRect) -> CGRect {
-        var r = super.editingRectForBounds(bounds)
+    override func editingRect(forBounds bounds: CGRect) -> CGRect {
+        var r = super.editingRect(forBounds: bounds)
         if !text!.isEmpty {
             var top = ceil(title.font.lineHeight + hintYPadding)
             top = min(top, maxTopInset())
             r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top, 0.0, 0.0, 0.0))
         }
-        return CGRectIntegral(r)
+        return r.integral
     }
     
-    override func clearButtonRectForBounds(bounds: CGRect) -> CGRect {
-        var r = super.clearButtonRectForBounds(bounds)
+    override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
+        var r = super.clearButtonRect(forBounds: bounds)
         if !text!.isEmpty {
             var top = ceil(title.font.lineHeight + hintYPadding)
             top = min(top, maxTopInset())
             r = CGRect(x:r.origin.x, y:r.origin.y + (top * 0.5), width:r.size.width, height:r.size.height)
         }
-        return CGRectIntegral(r)
+        return r.integral
     }
     
     // MARK: - Private Methods
     
-    private func setup() {
-        borderStyle = UITextBorderStyle.None
+    fileprivate func setup() {
+        borderStyle = UITextBorderStyle.none
         titleActiveTextColour = self.theme.getButtonColor()
         // Set up title label
         title.alpha = 0.0
@@ -177,25 +177,25 @@ class FloatingTextField: UITextField {
         self.addSubview(title)
     }
     
-    private func maxTopInset() -> CGFloat {
+    fileprivate func maxTopInset() -> CGFloat {
         return max(0, floor(bounds.size.height - font!.lineHeight - 4.0))
     }
     
-    private func setTitlePositionForTextAlignment() {
-        let r = textRectForBounds(bounds)
+    fileprivate func setTitlePositionForTextAlignment() {
+        let r = textRect(forBounds: bounds)
         var x = r.origin.x
-        if textAlignment == NSTextAlignment.Center {
+        if textAlignment == NSTextAlignment.center {
             x = r.origin.x + (r.size.width * 0.5) - title.frame.size.width
-        } else if textAlignment == NSTextAlignment.Right {
+        } else if textAlignment == NSTextAlignment.right {
             x = r.origin.x + r.size.width - title.frame.size.width
         }
         title.frame = CGRect(x:x, y:title.frame.origin.y, width:title.frame.size.width, height:title.frame.size.height)
     }
     
-    private func showTitle(animated: Bool) {
+    fileprivate func showTitle(_ animated: Bool) {
         if self.title.alpha == 0.0 {
             let dur = animated ? animationDuration : 0
-            UIView.animateWithDuration(dur, delay:0, options: UIViewAnimationOptions.BeginFromCurrentState.union(UIViewAnimationOptions.CurveEaseOut), animations:{
+            UIView.animate(withDuration: dur, delay:0, options: UIViewAnimationOptions.beginFromCurrentState.union(UIViewAnimationOptions.curveEaseOut), animations:{
                 // Animation
                 self.title.alpha = 1.0
                 var r = self.title.frame
@@ -205,10 +205,10 @@ class FloatingTextField: UITextField {
         }
     }
     
-    private func hideTitle(animated: Bool) {
+    fileprivate func hideTitle(_ animated: Bool) {
         if self.title.alpha == 1.0 {
             let dur = animated ? animationDuration : 0
-            UIView.animateWithDuration(dur, delay:0, options: UIViewAnimationOptions.BeginFromCurrentState.union(UIViewAnimationOptions.CurveEaseIn), animations:{
+            UIView.animate(withDuration: dur, delay:0, options: UIViewAnimationOptions.beginFromCurrentState.union(UIViewAnimationOptions.curveEaseIn), animations:{
                 // Animation
                 self.title.alpha = 0.0
                 var r = self.title.frame

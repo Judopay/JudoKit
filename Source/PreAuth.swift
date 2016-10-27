@@ -70,9 +70,9 @@ When you want to process a Pre-authorization, you create a Pre-auth object and s
 Learn more [here](<https://www.judopay.com/docs/v4_1/restful-api/api-reference/>)
 
 */
-public class PreAuth: Transaction, TransactionPath {
+open class PreAuth: Transaction, TransactionPath {
     
     /// path variable for pre-auth class
-    public static var path: String { get { return "transactions/preauths" } }
+    open static var path: String { get { return "transactions/preauths" } }
 
 }

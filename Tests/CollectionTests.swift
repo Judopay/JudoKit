@@ -29,7 +29,7 @@ class CollectionTests: JudoTestCase {
     
     func testCollection() {
         
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
         do {
             // Given I have made a pre-authorisation
@@ -79,7 +79,7 @@ class CollectionTests: JudoTestCase {
             expectation.fulfill();
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
         
     }
     

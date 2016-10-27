@@ -146,241 +146,241 @@ import Foundation
 public enum JudoErrorCode: Int {
     
     /// General_Error   
-    case General_Error = 0
+    case general_Error = 0
     /// General_Model_Error
-    case General_Model_Error = 1
+    case general_Model_Error = 1
     /// Unauthorized
-    case Unauthorized = 7
+    case unauthorized = 7
     /// Payment_System_Error
-    case Payment_System_Error = 9
+    case payment_System_Error = 9
     /// Payment_Declined
-    case Payment_Declined = 11
+    case payment_Declined = 11
     /// Payment_Failed
-    case Payment_Failed = 12
+    case payment_Failed = 12
     /// Transaction_Not_Found
-    case Transaction_Not_Found = 19
+    case transaction_Not_Found = 19
     /// Validation_Passed
-    case Validation_Passed = 20
+    case validation_Passed = 20
     /// Uncaught_Error
-    case Uncaught_Error = 21
+    case uncaught_Error = 21
     /// Server_Error
-    case Server_Error = 22
+    case server_Error = 22
     /// Invalid_From_Date
-    case Invalid_From_Date = 23
+    case invalid_From_Date = 23
     /// Invalid_To_Date
-    case Invalid_To_Date = 24
+    case invalid_To_Date = 24
     /// CantFindWebPayment
-    case CantFindWebPayment = 25
+    case cantFindWebPayment = 25
     /// General_Error_Simple_Application
-    case General_Error_Simple_Application = 26
+    case general_Error_Simple_Application = 26
     /// InvalidApiVersion
-    case InvalidApiVersion = 40
+    case invalidApiVersion = 40
     /// MissingApiVersion
-    case MissingApiVersion = 41
+    case missingApiVersion = 41
     /// PreAuthExpired
-    case PreAuthExpired = 42
+    case preAuthExpired = 42
     /// Collection_Original_Transaction_Wrong_Type
-    case Collection_Original_Transaction_Wrong_Type = 43
+    case collection_Original_Transaction_Wrong_Type = 43
     /// Currency_Must_Equal_Original_Transaction
-    case Currency_Must_Equal_Original_Transaction = 44
+    case currency_Must_Equal_Original_Transaction = 44
     /// Cannot_Collect_A_Voided_Transaction
-    case Cannot_Collect_A_Voided_Transaction = 45
+    case cannot_Collect_A_Voided_Transaction = 45
     /// Collection_Exceeds_PreAuth
-    case Collection_Exceeds_PreAuth = 46
+    case collection_Exceeds_PreAuth = 46
     /// Refund_Original_Transaction_Wrong_Type
-    case Refund_Original_Transaction_Wrong_Type = 47
+    case refund_Original_Transaction_Wrong_Type = 47
     /// Cannot_Refund_A_Voided_Transaction
-    case Cannot_Refund_A_Voided_Transaction = 48
+    case cannot_Refund_A_Voided_Transaction = 48
     /// Refund_Exceeds_Original_Transaction
-    case Refund_Exceeds_Original_Transaction = 49
+    case refund_Exceeds_Original_Transaction = 49
     /// Void_Original_Transaction_Wrong_Type
-    case Void_Original_Transaction_Wrong_Type = 50
+    case void_Original_Transaction_Wrong_Type = 50
     /// Void_Original_Transaction_Is_Already_Void
-    case Void_Original_Transaction_Is_Already_Void = 51
+    case void_Original_Transaction_Is_Already_Void = 51
     /// Void_Original_Transaction_Has_Been_Collected
-    case Void_Original_Transaction_Has_Been_Collected = 52
+    case void_Original_Transaction_Has_Been_Collected = 52
     /// Void_Original_Transaction_Amount_Not_Equal_To_Preauth
-    case Void_Original_Transaction_Amount_Not_Equal_To_Preauth = 53
+    case void_Original_Transaction_Amount_Not_Equal_To_Preauth = 53
     /// UnableToAccept
-    case UnableToAccept = 54
+    case unableToAccept = 54
     /// AccountLocationNotFound
-    case AccountLocationNotFound = 55
+    case accountLocationNotFound = 55
     /// AccessDeniedToTransaction
-    case AccessDeniedToTransaction = 56
+    case accessDeniedToTransaction = 56
     /// NoConsumerForTransaction
-    case NoConsumerForTransaction = 57
+    case noConsumerForTransaction = 57
     /// TransactionNotEnrolledInThreeDSecure
-    case TransactionNotEnrolledInThreeDSecure = 58
+    case transactionNotEnrolledInThreeDSecure = 58
     /// TransactionAlreadyAuthorizedByThreeDSecure
-    case TransactionAlreadyAuthorizedByThreeDSecure = 59
+    case transactionAlreadyAuthorizedByThreeDSecure = 59
     /// ThreeDSecureNotSuccessful
-    case ThreeDSecureNotSuccessful = 60
+    case threeDSecureNotSuccessful = 60
     /// ApUnableToDecrypt
-    case ApUnableToDecrypt = 61
+    case apUnableToDecrypt = 61
     /// ReferencedTransactionNotFound
-    case ReferencedTransactionNotFound = 62
+    case referencedTransactionNotFound = 62
     /// ReferencedTransactionNotSuccessful
-    case ReferencedTransactionNotSuccessful = 63
+    case referencedTransactionNotSuccessful = 63
     /// TestCardNotAllowed
-    case TestCardNotAllowed = 64
+    case testCardNotAllowed = 64
     /// Collection_Not_Valid
-    case Collection_Not_Valid = 65
+    case collection_Not_Valid = 65
     /// Refund_Original_Transaction_Null
-    case Refund_Original_Transaction_Null = 66
+    case refund_Original_Transaction_Null = 66
     /// Refund_Not_Valid
-    case Refund_Not_Valid = 67
+    case refund_Not_Valid = 67
     /// Void_Not_Valid
-    case Void_Not_Valid = 68
+    case void_Not_Valid = 68
     /// Unknown
-    case Unknown = 69
+    case unknown = 69
     /// CardTokenInvalid
-    case CardTokenInvalid = 70
+    case cardTokenInvalid = 70
     /// UnknownPaymentModel
-    case UnknownPaymentModel = 71
+    case unknownPaymentModel = 71
     /// UnableToRouteTransaction
-    case UnableToRouteTransaction = 72
+    case unableToRouteTransaction = 72
     /// CardTypeNotSupported
-    case CardTypeNotSupported = 73
+    case cardTypeNotSupported = 73
     /// CardCv2Invalid
-    case CardCv2Invalid = 74
+    case cardCv2Invalid = 74
     /// CardTokenDoesntMatchConsumer
-    case CardTokenDoesntMatchConsumer = 75
+    case cardTokenDoesntMatchConsumer = 75
     /// WebPaymentReferenceInvalid
-    case WebPaymentReferenceInvalid = 76
+    case webPaymentReferenceInvalid = 76
     /// WebPaymentAccountLocationNotFound
-    case WebPaymentAccountLocationNotFound = 77
+    case webPaymentAccountLocationNotFound = 77
     /// RegisterCardWithWrongTransactionType
-    case RegisterCardWithWrongTransactionType = 78
+    case registerCardWithWrongTransactionType = 78
     /// InvalidAmountToRegisterCard
-    case InvalidAmountToRegisterCard = 79
+    case invalidAmountToRegisterCard = 79
     /// ContentTypeNotSpecifiedOrUnsupported
-    case ContentTypeNotSpecifiedOrUnsupported = 80
+    case contentTypeNotSpecifiedOrUnsupported = 80
     /// InternalErrorAuthenticating
-    case InternalErrorAuthenticating = 81
+    case internalErrorAuthenticating = 81
     /// TransactionNotFound
-    case TransactionNotFound = 82
+    case transactionNotFound = 82
     /// ResourceNotFound
-    case ResourceNotFound = 83
+    case resourceNotFound = 83
     /// LackOfPermissionsUnauthorized
-    case LackOfPermissionsUnauthorized = 84
+    case lackOfPermissionsUnauthorized = 84
     /// ContentTypeNotSupported
-    case ContentTypeNotSupported = 85
+    case contentTypeNotSupported = 85
     /// AuthenticationFailure
-    case AuthenticationFailure = 403
+    case authenticationFailure = 403
     /// Not_Found
-    case Not_Found = 404
+    case not_Found = 404
     /// MustProcessPreAuthByToken
-    case MustProcessPreAuthByToken = 4002
+    case mustProcessPreAuthByToken = 4002
     /// ApplicationModelIsNull
-    case ApplicationModelIsNull = 20000
+    case applicationModelIsNull = 20000
     /// ApplicationModelRequiresReference
-    case ApplicationModelRequiresReference = 20001
+    case applicationModelRequiresReference = 20001
     /// ApplicationHasAlreadyGoneLive
-    case ApplicationHasAlreadyGoneLive = 20002
+    case applicationHasAlreadyGoneLive = 20002
     /// MissingProductSelection
-    case MissingProductSelection = 20003
+    case missingProductSelection = 20003
     /// AccountNotInSandbox
-    case AccountNotInSandbox = 20004
+    case accountNotInSandbox = 20004
     /// ApplicationRecIdRequired
-    case ApplicationRecIdRequired = 20005
+    case applicationRecIdRequired = 20005
     /// RequestNotProperlyFormatted
-    case RequestNotProperlyFormatted = 20006
+    case requestNotProperlyFormatted = 20006
     /// NoApplicationReferenceFound
-    case NoApplicationReferenceFound = 20007
+    case noApplicationReferenceFound = 20007
     /// NotSupportedFileType
-    case NotSupportedFileType = 20008
+    case notSupportedFileType = 20008
     /// ErrorWithFileUpload
-    case ErrorWithFileUpload = 20009
+    case errorWithFileUpload = 20009
     /// EmptyApplicationReference
-    case EmptyApplicationReference = 20010
+    case emptyApplicationReference = 20010
     /// ApplicationDoesNotExist
-    case ApplicationDoesNotExist = 20011
+    case applicationDoesNotExist = 20011
     /// UnknownSortSpecified
-    case UnknownSortSpecified = 20013
+    case unknownSortSpecified = 20013
     /// PageSizeLessThanOne
-    case PageSizeLessThanOne = 20014
+    case pageSizeLessThanOne = 20014
     /// PageSizeMoreThanFiveHundred
-    case PageSizeMoreThanFiveHundred = 20015
+    case pageSizeMoreThanFiveHundred = 20015
     /// OffsetLessThanZero
-    case OffsetLessThanZero = 20016
+    case offsetLessThanZero = 20016
     /// InvalidMerchantId
-    case InvalidMerchantId = 20017
+    case invalidMerchantId = 20017
     /// MerchantIdNotFound
-    case MerchantIdNotFound = 20018
+    case merchantIdNotFound = 20018
     /// NoProductsWereFound
-    case NoProductsWereFound = 20019
+    case noProductsWereFound = 20019
     /// OnlyTheJudoPartnerCanSubmitSimpleApplications
-    case OnlyTheJudoPartnerCanSubmitSimpleApplications = 20020
+    case onlyTheJudoPartnerCanSubmitSimpleApplications = 20020
     /// UnableToParseDocument
-    case UnableToParseDocument = 20021
+    case unableToParseDocument = 20021
     /// UnableToFindADefaultAccountLocation
-    case UnableToFindADefaultAccountLocation = 20022
+    case unableToFindADefaultAccountLocation = 20022
     /// WebpaymentsShouldBeCreatedByPostingToUrl
-    case WebpaymentsShouldBeCreatedByPostingToUrl = 20023
+    case webpaymentsShouldBeCreatedByPostingToUrl = 20023
     /// InvalidMd
-    case InvalidMd = 20025
+    case invalidMd = 20025
     /// InvalidReceiptId
-    case InvalidReceiptId = 20026
+    case invalidReceiptId = 20026
     
     // MARK: Device Errors
     /// ParameterError
-    case ParameterError
+    case parameterError
     /// ResponseParseError
-    case ResponseParseError
+    case responseParseError
     /// LuhnValidationError
-    case LuhnValidationError
+    case luhnValidationError
     /// JudoIDInvalidError
-    case JudoIDInvalidError
+    case judoIDInvalidError
     /// SerializationError
-    case SerializationError
+    case serializationError
     /// RequestError
-    case RequestError
+    case requestError
     /// TokenSecretError
-    case TokenSecretError
+    case tokenSecretError
     /// CardAndTokenError
-    case CardAndTokenError
+    case cardAndTokenError
     /// AmountMissingError
-    case AmountMissingError
+    case amountMissingError
     /// CardOrTokenMissingError
-    case CardOrTokenMissingError
+    case cardOrTokenMissingError
     /// PKPaymentMissingError
-    case PKPaymentMissingError
+    case pkPaymentMissingError
     /// JailbrokenDeviceDisallowedError
-    case JailbrokenDeviceDisallowedError
+    case jailbrokenDeviceDisallowedError
     /// InvalidOperationError
-    case InvalidOperationError
+    case invalidOperationError
     /// DuplicateTransactionError
-    case DuplicateTransactionError
+    case duplicateTransactionError
     /// CurrencyNotSupportedError
-    case CurrencyNotSupportedError
+    case currencyNotSupportedError
     /// LocationServicesDisabled = 91
-    case LocationServicesDisabled = 91
+    case locationServicesDisabled = 91
     
     // MARK: Card Errors
     /// CardLengthMismatchError
-    case CardLengthMismatchError
+    case cardLengthMismatchError
     /// InputLengthMismatchError
-    case InputLengthMismatchError
+    case inputLengthMismatchError
     /// InvalidCardNumber
-    case InvalidCardNumber
+    case invalidCardNumber
     /// InvalidEntry
-    case InvalidEntry
+    case invalidEntry
     /// InvalidCardNetwork
-    case InvalidCardNetwork
+    case invalidCardNetwork
     /// InvalidPostCode
-    case InvalidPostCode
+    case invalidPostCode
     
     // MARK: 3DS Error
     /// Not a real error but needed to identify when a 3DS routing has been requested by the judo API
-    case ThreeDSAuthRequest
+    case threeDSAuthRequest
     /// Failed3DSError
-    case Failed3DSError
+    case failed3DSError
     /// UnknownError
-    case UnknownError
+    case unknownError
     
     // MARK: User Errors
     /// Received when user cancels the payment
-    case UserDidCancel = -999
+    case userDidCancel = -999
     
     func messageValues() -> (String?, String?, String?)? {
         
@@ -393,56 +393,56 @@ public enum JudoErrorCode: Int {
         
         switch self {
             
-            case .ParameterError:
+            case .parameterError:
                 hint = "A parameter entered into the dictionary (request body to Judo API) is faulty"
 
-            case .ResponseParseError:
+            case .responseParseError:
                 hint = "An error with the response from the backend API"
             
-            case .LuhnValidationError:
+            case .luhnValidationError:
                 hint = "Luhn validation checks failed"
                 title = "Unable to validate"
                 message = "Sorry, we've been unable to validate your card. Please check your details and try again or use an alternative card."
             
-            case .JudoIDInvalidError:
+            case .judoIDInvalidError:
                 hint = "Luhn validation on JudoID failed"
                 title = "Unable to accept"
                 message = "Sorry, but we are currently unable to accept payments to this account. Please contact customer services."
    
-            case .SerializationError:
+            case .serializationError:
                 hint = "The information returned by the backend API does not return proper JSON data"
             
-            case .RequestError:
+            case .requestError:
                 hint = "The request failed when trying to communicate to the API"
             
-            case .TokenSecretError:
+            case .tokenSecretError:
                 hint = "Token and secret information is not provided"
             
-            case .CardAndTokenError:
+            case .cardAndTokenError:
                 hint = "Both a card and a token were provided in the transaction request"
             
-            case .AmountMissingError:
+            case .amountMissingError:
                 hint = "An amount object was not provided in the transaction request"
  
-            case .CardOrTokenMissingError:
+            case .cardOrTokenMissingError:
                 hint = "The card object and the token object were not provided in the transaction request"
     
-            case .PKPaymentMissingError:
+            case .pkPaymentMissingError:
                 hint = "The pkPayment object was not provided in the ApplePay transaction"
 
-            case .JailbrokenDeviceDisallowedError:
+            case .jailbrokenDeviceDisallowedError:
                 hint = "The device the code is currently running is jailbroken. Jailbroken devices are not allowed when instantiating a new Judo session"
  
-            case .InvalidOperationError:
+            case .invalidOperationError:
                 hint = "It is not possible to create a transaction object with anything else than Payment, PreAuth or RegisterCard"
     
-            case .Failed3DSError:
+            case .failed3DSError:
                 hint = "After receiving the 3DS payload, when the payload has faulty data, the WebView fails to load the 3DS Page or the resolution page"
     
-            case .UnknownError:
+            case .unknownError:
                 hint = "An unknown error that can occur when making API calls"
 
-            case .UserDidCancel:
+            case .userDidCancel:
                 hint = "Received when user cancels the payment journey"
                 title = nil
                 message = nil

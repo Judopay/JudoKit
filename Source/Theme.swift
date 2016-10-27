@@ -37,7 +37,7 @@ public struct Theme {
     public var showSecurityMessage: Bool = false
     
     /// An array of accepted card configurations (card network and card number length)
-    public var acceptedCardNetworks: [Card.Configuration] = [Card.Configuration(.AMEX, 15), Card.Configuration(.Visa, 16), Card.Configuration(.MasterCard, 16), Card.Configuration(.Maestro, 16)]
+    public var acceptedCardNetworks: [Card.Configuration] = [Card.Configuration(.amex, 15), Card.Configuration(.visa, 16), Card.Configuration(.masterCard, 16), Card.Configuration(.maestro, 16)]
     
     
     // MARK: Buttons
@@ -252,9 +252,9 @@ public struct Theme {
             return self.judoButtonTitleColor!
         }
         if self.colorMode() {
-            return .whiteColor()
+            return .white()
         } else {
-            return .blackColor()
+            return .black()
         }
     }
     
@@ -297,9 +297,9 @@ public struct Theme {
             return self.judoLoadingBlockViewColor!
         }
         if self.colorMode() {
-            return .whiteColor()
+            return .white()
         } else {
-            return .blackColor()
+            return .black()
         }
     }
     
@@ -310,7 +310,7 @@ public struct Theme {
      - returns: A UIColor object
      */
     public func getInputFieldBackgroundColor() -> UIColor {
-        return self.judoInputFieldBackgroundColor ?? .whiteColor()
+        return self.judoInputFieldBackgroundColor ?? .white()
     }
     
 }

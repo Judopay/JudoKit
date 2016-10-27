@@ -14,7 +14,7 @@ Use our UI components for a seamless user experience for card data capture. Mini
 
 ## Requirements
 
-This SDK requires Xcode 7.3 and Swift 2.2.
+Versions >= 6.2.5 require Xcode 8 and Swift 3. Version 6.2.4 is the last version to be supported by Xcode 7.3.1 and Swift 2.2.
 
 ## Getting started
 

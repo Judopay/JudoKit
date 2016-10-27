@@ -53,9 +53,9 @@ Learn more [here](<https://www.judopay.com/docs/v4_1/restful-api/api-reference/>
 
 */
 
-public class RegisterCard: Transaction, TransactionPath {
+open class RegisterCard: Transaction, TransactionPath {
     
     /// path variable for registering a card
-    public static var path: String { get { return "transactions/registercard" } }
+    open static var path: String { get { return "transactions/registercard" } }
 
 }

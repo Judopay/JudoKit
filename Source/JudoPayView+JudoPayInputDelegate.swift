@@ -36,8 +36,8 @@ extension JudoPayView: JudoPayInputDelegate {
     - parameter input: The input field calling the delegate method
     - parameter error: The error that occured
     */
-    public func cardInput(input: CardInputField, error: JudoError) {
-        input.errorAnimation(error.code != .InputLengthMismatchError)
+    public func cardInput(_ input: CardInputField, error: JudoError) {
+        input.errorAnimation(error.code != .inputLengthMismatchError)
         if let message = error.message {
             self.showAlertOnHintLabel(message)
         }
@@ -50,8 +50,8 @@ extension JudoPayView: JudoPayInputDelegate {
      - parameter input:            The input field calling the delegate method
      - parameter cardNumberString: The card number that has been entered as a String
      */
-    public func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String) {
-        if input.cardNetwork == .Maestro {
+    public func cardInput(_ input: CardInputField, didFindValidNumber cardNumberString: String) {
+        if input.cardNetwork == .maestro {
             self.startDateInputField.textField.becomeFirstResponder()
         } else {
             self.expiryDateInputField.textField.becomeFirstResponder()
@@ -65,7 +65,7 @@ extension JudoPayView: JudoPayInputDelegate {
      - parameter input:   The input field calling the delegate method
      - parameter network: The network that has been identified
      */
-    public func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork) {
+    public func cardInput(_ input: CardInputField, didDetectNetwork network: CardNetwork) {
         self.updateInputFieldsWithNetwork(network)
         self.hintLabel.hideAlert()
         self.updateSecurityMessagePosition(toggleUp: true)
@@ -80,8 +80,8 @@ extension JudoPayView: JudoPayInputDelegate {
     - parameter input: The input field calling the delegate method
     - parameter error: The error that occured
     */
-    public func dateInput(input: DateInputField, error: JudoError) {
-        input.errorAnimation(error.code != .InputLengthMismatchError)
+    public func dateInput(_ input: DateInputField, error: JudoError) {
+        input.errorAnimation(error.code != .inputLengthMismatchError)
         if let message = error.message {
             self.showAlertOnHintLabel(message)
         }
@@ -94,7 +94,7 @@ extension JudoPayView: JudoPayInputDelegate {
      - parameter input: The input field calling the delegate method
      - parameter date:  The valid date that has been entered
      */
-    public func dateInput(input: DateInputField, didFindValidDate date: String) {
+    public func dateInput(_ input: DateInputField, didFindValidDate date: String) {
         self.hideAlertOnHintLabel()
         if input == self.startDateInputField {
             self.issueNumberInputField.textField.becomeFirstResponder()
@@ -112,7 +112,7 @@ extension JudoPayView: JudoPayInputDelegate {
     - parameter input:       The issueNumberInputField calling the delegate method
     - parameter issueNumber: The issue number that has been entered as a String
     */
-    public func issueNumberInputDidEnterCode(inputField: IssueNumberInputField, issueNumber: String) {
+    public func issueNumberInputDidEnterCode(_ inputField: IssueNumberInputField, issueNumber: String) {
         if issueNumber.characters.count == 3 {
             self.expiryDateInputField.textField.becomeFirstResponder()
         }
@@ -127,10 +127,10 @@ extension JudoPayView: JudoPayInputDelegate {
     - parameter input:          The input field calling the delegate method
     - parameter billingCountry: The billing country that has been selected
     */
-    public func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry) {
+    public func billingCountryInputDidEnter(_ input: BillingCountryInputField, billingCountry: BillingCountry) {
         self.postCodeInputField.billingCountry = billingCountry
         self.postCodeInputField.textField.text = ""
-        self.postCodeInputField.userInteractionEnabled = billingCountry != .Other
+        self.postCodeInputField.isUserInteractionEnabled = billingCountry != .other
         self.judoPayInputDidChangeText(self.billingCountryInputField)
     }
     
@@ -141,7 +141,7 @@ extension JudoPayView: JudoPayInputDelegate {
      - parameter input: The input field calling the delegate method
      - parameter error: The encountered error
      */
-    public func postCodeInputField(input: PostCodeInputField, didEnterInvalidPostCodeWithError error: JudoError) {
+    public func postCodeInputField(_ input: PostCodeInputField, didEnterInvalidPostCodeWithError error: JudoError) {
         if let errorMessage = error.message {
             self.showAlertOnHintLabel(errorMessage)
         }
@@ -156,7 +156,7 @@ extension JudoPayView: JudoPayInputDelegate {
     - parameter input:   The input field calling the delegate method
     - parameter isValid: A boolean that indicates whether the input is valid or invalid
     */
-    public func judoPayInput(input: JudoPayInputField, isValid: Bool) {
+    public func judoPayInput(_ input: JudoPayInputField, isValid: Bool) {
         if input == self.secureCodeInputField {
             if self.theme.avsEnabled {
                 if isValid {
@@ -177,14 +177,14 @@ extension JudoPayView: JudoPayInputDelegate {
      
      - parameter input: The input field calling the delegate method
      */
-    public func judoPayInputDidChangeText(input: JudoPayInputField) {
+    public func judoPayInputDidChangeText(_ input: JudoPayInputField) {
         self.showHintAfterDefaultDelay(input)
         var allFieldsValid = false
         allFieldsValid = (self.cardDetails?.isCardNumberValid ?? false || self.cardInputField.isValid()) && self.expiryDateInputField.isValid() && self.secureCodeInputField.isValid()
         if self.theme.avsEnabled {
             allFieldsValid = allFieldsValid && self.postCodeInputField.isValid() && self.billingCountryInputField.isValid()
         }
-        if self.cardInputField.cardNetwork == .Maestro {
+        if self.cardInputField.cardNetwork == .maestro {
             allFieldsValid = allFieldsValid && (self.issueNumberInputField.isValid() || self.startDateInputField.isValid())
         }
         self.paymentEnabled(allFieldsValid)
@@ -196,7 +196,7 @@ extension JudoPayView: JudoPayInputDelegate {
      
      - parameter message: the message that needs to be displayed
      */
-    public func showAlertOnHintLabel(message: String) {
+    public func showAlertOnHintLabel(_ message: String) {
         self.hintLabel.showAlert(message)
         self.updateSecurityMessagePosition(toggleUp: false)
     }

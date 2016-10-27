@@ -37,7 +37,7 @@ public extension String {
     - Throws CardLengthMismatchError: If amount of characters is longer than the maximum character number
     - Throws InvalidCardNumber: If the card number is invalid
     */
-    func cardPresentationString(configurations: [Card.Configuration]) throws -> String {
+    func cardPresentationString(_ configurations: [Card.Configuration]) throws -> String {
         
         let strippedSelf = self.strippedWhitespaces
         
@@ -45,16 +45,16 @@ public extension String {
         if strippedSelf.characters.count == 0 {
             return ""
         } else if strippedSelf.characters.count > Card.maximumLength {
-            throw JudoError(.CardLengthMismatchError)
+            throw JudoError(.cardLengthMismatchError)
         } else if !strippedSelf.isNumeric() {
-            throw JudoError(.InvalidEntry)
+            throw JudoError(.invalidEntry)
         }
         
         // Make sure to only check validity for the necessary networks
         let cardNetwork = strippedSelf.cardNetwork()
         
         // Only try to format if a specific card number has been recognized
-        if cardNetwork == .Unknown {
+        if cardNetwork == .unknown {
             return strippedSelf
         }
         
@@ -74,11 +74,11 @@ public extension String {
             } else {
                 message += "\(cardNetwork.stringValue()), please use other cards"
             }
-            throw JudoError(.InvalidCardNetwork, message)
+            throw JudoError(.invalidCardNetwork, message)
         }
         
         // Retrieve the shortest pattern that is left and start moving the characters across
-        let patternString = patterns.sort(<)[0]
+        let patternString = patterns.sorted(by: <)[0]
         
         var patternIndex = patternString.startIndex
         
@@ -86,10 +86,10 @@ public extension String {
         
         for element in strippedSelf.characters {
             if patternString.characters[patternIndex] == "X" {
-                patternIndex = patternIndex.advancedBy(1)
+                patternIndex = <#T##Collection corresponding to `patternIndex`##Collection#>.index(patternIndex, offsetBy: 1)
                 retString = retString + String(element)
             } else {
-                patternIndex = patternIndex.advancedBy(2)
+                patternIndex = <#T##Collection corresponding to `patternIndex`##Collection#>.index(patternIndex, offsetBy: 2)
                 retString = retString + " \(element)"
             }
         }
@@ -133,7 +133,7 @@ public extension String {
         let network = self.cardNetwork()
         let strippedSelf = self.strippedWhitespaces
         
-        if strippedSelf.rangeOfString(".") != nil {
+        if strippedSelf.range(of: ".") != nil {
             return false
         }
         
@@ -141,17 +141,17 @@ public extension String {
             let strippedSelfCount = strippedSelf.characters.count
             
             switch network {
-            case .UATP, .AMEX:
+            case .uatp, .amex:
                 return strippedSelfCount == 15
-            case .Visa:
+            case .visa:
                 return strippedSelfCount == 13 || strippedSelfCount == 16
-            case .MasterCard, .Dankort, .JCB, .InstaPayment, .Discover:
+            case .masterCard, .dankort, .jcb, .instaPayment, .discover:
                 return strippedSelfCount == 16
-            case .Maestro:
+            case .maestro:
                 return (12...19).contains(strippedSelfCount)
-            case .DinersClub:
+            case .dinersClub:
                 return strippedSelfCount == 14
-            case .ChinaUnionPay, .InterPayment:
+            case .chinaUnionPay, .interPayment:
                 return (16...19).contains(strippedSelfCount)
             default:
                 return false

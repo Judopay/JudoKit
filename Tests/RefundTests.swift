@@ -29,7 +29,7 @@ class RefundTests: JudoTestCase {
     
     func testRefund() {
         
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
         do {
             // Given I have made a payment
@@ -79,7 +79,7 @@ class RefundTests: JudoTestCase {
             expectation.fulfill();
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
         
     }
     

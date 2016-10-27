@@ -23,6 +23,26 @@
 //  SOFTWARE.
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 
 /**
@@ -30,35 +50,35 @@ import UIKit
  the JudoPayViewController is the one solution build to guide a user through the journey of entering their card details.
  
  */
-public class JudoPayViewController: UIViewController {
+open class JudoPayViewController: UIViewController {
     
     // MARK: Transaction variables
     
     /// the current JudoKit Session
-    public var judoKitSession: JudoKit
+    open var judoKitSession: JudoKit
     
     /// The amount and currency to process, amount to two decimal places and currency in string
-    public private (set) var amount: Amount?
+    open fileprivate (set) var amount: Amount?
     /// The number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
-    public private (set) var judoId: String?
+    open fileprivate (set) var judoId: String?
     /// Your reference for this consumer, this payment and an object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
-    public private (set) var reference: Reference?
+    open fileprivate (set) var reference: Reference?
     /// Card token and Consumer token
-    public private (set) var paymentToken: PaymentToken?
+    open fileprivate (set) var paymentToken: PaymentToken?
     
     /// The current transaction
-    public let transaction: Transaction
+    open let transaction: Transaction
     
     // MARK: 3DS variables
-    private var pending3DSTransaction: Transaction?
-    private var pending3DSReceiptID: String?
+    fileprivate var pending3DSTransaction: Transaction?
+    fileprivate var pending3DSReceiptID: String?
     
     // MARK: completion blocks
-    private var completionBlock: JudoCompletionBlock?
+    fileprivate var completionBlock: JudoCompletionBlock?
     
     
     /// The overridden view object forwarding to a JudoPayView
-    override public var view: UIView! {
+    override open var view: UIView! {
         get { return self.myView as UIView }
         set {
             if newValue is JudoPayView {
@@ -87,7 +107,7 @@ public class JudoPayViewController: UIViewController {
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil)  throws {
+    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: @escaping JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil)  throws {
         self.judoId = judoId
         self.amount = amount
         self.reference = reference
@@ -111,7 +131,7 @@ public class JudoPayViewController: UIViewController {
      
      - returns: will crash if executed
      */
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         fatalError("This class should not be initialised with initWithNibName:Bundle:")
     }
     
@@ -133,7 +153,7 @@ public class JudoPayViewController: UIViewController {
     /**
     viewDidLoad
     */
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         self.judoKitSession.apiSession.uiClientMode = true
@@ -154,16 +174,16 @@ public class JudoPayViewController: UIViewController {
         // Button actions
         let payButtonTitle = self.myView.transactionType == .RegisterCard ? self.judoKitSession.theme.registerCardNavBarButtonTitle : self.judoKitSession.theme.paymentButtonTitle
 
-        self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), forControlEvents: .TouchUpInside)
-        self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .Done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
-        self.myView.paymentNavBarButton!.enabled = false
+        self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), for: .touchUpInside)
+        self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
+        self.myView.paymentNavBarButton!.isEnabled = false
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .Plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
         
         self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.getTextColor()
         if !self.judoKitSession.theme.colorMode() {
-            self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+            self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         }
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getNavigationBarTitleColor()]
         
@@ -175,7 +195,7 @@ public class JudoPayViewController: UIViewController {
      
      - parameter animated: Animated
      */
-    public override func viewWillAppear(animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.myView.paymentEnabled(false)
@@ -194,7 +214,7 @@ public class JudoPayViewController: UIViewController {
      
      - parameter animated: Animated
      */
-    public override func viewDidAppear(animated: Bool) {
+    open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if self.myView.cardInputField.textField.text?.characters.count > 0 {
@@ -213,9 +233,9 @@ public class JudoPayViewController: UIViewController {
     
     - parameter sender: The payment button
     */
-    func payButtonAction(sender: AnyObject) {
+    func payButtonAction(_ sender: AnyObject) {
         guard let reference = self.reference, let amount = self.amount, let judoId = self.judoId else {
-            self.completionBlock?(nil, JudoError(.ParameterError))
+            self.completionBlock?(nil, JudoError(.parameterError))
             return // BAIL
         }
         
@@ -242,7 +262,7 @@ public class JudoPayViewController: UIViewController {
                 var issueNumber: String? = nil
                 var startDate: String? = nil
                 
-                if self.myView.cardInputField.textField.text?.cardNetwork() == .Maestro {
+                if self.myView.cardInputField.textField.text?.cardNetwork() == .maestro {
                     issueNumber = self.myView.issueNumberInputField.textField.text
                     startDate = self.myView.startDateInputField.textField.text
                 }
@@ -258,9 +278,9 @@ public class JudoPayViewController: UIViewController {
             
             self.pending3DSTransaction = try transaction.completion({ [weak self] (response, error) -> () in
                 if let error = error {
-                    if error.domain == JudoErrorDomain && error.code == .ThreeDSAuthRequest {
+                    if error.domain == JudoErrorDomain && error.code == .threeDSAuthRequest {
                         guard let payload = error.payload else {
-                            self?.completionBlock?(nil, JudoError(.ResponseParseError))
+                            self?.completionBlock?(nil, JudoError(.responseParseError))
                             return // BAIL
                         }
                         
@@ -287,7 +307,7 @@ public class JudoPayViewController: UIViewController {
             self.completionBlock?(nil, error)
             self.myView.loadingView.stopAnimating()
         } catch {
-            self.completionBlock?(nil, JudoError(.Unknown))
+            self.completionBlock?(nil, JudoError(.unknown))
             self.myView.loadingView.stopAnimating()
         }
     }
@@ -298,8 +318,8 @@ public class JudoPayViewController: UIViewController {
      
      - parameter sender: the button
      */
-    func doneButtonAction(sender: UIBarButtonItem) {
-        self.completionBlock?(nil, JudoError(.UserDidCancel))
+    func doneButtonAction(_ sender: UIBarButtonItem) {
+        self.completionBlock?(nil, JudoError(.userDidCancel))
     }
     
 }
@@ -317,22 +337,22 @@ extension JudoPayViewController: UIWebViewDelegate {
      
      - returns: return whether webView should start loading the request
      */
-    public func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
-        let urlString = request.URL?.absoluteString
+    public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+        let urlString = request.url?.absoluteString
         
-        if let urlString = urlString where urlString.rangeOfString("Parse3DS") != nil {
-            guard let body = request.HTTPBody,
-                let bodyString = NSString(data: body, encoding: NSUTF8StringEncoding) else {
-                    self.completionBlock?(nil, JudoError(.Failed3DSError))
+        if let urlString = urlString , urlString.range(of: "Parse3DS") != nil {
+            guard let body = request.httpBody,
+                let bodyString = NSString(data: body, encoding: String.Encoding.utf8.rawValue) else {
+                    self.completionBlock?(nil, JudoError(.failed3DSError))
                     return false
             }
             
             var results = JSONDictionary()
-            let pairs = bodyString.componentsSeparatedByString("&")
+            let pairs = bodyString.components(separatedBy: "&")
             
             for pair in pairs {
-                if pair.rangeOfString("=") != nil {
-                    let components = pair.componentsSeparatedByString("=")
+                if pair.range(of: "=") != nil {
+                    let components = pair.components(separatedBy: "=")
                     let value = components[1]
                     let escapedVal = value.stringByRemovingPercentEncoding
                     
@@ -355,17 +375,17 @@ extension JudoPayViewController: UIWebViewDelegate {
                     } else if let resp = resp {
                         self?.completionBlock?(resp, nil)
                     } else {
-                        self?.completionBlock?(nil, JudoError(.Unknown))
+                        self?.completionBlock?(nil, JudoError(.unknown))
                     }
                 })
             } else {
-                self.completionBlock?(nil, JudoError(.Unknown))
+                self.completionBlock?(nil, JudoError(.unknown))
             }
             
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
                 self.myView.threeDSecureWebView.alpha = 0.0
                 }, completion: { (didFinish) -> Void in
-                    self.myView.threeDSecureWebView.loadRequest(NSURLRequest(URL: NSURL(string: "about:blank")!))
+                    self.myView.threeDSecureWebView.loadRequest(URLRequest(url: URL(string: "about:blank")!))
             })
             return false
         }
@@ -378,12 +398,12 @@ extension JudoPayViewController: UIWebViewDelegate {
      
      - parameter webView: The web view
      */
-    public func webViewDidFinishLoad(webView: UIWebView) {
+    public func webViewDidFinishLoad(_ webView: UIWebView) {
         var alphaVal: CGFloat = 1.0
-        if webView.request?.URL?.absoluteString == "about:blank" {
+        if webView.request?.url?.absoluteString == "about:blank" {
             alphaVal = 0.0
         }
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
             self.myView.threeDSecureWebView.alpha = alphaVal
             self.myView.loadingView.stopAnimating()
         })
@@ -396,15 +416,15 @@ extension JudoPayViewController: UIWebViewDelegate {
      - parameter webView: The web view
      - parameter error:   The error
      */
-    public func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        UIView.animateWithDuration(0.5, animations: { () -> Void in
+    public func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
             self.myView.threeDSecureWebView.alpha = 0.0
             self.myView.loadingView.stopAnimating()
         })
         if error != nil {
-            self.completionBlock?(nil, JudoError(.Failed3DSError, bridgedError: error!))
+            self.completionBlock?(nil, JudoError(.failed3DSError, bridgedError: error!))
         } else {
-            self.completionBlock?(nil, JudoError(.Failed3DSError))
+            self.completionBlock?(nil, JudoError(.failed3DSError))
         }
     }
     

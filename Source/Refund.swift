@@ -40,9 +40,9 @@ Refunding a successful payment is easy, simply identify the original receipt ID 
 ```
 
 */
-public class Refund: TransactionProcess, TransactionPath {
+open class Refund: TransactionProcess, TransactionPath {
     
     /// path variable for a refund of a payment
-    public static var path: String { get { return "/transactions/refunds" } }
+    open static var path: String { get { return "/transactions/refunds" } }
     
 }

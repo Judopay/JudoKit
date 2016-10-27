@@ -38,7 +38,7 @@ public typealias JudoCompletionBlock = (Response?, JudoError?) -> ()
 public struct Session {
     
     /// The endpoint for REST API calls to the judo API
-    private (set) var endpoint = "https://gw1.judopay.com/"
+    fileprivate (set) var endpoint = "https://gw1.judopay.com/"
     
     
     /// identifying whether developers are using their own UI or the Judo Out of the box UI
@@ -68,31 +68,31 @@ public struct Session {
     - Parameter parameters: information that is set in the HTTP Body
     - Parameter completion: completion callblack block with the results
     */
-    public func POST(path: String, parameters: JSONDictionary, completion: JudoCompletionBlock) {
+    public func POST(_ path: String, parameters: JSONDictionary, completion: @escaping JudoCompletionBlock) {
         
         // Create request
         let request = self.judoRequest(endpoint + path)
         
         // Rquest method
-        request.HTTPMethod = "POST"
+        request.httpMethod = "POST"
         
         // Safely create request body for the request
-        let requestBody: NSData?
+        let requestBody: Data?
         
         do {
-            requestBody = try NSJSONSerialization.dataWithJSONObject(parameters, options: NSJSONWritingOptions.PrettyPrinted)
+            requestBody = try JSONSerialization.data(withJSONObject: parameters, options: JSONSerialization.WritingOptions.prettyPrinted)
         } catch {
             print("body serialization failed")
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                completion(nil, JudoError(.SerializationError))
+            DispatchQueue.main.async(execute: { () -> Void in
+                completion(nil, JudoError(.serializationError))
             })
             return // BAIL
         }
         
-        request.HTTPBody = requestBody
+        request.httpBody = requestBody
         
         // Create a data task
-        let task = self.task(request, completion: completion)
+        let task = self.task(request as URLRequest, completion: completion)
         
         // Initiate the request
         task.resume()
@@ -106,28 +106,28 @@ public struct Session {
     - Parameter parameters: information that is set in the HTTP Body
     - Parameter completion: completion callblack block with the results
     */
-    func GET(path: String, parameters: JSONDictionary?, completion: JudoCompletionBlock) {
+    func GET(_ path: String, parameters: JSONDictionary?, completion: @escaping JudoCompletionBlock) {
         
         // Create request
         let request = self.judoRequest(endpoint + path)
         
-        request.HTTPMethod = "GET"
+        request.httpMethod = "GET"
         
         if let params = parameters {
-            let requestBody: NSData?
+            let requestBody: Data?
             do {
-                requestBody = try NSJSONSerialization.dataWithJSONObject(params, options: NSJSONWritingOptions.PrettyPrinted)
+                requestBody = try JSONSerialization.data(withJSONObject: params, options: JSONSerialization.WritingOptions.prettyPrinted)
             } catch  {
                 print("body serialization failed")
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    completion(nil, JudoError(.SerializationError))
+                DispatchQueue.main.async(execute: { () -> Void in
+                    completion(nil, JudoError(.serializationError))
                 })
                 return
             }
-            request.HTTPBody = requestBody
+            request.httpBody = requestBody
         }
         
-        let task = self.task(request, completion: completion)
+        let task = self.task(request as URLRequest, completion: completion)
         
         // Initiate the request
         task.resume()
@@ -141,30 +141,30 @@ public struct Session {
     - Parameter parameters: information that is set in the HTTP Body
     - Parameter completion: completion callblack block with the results
     */
-    func PUT(path: String, parameters: JSONDictionary, completion: JudoCompletionBlock) {
+    func PUT(_ path: String, parameters: JSONDictionary, completion: @escaping JudoCompletionBlock) {
         // Create request
         let request = self.judoRequest(endpoint + path)
         
         // Request method
-        request.HTTPMethod = "PUT"
+        request.httpMethod = "PUT"
         
         // Safely create request body for the request
-        let requestBody: NSData?
+        let requestBody: Data?
         
         do {
-            requestBody = try NSJSONSerialization.dataWithJSONObject(parameters, options: NSJSONWritingOptions.PrettyPrinted)
+            requestBody = try JSONSerialization.data(withJSONObject: parameters, options: JSONSerialization.WritingOptions.prettyPrinted)
         } catch {
             print("body serialization failed")
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                completion(nil, JudoError(.SerializationError))
+            DispatchQueue.main.async(execute: { () -> Void in
+                completion(nil, JudoError(.serializationError))
             })
             return // BAIL
         }
         
-        request.HTTPBody = requestBody
+        request.httpBody = requestBody
         
         // Create a data task
-        let task = self.task(request, completion: completion)
+        let task = self.task(request as URLRequest, completion: completion)
         
         // Initiate the request
         task.resume()
@@ -180,8 +180,8 @@ public struct Session {
     
     - Returns: a JSON HTTP request with authorization set
     */
-    public func judoRequest(url: String) -> NSMutableURLRequest {
-        let request = NSMutableURLRequest(URL: NSURL(string: url)!)
+    public func judoRequest(_ url: String) -> NSMutableURLRequest {
+        let request = NSMutableURLRequest(url: URL(string: url)!)
         // json configuration header
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -221,12 +221,12 @@ public struct Session {
     
     - Returns: a NSURLSessionDataTask that can be used to manipulate the call
     */
-    public func task(request: NSURLRequest, completion: JudoCompletionBlock) -> NSURLSessionDataTask {
-        return NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: { (data, resp, err) -> Void in
+    public func task(_ request: URLRequest, completion: @escaping JudoCompletionBlock) -> URLSessionDataTask {
+        return URLSession.shared.dataTask(with: request, completionHandler: { (data, resp, err) -> Void in
             
             // Error handling
             if data == nil, let error = err {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     completion(nil, JudoError.fromNSError(error))
                 })
                 return // BAIL
@@ -234,8 +234,8 @@ public struct Session {
             
             // Unwrap response data
             guard let upData = data else {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    completion(nil, JudoError(.RequestError))
+                DispatchQueue.main.async(execute: { () -> Void in
+                    completion(nil, JudoError(.requestError))
                 })
                 return // BAIL
             }
@@ -243,26 +243,26 @@ public struct Session {
             // Serialize JSON Dictionary
             let json: JSONDictionary?
             do {
-                json = try NSJSONSerialization.JSONObjectWithData(upData, options: NSJSONReadingOptions.AllowFragments) as? JSONDictionary
+                json = try JSONSerialization.jsonObject(with: upData, options: JSONSerialization.ReadingOptions.allowFragments) as? JSONDictionary
             } catch {
                 print(error)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    completion(nil, JudoError(.SerializationError))
+                DispatchQueue.main.async(execute: { () -> Void in
+                    completion(nil, JudoError(.serializationError))
                 })
                 return // BAIL
             }
             
             // Unwrap optional dictionary
             guard let upJSON = json else {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    completion(nil, JudoError(.SerializationError))
+                DispatchQueue.main.async(execute: { () -> Void in
+                    completion(nil, JudoError(.serializationError))
                 })
                 return
             }
             
             // If an error occur
             if let errorCode = upJSON["code"] as? Int, let judoErrorCode = JudoErrorCode(rawValue: errorCode) {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                DispatchQueue.main.async(execute: { () -> Void in
                     completion(nil, JudoError(judoErrorCode, dict: upJSON))
                 })
                 return // BAIL
@@ -270,8 +270,8 @@ public struct Session {
             
             // Check if 3DS was requested
             if upJSON["acsUrl"] != nil && upJSON["paReq"] != nil {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    completion(nil, JudoError(.ThreeDSAuthRequest, payload: upJSON))
+                DispatchQueue.main.async(execute: { () -> Void in
+                    completion(nil, JudoError(.threeDSAuthRequest, payload: upJSON))
                 })
                 return // BAIL
             }
@@ -280,7 +280,7 @@ public struct Session {
             var paginationResponse: Pagination?
             
             if let offset = upJSON["offset"] as? NSNumber, let pageSize = upJSON["pageSize"] as? NSNumber, let sort = upJSON["sort"] as? String {
-                paginationResponse = Pagination(pageSize: pageSize.integerValue, offset: offset.integerValue, sort: Sort(rawValue: sort)!)
+                paginationResponse = Pagination(pageSize: pageSize.intValue, offset: offset.intValue, sort: Sort(rawValue: sort)!)
             }
             
             var result = Response(paginationResponse)
@@ -298,13 +298,13 @@ public struct Session {
                 }
             } catch {
                 print(error)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    completion(nil, JudoError(.ResponseParseError))
+                DispatchQueue.main.async(execute: { () -> Void in
+                    completion(nil, JudoError(.responseParseError))
                 })
                 return // BAIL
             }
             
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
                 completion(result, nil)
             })
             
@@ -322,12 +322,12 @@ public struct Session {
     
     - returns: a Dictionary containing all the information to submit for a refund or a collection
     */
-    func progressionParameters(receiptId: String, amount: Amount, paymentReference: String, deviceSignal: JSONDictionary?) -> JSONDictionary {
-        var dictionary = ["receiptId":receiptId, "amount": amount.amount, "yourPaymentReference": paymentReference]
+    func progressionParameters(_ receiptId: String, amount: Amount, paymentReference: String, deviceSignal: JSONDictionary?) -> JSONDictionary {
+        var dictionary = ["receiptId":receiptId, "amount": amount.amount, "yourPaymentReference": paymentReference] as [String : Any]
         if let deviceSignal = deviceSignal {
             dictionary["clientDetails"] = deviceSignal
         }
-        return dictionary
+        return dictionary as JSONDictionary
     }
     
     

@@ -33,8 +33,8 @@ let DinersClubPattern   = "XXXX XXXXXX XXXX"
 
 
 // These should be computed once and then referenced - O(n)
-let maestroPrefixes: [String]      = Array([([Int](56...69)).map({ String($0) }), ["50"]].flatten())
-let dinersClubPrefixes: [String]   = Array([([Int](300...305)).map({ String($0) }), ["36", "38", "39", "309"]].flatten())
+let maestroPrefixes: [String]      = Array([([Int](56...69)).map({ String($0) }), ["50"]].joined())
+let dinersClubPrefixes: [String]   = Array([([Int](300...305)).map({ String($0) }), ["36", "38", "39", "309"]].joined())
 let instaPaymentPrefixes: [String] = ([Int](637...639)).map({ String($0) })
 let JCBPrefixes: [String]          = ([Int](3528...3589)).map({ String($0) })
 
@@ -42,12 +42,12 @@ let JCBPrefixes: [String]          = ([Int](3528...3589)).map({ String($0) })
 let masterCardPrefixes: [String]   = {
     let m1: [String] = Array(([Int](2221...2720)).map({ String($0) }))
     let m2: [String] = Array(([Int](51...55)).map({ String($0) }))
-    return Array([m1, m2].flatten())
+    return Array([m1, m2].joined())
 }()
 let discoverPrefixes: [String]     = {
     let d1: [String] = Array(([Int](644...649)).map({ String($0) }))
     let d2: [String] = Array(([Int](622126...622925)).map({ String($0) }))
-    return Array([d1, d2, ["65", "6011"]].flatten())
+    return Array([d1, d2, ["65", "6011"]].joined())
 }()
 
 
@@ -145,18 +145,18 @@ public struct Card {
         */
         public func patternString() -> String? {
             switch self.cardNetwork {
-            case .Visa, .MasterCard, .Dankort, .JCB, .InstaPayment, .Discover:
+            case .visa, .masterCard, .dankort, .jcb, .instaPayment, .discover:
                 return VISAPattern
-            case .AMEX:
+            case .amex:
                 return AMEXPattern
-            case .ChinaUnionPay, .InterPayment, .Maestro:
+            case .chinaUnionPay, .interPayment, .maestro:
                 if self.cardLength == 16 {
                     return VISAPattern
                 } else if self.cardLength == 19 {
                     return CUPPattern
                 }
                 break
-            case .DinersClub:
+            case .dinersClub:
                 if self.cardLength == 16 {
                     return VISAPattern
                 } else if self.cardLength == 14 {
@@ -175,7 +175,7 @@ public struct Card {
         - Returns: a given String as a placeholder
         */
         public func placeholderString() -> String? {
-            return self.patternString()?.stringByReplacingOccurrencesOfString("X", withString: "0")
+            return self.patternString()?.replacingOccurrences(of: "X", with: "0")
         }
     }
     
@@ -268,11 +268,11 @@ The CardType enum is a value type for CardNetwork to further identify card types
 */
 public enum CardType: Int {
     /// Debit Card type
-    case Debit
+    case debit
     /// Credit Card type
-    case Credit
+    case credit
     /// Unknown Card type
-    case Unknown
+    case unknown
 }
 
 
@@ -296,67 +296,67 @@ The CardNetwork enum depicts the Card Network type of a given Card object
 public enum CardNetwork: Int64 {
     
     /// Unknown
-    case Unknown = 0
+    case unknown = 0
     /// Visa Card Network
-    case Visa = 1
+    case visa = 1
     /// MasterCard Network
-    case MasterCard = 2
+    case masterCard = 2
     /// Visa Electron Network
-    case VisaElectron = 3
+    case visaElectron = 3
     /// Switch Network
-    case Switch = 4
+    case `switch` = 4
     /// Solo Network
-    case Solo = 5
+    case solo = 5
     /// Laser Network
-    case Laser = 6
+    case laser = 6
     /// China UnionPay Network
-    case ChinaUnionPay = 7
+    case chinaUnionPay = 7
     /// American Express Card Network
-    case AMEX = 8
+    case amex = 8
     /// JCB Network
-    case JCB = 9
+    case jcb = 9
     /// Maestro Card Network
-    case Maestro = 10
+    case maestro = 10
     /// Visa Debit Card Network
-    case VisaDebit = 11
+    case visaDebit = 11
     /// MasterCard Network
-    case MasterCardDebit = 12
+    case masterCardDebit = 12
     /// Visa Purchasing Network
-    case VisaPurchasing = 13
+    case visaPurchasing = 13
     /// Discover Network
-    case Discover = 14
+    case discover = 14
     /// Carnet Network
-    case Carnet = 15
+    case carnet = 15
     /// Carte Bancaire Network
-    case CarteBancaire = 16
+    case carteBancaire = 16
     /// Diners Club Network
-    case DinersClub = 17
+    case dinersClub = 17
     /// Elo Network
-    case Elo = 18
+    case elo = 18
     /// Farmers Card Network
-    case FarmersCard = 19
+    case farmersCard = 19
     /// Soriana Network
-    case Soriana = 20
+    case soriana = 20
     /// Private Label Card Network
-    case PrivateLabelCard = 21
+    case privateLabelCard = 21
     /// Q Card Network
-    case QCard = 22
+    case qCard = 22
     /// Style Network
-    case Style = 23
+    case style = 23
     /// True Rewards Network
-    case TrueRewards = 24
+    case trueRewards = 24
     /// UATP Network
-    case UATP = 25
+    case uatp = 25
     /// Bank Card Network
-    case BankCard = 26
+    case bankCard = 26
     /// Banamex Costco Network
-    case Banamex_Costco = 27
+    case banamex_Costco = 27
     /// InterPayment Network
-    case InterPayment = 28
+    case interPayment = 28
     /// InstaPayment Network
-    case InstaPayment = 29
+    case instaPayment = 29
     /// Dankort Network
-    case Dankort = 30
+    case dankort = 30
     
     
     /**
@@ -366,59 +366,59 @@ public enum CardNetwork: Int64 {
      */
     public func stringValue() -> String {
         switch self {
-        case .Unknown:
+        case .unknown:
             return "Unknown"
-        case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:
+        case .visa, .visaDebit, .visaElectron, .visaPurchasing:
             return "Visa"
-        case .MasterCard, .MasterCardDebit:
+        case .masterCard, .masterCardDebit:
             return "MasterCard"
-        case .Switch:
+        case .switch:
             return "Switch"
-        case .Solo:
+        case .solo:
             return "Solo"
-        case .Laser:
+        case .laser:
             return "Laser"
-        case .ChinaUnionPay:
+        case .chinaUnionPay:
             return "China UnionPay"
-        case .AMEX:
+        case .amex:
             return "AMEX"
-        case .JCB:
+        case .jcb:
             return "JCB"
-        case .Maestro:
+        case .maestro:
             return "Maestro"
-        case .Discover:
+        case .discover:
             return "Discover"
-        case .Carnet:
+        case .carnet:
             return "Carnet"
-        case .CarteBancaire:
+        case .carteBancaire:
             return "CarteBancaire"
-        case .DinersClub:
+        case .dinersClub:
             return "Diners Club"
-        case .Elo:
+        case .elo:
             return "Elo"
-        case .FarmersCard:
+        case .farmersCard:
             return "FarmersCard"
-        case .Soriana:
+        case .soriana:
             return "Soriana"
-        case .PrivateLabelCard:
+        case .privateLabelCard:
             return "PrivateLabelCard"
-        case .QCard:
+        case .qCard:
             return "QCard"
-        case .Style:
+        case .style:
             return "Style"
-        case .TrueRewards:
+        case .trueRewards:
             return "TrueRewards"
-        case .UATP:
+        case .uatp:
             return "UATP"
-        case .BankCard:
+        case .bankCard:
             return "BankCard"
-        case .Banamex_Costco:
+        case .banamex_Costco:
             return "BanamexCostco"
-        case .InterPayment:
+        case .interPayment:
             return "InterPayment"
-        case .InstaPayment:
+        case .instaPayment:
             return "InstaPayment"
-        case .Dankort:
+        case .dankort:
             return "Dankort"
         }
     }
@@ -431,29 +431,29 @@ public enum CardNetwork: Int64 {
     */
     public func prefixes() -> [String] {
         switch self {
-        case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:
+        case .visa, .visaDebit, .visaElectron, .visaPurchasing:
             return ["4"]
-        case .MasterCard, .MasterCardDebit:
+        case .masterCard, .masterCardDebit:
             return masterCardPrefixes
-        case .AMEX:
+        case .amex:
             return ["34", "37"]
-        case .DinersClub:
+        case .dinersClub:
             return dinersClubPrefixes
-        case .Maestro:
+        case .maestro:
             return maestroPrefixes
-        case .ChinaUnionPay:
+        case .chinaUnionPay:
             return ["62"]
-        case .Discover:
+        case .discover:
             return discoverPrefixes
-        case .InterPayment:
+        case .interPayment:
             return ["636"]
-        case .InstaPayment:
+        case .instaPayment:
             return instaPaymentPrefixes
-        case .JCB:
+        case .jcb:
             return JCBPrefixes
-        case .Dankort:
+        case .dankort:
             return ["5019"]
-        case .UATP:
+        case .uatp:
             return ["1"]
         default:
             return []
@@ -469,12 +469,12 @@ public enum CardNetwork: Int64 {
      
      - returns: a CardNetwork if the prefix matches a given set of CardNetworks or CardNetwork.Unknown
      */
-    public static func networkForString(string: String, constrainedToNetworks networks: [CardNetwork]) -> CardNetwork {
+    public static func networkForString(_ string: String, constrainedToNetworks networks: [CardNetwork]) -> CardNetwork {
         let result = networks.filter({ $0.prefixes().filter({ string.hasPrefix($0) }).count > 0 })
         if result.count == 1 {
             return result[0]
         }
-        return CardNetwork.Unknown
+        return CardNetwork.unknown
     }
     
     
@@ -485,8 +485,8 @@ public enum CardNetwork: Int64 {
      
      - returns: a CardNetwork if the prefix matches any CardNetwork prefix
      */
-    public static func networkForString(string: String) -> CardNetwork {
-        let allNetworks: [CardNetwork] = [.Visa, .MasterCard, .AMEX, .DinersClub, .Maestro, .ChinaUnionPay, .Discover, .InterPayment, .InstaPayment, .JCB, .Dankort, .UATP]
+    public static func networkForString(_ string: String) -> CardNetwork {
+        let allNetworks: [CardNetwork] = [.visa, .masterCard, .amex, .dinersClub, .maestro, .chinaUnionPay, .discover, .interPayment, .instaPayment, .jcb, .dankort, .uatp]
         return self.networkForString(string, constrainedToNetworks: allNetworks)
     }
     
@@ -498,19 +498,19 @@ public enum CardNetwork: Int64 {
     */
     public func securityCodeTitle() -> String {
         switch self {
-        case .Visa:
+        case .visa:
             return "CVV2"
-        case .MasterCard:
+        case .masterCard:
             return "CVC2"
-        case .AMEX:
+        case .amex:
             return "CID"
-        case .ChinaUnionPay:
+        case .chinaUnionPay:
             return "CVN2"
-        case .Discover:
+        case .discover:
             return "CID"
-        case .JCB:
+        case .jcb:
             return "CAV2"
-        case .Unknown:
+        case .unknown:
             return "CVV"
         default:
             return "CVV"
@@ -525,7 +525,7 @@ public enum CardNetwork: Int64 {
     */
     public func securityCodeLength() -> Int {
         switch self {
-        case .AMEX:
+        case .amex:
             return 4
         default:
             return 3
@@ -544,19 +544,19 @@ public enum CardNetwork: Int64 {
  
  This class also implements the `NSCoding` protocol to enable serialization for persistency
 */
-public class CardDetails: NSObject, NSCoding {
+open class CardDetails: NSObject, NSCoding {
     /// The last four digits of the card used for this transaction
-    public var cardLastFour: String?
+    open var cardLastFour: String?
     /// Expiry date of the card used for this transaction formatted as a two digit month and year i.e. MM/YY
-    public let endDate: String?
+    open let endDate: String?
     /// Can be used to charge future payments against this card
-    public let cardToken: String?
+    open let cardToken: String?
     
-    private var _cardNetwork: CardNetwork?
+    fileprivate var _cardNetwork: CardNetwork?
     /// The computed card network
-    public var cardNetwork: CardNetwork? {
+    open var cardNetwork: CardNetwork? {
         get {
-            if let computedCardNetwork = self._cardNumber?.cardNetwork() where self._cardNetwork == .Unknown && self._cardNumber != nil {
+            if let computedCardNetwork = self._cardNumber?.cardNetwork() , self._cardNetwork == .unknown && self._cardNumber != nil {
                 self._cardNetwork = computedCardNetwork
             }
             return self._cardNetwork
@@ -569,14 +569,14 @@ public class CardDetails: NSObject, NSCoding {
     internal let _cardNumber: String?
     
     /// The card number if available
-    public var cardNumber: String? {
+    open var cardNumber: String? {
         get {
             return self.formattedLastFour()
         }
         set {}
     }
     
-    public var isCardNumberValid: Bool {
+    open var isCardNumberValid: Bool {
         get {
             return self._cardNumber?.isCardNumberValid() ?? false
         }
@@ -584,7 +584,7 @@ public class CardDetails: NSObject, NSCoding {
     }
     
     /// Description string for print functions
-    override public var description: String {
+    override open var description: String {
         let formattedLastFour = self.formattedLastFour() ?? "N/A"
         let formattedEndDate = self.formattedEndDate() ?? "N/A"
         let cardNetworkString = self.cardNetwork?.stringValue() ?? "N/A"
@@ -602,19 +602,19 @@ public class CardDetails: NSObject, NSCoding {
      */
     public convenience init(cardNumber: String?, expiryMonth: Int?, expiryYear: Int?) {
         var dict = JSONDictionary()
-        dict["cardNumber"] = cardNumber
+        dict["cardNumber"] = cardNumber as AnyObject?
         
         guard let expiryMonth = expiryMonth, let expiryYear = expiryYear else { self.init(dict); return }
         
-        let dateComponents = NSDateComponents()
+        var dateComponents = DateComponents()
         dateComponents.month = expiryMonth
         dateComponents.year = expiryYear
         
-        if let gregorian = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian) {
-            if let date = gregorian.dateFromComponents(dateComponents) {
-                let dateFormatter = NSDateFormatter()
+        if let gregorian = Calendar(identifier: Calendar.Identifier.gregorian) {
+            if let date = gregorian.date(from: dateComponents) {
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "MM/yy"
-                let dateString = dateFormatter.stringFromDate(date)
+                let dateString = dateFormatter.string(from: date)
                 dict["endDate"] = dateString
             }
         }
@@ -639,7 +639,7 @@ public class CardDetails: NSObject, NSCoding {
         if let cardType = dict?["cardType"] as? Int {
             self.cardNetwork = CardNetwork(rawValue: Int64(cardType))
         } else {
-            self.cardNetwork = .Unknown
+            self.cardNetwork = .unknown
         }
     }
     
@@ -652,10 +652,10 @@ public class CardDetails: NSObject, NSCoding {
      - returns: a CardDetails object or nil
      */
     public required init?(coder decoder: NSCoder) {
-        let cardLastFour = decoder.decodeObjectForKey("cardLastFour") as? String?
-        let endDate = decoder.decodeObjectForKey("endDate") as? String?
-        let cardToken = decoder.decodeObjectForKey("cardToken") as? String?
-        let cardNetwork = decoder.decodeInt64ForKey("cardNetwork")
+        let cardLastFour = decoder.decodeObject(forKey: "cardLastFour") as? String?
+        let endDate = decoder.decodeObject(forKey: "endDate") as? String?
+        let cardToken = decoder.decodeObject(forKey: "cardToken") as? String?
+        let cardNetwork = decoder.decodeInt64(forKey: "cardNetwork")
         
         self.cardLastFour = cardLastFour ?? nil
         self.endDate = endDate ?? nil
@@ -671,14 +671,14 @@ public class CardDetails: NSObject, NSCoding {
      
      - parameter aCoder: the Coder
      */
-    public func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(self.cardLastFour, forKey: "cardLastFour")
-        aCoder.encodeObject(self.endDate, forKey: "endDate")
-        aCoder.encodeObject(self.cardToken, forKey: "cardToken")
+    open func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.cardLastFour, forKey: "cardLastFour")
+        aCoder.encode(self.endDate, forKey: "endDate")
+        aCoder.encode(self.cardToken, forKey: "cardToken")
         if let cardNetwork = self.cardNetwork {
-            aCoder.encodeInt64(cardNetwork.rawValue, forKey: "cardNetwork")
+            aCoder.encode(cardNetwork.rawValue, forKey: "cardNetwork")
         } else {
-            aCoder.encodeInt64(0, forKey: "cardNetwork")
+            aCoder.encode(0, forKey: "cardNetwork")
         }
     }
     
@@ -688,17 +688,17 @@ public class CardDetails: NSObject, NSCoding {
      
      - returns: a string with the last four digits with the right format
      */
-    public func formattedLastFour() -> String? {
+    open func formattedLastFour() -> String? {
         if self.cardLastFour == nil && self._cardNumber == nil {
             return nil
         } else if let cardNumber = self._cardNumber {
-            self.cardLastFour = cardNumber.substringFromIndex(cardNumber.endIndex.advancedBy(-4))
+            self.cardLastFour = cardNumber.substring(from: cardNumber.characters.index(cardNumber.endIndex, offsetBy: -4))
         }
         
         guard let cardNetwork = self.cardNetwork else { return "**** \(cardLastFour!)" }
         
         switch cardNetwork {
-        case .AMEX:
+        case .amex:
             return "**** ****** *\(cardLastFour!)"
         default:
             return "**** **** **** \(cardLastFour!)"
@@ -711,13 +711,13 @@ public class CardDetails: NSObject, NSCoding {
      
      - returns: a string with the date as shown on the credit card with the right format
      */
-    public func formattedEndDate() -> String? {
+    open func formattedEndDate() -> String? {
         guard let ed = self.endDate else { return nil }
         
         if ed.characters.count == 4 {
             // backend returns the end date without a slash so for UI purposes we have to add it
-            let prefix = ed.substringToIndex(ed.startIndex.advancedBy(2))
-            let suffix = ed.substringFromIndex(ed.endIndex.advancedBy(-2))
+            let prefix = ed.substring(to: ed.characters.index(ed.startIndex, offsetBy: 2))
+            let suffix = ed.substring(from: ed.characters.index(ed.endIndex, offsetBy: -2))
             return "\(prefix)/\(suffix)"
         } else {
             return ed

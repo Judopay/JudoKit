@@ -28,7 +28,7 @@ import XCTest
 class ThemeTests : JudoTestCase{
     func test_ErrorClearedOnJudoPaymentInputField(){
         //Given I set the colour of the input text to yellow.
-        let colour = UIColor.yellowColor()
+        let colour = UIColor.yellow
         
         var theme = Theme()
         theme.judoInputFieldTextColor = colour

@@ -40,9 +40,9 @@ import Foundation
  ```
  
  */
-public class VoidTransaction: TransactionProcess, TransactionPath {
+open class VoidTransaction: TransactionProcess, TransactionPath {
     
     /// path variable for a collection of a pre-authorization
-    public static var path: String { get { return "/transactions/voids" } }
+    open static var path: String { get { return "/transactions/voids" } }
     
 }

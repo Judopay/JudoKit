@@ -30,11 +30,11 @@ import UIKit
  The BillingCountryInputField is an input field configured to select a billing country out of a selected set of countries that we currently support.
  
  */
-public class BillingCountryInputField: JudoPayInputField {
+open class BillingCountryInputField: JudoPayInputField {
     
     let countryPicker = UIPickerView()
     
-    var selectedCountry: BillingCountry = .UK
+    var selectedCountry: BillingCountry = .uk
     
     override func setupView() {
         super.setupView()
@@ -60,7 +60,7 @@ public class BillingCountryInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a text field
     */
-    public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         return false
     }
     
@@ -72,7 +72,7 @@ public class BillingCountryInputField: JudoPayInputField {
     
     - returns: true if valid input
     */
-    public override func isValid() -> Bool {
+    open override func isValid() -> Bool {
         return true
     }
     
@@ -82,7 +82,7 @@ public class BillingCountryInputField: JudoPayInputField {
      
      - returns: a string that is the title of the receiver
      */
-    public override func title() -> String {
+    open override func title() -> String {
         return "Billing country"
     }
     
@@ -92,7 +92,7 @@ public class BillingCountryInputField: JudoPayInputField {
      
      - returns: width of the title
      */
-    public override func titleWidth() -> Int {
+    open override func titleWidth() -> Int {
         return 120
     }
     
@@ -109,7 +109,7 @@ extension BillingCountryInputField: UIPickerViewDataSource {
      
      - returns: the number of components in the pickerView
      */
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
@@ -122,7 +122,7 @@ extension BillingCountryInputField: UIPickerViewDataSource {
      
      - returns: number of rows in component
      */
-    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return BillingCountry.allValues.count
     }
     
@@ -141,7 +141,7 @@ extension BillingCountryInputField: UIPickerViewDelegate {
     
     - returns: title of a given component and row
     */
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return BillingCountry.allValues[row].title()
     }
     
@@ -153,7 +153,7 @@ extension BillingCountryInputField: UIPickerViewDelegate {
      - parameter row:        The row
      - parameter component:  The component
      */
-    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.selectedCountry = BillingCountry.allValues[row]
         self.textField.text = self.selectedCountry.title()
         self.delegate?.billingCountryInputDidEnter(self, billingCountry: self.selectedCountry)

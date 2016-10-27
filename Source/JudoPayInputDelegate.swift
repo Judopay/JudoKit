@@ -38,7 +38,7 @@ public protocol JudoPayInputDelegate {
      - parameter input: The input field calling the delegate method
      - parameter error: The error that occured
      */
-    func cardInput(input: CardInputField, error: JudoError)
+    func cardInput(_ input: CardInputField, error: JudoError)
     
     
     /**
@@ -47,7 +47,7 @@ public protocol JudoPayInputDelegate {
      - parameter input:            The input field calling the delegate method
      - parameter cardNumberString: The card number that has been entered as a String
      */
-    func cardInput(input: CardInputField, didFindValidNumber cardNumberString: String)
+    func cardInput(_ input: CardInputField, didFindValidNumber cardNumberString: String)
     
     
     /**
@@ -56,7 +56,7 @@ public protocol JudoPayInputDelegate {
      - parameter input:   The input field calling the delegate method
      - parameter network: The network that has been identified
      */
-    func cardInput(input: CardInputField, didDetectNetwork network: CardNetwork)
+    func cardInput(_ input: CardInputField, didDetectNetwork network: CardNetwork)
     
     
     /**
@@ -65,7 +65,7 @@ public protocol JudoPayInputDelegate {
      - parameter input: The input field calling the delegate method
      - parameter error: The error that occured
      */
-    func dateInput(input: DateInputField, error: JudoError)
+    func dateInput(_ input: DateInputField, error: JudoError)
     
     
     /**
@@ -74,7 +74,7 @@ public protocol JudoPayInputDelegate {
      - parameter input: The input field calling the delegate method
      - parameter date:  The valid date that has been entered
      */
-    func dateInput(input: DateInputField, didFindValidDate date: String)
+    func dateInput(_ input: DateInputField, didFindValidDate date: String)
     
     
     /**
@@ -83,7 +83,7 @@ public protocol JudoPayInputDelegate {
      - parameter input:       The issueNumberInputField calling the delegate method
      - parameter issueNumber: The issue number that has been entered as a String
      */
-    func issueNumberInputDidEnterCode(input: IssueNumberInputField, issueNumber: String)
+    func issueNumberInputDidEnterCode(_ input: IssueNumberInputField, issueNumber: String)
     
     
     /**
@@ -92,7 +92,7 @@ public protocol JudoPayInputDelegate {
      - parameter input:          The input field calling the delegate method
      - parameter billingCountry: The billing country that has been selected
      */
-    func billingCountryInputDidEnter(input: BillingCountryInputField, billingCountry: BillingCountry)
+    func billingCountryInputDidEnter(_ input: BillingCountryInputField, billingCountry: BillingCountry)
     
     
     /**
@@ -101,7 +101,7 @@ public protocol JudoPayInputDelegate {
      - parameter input: The input field calling the delegate method
      - parameter error: The error that occured
      */
-    func postCodeInputField(input: PostCodeInputField, didEnterInvalidPostCodeWithError error: JudoError)
+    func postCodeInputField(_ input: PostCodeInputField, didEnterInvalidPostCodeWithError error: JudoError)
     
     
     /**
@@ -110,7 +110,7 @@ public protocol JudoPayInputDelegate {
      - parameter input:   The input field calling the delegate method
      - parameter isValid: A boolean that indicates whether the input is valid or invalid
      */
-    func judoPayInput(input: JudoPayInputField, isValid: Bool)
+    func judoPayInput(_ input: JudoPayInputField, isValid: Bool)
     
     
     /**
@@ -118,6 +118,6 @@ public protocol JudoPayInputDelegate {
      
      - parameter input: The input field calling the delegate method
      */
-    func judoPayInputDidChangeText(input: JudoPayInputField)
+    func judoPayInputDidChangeText(_ input: JudoPayInputField)
     
 }

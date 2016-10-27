@@ -34,7 +34,7 @@ class TransactionTests: JudoTestCase {
         // And I have valid card details
         makePayment.card(validVisaTestCard)
         
-        let expectation = self.expectationWithDescription("testTransactionExpectation")
+        let expectation = self.expectation(description: "testTransactionExpectation")
         
         // When I submit the card details
         try! makePayment.completion({ (response, error) -> () in
@@ -47,7 +47,7 @@ class TransactionTests: JudoTestCase {
             expectation.fulfill()
         })
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     func testTransactionDeclinedResponse() {
@@ -57,7 +57,7 @@ class TransactionTests: JudoTestCase {
         // And I have valid card details
         makePayment.card(declinedVisaTestCard)
         
-        let expectation = self.expectationWithDescription("testTransactionDeclinedResponseExpectation")
+        let expectation = self.expectation(description: "testTransactionDeclinedResponseExpectation")
         
         // When I submit the card details
         try! makePayment.completion({ (response, error) -> () in
@@ -70,7 +70,7 @@ class TransactionTests: JudoTestCase {
             expectation.fulfill()
         })
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     

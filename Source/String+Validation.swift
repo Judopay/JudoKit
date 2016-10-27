@@ -31,7 +31,7 @@ public extension String {
     /// String by stripping all whitespaces
     public var strippedWhitespaces: String {
         get {
-            return self.stringByReplacingOccurrencesOfString(" ", withString: "")
+            return self.replacingOccurrences(of: " ", with: "")
         }
         set {
             // do nothing
@@ -45,7 +45,7 @@ public extension String {
             if self.isNumeric() {
                 return self
             } else {
-                return self.componentsSeparatedByCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet).joinWithSeparator("")
+                return self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
             }
         }
         set {
@@ -57,7 +57,7 @@ public extension String {
     /// String by stripping commas
     public var strippedCommas: String {
         get {
-            return self.stringByReplacingOccurrencesOfString(",", withString: "")
+            return self.replacingOccurrences(of: ",", with: "")
         }
         set {
             // do nothing
@@ -73,8 +73,8 @@ public extension String {
         guard self.isNumeric() else {
             return false
         }
-        let reversedInts = self.characters.reverse().map { Int(String($0)) }
-        return reversedInts.enumerate().reduce(0) { (sum, val) in
+        let reversedInts = self.characters.reversed().map { Int(String($0)) }
+        return reversedInts.enumerated().reduce(0) { (sum, val) in
             let odd = val.index % 2 == 1
             return sum + (odd ? (val.element! == 9 ? 9 : (val.element! * 2) % 9) : val.element!)
             } % 10 == 0
@@ -87,8 +87,8 @@ public extension String {
      - returns: true if string consists of numbers and letters
      */
     public func isAlphaNumeric() -> Bool {
-        let nonAlphaNum = NSCharacterSet.alphanumericCharacterSet().invertedSet
-        return self.rangeOfCharacterFromSet(nonAlphaNum) == nil
+        let nonAlphaNum = CharacterSet.alphanumerics.inverted
+        return self.rangeOfCharacter(from: nonAlphaNum) == nil
     }
     
     /**

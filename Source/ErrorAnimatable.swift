@@ -26,7 +26,7 @@ import Foundation
 
 
 public protocol ErrorAnimatable {
-    func errorAnimation(redBlock: Bool)
+    func errorAnimation(_ redBlock: Bool)
 }
 
 extension ErrorAnimatable where Self: JudoPayInputField {
@@ -36,7 +36,7 @@ extension ErrorAnimatable where Self: JudoPayInputField {
      
      - parameter redBlock: Boolean stating whether to show a red line at the bottom or not
      */
-    public func errorAnimation(redBlock: Bool) {
+    public func errorAnimation(_ redBlock: Bool) {
         // Animate the red block on the bottom
         
         let blockAnimation = { (didFinish: Bool) -> Void in
@@ -45,16 +45,16 @@ extension ErrorAnimatable where Self: JudoPayInputField {
             contentViewAnimation.values = [0, 10, -8, 6, -4, 2, 0]
             contentViewAnimation.keyTimes = [0, (1 / 11.0), (3 / 11.0), (5 / 11.0), (7 / 11.0), (9 / 11.0), 1]
             contentViewAnimation.duration = 0.4
-            contentViewAnimation.additive = true
+            contentViewAnimation.isAdditive = true
             
-            self.layer.addAnimation(contentViewAnimation, forKey: "wiggle")
+            self.layer.add(contentViewAnimation, forKey: "wiggle")
         }
         
         if redBlock {
-            self.redBlock.frame = CGRectMake(0, self.bounds.height, self.bounds.width, 4.0)
+            self.redBlock.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 4.0)
             
-            UIView.animateWithDuration(0.2, animations: { () -> Void in
-                self.redBlock.frame = CGRectMake(0, self.bounds.height - 4, self.bounds.width, 4.0)
+            UIView.animate(withDuration: 0.2, animations: { () -> Void in
+                self.redBlock.frame = CGRect(x: 0, y: self.bounds.height - 4, width: self.bounds.width, height: 4.0)
                 self.textField.textColor = self.theme.getErrorColor()
                 }, completion: blockAnimation)
         } else {

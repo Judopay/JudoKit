@@ -34,16 +34,16 @@ public extension CardNetwork {
      */
     public func cardLogoType() -> CardLogoType {
         switch self {
-        case .Visa, .VisaDebit, .VisaElectron, .VisaPurchasing:
-            return .Visa
-        case .MasterCard, .MasterCardDebit:
-            return .MasterCard
-        case .AMEX:
-            return .AMEX
-        case .Maestro:
-            return .Maestro
+        case .visa, .visaDebit, .visaElectron, .visaPurchasing:
+            return .visa
+        case .masterCard, .masterCardDebit:
+            return .masterCard
+        case .amex:
+            return .amex
+        case .maestro:
+            return .maestro
         default:
-            return .Unknown
+            return .unknown
         }
     }
 }

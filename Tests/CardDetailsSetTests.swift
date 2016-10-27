@@ -65,15 +65,15 @@ class CardDetailsSetTests : JudoTestCase {
         XCTAssertEqual("", expiryDateInputField.textField.text)
     }
     
-    private func getCardDetails() -> CardDetails{
+    fileprivate func getCardDetails() -> CardDetails{
         return CardDetails(cardNumber: "4976000000003436", expiryMonth: 12, expiryYear: 20)
     }
     
-    private func getPaymentToken() -> PaymentToken{
+    fileprivate func getPaymentToken() -> PaymentToken{
         return PaymentToken(consumerToken: "MY CONSUMER TOKEN", cardToken: "MY CARD TOKEN")
     }
     
-    private func getJudoPayViewController(cardDetails: CardDetails?, paymentToken: PaymentToken?) -> JudoPayViewController{
+    fileprivate func getJudoPayViewController(_ cardDetails: CardDetails?, paymentToken: PaymentToken?) -> JudoPayViewController{
         return try! JudoPayViewController(judoId: myJudoId, amount: oneGBPAmount, reference: validReference, transactionType: .Payment, completion: {_ in}, currentSession: judo, cardDetails: cardDetails, paymentToken: paymentToken)
     }
 }

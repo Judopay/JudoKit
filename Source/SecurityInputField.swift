@@ -29,17 +29,17 @@ import UIKit
  The SecurityInputField is an input field configured to detect, validate and present security numbers of various types of credit cards.
  
  */
-public class SecurityInputField: JudoPayInputField {
+open class SecurityInputField: JudoPayInputField {
     
     /// The card network for the security input field
-    public var cardNetwork: CardNetwork = .Unknown
+    open var cardNetwork: CardNetwork = .unknown
     
     /// if it is a token payment, a different hint label text should appear
-    public var isTokenPayment: Bool = false
+    open var isTokenPayment: Bool = false
     
     
     override func setupView() {
-        self.textField.secureTextEntry = true
+        self.textField.isSecureTextEntry = true
         super.setupView()
     }
     
@@ -55,18 +55,18 @@ public class SecurityInputField: JudoPayInputField {
     
     - returns: Boolean to change characters in given range for a textfield
     */
-    public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // Only handle delegate calls for own text field
         guard textField == self.textField else { return false }
         
-        if string.characters.count > 0 && self.textField.secureTextEntry {
-            self.textField.secureTextEntry = false
+        if string.characters.count > 0 && self.textField.isSecureTextEntry {
+            self.textField.isSecureTextEntry = false
         }
         
         // Get old and new text
         let oldString = textField.text!
-        let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        let newString = (oldString as NSString).replacingCharacters(in: range, with: string)
         
         if newString.characters.count == 0 {
             return true
@@ -83,7 +83,7 @@ public class SecurityInputField: JudoPayInputField {
     
     - returns: True if valid input
     */
-    public override func isValid() -> Bool {
+    open override func isValid() -> Bool {
         return self.textField.text?.characters.count == self.cardNetwork.securityCodeLength()
     }
     
@@ -93,7 +93,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - parameter textField: The text field of which the content has changed
      */
-    public override func textFieldDidChangeValue(textField: UITextField) {
+    open override func textFieldDidChangeValue(_ textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         self.didChangeInputText()
         guard let text = textField.text else { return }
@@ -107,7 +107,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: An Attributed String that is the placeholder of the receiver
      */
-    public override func placeholder() -> NSAttributedString? {
+    open override func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
     }
     
@@ -117,7 +117,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: True if input field shows a Logo
      */
-    public override func containsLogo() -> Bool {
+    open override func containsLogo() -> Bool {
         return true
     }
     
@@ -127,8 +127,8 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: An optional CardLogoView
      */
-    public override func logoView() -> CardLogoView? {
-        let type: CardLogoType = self.cardNetwork == .AMEX ? .CID : .CVC
+    open override func logoView() -> CardLogoView? {
+        let type: CardLogoType = self.cardNetwork == .amex ? .cid : .cvc
         return CardLogoView(type: type)
     }
     
@@ -138,7 +138,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: A string that is the title of the receiver
      */
-    public override func title() -> String {
+    open override func title() -> String {
         return self.cardNetwork.securityCodeTitle()
     }
     
@@ -148,7 +148,7 @@ public class SecurityInputField: JudoPayInputField {
      
      - returns: String that is shown as a hint when user resides in a input field for more than 5 seconds
      */
-    public override func hintLabelText() -> String {
+    open override func hintLabelText() -> String {
         if isTokenPayment {
             return "Please re-enter the card security code"
         }

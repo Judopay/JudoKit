@@ -33,7 +33,7 @@ class DedupTestCase: JudoTestCase {
             
             payment.card(validVisaTestCard)
             
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try payment.completion({ (response, error) -> () in
                 
@@ -68,7 +68,7 @@ class DedupTestCase: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -81,7 +81,7 @@ class DedupTestCase: JudoTestCase {
             payment.card(validVisaTestCard)
             
             // Then I should be able to make a payment
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try payment.completion({ (response, error) -> () in
                 
@@ -107,7 +107,7 @@ class DedupTestCase: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
 
 }

@@ -70,10 +70,10 @@ When you want to process a payment transaction, you create a Payment object and 
 Learn more [here](<https://www.judopay.com/docs/v4_1/restful-api/api-reference/>)
 
 */
-public class Payment: Transaction, TransactionPath {
+open class Payment: Transaction, TransactionPath {
     
     /// path variable for this class
-    public static var path: String { get { return "transactions/payments" } }
+    open static var path: String { get { return "transactions/payments" } }
     
     
     /**
@@ -83,14 +83,14 @@ public class Payment: Transaction, TransactionPath {
     
     - Returns: reactive Self
     */
-    public func validate(block: (JudoCompletionBlock)) throws -> Self {
+    open func validate(_ block: @escaping (JudoCompletionBlock)) throws -> Self {
         if (self.card != nil && self.payToken != nil) {
-            throw JudoError(.CardAndTokenError)
+            throw JudoError(.cardAndTokenError)
         } else if self.card == nil && self.payToken == nil {
-            throw JudoError(.CardOrTokenMissingError)
+            throw JudoError(.cardOrTokenMissingError)
         }
         
-        self.APISession?.POST(self.dynamicType.path + "/validate", parameters: self.parameters) { (dict, error) -> Void in
+        self.APISession?.POST(type(of: self).path + "/validate", parameters: self.parameters) { (dict, error) -> Void in
             block(dict, error)
         }
 

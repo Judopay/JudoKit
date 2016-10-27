@@ -53,7 +53,7 @@ class ErrorMessageContentsTests: JudoTestCase {
     let UnknownError = "An unknown error that can occur when making API calls"
     let UserDidCancel = "Received when user cancels the payment journey"
     
-    private func testError(errorCode : JudoErrorCode, expectedTitle: String?, expectedDesc: String?, expectedDevHint: String?) {
+    fileprivate func testError(_ errorCode : JudoErrorCode, expectedTitle: String?, expectedDesc: String?, expectedDevHint: String?) {
         let actual = JudoError(errorCode)
 
         XCTAssertEqual(actual.title,expectedTitle)
@@ -62,66 +62,66 @@ class ErrorMessageContentsTests: JudoTestCase {
     }
     
     func testParameterError() {
-        testError(.ParameterError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.ParameterError)
+        testError(.parameterError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.ParameterError)
     }
 
     func testResponseParseError() {
-        testError(.ResponseParseError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.ResponseParseError)
+        testError(.responseParseError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.ResponseParseError)
     }
     
     func testLuhnValidationError() {
-        testError(.LuhnValidationError, expectedTitle: self.UnableToValidateErrorTitle, expectedDesc: self.UnableToVaildteErrorDesc, expectedDevHint: self.LuhnValidationError)
+        testError(.luhnValidationError, expectedTitle: self.UnableToValidateErrorTitle, expectedDesc: self.UnableToVaildteErrorDesc, expectedDevHint: self.LuhnValidationError)
     }
     
     func testJudoIDInvalidError() {
-        testError(.JudoIDInvalidError, expectedTitle: self.UnableToAcceptErrorTitle, expectedDesc: self.UnableToAcceptErrorDesc, expectedDevHint: self.JudoIDInvalidError)
+        testError(.judoIDInvalidError, expectedTitle: self.UnableToAcceptErrorTitle, expectedDesc: self.UnableToAcceptErrorDesc, expectedDevHint: self.JudoIDInvalidError)
     }
     
     func testSerializationError() {
-        testError(.SerializationError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.SerializationError)
+        testError(.serializationError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.SerializationError)
     }
     
     func testRequestError() {
-        testError(.RequestError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.RequestError)
+        testError(.requestError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.RequestError)
     }
     
     func testTokenSecretError() {
-        testError(.TokenSecretError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.TokenSecretError)
+        testError(.tokenSecretError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.TokenSecretError)
     }
     
     func testCardAndTokenError() {
-        testError(.CardAndTokenError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.CardAndTokenError)
+        testError(.cardAndTokenError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.CardAndTokenError)
     }
     
     func testAmountMissingError() {
-        testError(.AmountMissingError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.AmountMissingError)
+        testError(.amountMissingError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.AmountMissingError)
     }
     
     func testCardOrTokenMissingError() {
-        testError(.CardOrTokenMissingError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.CardOrTokenMissingError)
+        testError(.cardOrTokenMissingError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.CardOrTokenMissingError)
     }
     
     func testPKPaymentMissingError() {
-        testError(.PKPaymentMissingError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.PKPaymentMissingError)
+        testError(.pkPaymentMissingError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.PKPaymentMissingError)
     }
     
     func testJailbrokenDeviceDisallowedError() {
-        testError(.JailbrokenDeviceDisallowedError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.JailbrokenDeviceDisallowedError)
+        testError(.jailbrokenDeviceDisallowedError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.JailbrokenDeviceDisallowedError)
     }
     
     func testInvalidOperationError() {
-        testError(.InvalidOperationError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.InvalidOperationError)
+        testError(.invalidOperationError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.InvalidOperationError)
     }
     
     func testFailed3DSError() {
-        testError(.Failed3DSError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.Failed3DSError)
+        testError(.failed3DSError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.Failed3DSError)
     }
     
     func testUnknownError() {
-        testError(.UnknownError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.UnknownError)
+        testError(.unknownError, expectedTitle: self.UnableToProcessRequestErrorTitle, expectedDesc: self.UnableToProcessRequestErrorDesc, expectedDevHint: self.UnknownError)
     }
     
     func testUserDidCancel() {
-        testError(.UserDidCancel, expectedTitle: nil, expectedDesc: nil, expectedDevHint: self.UserDidCancel)
+        testError(.userDidCancel, expectedTitle: nil, expectedDesc: nil, expectedDevHint: self.UserDidCancel)
     }
 }
