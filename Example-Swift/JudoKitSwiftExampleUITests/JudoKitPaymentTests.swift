@@ -57,7 +57,7 @@ class JudoKitPaymentTests: XCTestCase {
         
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -81,7 +81,7 @@ class JudoKitPaymentTests: XCTestCase {
         
         let cvc2TextField = elementsQuery.secureTextFields["CVC2"]
         cvc2TextField.typeText("524")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -105,7 +105,7 @@ class JudoKitPaymentTests: XCTestCase {
         
         let cidTextField = elementsQuery.secureTextFields["CID"]
         cidTextField.typeText("3469")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -116,7 +116,7 @@ class JudoKitPaymentTests: XCTestCase {
         button.tap()
     }
 }
-
+/*
 extension XCUIElement {
     func forceTapElement() {
         if self.isHittable {
@@ -127,4 +127,4 @@ extension XCUIElement {
             coordinate.tap()
         }
     }
-}
+}*/
