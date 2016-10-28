@@ -383,8 +383,6 @@ public struct JudoKit {
     - parameter cardDetails:    optional dictionary that contains card info
     */
     mutating func initiateAndShow(_ viewController: JudoPayViewController) {
-//        viewController.myView.cardInputField.textField.text = cardDetails?.cardNumber
-//        viewController.myView.expiryDateInputField.textField.text = cardDetails?.formattedEndDate()
         self.activeViewController = viewController
         self.showViewController(UINavigationController(rootViewController: viewController))
     }
