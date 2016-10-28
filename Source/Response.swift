@@ -116,57 +116,6 @@ public struct Response: IteratorProtocol, ExpressibleByArrayLiteral {
     
 }
 
-/*
-/// Response extensions for SequenceType and CollectionType
-extension Response: Sequence, Swift.Collection {
-    /// Returns the position immediately after the given index.
-    ///
-    /// - Parameter i: A valid index of the collection. `i` must be less than
-    ///   `endIndex`.
-    /// - Returns: The index value immediately after `i`.
-    public func index(after i: Int) -> Int {
-        return items[i]
-    }
-
-    
-    public typealias Index = Int
-    
-    /// start index of the sequence
-    public var startIndex: Int {
-        return 0
-    }
-    
-    
-    /// end index of the sequence
-    public var endIndex: Int {
-        return items.endIndex
-    }
-    
-    
-    /**
-     create a subscript for a given index
-     
-     - parameter i: index of subscript
-     
-     - returns: subscript for a given index
-     */
-    public subscript(i: Int) -> TransactionData {
-        return items[i]
-    }
-    
-    
-    /**
-     generator for the TransactionData type
-     
-     - returns: an IndexingGenerator object
-     */
-    public func makeIterator() -> IndexingIterator<[TransactionData]> {
-        return self.items.makeIterator()
-    }
-    
-}*/
-
-
 /**
  **PaymentToken**
  
