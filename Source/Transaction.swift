@@ -237,7 +237,7 @@ open class Transaction: SessionProtocol {
     
     - Returns: reactive self
     */
-    open func card(_ card: Card) -> Self {
+    @discardableResult open func card(_ card: Card) -> Self {
         self.card = card
         return self
     }
@@ -250,7 +250,7 @@ open class Transaction: SessionProtocol {
     
     - Returns: reactive self
     */
-    open func paymentToken(_ token: PaymentToken) -> Self {
+    @discardableResult open func paymentToken(_ token: PaymentToken) -> Self {
         self.payToken = token
         return self
     }
@@ -263,7 +263,7 @@ open class Transaction: SessionProtocol {
     
     - Returns: reactive self
     */
-    open func location(_ location: CLLocationCoordinate2D) -> Self {
+    @discardableResult open func location(_ location: CLLocationCoordinate2D) -> Self {
         self.location = location
         return self
     }
@@ -290,7 +290,7 @@ open class Transaction: SessionProtocol {
     
     - Returns: reactive self
     */
-    open func contact(_ mobileNumber : String?, _ emailAddress : String? = nil) -> Self {
+    @discardableResult open func contact(_ mobileNumber : String?, _ emailAddress : String? = nil) -> Self {
         self.mobileNumber = mobileNumber
         self.emailAddress = emailAddress
         return self
@@ -304,7 +304,7 @@ open class Transaction: SessionProtocol {
     
     - Returns: reactive self
     */
-    open func pkPayment(_ payment: PKPayment) -> Self {
+    @discardableResult open func pkPayment(_ payment: PKPayment) -> Self {
         self.pkPayment = payment
         return self
     }
@@ -317,7 +317,7 @@ open class Transaction: SessionProtocol {
      
      - Returns: reactive self
      */
-    open func apiSession(_ session: Session) -> Self {
+    @discardableResult open func apiSession(_ session: Session) -> Self {
         self.APISession = session
         return self
     }
@@ -336,7 +336,7 @@ open class Transaction: SessionProtocol {
     - Throws: AmountMissingError no amount has been provided
     - Throws: DuplicateTransactionError please provide a new Reference object if this transaction is not a duplicate
     */
-    open func completion(_ block: @escaping JudoCompletionBlock) throws -> Self {
+    @discardableResult open func completion(_ block: @escaping JudoCompletionBlock) throws -> Self {
         
         if self.card != nil && self.payToken != nil {
             throw JudoError(.cardAndTokenError)
@@ -368,7 +368,7 @@ open class Transaction: SessionProtocol {
     
     - Returns: reactive self
     */
-    open func threeDSecure(_ dictionary: JSONDictionary, receiptId: String, block: @escaping JudoCompletionBlock) -> Self {
+    @discardableResult open func threeDSecure(_ dictionary: JSONDictionary, receiptId: String, block: @escaping JudoCompletionBlock) -> Self {
         
         var paymentDetails = JSONDictionary()
         

@@ -105,7 +105,6 @@ public struct Response: IteratorProtocol, ExpressibleByArrayLiteral {
         case _ where !items.isEmpty:
             if indexInSequence < items.count {
                 let element = items[indexInSequence]
-                indexInSequence.advanced(by: 1)
                 return element
             }
             indexInSequence = 0

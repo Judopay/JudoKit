@@ -144,7 +144,7 @@ class PreAuthTests: JudoTestCase {
         
         // When too short
         do {
-            try judo.preAuth(tooShortJudoID, amount: amount, reference: references) // this should fail
+            try _ = judo.preAuth(tooShortJudoID, amount: amount, reference: references) // this should fail
         } catch let error as JudoError {
             // Then
             switch error.code {
@@ -159,7 +159,7 @@ class PreAuthTests: JudoTestCase {
         parameterError = false
         // When too long
         do {
-            try judo.preAuth(tooLongJudoID, amount: amount, reference: references) // this should fail
+            try _ = judo.preAuth(tooLongJudoID, amount: amount, reference: references) // this should fail
         } catch let error as JudoError {
             switch error.code {
             case .judoIDInvalidError, .luhnValidationError:
@@ -173,7 +173,7 @@ class PreAuthTests: JudoTestCase {
         parameterError = false
         // When
         do {
-            try judo.preAuth(luhnInvalidJudoID, amount: amount, reference: references) // this should fail
+            try _ = judo.preAuth(luhnInvalidJudoID, amount: amount, reference: references) // this should fail
         } catch let error as JudoError {
             switch error.code {
             case .judoIDInvalidError, .luhnValidationError:
@@ -193,7 +193,7 @@ class PreAuthTests: JudoTestCase {
         
         // When
         do {
-            try judo.preAuth(myJudoId, amount: amount, reference: references)
+            try _ = judo.preAuth(myJudoId, amount: amount, reference: references)
         } catch {
             XCTFail("exception thrown: \(error)")
         }

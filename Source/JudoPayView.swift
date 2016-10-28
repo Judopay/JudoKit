@@ -288,7 +288,7 @@ open class JudoPayView: UIView {
         self.avsFieldsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 0.0)
         self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.hintLabel, attribute: .bottom, multiplier: 1.0, constant: -self.hintLabel.bounds.height)
         
-        self.securityMessageLabel.isHidden = !(self.theme.showSecurityMessage ?? false)
+        self.securityMessageLabel.isHidden = !(self.theme.showSecurityMessage)
         
         self.startDateInputField.addConstraint(maestroFieldsHeightConstraint!)
         self.billingCountryInputField.addConstraint(avsFieldsHeightConstraint!)
@@ -413,7 +413,7 @@ open class JudoPayView: UIView {
             self.hintLabel.hideHint()
         }
         self.updateSecurityMessagePosition(toggleUp: true)
-        Timer.schedule(3.0, handler: { (timer) -> Void in
+        _ = Timer.schedule(3.0, handler: { (timer) -> Void in
             let hintLabelText = input.hintLabelText()
             if hintLabelText.characters.count > 0
                 && input.textField.text?.characters.count == 0

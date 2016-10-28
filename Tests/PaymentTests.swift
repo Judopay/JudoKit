@@ -142,7 +142,7 @@ class PaymentTests: JudoTestCase {
 
         // When
         do {
-            try judo.payment(tooShortJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
+            try _ = judo.payment(tooShortJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
         } catch let error as JudoError {
             // Then
             switch error.code {
@@ -157,7 +157,7 @@ class PaymentTests: JudoTestCase {
         parameterError = false
         // When
         do {
-            try judo.payment(tooLongJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
+            try _ = judo.payment(tooLongJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
         } catch let error as JudoError {
             switch error.code {
             case .judoIDInvalidError, .luhnValidationError:
@@ -171,7 +171,7 @@ class PaymentTests: JudoTestCase {
         parameterError = false
         // When
         do {
-            try judo.payment(luhnInvalidJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
+            try _ = judo.payment(luhnInvalidJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
         } catch let error as JudoError {
             switch error.code {
             case .judoIDInvalidError, .luhnValidationError:

@@ -30,7 +30,7 @@ class ListTests: JudoTestCase {
     func testJudoListPayments() {
         let expectation = self.expectation(description: "list all payments expectation")
         
-        let payment = judo.list(Payment)
+        let payment = judo.list(Payment.self)
         
         payment.list({ (dict, error) -> () in
             if let error = error {
@@ -49,7 +49,7 @@ class ListTests: JudoTestCase {
         
         let expectation = self.expectation(description: "list all payments for given pagination")
         
-        let payment = judo.list(Payment)
+        let payment = judo.list(Payment.self)
         
         // When
         payment.list(pagination) { (response, error) -> () in
@@ -71,7 +71,7 @@ class ListTests: JudoTestCase {
         
         let expectation = self.expectation(description: "list all preauths expectation")
         
-        let preAuth = judo.list(PreAuth)
+        let preAuth = judo.list(PreAuth.self)
         
         preAuth.list({ (dict, error) -> () in
             if let error = error {

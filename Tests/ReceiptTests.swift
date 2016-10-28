@@ -53,7 +53,7 @@ class ReceiptTests: JudoTestCase {
                 receiptId = respbody!.receiptId
                 
                 do {
-                    try self.judo.receipt(receiptId).completion({ (dict, error) -> () in
+                    try _ = self.judo.receipt(receiptId).completion({ (dict, error) -> () in
                         if let error = error {
                             XCTFail("api call failed with error: \(error)")
                         }
@@ -79,7 +79,7 @@ class ReceiptTests: JudoTestCase {
         let expectation = self.expectation(description: "all receipts fetch expectation")
         
         do {
-            try judo.receipt().completion({ (dict, error) -> () in
+            try _ = judo.receipt().completion({ (dict, error) -> () in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                 }
