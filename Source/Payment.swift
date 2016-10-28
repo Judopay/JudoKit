@@ -24,52 +24,6 @@
 
 import Foundation
 
-
-/**
-When you want to process a payment transaction, you create a Payment object and start adding the necessary information. This transaction supports two types of Payments. You can process payments using a full set of card details, or by referencing a previously processed transaction.
-
-- Card Payment
-    - For payments where you have the full card details including the card number.
-- Token Payment
-    - For processing payments using a saved card (requires the Card token and Consumer token values).
-
-`Transaction` contains all the necessary implementation of Payments and Pre-auths since these are very closely related.
-
-### Card payment
-
-```swift
-    muJudoSession.payment(correctJudoID, amount: amount, reference: references)
-                 .card(card)
-                 .location(location)
-                 .contact(mobileNumber, emailAddress)
-                 .completion({ (data, error) -> () in
-                     if let _ = error {
-                         // failure
-                     } else {
-                         // success
-                     }
-    })
-```
-
-### Token payment
-
-```swift token payment
-    muJudoSession.payment(correctJudoID, amount: amount, reference: references)
-                 .paymentToken(payToken)
-                 .location(location)
-                 .contact(mobileNumber, emailAddress)
-                 .completion({ (data, error) -> () in
-                     if let _ = error {
-                         // failure
-                     } else {
-                         // success
-                     }
-    })
-```
-
-Learn more [here](<https://www.judopay.com/docs/v4_1/restful-api/api-reference/>)
-
-*/
 open class Payment: Transaction, TransactionPath {
     
     /// path variable for this class

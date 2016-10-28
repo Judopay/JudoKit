@@ -24,33 +24,6 @@
 
 import Foundation
 
-
-/** 
-You can get a copy of the receipt for an individual transaction by creating a Receipt Object and calling `.completion(() -> ())` including the receipt ID for the transaction in the path.
-Alternatively, you can receive a list of all the transactions. By default it will return 10 transactions. These results are returned in time-descending order by default, so it will return the latest 10 transactions.
-
-### Receipt by ID
-```swift
-    myJudoSession.receipt(receiptId).completion({ (dict, error) -> () in
-        if let _ = error {
-            // error
-        } else {
-            // success
-        }
-    })
-```
-
-### All receipts
-```swift
-    myJudoSession.receipt(nil).completion({ (dict, error) -> () in
-        if let _ = error {
-            // error
-        } else {
-            // success
-        }
-    })
-```
-*/
 open class Receipt {
     
     /// the receipt ID - nil for a list of all receipts
