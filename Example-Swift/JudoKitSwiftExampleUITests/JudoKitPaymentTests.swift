@@ -105,7 +105,7 @@ class JudoKitPaymentTests: XCTestCase {
         
         let cidTextField = elementsQuery.secureTextFields["CID"]
         cidTextField.typeText("3469")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
