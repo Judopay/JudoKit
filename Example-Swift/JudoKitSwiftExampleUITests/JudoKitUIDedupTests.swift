@@ -56,7 +56,7 @@ class JudoKitUIDedupTests: XCTestCase {
         
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -76,7 +76,7 @@ class JudoKitUIDedupTests: XCTestCase {
         
         let cvv2TextField2 = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField2.typeText("452")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
         
         let button2 = app.buttons["Home"]
         let existsPredicate2 = NSPredicate(format: "exists == 1")

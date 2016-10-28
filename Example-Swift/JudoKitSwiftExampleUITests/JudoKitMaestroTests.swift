@@ -61,7 +61,7 @@ class JudoKitMaestroTests: XCTestCase {
         
         let cvvTextField = elementsQuery.secureTextFields["CVV"]
         cvvTextField.typeText("789")
-        app.navigationBars["Payment"].buttons["Pay"].tap()
+        app.navigationBars["Payment"].buttons["Pay"].forceTapElement()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -99,7 +99,7 @@ class JudoKitMaestroTests: XCTestCase {
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("RG48NL")
 
-        app.navigationBars["Payment"].buttons["Pay"].tap()
+        app.navigationBars["Payment"].buttons["Pay"].forceTapElement()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")

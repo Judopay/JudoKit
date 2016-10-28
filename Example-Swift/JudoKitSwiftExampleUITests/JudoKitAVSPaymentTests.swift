@@ -66,7 +66,7 @@ class JudoKitAVSPaymentTests: XCTestCase {
         
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("TR148PA")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
@@ -98,7 +98,7 @@ class JudoKitAVSPaymentTests: XCTestCase {
         
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("S205EJ")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
@@ -131,7 +131,7 @@ class JudoKitAVSPaymentTests: XCTestCase {
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("NW67BB")
         
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
