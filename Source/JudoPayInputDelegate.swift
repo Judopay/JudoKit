@@ -24,7 +24,6 @@
 
 import Foundation
 
-
 /**
  
  The JudoPayInputDelegate is a delegate protocol that is used to pass information about the state of entering information for making transactions

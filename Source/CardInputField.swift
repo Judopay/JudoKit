@@ -24,7 +24,6 @@
 
 import UIKit
 
-
 /**
  
  The CardInputField is an input field configured to detect, validate and present card numbers of various types of credit cards.
