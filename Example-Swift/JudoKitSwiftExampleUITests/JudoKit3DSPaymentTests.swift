@@ -58,9 +58,9 @@ class JudoKit3DSPaymentTests: XCTestCase {
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("341")
         
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
-        let submitButton = app.navigationBars["Payment"].buttons["Submit"]
+        let submitButton = app.buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
@@ -94,7 +94,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         app.navigationBars["Payment"].buttons["Pay"].tap()
         
-        let submitButton = app.navigationBars["Payment"].buttons["Submit"]
+        let submitButton = app.buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
@@ -128,7 +128,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         app.navigationBars["Payment"].buttons["Pay"].tap()
         
-        let submitButton = app.navigationBars["Payment"].buttons["Submit"]
+        let submitButton = app.buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
@@ -165,7 +165,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         cvvTextField.typeText("784")
         app.navigationBars["Payment"].buttons["Pay"].tap()
         
-        let submitButton = app.navigationBars["Payment"].buttons["Submit"]
+        let submitButton = app.buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
