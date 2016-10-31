@@ -66,12 +66,14 @@ class JudoKitAVSPaymentTests: XCTestCase {
         
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("TR148PA")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        
+        app.navigationBars["Payment"].buttons["Pay"].tap()
+        
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }
@@ -98,12 +100,14 @@ class JudoKitAVSPaymentTests: XCTestCase {
         
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("S205EJ")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+
+        app.navigationBars["Payment"].buttons["Pay"].tap()
+        
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }
@@ -131,13 +135,13 @@ class JudoKitAVSPaymentTests: XCTestCase {
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("NW67BB")
         
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }

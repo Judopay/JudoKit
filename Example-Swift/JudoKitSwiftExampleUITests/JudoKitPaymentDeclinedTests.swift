@@ -57,13 +57,14 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("125")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }
@@ -81,7 +82,8 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         
         let cvc2TextField = elementsQuery.secureTextFields["CVC2"]
         cvc2TextField.typeText("915")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -105,13 +107,14 @@ class JudoKitPaymentDeclinedTests: XCTestCase {
         
         let cidTextField = elementsQuery.secureTextFields["CID"]
         cidTextField.typeText("7654")
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }
