@@ -58,7 +58,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
         
-        app.buttons["Add card"].tap()
+        app.navigationBars["Add card"].buttons["Add"].tap()
         
         let tableQuery = tablesQuery.staticTexts["Token payment"]
         let tableQueryExistsPredicate = NSPredicate(format: "exists == 1")
@@ -71,7 +71,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let cvv2TextField2 = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField2.typeText("452")
         
-        app.navigationBars["Payment"].buttons["Pay"].tap()
+        app.navigationBars["Add card"].buttons["Add"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
@@ -101,7 +101,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let cvvTextField = elementsQuery.secureTextFields["CVV"]
         cvvTextField.typeText("789")
         
-        app.buttons["Add card"].tap()
+        app.navigationBars["Add card"].buttons["Add"].tap()
         
         let tableQuery = tablesQuery.staticTexts["Token payment"]
         let tableQueryExistsPredicate = NSPredicate(format: "exists == 1")
