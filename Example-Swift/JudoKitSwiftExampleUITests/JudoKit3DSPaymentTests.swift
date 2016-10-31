@@ -60,7 +60,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
         
-        let submitButton = app.buttons["Submit"]
+        let submitButton = app.navigationBars["Payment"].buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
@@ -68,7 +68,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         submitButton.tap()
         
-        let button = app.buttons["Home"]
+        let button = app.navigationBars["Payment"].buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
@@ -94,7 +94,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
         
-        let submitButton = app.buttons["Submit"]
+        let submitButton = app.navigationBars["Payment"].buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
@@ -102,7 +102,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         submitButton.tap()
         
-        let button = app.buttons["Home"]
+        let button = app.navigationBars["Payment"].buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
@@ -128,7 +128,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
         
-        let submitButton = app.buttons["Submit"]
+        let submitButton = app.navigationBars["Payment"].buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
@@ -165,7 +165,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         cvvTextField.typeText("784")
         app.navigationBars["Payment"].buttons["Pay"].tap()
         
-        let submitButton = app.buttons["Submit"]
+        let submitButton = app.navigationBars["Payment"].buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: submitExistsPredicate, evaluatedWith: submitButton, handler: nil)
@@ -173,7 +173,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         submitButton.tap()
         
-        let button = app.buttons["Home"]
+        let button = app.navigationBars["Payment"].buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
