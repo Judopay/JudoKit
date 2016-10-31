@@ -71,13 +71,13 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let cvv2TextField2 = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField2.typeText("452")
         
-        app.navigationBars["Add card"].buttons["Add"].tap()
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-        waitForExpectations(timeout: 30, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }
