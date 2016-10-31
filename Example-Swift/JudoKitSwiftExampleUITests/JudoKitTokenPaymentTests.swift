@@ -77,7 +77,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-        waitForExpectations(timeout: 15, handler: nil)
+        waitForExpectations(timeout: 30, handler: nil)
         
         button.tap()
     }
@@ -125,7 +125,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-        waitForExpectations(timeout: 15, handler: nil)
+        waitForExpectations(timeout: 30, handler: nil)
         
         button.tap()
     }
