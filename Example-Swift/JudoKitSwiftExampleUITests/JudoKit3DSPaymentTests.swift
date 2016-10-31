@@ -68,7 +68,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         submitButton.tap()
         
-        let button = app.navigationBars["Payment"].buttons["Home"]
+        let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
@@ -102,7 +102,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         submitButton.tap()
         
-        let button = app.navigationBars["Payment"].buttons["Home"]
+        let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
@@ -173,7 +173,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         submitButton.tap()
         
-        let button = app.navigationBars["Payment"].buttons["Home"]
+        let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
         expectation(for: existsPredicate, evaluatedWith: button, handler: nil)

@@ -91,13 +91,18 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     var judoKitSession = JudoKit(token: token, secret: secret)
     
+    var reference = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.reference = self.getSampleConsumerReference()
         
         self.judoKitSession.theme.acceptedCardNetworks = [Card.Configuration(.visa, 16), Card.Configuration(.masterCard, 16), Card.Configuration(.maestro, 16), Card.Configuration(.amex, 15)]
         
         self.judoKitSession.sandboxed(true)
         
+        self.reference = self.getSampleConsumerReference()
         
         self.judoKitSession.theme.showSecurityMessage = true
         
@@ -208,7 +213,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     // MARK: Operations
     
     func paymentOperation() {
-        guard let ref = Reference(consumerRef: "payment reference") else { return }
+        guard let ref = Reference(consumerRef: self.reference) else { return }
         try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismiss(animated: true, completion: nil)
             if let error = error {
@@ -238,7 +243,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func preAuthOperation() {
-        guard let ref = Reference(consumerRef: "payment reference") else { return }
+        guard let ref = Reference(consumerRef: self.reference) else { return }
         let amount: Amount = "2 GBP"
         try! self.judoKitSession.invokePreAuth(judoId, amount: amount, reference: ref, completion: { (response, error) -> () in
             self.dismiss(animated: true, completion: nil)
@@ -268,7 +273,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func createCardTokenOperation() {
-        guard let ref = Reference(consumerRef: "payment reference") else { return }
+        guard let ref = Reference(consumerRef: self.reference) else { return }
         try! self.judoKitSession.invokeRegisterCard(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
             self.dismiss(animated: true, completion: nil)
             if let error = error {
@@ -293,7 +298,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func repeatPaymentOperation() {
-        if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: "payment reference") {
+        if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: self.reference) {
             try! self.judoKitSession.invokeTokenPayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 self.dismiss(animated: true, completion: nil)
                 if let error = error {
@@ -327,7 +332,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func repeatPreAuthOperation() {
-        if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: "payment reference") {
+        if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: self.reference) {
             try! self.judoKitSession.invokeTokenPreAuth(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 self.dismiss(animated: true, completion: nil)
                 if let error = error {
@@ -436,7 +441,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             self.navigationController?.pushViewController(viewController, animated: true)
         }
         
-        guard let ref = Reference(consumerRef: "consumer Reference") else { return }
+        guard let ref = Reference(consumerRef: self.reference) else { return }
         
         if self.isTransactingApplePayPreAuth {
             try! self.judoKitSession.preAuth(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref).pkPayment(payment).completion(completionBlock)
@@ -447,6 +452,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func getSampleConsumerReference() -> String {
+        return "judoPay-sample-app-swift";
     }
     
 }
