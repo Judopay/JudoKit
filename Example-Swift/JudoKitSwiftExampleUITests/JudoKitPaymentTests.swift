@@ -108,14 +108,6 @@ class JudoKitPaymentTests: XCTestCase {
         let cidTextField = elementsQuery.secureTextFields["CID"]
         cidTextField.typeText("3469")
         
-        /*app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].forceTapElement()
-        
-        let button = app.buttons["Home"]
-        let existsPredicate = NSPredicate(format: "exists == 1")
-        
-        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-        waitForExpectations(timeout: 100, handler: nil)*/
-        
         app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
@@ -125,17 +117,5 @@ class JudoKitPaymentTests: XCTestCase {
         waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
-    }
-}
-
-extension XCUIElement {
-    func forceTapElement() {
-        if self.isHittable {
-            self.tap()
-        }
-        else {
-            let coordinate: XCUICoordinate = self.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
-            coordinate.tap()
-        }
     }
 }
