@@ -92,7 +92,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         let cvv2TextField = elementsQuery.secureTextFields["CVC2"]
         cvv2TextField.typeText("654")
         
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let submitButton = app.navigationBars["Payment"].buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
@@ -126,7 +126,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         let cvv2TextField = elementsQuery.secureTextFields["CID"]
         cvv2TextField.typeText("5464")
         
-        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.buttons["Pay"].tap()
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let submitButton = app.navigationBars["Payment"].buttons["Submit"]
         let submitExistsPredicate = NSPredicate(format: "exists == 1")
