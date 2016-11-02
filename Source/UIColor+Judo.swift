@@ -26,7 +26,7 @@ import Foundation
 
 
 public extension UIColor {
-    
+   
     /**
      Inverse color
      

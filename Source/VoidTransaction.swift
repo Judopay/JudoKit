@@ -24,25 +24,9 @@
 
 import Foundation
 
-
-/**
- A Void transaction is next to a collection the second counterpart to a Pre-authorization transaction. While the Pre-auth transaction reserves funds on a Consumer's card, the Collection initiates the transfer of those reserved funds into your judo account and the Void transaction cancels the previously executed pre-Authorization.
- 
- ### void by ID and amount
- ```swift
-    myJudoSession.void(receiptId, amount: amount).completion({ (dict, error) -> () in
-        if let error = error {
-            // error
-        } else {
-            // success
-        }
-    })
- ```
- 
- */
-public class VoidTransaction: TransactionProcess, TransactionPath {
+open class VoidTransaction: TransactionProcess, TransactionPath {
     
     /// path variable for a collection of a pre-authorization
-    public static var path: String { get { return "/transactions/voids" } }
+    open static var path: String { get { return "/transactions/voids" } }
     
 }

@@ -33,7 +33,7 @@ public let JudoErrorDomain = "com.judopay.error"
  
  The JudoError object holds all the information about errors that occurred within the SDK or at any stage when making a call to the judo API
  */
-public struct JudoError: ErrorType {
+public struct JudoError: Error {
 
     /// The judo error code
     public var code: JudoErrorCode
@@ -86,7 +86,7 @@ public struct JudoError: ErrorType {
             if let errorCode = errorCode as? Int, let judoError = JudoErrorCode(rawValue: errorCode) {
                 self.code = judoError
             } else {
-                self.code = .Unknown
+                self.code = .unknown
             }
             
             self.message = errorMessage as? String
@@ -105,7 +105,7 @@ public struct JudoError: ErrorType {
             self.category = category
             self.details = details
             
-            if code != .Unknown {
+            if code != .unknown {
                 let item = code.messageValues()
                 self.title = item?.0
                 self.message = self.message ?? item?.1
@@ -142,11 +142,11 @@ public struct JudoError: ErrorType {
      
      - returns: a JudoError object
      */
-    public static func fromNSError(error: NSError) -> JudoError {
+    public static func fromNSError(_ error: NSError) -> JudoError {
         if let judoErrorCode = JudoErrorCode(rawValue: error.code) {
             return JudoError(judoErrorCode, dict: error.userInfo as? JSONDictionary)
         } else {
-            return JudoError(.UnknownError, bridgedError: error)
+            return JudoError(.unknownError, bridgedError: error)
         }
     }
     
@@ -172,16 +172,16 @@ public struct JudoError: ErrorType {
         }
         var userInfoDict = [String : AnyObject]()
         if let message = self.message {
-            userInfoDict["message"] = message
+            userInfoDict["message"] = message as AnyObject?
         }
         if let category = self.category {
-            userInfoDict["category"] = category.rawValue
+            userInfoDict["category"] = category.rawValue as AnyObject?
         }
         if let details = self.details {
-            userInfoDict["details"] = details as? AnyObject
+            userInfoDict["details"] = details as AnyObject?
         }
         if let modelErrors = self.details {
-            userInfoDict["modelErrors"] = modelErrors.map({ $0.rawValue }).flatMap({ $0 })
+            userInfoDict["modelErrors"] = modelErrors.map({ $0.rawValue }).flatMap({ $0 }) as AnyObject?
         }
         return NSError(domain: JudoErrorDomain, code: self.code.rawValue, userInfo: userInfoDict)
     }

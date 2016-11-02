@@ -29,10 +29,10 @@ import UIKit
  The LoadingView is a convenience class that is configured to show a block with a activityIndicator and a description text
  
  */
-public class LoadingView: UIView {
+open class LoadingView: UIView {
     
-    private let blockView = UIView()
-    private let activityIndicatorView = UIActivityIndicatorView()
+    fileprivate let blockView = UIView()
+    fileprivate let activityIndicatorView = UIActivityIndicatorView()
     
     let theme: Theme
     
@@ -47,7 +47,7 @@ public class LoadingView: UIView {
      */
     public init(currentTheme: Theme) {
         self.theme = currentTheme
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         self.setupView()
     }
     
@@ -90,7 +90,7 @@ public class LoadingView: UIView {
         self.actionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         self.blockView.backgroundColor = self.theme.getLoadingBlockViewColor()
-        self.activityIndicatorView.activityIndicatorViewStyle = .Gray
+        self.activityIndicatorView.activityIndicatorViewStyle = .gray
         self.actionLabel.textColor = self.theme.getTextColor()
         
         self.blockView.clipsToBounds = true
@@ -101,14 +101,14 @@ public class LoadingView: UIView {
         self.blockView.addSubview(self.activityIndicatorView)
         self.blockView.addSubview(self.actionLabel)
         
-        self.blockView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-<=30-[activity]-25-[label]-<=30-|", options: .AlignAllCenterY, metrics: nil, views: ["activity":self.activityIndicatorView, "label":self.actionLabel]))
-        self.blockView.addConstraint(NSLayoutConstraint(item: self.activityIndicatorView, attribute: .CenterY, relatedBy: .Equal, toItem: self.blockView, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
-        self.blockView.addConstraint(NSLayoutConstraint(item: self.actionLabel, attribute: .CenterY, relatedBy: .Equal, toItem: self.blockView, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
+        self.blockView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-<=30-[activity]-25-[label]-<=30-|", options: .alignAllCenterY, metrics: nil, views: ["activity":self.activityIndicatorView, "label":self.actionLabel]))
+        self.blockView.addConstraint(NSLayoutConstraint(item: self.activityIndicatorView, attribute: .centerY, relatedBy: .equal, toItem: self.blockView, attribute: .centerY, multiplier: 1.0, constant: 0.0))
+        self.blockView.addConstraint(NSLayoutConstraint(item: self.actionLabel, attribute: .centerY, relatedBy: .equal, toItem: self.blockView, attribute: .centerY, multiplier: 1.0, constant: 0.0))
         
-        self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("|-<=30-[block(>=270)]-<=30-|", options: .AlignAllBaseline, metrics: nil, views: ["block":self.blockView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-<=30-[block(>=270)]-<=30-|", options: .alignAllLastBaseline, metrics: nil, views: ["block":self.blockView]))
         
-        self.addConstraint(NSLayoutConstraint(item: self.blockView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 110))
-        self.addConstraint(NSLayoutConstraint(item: self.blockView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1.0, constant: 0.0))
+        self.addConstraint(NSLayoutConstraint(item: self.blockView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 110))
+        self.addConstraint(NSLayoutConstraint(item: self.blockView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0.0))
     }
     
     

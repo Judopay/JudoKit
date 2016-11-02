@@ -24,22 +24,21 @@
 
 import UIKit
 
-
 /**
  
  The CardInputField is an input field configured to detect, validate and present card numbers of various types of credit cards.
  
  */
-public class CardInputField: JudoPayInputField {
+open class CardInputField: JudoPayInputField {
     
     /// The card network that was detected in this field
-    public var cardNetwork: CardNetwork = .Unknown
+    open var cardNetwork: CardNetwork = .unknown
     
     /// if it is a token payment, different validation criteria apply
-    public var isTokenPayment: Bool = false
+    open var isTokenPayment: Bool = false
     
     override func setupView() {
-        self.textField.secureTextEntry = true
+        self.textField.isSecureTextEntry = true
         super.setupView()
     }
     
@@ -54,18 +53,18 @@ public class CardInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a textfield
     */
-    public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // Only handle delegate calls for own text field
         guard textField == self.textField else { return false }
         
-        if string.characters.count > 0 && self.textField.secureTextEntry {
-            self.textField.secureTextEntry = false
+        if string.characters.count > 0 && self.textField.isSecureTextEntry {
+            self.textField.isSecureTextEntry = false
         }
         
         // Get old and new text
         let oldString = textField.text!
-        let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        let newString = (oldString as NSString).replacingCharacters(in: range, with: string)
         
         if newString.characters.count == 0 || string.characters.count == 0 {
             return true
@@ -95,7 +94,7 @@ public class CardInputField: JudoPayInputField {
     
     - returns: true if valid input
     */
-    public override func isValid() -> Bool {
+    open override func isValid() -> Bool {
         return self.isTokenPayment || self.textField.text?.isCardNumberValid() ?? false
     }
     
@@ -105,7 +104,7 @@ public class CardInputField: JudoPayInputField {
      
      - parameter textField: the textfield of which the content has changed
      */
-    public override func textFieldDidChangeValue(textField: UITextField) {
+    open override func textFieldDidChangeValue(_ textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
         self.didChangeInputText()
@@ -118,14 +117,14 @@ public class CardInputField: JudoPayInputField {
             self.delegate?.cardInput(self, error: error as! JudoError)
         }
         
-        let lowestNumber = self.theme.acceptedCardNetworks.filter({ $0.cardNetwork == self.textField.text?.cardNetwork() }).sort(<)
+        let lowestNumber = self.theme.acceptedCardNetworks.filter({ $0.cardNetwork == self.textField.text?.cardNetwork() }).sorted(by: <)
         
-        if let textCount = textField.text?.stripped.characters.count where textCount == lowestNumber.first?.cardLength {
+        if let textCount = textField.text?.stripped.characters.count , textCount == lowestNumber.first?.cardLength {
             if textField.text!.isCardNumberValid() {
                 self.delegate?.cardInput(self, didFindValidNumber: textField.text!)
                 self.dismissError()
             } else {
-                self.delegate?.cardInput(self, error: JudoError(.InvalidCardNumber, "Check card number"))
+                self.delegate?.cardInput(self, error: JudoError(.invalidCardNumber, "Check card number"))
             }
         }
         
@@ -137,7 +136,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: an Attributed String that is the placeholder of the receiver
      */
-    public override func placeholder() -> NSAttributedString? {
+    open override func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
     }
     
@@ -147,7 +146,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: true if inputField shows a Logo
      */
-    public override func containsLogo() -> Bool {
+    open override func containsLogo() -> Bool {
         return true
     }
     
@@ -157,7 +156,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: an optional CardLogoView
      */
-    public override func logoView() -> CardLogoView? {
+    open override func logoView() -> CardLogoView? {
         return CardLogoView(type: self.cardNetwork.cardLogoType())
     }
     
@@ -167,7 +166,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: a string that is the title of the receiver
      */
-    public override func title() -> String {
+    open override func title() -> String {
         return "Card number"
     }
     
@@ -177,7 +176,7 @@ public class CardInputField: JudoPayInputField {
      
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */
-    public override func hintLabelText() -> String {
+    open override func hintLabelText() -> String {
         return "Long card number"
     }
 

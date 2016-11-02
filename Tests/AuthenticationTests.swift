@@ -54,7 +54,7 @@ class AuthenticationTests: JudoTestCase {
         
         let myInvalidJudoSession = JudoKit(token: invalidToken, secret: invalidSecret)
         
-        let expectation = self.expectationWithDescription("testTransactionInvalidTokenSecretNoPaymentMethod")
+        let expectation = self.expectation(description: "testTransactionInvalidTokenSecretNoPaymentMethod")
         
         do {
             // When I make a transaction
@@ -71,7 +71,7 @@ class AuthenticationTests: JudoTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
         
     }
     
@@ -85,7 +85,7 @@ class AuthenticationTests: JudoTestCase {
         
         let myInvalidJudoSession = JudoKit(token: invalidToken, secret: invalidSecret)
         
-        let expectation = self.expectationWithDescription("testTransactionInvalidTokenSecretValidCard")
+        let expectation = self.expectation(description: "testTransactionInvalidTokenSecretValidCard")
         
         do {
             // When I make a transaction
@@ -93,7 +93,7 @@ class AuthenticationTests: JudoTestCase {
             
             try payment.completion { (response, error) in
                 // Then an error is returned
-                XCTAssertEqual(error!.code, JudoErrorCode.AuthenticationFailure)
+                XCTAssertEqual(error!.code, JudoErrorCode.authenticationFailure)
                 expectation.fulfill()
             }
             
@@ -103,7 +103,7 @@ class AuthenticationTests: JudoTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     
@@ -112,7 +112,7 @@ class AuthenticationTests: JudoTestCase {
         // And I have invalid token and secret
         let myLuhnValidJudoId = "1000009"
         
-        let expectation = self.expectationWithDescription("testTransactionInvalidTokenSecretValidCard")
+        let expectation = self.expectation(description: "testTransactionInvalidTokenSecretValidCard")
         
         do {
             // When I make a transaction
@@ -120,7 +120,7 @@ class AuthenticationTests: JudoTestCase {
             
             try payment.completion { (response, error) in
                 // Then an error is returned
-                XCTAssertEqual(error!.code, JudoErrorCode.AccountLocationNotFound)
+                XCTAssertEqual(error!.code, JudoErrorCode.accountLocationNotFound)
                 expectation.fulfill()
             }
             
@@ -130,7 +130,7 @@ class AuthenticationTests: JudoTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     
@@ -139,7 +139,7 @@ class AuthenticationTests: JudoTestCase {
         // And I have a valid judo ID
         let payment = try! judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
         
-        let expectation = self.expectationWithDescription("testValidTransaction")
+        let expectation = self.expectation(description: "testValidTransaction")
         
         // When I submit any valid transaction with the valid judo ID
         try! payment.completion { (response, error) in
@@ -147,14 +147,14 @@ class AuthenticationTests: JudoTestCase {
             // Then I receive a valid transaction response
             XCTAssertNotNil(response)
             
-            XCTAssertNotNil(response?.first)
+            XCTAssertNotNil(response?.items.first)
             
             XCTAssertNil(error)
             
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
 }

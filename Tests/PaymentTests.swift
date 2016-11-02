@@ -49,14 +49,14 @@ class PaymentTests: JudoTestCase {
             payment.card(validVisaTestCard)
             
             // Then I should be able to make a payment
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try payment.completion({ (response, error) -> () in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                 }
                 XCTAssertNotNil(response)
-                XCTAssertNotNil(response?.first)
+                XCTAssertNotNil(response?.items.first)
                 expectation.fulfill()
             })
             
@@ -66,7 +66,7 @@ class PaymentTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -79,12 +79,12 @@ class PaymentTests: JudoTestCase {
             payment.card(validVisaTestCard)
             
             // Then I should receive an error
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try payment.completion({ (response, error) -> () in
                 XCTAssertNil(response)
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
+                XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
                 //This should be three. This is a known bug with the platform returning an uneeded extra model error about amount formattting.
                 XCTAssertEqual(error?.details?.count, 4)
                 
@@ -97,7 +97,7 @@ class PaymentTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -110,12 +110,12 @@ class PaymentTests: JudoTestCase {
             payment.card(validVisaTestCard)
             
             // Then I should receive an error
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try payment.completion({ (response, error) -> () in
                 XCTAssertNil(response)
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
+                XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
                 
                 XCTAssertEqual(error?.details?.count, 2)
                 
@@ -128,7 +128,7 @@ class PaymentTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -142,11 +142,11 @@ class PaymentTests: JudoTestCase {
 
         // When
         do {
-            try judo.payment(tooShortJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
+            try _ = judo.payment(tooShortJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
         } catch let error as JudoError {
             // Then
             switch error.code {
-            case .JudoIDInvalidError, .LuhnValidationError:
+            case .judoIDInvalidError, .luhnValidationError:
                 parameterError = true
             default:
                 XCTFail("exception thrown: \(error)")
@@ -157,10 +157,10 @@ class PaymentTests: JudoTestCase {
         parameterError = false
         // When
         do {
-            try judo.payment(tooLongJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
+            try _ = judo.payment(tooLongJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
         } catch let error as JudoError {
             switch error.code {
-            case .JudoIDInvalidError, .LuhnValidationError:
+            case .judoIDInvalidError, .luhnValidationError:
                 parameterError = true
             default:
                 XCTFail("exception thrown: \(error)")
@@ -171,10 +171,10 @@ class PaymentTests: JudoTestCase {
         parameterError = false
         // When
         do {
-            try judo.payment(luhnInvalidJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
+            try _ = judo.payment(luhnInvalidJudoID, amount: oneGBPAmount, reference: validReference) // this should fail
         } catch let error as JudoError {
             switch error.code {
-            case .JudoIDInvalidError, .LuhnValidationError:
+            case .judoIDInvalidError, .luhnValidationError:
                 parameterError = true
             default:
                 XCTFail("exception thrown: \(error)")
@@ -194,13 +194,13 @@ class PaymentTests: JudoTestCase {
         
         let location = CLLocationCoordinate2D(latitude: 0, longitude: 65)
         
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
         // When
         do {
             let makePayment = try judo.payment(myJudoId, amount: amount, reference: references).card(card).location(location).contact(mobileNumber, emailAddress).validate { dict, error in
                 if let error = error {
-                    XCTAssertEqual(error.code, JudoErrorCode.Validation_Passed)
+                    XCTAssertEqual(error.code, JudoErrorCode.validation_Passed)
                 } else {
                     XCTFail("api call failed with error: \(error)")
                 }
@@ -212,7 +212,7 @@ class PaymentTests: JudoTestCase {
         } catch {
             XCTFail("exception thrown: \(error)")
         }
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
         
     }
 

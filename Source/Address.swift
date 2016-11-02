@@ -32,17 +32,17 @@ import Foundation
  */
 public enum BillingCountry: Int {
     /// United Kingdom
-    case UK
+    case uk
     /// United States of America
-    case USA
+    case usa
     /// Canada
-    case Canada
+    case canada
     /// Other
-    case Other
+    case other
     
     
     /// Simple helper to receive all values of the struct as an array
-    public static let allValues = [UK, USA, Canada, Other]
+    public static let allValues = [uk, usa, canada, other]
     
     
     /**
@@ -52,13 +52,13 @@ public enum BillingCountry: Int {
      */
     public func ISOCode() -> Int? {
         switch self {
-        case UK:
+        case .uk:
             return 826
-        case USA:
+        case .usa:
             return 840
-        case Canada:
+        case .canada:
             return 124
-        case Other:
+        case .other:
             return nil
         }
     }
@@ -71,9 +71,9 @@ public enum BillingCountry: Int {
      */
     public func titleDescription() -> String {
         switch self {
-        case .USA:
+        case .usa:
             return "ZIP code"
-        case .Canada:
+        case .canada:
             return "Postal code"
         default:
             return "Postcode"
@@ -88,13 +88,13 @@ public enum BillingCountry: Int {
      */
     public func title() -> String {
         switch self {
-        case .USA:
+        case .usa:
             return "USA"
-        case .Canada:
+        case .canada:
             return "Canada"
-        case .UK:
+        case .uk:
             return "UK"
-        case .Other:
+        case .other:
             return "Other"
         }
     }

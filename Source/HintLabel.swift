@@ -23,9 +23,29 @@
 //  SOFTWARE.
 
 import UIKit
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 /// Label that sits below the payment entry form, showing alerts and hints
-public class HintLabel: UILabel {
+open class HintLabel: UILabel {
     /// The alert text if an alert occured
     var alertText: NSAttributedString?
     /// The hint text if a hint is being shown
@@ -43,7 +63,7 @@ public class HintLabel: UILabel {
      */
     public init(currentTheme: Theme) {
         self.theme = currentTheme
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
     }
     
     
@@ -62,7 +82,7 @@ public class HintLabel: UILabel {
     /**
      a function that will return true if any of the texts is set
      */
-    public func isActive() -> Bool {
+    open func isActive() -> Bool {
         return alertText?.length > 0 || hintText?.length > 0
     }
     
@@ -72,7 +92,7 @@ public class HintLabel: UILabel {
      
      - parameter text: The hint text string to show
      */
-    public func showHint(text: String) {
+    open func showHint(_ text: String) {
         self.hintText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:self.theme.getTextColor()])
         if self.alertText == nil {
             self.addAnimation()
@@ -87,10 +107,10 @@ public class HintLabel: UILabel {
      
      - parameter text: The alert text string to show
      */
-    public func showAlert(text: String) {
+    open func showAlert(_ text: String) {
         self.addAnimation()
         
-        self.alertText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:UIColor.redColor()])
+        self.alertText = NSAttributedString(string: text, attributes: [NSForegroundColorAttributeName:UIColor.red])
         self.attributedText = self.alertText
     }
     
@@ -98,7 +118,7 @@ public class HintLabel: UILabel {
     /**
     Hide the currently visible hint text and show the alert text if available
      */
-    public func hideHint() {
+    open func hideHint() {
         self.addAnimation()
         
         self.hintText = nil
@@ -109,7 +129,7 @@ public class HintLabel: UILabel {
     /**
      Hide the currently visible alert text and show the hint text if available
      */
-    public func hideAlert() {
+    open func hideAlert() {
         self.addAnimation()
         
         self.alertText = nil
@@ -120,12 +140,12 @@ public class HintLabel: UILabel {
     /**
      Helper to show/hide/transition between texts
      */
-    public func addAnimation() {
+    open func addAnimation() {
         let animation = CATransition()
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
         animation.type = kCATransitionFade
         animation.duration = 0.5
-        self.layer.addAnimation(animation, forKey: "kCATransitionFade")
+        self.layer.add(animation, forKey: "kCATransitionFade")
     }
     
 }

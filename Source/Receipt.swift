@@ -24,39 +24,12 @@
 
 import Foundation
 
-
-/** 
-You can get a copy of the receipt for an individual transaction by creating a Receipt Object and calling `.completion(() -> ())` including the receipt ID for the transaction in the path.
-Alternatively, you can receive a list of all the transactions. By default it will return 10 transactions. These results are returned in time-descending order by default, so it will return the latest 10 transactions.
-
-### Receipt by ID
-```swift
-    myJudoSession.receipt(receiptId).completion({ (dict, error) -> () in
-        if let _ = error {
-            // error
-        } else {
-            // success
-        }
-    })
-```
-
-### All receipts
-```swift
-    myJudoSession.receipt(nil).completion({ (dict, error) -> () in
-        if let _ = error {
-            // error
-        } else {
-            // success
-        }
-    })
-```
-*/
-public class Receipt {
+open class Receipt {
     
     /// the receipt ID - nil for a list of all receipts
-    private (set) var receiptId: String?
+    fileprivate (set) var receiptId: String?
     /// The current Session to access the Judo API
-    public var APISession: Session?
+    open var APISession: Session?
     
     /**
     Initialization for a Receipt Object
@@ -74,8 +47,8 @@ public class Receipt {
         self.receiptId = receiptId
 
         // validate receiptId format
-        if let recID = receiptId where !recID.isLuhnValid() {
-            throw JudoError(.LuhnValidationError)
+        if let recID = receiptId , !recID.isLuhnValid() {
+            throw JudoError(.luhnValidationError)
         }
     }
     
@@ -87,7 +60,7 @@ public class Receipt {
      
      - Returns: reactive self
      */
-    public func apiSession(session: Session) -> Self {
+    open func apiSession(_ session: Session) -> Self {
         self.APISession = session
         return self
     }
@@ -100,7 +73,7 @@ public class Receipt {
     
     - Returns: reactive self
     */
-    public func completion(block: JudoCompletionBlock) -> Self {
+    open func completion(_ block: @escaping JudoCompletionBlock) -> Self {
         var path = "transactions"
 
         if let rec = self.receiptId {
@@ -122,7 +95,7 @@ public class Receipt {
     - Parameter pagination: The offset, number of items and order in which to return the items
     - Parameter block: a completion block that is called when the request finishes
     */
-    public func list(pagination: Pagination, block: JudoCompletionBlock) {
+    open func list(_ pagination: Pagination, block: @escaping JudoCompletionBlock) {
         let path = "transactions?pageSize=\(pagination.pageSize)&offset=\(pagination.offset)&sort=\(pagination.sort.rawValue)"
         self.APISession?.GET(path, parameters: nil) { (dictionary, error) -> () in
             block(dictionary, error)

@@ -37,17 +37,17 @@ import Foundation
  */
 public enum JudoErrorCategory: Int {
     /// Unknown
-    case Unknown = 0
+    case unknown = 0
     /// RequestError
-    case RequestError = 1
+    case requestError = 1
     /// ModelError
-    case ModelError = 2
+    case modelError = 2
     /// ConfigError
-    case ConfigError = 3
+    case configError = 3
     /// ProcessingError
-    case ProcessingError = 4
+    case processingError = 4
     /// ExceptionError
-    case ExceptionError = 5
+    case exceptionError = 5
     
     
     /**
@@ -57,17 +57,17 @@ public enum JudoErrorCategory: Int {
      */
     public func stringValue() -> String {
         switch self {
-        case Unknown:
+        case .unknown:
             return "Unknown"
-        case RequestError:
+        case .requestError:
             return "RequestError"
-        case ModelError:
+        case .modelError:
             return "ModelError"
-        case ConfigError:
+        case .configError:
             return "ConfigError"
-        case ProcessingError:
+        case .processingError:
             return "ProcessingError"
-        case ExceptionError:
+        case .exceptionError:
             return "ExceptionError"
         }
     }

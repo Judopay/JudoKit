@@ -25,18 +25,18 @@
 import Foundation
 
 /// Superclass Helper for Collection, Void and Refund
-public class TransactionProcess {
+open class TransactionProcess {
     
     /// The receipt ID for a collection, void or refund
-    public private (set) var receiptId: String
+    open fileprivate (set) var receiptId: String
     /// The amount of the collection, void or refund
-    public private (set) var amount: Amount
+    open fileprivate (set) var amount: Amount
     /// The payment reference String for a collection, void or refund
-    public private (set) var paymentReference: String = ""
+    open fileprivate (set) var paymentReference: String = ""
     /// Device identification for this transaction to prevent fraud
-    public private (set) var deviceSignal: JSONDictionary?
+    open fileprivate (set) var deviceSignal: JSONDictionary?
     /// The current Session to access the Judo API
-    public var APISession: Session?
+    open var APISession: Session?
     
     
     /**
@@ -52,15 +52,15 @@ public class TransactionProcess {
         self.receiptId = receiptId
         self.amount = amount
         
-        guard let uuidString = UIDevice.currentDevice().identifierForVendor?.UUIDString else {
-            throw JudoError(.UnknownError)
+        guard let uuidString = UIDevice.current.identifierForVendor?.uuidString else {
+            throw JudoError(.unknownError)
         }
-        let finalString = String((uuidString + String(NSDate())).characters.filter { ![":", "-", "+"].contains(String($0)) }).stringByReplacingOccurrencesOfString(" ", withString: "")
-        self.paymentReference = finalString.substringToIndex(finalString.endIndex.advancedBy(-4))
+        let finalString = String((uuidString + String(describing: Date())).characters.filter { ![":", "-", "+"].contains(String($0)) }).replacingOccurrences(of: " ", with: "")
+        self.paymentReference = finalString.substring(to: finalString.characters.index(finalString.endIndex, offsetBy: -4))
         
         // Luhn check the receipt ID
         if !receiptId.isLuhnValid() {
-            throw JudoError(.LuhnValidationError)
+            throw JudoError(.luhnValidationError)
         }
     }
     
@@ -72,7 +72,7 @@ public class TransactionProcess {
      
      - Returns: reactive self
      */
-    public func apiSession(session: Session) -> Self {
+    open func apiSession(_ session: Session) -> Self {
         self.APISession = session
         return self
     }
@@ -85,7 +85,7 @@ public class TransactionProcess {
      
      - Returns: reactive self
      */
-    public func deviceSignal(deviceSignal: JSONDictionary) -> Self {
+    open func deviceSignal(_ deviceSignal: JSONDictionary) -> Self {
         self.deviceSignal = deviceSignal
         return self
     }
@@ -98,7 +98,7 @@ public class TransactionProcess {
      
      - Returns: reactive self
      */
-    public func completion(block: JudoCompletionBlock) -> Self {
+    open func completion(_ block: @escaping JudoCompletionBlock) -> Self {
         
         guard let parameters = self.APISession?.progressionParameters(self.receiptId, amount: self.amount, paymentReference: self.paymentReference, deviceSignal: self.deviceSignal) else { return self }
         
@@ -115,8 +115,8 @@ public class TransactionProcess {
      
      - returns: the rest api access path of the current class
      */
-    public func path() -> String {
-        return (self.dynamicType as! TransactionPath.Type).path
+    open func path() -> String {
+        return (type(of: self) as! TransactionPath.Type).path
     }
     
 }

@@ -66,12 +66,14 @@ class JudoKitAVSPaymentTests: XCTestCase {
         
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("TR148PA")
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+        
+        app.navigationBars["Payment"].buttons["Pay"].tap()
+        
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(10, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }
@@ -98,12 +100,14 @@ class JudoKitAVSPaymentTests: XCTestCase {
         
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("S205EJ")
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+
+        app.navigationBars["Payment"].buttons["Pay"].tap()
+        
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(10, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }
@@ -131,13 +135,13 @@ class JudoKitAVSPaymentTests: XCTestCase {
         let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
         postCodeTextField.typeText("NW67BB")
         
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(10, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
     }

@@ -48,14 +48,14 @@ class RegisterCardTests: JudoTestCase {
             payment.card(validVisaTestCard)
             
             // Then I should be able to register a card
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try payment.completion({ (response, error) -> () in
                 if let error = error {
                     XCTFail("api call failed with error: \(error)")
                 }
                 XCTAssertNotNil(response)
-                XCTAssertNotNil(response?.first)
+                XCTAssertNotNil(response?.items.first)
                 expectation.fulfill()
             })
             
@@ -65,7 +65,7 @@ class RegisterCardTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -78,12 +78,12 @@ class RegisterCardTests: JudoTestCase {
             payment.card(validVisaTestCard)
             
             // Then I should receive an error
-            let expectation = self.expectationWithDescription("payment expectation")
+            let expectation = self.expectation(description: "payment expectation")
             
             try payment.completion({ (response, error) -> () in
                 XCTAssertNil(response)
                 XCTAssertNotNil(error)
-                XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
+                XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
                 
                 XCTAssertEqual(error?.details?.count, 2)
                 
@@ -96,7 +96,7 @@ class RegisterCardTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
