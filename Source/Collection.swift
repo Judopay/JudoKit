@@ -24,25 +24,9 @@
 
 import Foundation
 
-
-/** 
-A Collection transaction is the counterpart to a Pre-authorization transaction. While the Pre-auth transaction reserves funds on a Consumer's card, the Collection initiates the transfer of those reserved funds into your judo account.
-
-### collection by ID and amount
-```swift
-    muJudoSession.collection(receiptId, amount: amount).completion({ (dict, error) -> () in
-        if let error = error {
-            // error
-        } else {
-            // success
-        }
-    })
-```
-
-*/
-public class Collection: TransactionProcess, TransactionPath {
+open class Collection: TransactionProcess, TransactionPath {
     
     /// path variable for a collection of a pre-authorization
-    public static var path: String { get { return "/transactions/collections" } }
+    open static var path: String { get { return "/transactions/collections" } }
     
 }

@@ -24,6 +24,36 @@
 
 import UIKit
 
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
+
 
 /**
 The DateTextField allows two different modes of input.
@@ -33,9 +63,9 @@ The DateTextField allows two different modes of input.
 */
 public enum DateInputType {
     /// DateInputTypePicker using a UIPicker as an input method
-    case Picker
+    case picker
     /// DateInputTypeText using a Keyboard as an input method
-    case Text
+    case text
 }
 
 /**
@@ -43,7 +73,7 @@ public enum DateInputType {
  The DateInputField is an input field configured to detect, validate and dates that are set to define a start or end date of various types of credit cards.
  
  */
-public class DateInputField: JudoPayInputField {
+open class DateInputField: JudoPayInputField {
     
     
     /// The datePicker showing months and years to pick from for expiry or start date input
@@ -51,20 +81,20 @@ public class DateInputField: JudoPayInputField {
     
     
     /// The date formatter that shows the date in the same way it is written on a credit card
-    private let dateFormatter: NSDateFormatter = {
-        let formatter = NSDateFormatter()
+    fileprivate let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
         formatter.dateFormat = "MM/yy"
         return formatter
     }()
     
     /// The current year on a Gregorian calendar
-    private let currentYear = NSCalendar.currentCalendar().component(.Year, fromDate: NSDate())
+    fileprivate let currentYear = (Calendar.current as NSCalendar).component(.year, from: Date())
     /// The current month on a Gregorian calendar
-    private let currentMonth = NSCalendar.currentCalendar().component(.Month, fromDate: NSDate())
+    fileprivate let currentMonth = (Calendar.current as NSCalendar).component(.month, from: Date())
     
     
     /// Boolean stating whether input field should identify as a start or end date
-    public var isStartDate: Bool = false {
+    open var isStartDate: Bool = false {
         didSet {
             self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
         }
@@ -72,19 +102,19 @@ public class DateInputField: JudoPayInputField {
     
     
     /// Variable defining the input type (text or picker)
-    public var dateInputType: DateInputType = .Text {
+    open var dateInputType: DateInputType = .text {
         didSet {
             switch dateInputType {
-            case .Picker:
+            case .picker:
                 self.textField.inputView = self.datePicker
                 let month = NSString(format: "%02i", currentMonth)
                 let year = NSString(format: "%02i", currentYear - 2000) // FIXME: not quite happy with this, must be a better way
                 self.textField.text = "\(month)/\(year)"
                 self.datePicker.selectRow(currentMonth - 1, inComponent: 0, animated: false)
                 break
-            case .Text:
+            case .text:
                 self.textField.inputView = nil
-                self.textField.keyboardType = .NumberPad
+                self.textField.keyboardType = .numberPad
             }
         }
     }
@@ -103,7 +133,7 @@ public class DateInputField: JudoPayInputField {
         self.datePicker.delegate = self
         self.datePicker.dataSource = self
         
-        if self.dateInputType == .Picker {
+        if self.dateInputType == .picker {
             self.textField.inputView = self.datePicker
             let month = NSString(format: "%02i", currentMonth)
             let year = NSString(format: "%02i", currentYear - 2000)
@@ -125,15 +155,15 @@ public class DateInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a textfield
     */
-    public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         // Only handle calls if textinput is selected
-        guard self.dateInputType == .Text else { return true }
+        guard self.dateInputType == .text else { return true }
         
         // Only handle delegate calls for own textfield
         guard textField == self.textField else { return false }
         
         // Get old and new text
-        let newString = (textField.text! as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
         if newString.characters.count == 0 {
             return true
@@ -156,7 +186,7 @@ public class DateInputField: JudoPayInputField {
             return newString.characters.last == "/"
         } else if newString.characters.count == 4 {
             // FIXME: need to make sure that number is numeric
-            let deciYear = Int((Double(NSCalendar.currentCalendar().component(.Year, fromDate: NSDate()) - 2000) / 10.0))
+            let deciYear = Int((Double((Calendar.current as NSCalendar).component(.year, from: Date()) - 2000) / 10.0))
             let lastChar = Int(String(newString.characters.last!))
             
             if self.isStartDate {
@@ -168,7 +198,7 @@ public class DateInputField: JudoPayInputField {
         } else if newString.characters.count == 5 {
             return true
         } else {
-            self.delegate?.dateInput(self, error: JudoError(.InputLengthMismatchError))
+            self.delegate?.dateInput(self, error: JudoError(.inputLengthMismatchError))
             return false
         }
     }
@@ -181,16 +211,16 @@ public class DateInputField: JudoPayInputField {
     
     - returns: true if valid input
     */
-    public override func isValid() -> Bool {
-        guard let dateString = textField.text where dateString.characters.count == 5,
-            let beginningOfMonthDate = self.dateFormatter.dateFromString(dateString) else { return false }
+    open override func isValid() -> Bool {
+        guard let dateString = textField.text , dateString.characters.count == 5,
+            let beginningOfMonthDate = self.dateFormatter.date(from: dateString) else { return false }
         if self.isStartDate {
-            let minimumDate = NSDate().dateByAddingYears(-10)
-            return beginningOfMonthDate.compare(NSDate()) == .OrderedAscending && beginningOfMonthDate.compare(minimumDate!) == .OrderedDescending
+            let minimumDate = Date().dateByAddingYears(-10)
+            return beginningOfMonthDate.compare(Date()) == .orderedAscending && beginningOfMonthDate.compare(minimumDate!) == .orderedDescending
         } else {
             let endOfMonthDate = beginningOfMonthDate.dateAtTheEndOfMonth()
-            let maximumDate = NSDate().dateByAddingYears(10)
-            return endOfMonthDate.compare(NSDate()) == .OrderedDescending && endOfMonthDate.compare(maximumDate!) == .OrderedAscending
+            let maximumDate = Date().dateByAddingYears(10)
+            return endOfMonthDate.compare(Date()) == .orderedDescending && endOfMonthDate.compare(maximumDate!) == .orderedAscending
         }
     }
     
@@ -200,13 +230,13 @@ public class DateInputField: JudoPayInputField {
      
      - parameter textField: the textfield of which the content has changed
      */
-    public override func textFieldDidChangeValue(textField: UITextField) {
+    open override func textFieldDidChangeValue(_ textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
         self.didChangeInputText()
         
-        guard let text = textField.text where text.characters.count == 5 else { return }
-        if self.dateFormatter.dateFromString(text) == nil { return }
+        guard let text = textField.text , text.characters.count == 5 else { return }
+        if self.dateFormatter.date(from: text) == nil { return }
         
         if self.isValid() {
             self.delegate?.dateInput(self, didFindValidDate: textField.text!)
@@ -215,7 +245,7 @@ public class DateInputField: JudoPayInputField {
             if self.isStartDate {
                 errorMessage = "Check start date"
             }
-            self.delegate?.dateInput(self, error: JudoError(.InvalidEntry, errorMessage))
+            self.delegate?.dateInput(self, error: JudoError(.invalidEntry, errorMessage))
         }
     }
     
@@ -225,7 +255,7 @@ public class DateInputField: JudoPayInputField {
      
      - returns: an Attributed String that is the placeholder of the receiver
      */
-    public override func placeholder() -> NSAttributedString? {
+    open override func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
     }
     
@@ -235,7 +265,7 @@ public class DateInputField: JudoPayInputField {
      
      - returns: a string that is the title of the receiver
      */
-    public override func title() -> String {
+    open override func title() -> String {
         return isStartDate ? "Start date" : "Expiry date"
     }
     
@@ -245,7 +275,7 @@ public class DateInputField: JudoPayInputField {
      
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */
-    public override func hintLabelText() -> String {
+    open override func hintLabelText() -> String {
         return "MM/YY"
     }
 
@@ -262,7 +292,7 @@ extension DateInputField: UIPickerViewDataSource {
     
     - returns: The number of components in the pickerView
     */
-    public func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    public func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
     
@@ -275,7 +305,7 @@ extension DateInputField: UIPickerViewDataSource {
      
      - returns: number of rows in component
      */
-    public func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return component == 0 ? 12 : 11
     }
 
@@ -294,7 +324,7 @@ extension DateInputField: UIPickerViewDelegate {
     
     - returns: content of a given component and row
     */
-    public func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    public func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch component {
         case 0:
             return NSString(format: "%02i", row + 1) as String
@@ -313,16 +343,16 @@ extension DateInputField: UIPickerViewDelegate {
      - parameter row:        The row
      - parameter component:  The component
      */
-    public func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    public func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // Need to use NSString because Precision String Format Specifier is easier this way
         if component == 0 {
             let month = NSString(format: "%02i", row + 1)
             let oldDateString = self.textField.text!
-            let year = oldDateString.substringFromIndex(oldDateString.endIndex.advancedBy(-2))
+            let year = oldDateString.substring(from: oldDateString.characters.index(oldDateString.endIndex, offsetBy: -2))
             self.textField.text = "\(month)/\(year)"
         } else if component == 1 {
             let oldDateString = self.textField.text!
-            let month = oldDateString.substringToIndex(oldDateString.startIndex.advancedBy(2))
+            let month = oldDateString.substring(to: oldDateString.characters.index(oldDateString.startIndex, offsetBy: 2))
             let year = NSString(format: "%02i", (self.isStartDate ? currentYear - row : currentYear + row) - 2000)
             self.textField.text = "\(month)/\(year)"
         }

@@ -24,38 +24,9 @@
 
 import Foundation
 
-
-/**
-When you want to register a card, you create a RegisterCard object and start adding the necessary information. This transaction only supports one kind of registration. You have to do this using a full set of card details.
-
-- Card registration
-- For registrations where you have the full card details including the card number.
-
-[`Transaction`](Transaction) contains all the necessary implementation of Payments, PreAuths and RegisterCards since these are very closely related
-
-### Card registration
-
-```swift
-    myJudoSession.registerCard(correctJudoID, amount: amount, reference: references)
-                 .card(card)
-                 .location(location)
-                 .contact(mobileNumber, emailAddress)
-                 .completion({ (data, error) -> () in
-                     if let _ = error {
-                         // failure
-                     } else {
-                         // success
-                     }
-    })
-```
-
-Learn more [here](<https://www.judopay.com/docs/v4_1/restful-api/api-reference/>)
-
-*/
-
-public class RegisterCard: Transaction, TransactionPath {
+open class RegisterCard: Transaction, TransactionPath {
     
     /// path variable for registering a card
-    public static var path: String { get { return "transactions/registercard" } }
+    open static var path: String { get { return "transactions/registercard" } }
 
 }

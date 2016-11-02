@@ -33,7 +33,7 @@ class TokenPaymentTests: JudoTestCase {
             // When I provide the required fields
             let registerCard = try judo.registerCard(myJudoId, reference: validReference).card(validVisaTestCard)
             
-            let expectation = self.expectationWithDescription("token payment expectation")
+            let expectation = self.expectation(description: "token payment expectation")
             
             try registerCard.completion({ (data, error) -> () in
                 if let _ = error {
@@ -63,7 +63,7 @@ class TokenPaymentTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -72,7 +72,7 @@ class TokenPaymentTests: JudoTestCase {
             // Given I have an SDK
             let registerCard = try judo.registerCard(myJudoId, reference: validReference).card(validVisaTestCard)
             
-            let expectation = self.expectationWithDescription("token payment expectation")
+            let expectation = self.expectation(description: "token payment expectation")
             
             try registerCard.completion({ (data, error) -> () in
                 if let _ = error {
@@ -88,7 +88,7 @@ class TokenPaymentTests: JudoTestCase {
                     } catch {
                         // Then I should receive an error
                         if let error = error as? JudoError {
-                            XCTAssertEqual(error.code, JudoErrorCode.CardOrTokenMissingError)
+                            XCTAssertEqual(error.code, JudoErrorCode.cardOrTokenMissingError)
                         } else {
                             XCTFail("exception thrown: \(error)")
                         }
@@ -102,7 +102,7 @@ class TokenPaymentTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -111,7 +111,7 @@ class TokenPaymentTests: JudoTestCase {
             // Given I have an SDK
             let registerCard = try judo.registerCard(myJudoId, reference: validReference).card(validVisaTestCard)
             
-            let expectation = self.expectationWithDescription("token payment expectation")
+            let expectation = self.expectation(description: "token payment expectation")
             
             try registerCard.completion({ (data, error) -> () in
                 if let _ = error {
@@ -129,7 +129,7 @@ class TokenPaymentTests: JudoTestCase {
                         try self.judo.payment(myJudoId, amount: self.oneGBPAmount, reference: self.invalidReference).paymentToken(payToken).completion({ (response, error) -> () in
                             XCTAssertNil(response)
                             XCTAssertNotNil(error)
-                            XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
+                            XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
                             
                             XCTAssertEqual(error?.details?.count, 2)
                             
@@ -146,7 +146,7 @@ class TokenPaymentTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
     
@@ -155,7 +155,7 @@ class TokenPaymentTests: JudoTestCase {
             // Given I have an SDK
             let registerCard = try judo.registerCard(myJudoId, reference: validReference).card(validVisaTestCard)
             
-            let expectation = self.expectationWithDescription("token payment expectation")
+            let expectation = self.expectation(description: "token payment expectation")
             
             try registerCard.completion({ (data, error) -> () in
                 if let _ = error {
@@ -173,7 +173,7 @@ class TokenPaymentTests: JudoTestCase {
                         try self.judo.payment(myJudoId, amount: self.invalidCurrencyAmount, reference: self.validReference).paymentToken(payToken).completion({ (response, error) -> () in
                             XCTAssertNil(response)
                             XCTAssertNotNil(error)
-                            XCTAssertEqual(error!.code, JudoErrorCode.General_Model_Error)
+                            XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
                             //This should be three. This is a known bug with the platform returning an uneeded extra model error about amount formattting.
                             XCTAssertEqual(error?.details?.count, 4)
                             
@@ -191,7 +191,7 @@ class TokenPaymentTests: JudoTestCase {
             XCTFail("exception thrown: \(error)")
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
     
 }

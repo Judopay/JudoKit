@@ -24,8 +24,8 @@
 
 import Foundation
 
-let dateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
+let dateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
     formatter.dateFormat = "yyyyMMddHHmmss"
     return formatter
 }()
@@ -67,7 +67,7 @@ public struct Reference {
      
      - returns: a Reference object
      */
-    private init(consumerRef: String, paymentRef: String, metaData: [String : String]? = nil) {
+    fileprivate init(consumerRef: String, paymentRef: String, metaData: [String : String]? = nil) {
         self.yourConsumerReference = consumerRef
         self.yourPaymentReference = paymentRef
         self.yourPaymentMetaData = metaData
@@ -83,8 +83,8 @@ public struct Reference {
      - returns: a Reference object
      */
     public init?(consumerRef: String, metaData: [String : String]? = nil) {
-        guard let uuidString = UIDevice.currentDevice().identifierForVendor?.UUIDString else { return nil }
-        let finalString = String(uuidString.characters.filter { ![":", "-", "+"].contains(String($0)) }).stringByReplacingOccurrencesOfString(" ", withString: "") + dateFormatter.stringFromDate(NSDate())
+        guard let uuidString = UIDevice.current.identifierForVendor?.uuidString else { return nil }
+        let finalString = String(uuidString.characters.filter { ![":", "-", "+"].contains(String($0)) }).replacingOccurrences(of: " ", with: "") + dateFormatter.string(from: Date())
         self.init(consumerRef: consumerRef, paymentRef: finalString, metaData: metaData)
     }
     

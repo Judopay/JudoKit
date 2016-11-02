@@ -24,12 +24,33 @@
 
 import UIKit
 
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
+
 /**
  
  The IssueNumberInputField is an input field configured to detect, validate and present issue numbers for Maestro cards.
  
  */
-public class IssueNumberInputField: JudoPayInputField {
+open class IssueNumberInputField: JudoPayInputField {
     
     // MARK: UITextFieldDelegate Methods
     
@@ -43,14 +64,14 @@ public class IssueNumberInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a textfield
     */
-    public func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         // Only handle delegate calls for own textfield
         guard textField == self.textField else { return false }
         
         // Get old and new text
         let oldString = textField.text!
-        let newString = (oldString as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        let newString = (oldString as NSString).replacingCharacters(in: range, with: string)
         
         if newString.characters.count == 0 {
             return true
@@ -67,7 +88,7 @@ public class IssueNumberInputField: JudoPayInputField {
     
     - returns: True if valid input
     */
-    public override func isValid() -> Bool {
+    open override func isValid() -> Bool {
         return self.textField.text?.characters.count > 0 && self.textField.text?.characters.count < 4
     }
     
@@ -77,7 +98,7 @@ public class IssueNumberInputField: JudoPayInputField {
      
      - parameter textField: the textfield of which the content has changed
      */
-    public override func textFieldDidChangeValue(textField: UITextField) {
+    open override func textFieldDidChangeValue(_ textField: UITextField) {
         super.textFieldDidChangeValue(textField)
         
         self.didChangeInputText()
@@ -93,7 +114,7 @@ public class IssueNumberInputField: JudoPayInputField {
      
      - returns: an Attributed String that is the placeholder of the receiver
      */
-    public override func placeholder() -> NSAttributedString? {
+    open override func placeholder() -> NSAttributedString? {
         return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
     }
     
@@ -103,7 +124,7 @@ public class IssueNumberInputField: JudoPayInputField {
      
      - returns: a string that is the title of the receiver
      */
-    public override func title() -> String {
+    open override func title() -> String {
         return "Issue number"
     }
     
@@ -113,7 +134,7 @@ public class IssueNumberInputField: JudoPayInputField {
      
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */
-    public override func hintLabelText() -> String {
+    open override func hintLabelText() -> String {
         return "Issue number on front of card"
     }
 

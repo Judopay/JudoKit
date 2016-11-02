@@ -39,7 +39,7 @@ import Foundation
      
      - parameter textField: the `UITextField` that has a changed value
      */
-    @objc func textFieldDidChangeValue(textField: UITextField)
+    @objc func textFieldDidChangeValue(_ textField: UITextField)
     
     
     /**
@@ -123,7 +123,7 @@ public extension JudoInputType where Self: JudoPayInputField {
      
      - parameter textField: the textfield of which the content has changed
      */
-    public func textFieldDidChangeValue(textField: UITextField) {
+    public func textFieldDidChangeValue(_ textField: UITextField) {
         self.dismissError()
         // Method for subclassing
     }

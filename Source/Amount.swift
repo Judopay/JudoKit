@@ -30,7 +30,7 @@ import Foundation
  
  Amount object stores information about an amount and the corresponding currency for a transaction
 */
-public struct Amount: StringLiteralConvertible {
+public struct Amount: ExpressibleByStringLiteral {
     /// The currency ISO Code - GBP is default
     public var currency: Currency = .GBP
     /// The amount to process, to two decimal places
@@ -76,23 +76,23 @@ public struct Amount: StringLiteralConvertible {
      - returns: an Amount object
      */
     init(amount value: String) {
-        self.amount = NSDecimalNumber(string: value.substringToIndex(value.endIndex.advancedBy(-3)))
-        self.currency = Currency(value.substringFromIndex(value.endIndex.advancedBy(-3)))
+        self.amount = NSDecimalNumber(string: value.substring(to: value.characters.index(value.endIndex, offsetBy: -3)))
+        self.currency = Currency(value.substring(from: value.characters.index(value.endIndex, offsetBy: -3)))
     }
     
     public init(stringLiteral value: String) {
-        self.amount = NSDecimalNumber(string: value.substringToIndex(value.endIndex.advancedBy(-3)))
-        self.currency = Currency(value.substringFromIndex(value.endIndex.advancedBy(-3)))
+        self.amount = NSDecimalNumber(string: value.substring(to: value.characters.index(value.endIndex, offsetBy: -3)))
+        self.currency = Currency(value.substring(from: value.characters.index(value.endIndex, offsetBy: -3)))
     }
     
     public init(extendedGraphemeClusterLiteral value: String) {
-        self.amount = NSDecimalNumber(string: value.substringToIndex(value.endIndex.advancedBy(-3)))
-        self.currency = Currency(value.substringFromIndex(value.endIndex.advancedBy(-3)))
+        self.amount = NSDecimalNumber(string: value.substring(to: value.characters.index(value.endIndex, offsetBy: -3)))
+        self.currency = Currency(value.substring(from: value.characters.index(value.endIndex, offsetBy: -3)))
     }
     
     public init(unicodeScalarLiteral value: String) {
-        self.amount = NSDecimalNumber(string: value.substringToIndex(value.endIndex.advancedBy(-3)))
-        self.currency = Currency(value.substringFromIndex(value.endIndex.advancedBy(-3)))
+        self.amount = NSDecimalNumber(string: value.substring(to: value.characters.index(value.endIndex, offsetBy: -3)))
+        self.currency = Currency(value.substring(from: value.characters.index(value.endIndex, offsetBy: -3)))
     }
     
 }

@@ -28,9 +28,9 @@ import XCTest
 class ListTests: JudoTestCase {
     
     func testJudoListPayments() {
-        let expectation = self.expectationWithDescription("list all payments expectation")
+        let expectation = self.expectation(description: "list all payments expectation")
         
-        let payment = judo.list(Payment)
+        let payment = judo.list(Payment.self)
         
         payment.list({ (dict, error) -> () in
             if let error = error {
@@ -40,16 +40,16 @@ class ListTests: JudoTestCase {
         })
         
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     func testJudoPaginatedListPayments() {
         // Given
-        let pagination = Pagination(pageSize: 14, offset: 44, sort: Sort.Descending)
+        let pagination = Pagination(pageSize: 15, offset: 44, sort: Sort.Descending)
         
-        let expectation = self.expectationWithDescription("list all payments for given pagination")
+        let expectation = self.expectation(description: "list all payments for given pagination")
         
-        let payment = judo.list(Payment)
+        let payment = judo.list(Payment.self)
         
         // When
         payment.list(pagination) { (response, error) -> () in
@@ -63,15 +63,15 @@ class ListTests: JudoTestCase {
             expectation.fulfill()
         }
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
     
     func testJudoListPreAuths() {
         
-        let expectation = self.expectationWithDescription("list all preauths expectation")
+        let expectation = self.expectation(description: "list all preauths expectation")
         
-        let preAuth = judo.list(PreAuth)
+        let preAuth = judo.list(PreAuth.self)
         
         preAuth.list({ (dict, error) -> () in
             if let error = error {
@@ -80,7 +80,7 @@ class ListTests: JudoTestCase {
             expectation.fulfill()
         })
         
-        self.waitForExpectationsWithTimeout(30.0, handler: nil)
+        self.waitForExpectations(timeout: 30.0, handler: nil)
     }
     
 }

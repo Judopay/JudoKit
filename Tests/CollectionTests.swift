@@ -29,7 +29,7 @@ class CollectionTests: JudoTestCase {
     
     func testCollection() {
         
-        let expectation = self.expectationWithDescription("payment expectation")
+        let expectation = self.expectation(description: "payment expectation")
         
         do {
             // Given I have made a pre-authorisation
@@ -44,8 +44,8 @@ class CollectionTests: JudoTestCase {
                 
                 // And I have a receipt ID of a given transaction
                 // And I have the amount of that transaction
-                guard let receiptId = response?.first?.receiptId,
-                    let amount = response?.first?.amount else {
+                guard let receiptId = response?.items.first?.receiptId,
+                    let amount = response?.items.first?.amount else {
                     XCTFail("receipt ID was not available in response")
                     expectation.fulfill()
                     return
@@ -60,7 +60,7 @@ class CollectionTests: JudoTestCase {
                         }
                         
                         XCTAssertNotNil(response)
-                        XCTAssertNotNil(response?.first)
+                        XCTAssertNotNil(response?.items.first)
                         
                         expectation.fulfill();
                     })
@@ -79,7 +79,7 @@ class CollectionTests: JudoTestCase {
             expectation.fulfill();
         }
         
-        self.waitForExpectationsWithTimeout(30, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
         
     }
     

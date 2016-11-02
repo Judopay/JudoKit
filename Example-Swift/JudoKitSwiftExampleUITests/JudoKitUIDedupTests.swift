@@ -56,13 +56,14 @@ class JudoKitUIDedupTests: XCTestCase {
         
         let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let button = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate, evaluatedWithObject: button, handler: nil)
-        waitForExpectationsWithTimeout(10, handler: nil)
+        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button.tap()
         
@@ -76,13 +77,14 @@ class JudoKitUIDedupTests: XCTestCase {
         
         let cvv2TextField2 = elementsQuery.secureTextFields["CVV2"]
         cvv2TextField2.typeText("452")
-        app.childrenMatchingType(.Window).elementBoundByIndex(0).childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.buttons["Pay"].tap()
+
+        app.navigationBars["Payment"].buttons["Pay"].tap()
         
         let button2 = app.buttons["Home"]
         let existsPredicate2 = NSPredicate(format: "exists == 1")
         
-        expectationForPredicate(existsPredicate2, evaluatedWithObject: button2, handler: nil)
-        waitForExpectationsWithTimeout(10, handler: nil)
+        expectation(for: existsPredicate2, evaluatedWith: button, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
         
         button2.tap()
         
