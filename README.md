@@ -14,7 +14,7 @@ Use our UI components for a seamless user experience for card data capture. Mini
 
 ## Requirements
 
-Versions >= 6.2.5 require Xcode 8 and Swift 3. Version 6.2.4 is the last version to be supported by Xcode 7.3.1 and Swift 2.2.
+Versions >= 6.2.5 require Xcode 8 and Swift 3. Version 6.2.4 is the last version to support Xcode 7.3.1 and Swift 2.2.
 
 ## Getting started
 
@@ -79,29 +79,29 @@ When you are ready to go live you can remove this line.
 ```swift
     func paymentOperation() {
         guard let ref = Reference(consumerRef: "payment reference") else { return }
-        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 35, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
-            self.dismissViewControllerAnimated(true, completion: nil)
+        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
+            self.dismiss(animated: true, completion: nil)
             if let error = error {
-                if error.code == .UserDidCancel {
-                    self.dismissViewControllerAnimated(true, completion: nil)
+                if error.code == .userDidCancel {
+                    self.dismiss(animated: true, completion: nil)
                     return
                 }
                 var errorTitle = "Error"
                 if let errorCategory = error.category {
                     errorTitle = errorCategory.stringValue()
                 }
-                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .Alert)
-                self.alertController!.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-                self.dismissViewControllerAnimated(true, completion:nil)
+                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+                self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.dismiss(animated: true, completion:nil)
                 return // BAIL
             }
             
-            if let resp = response, transactionData = resp.first {
+            if let resp = response, let transactionData = resp.items.first {
                 self.cardDetails = transactionData.cardDetails
                 self.paymentToken = transactionData.paymentToken()
             }
             let sb = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = sb.instantiateViewControllerWithIdentifier("detailviewcontroller") as! DetailViewController
+            let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
             })
