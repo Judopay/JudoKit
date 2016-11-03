@@ -166,7 +166,7 @@ open class JudoPayView: UIView {
         guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
             let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else { return } // BAIL
         
-        guard let keyboardRect = (info[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue else { return } // BAIL
+        guard let keyboardRect = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return } // BAIL
         
         self.currentKeyboardHeight = keyboardRect.height
         
@@ -390,7 +390,6 @@ open class JudoPayView: UIView {
         self.paymentButton.isHidden = !enabled
         
         self.keyboardHeightConstraint?.constant = -self.currentKeyboardHeight + (paymentEnabled ? 0 : self.paymentButton.bounds.height)
-        
         self.paymentButton.setNeedsUpdateConstraints()
         
         UIView.animate(withDuration: 0.25, delay: 0.0, options:enabled ? .curveEaseOut : .curveEaseIn, animations: { () -> Void in
