@@ -26,7 +26,7 @@ import Foundation
 import PassKit
 import JudoShield
 
-let JudoKitVersion = "6.2.5"
+let JudoKitVersion = "6.2.6"
 
 /**
  A method that checks if the device it is currently running on is jailbroken or not
@@ -53,7 +53,6 @@ public struct JudoKit {
     
     /// Fraud Prevention
     fileprivate let judoShield = JudoShield()
-    fileprivate var currentLocation: CLLocationCoordinate2D?
     
     
     /**
@@ -73,16 +72,6 @@ public struct JudoKit {
             throw JudoError(.jailbrokenDeviceDisallowedError)
         }
         
-        var currentlocation: CLLocationCoordinate2D?
-        
-        self.judoShield.location { (coordinate, error) -> Void in
-            if let _ = error as? JudoError {
-                // silently fail
-            } else if CLLocationCoordinate2DIsValid(coordinate) {
-                currentlocation = coordinate
-            }
-        }
-        self.currentLocation = currentlocation
         self.setToken(token, secret: secret)
     }
     

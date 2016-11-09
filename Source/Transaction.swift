@@ -114,14 +114,6 @@ open class Transaction: SessionProtocol {
         }
     }
     
-    /// Location coordinate for fraud prevention in this transaction
-    open fileprivate (set) var location: CLLocationCoordinate2D? {
-        didSet {
-            guard let location = location else { return }
-            self.parameters["consumerLocation"] = ["latitude":NSNumber(value: location.latitude as Double), "longitude":NSNumber(value: location.longitude as Double)] as AnyObject?
-        }
-    }
-    
     /// Device identification for this transaction
     open fileprivate (set) var deviceSignal: JSONDictionary? {
         didSet {
@@ -254,20 +246,6 @@ open class Transaction: SessionProtocol {
         self.payToken = token
         return self
     }
-    
-    
-    /**
-    Reactive method to set location information of the user, this method is optional and is used for fraud prevention
-    
-    - Parameter location: a CLLocationCoordinate2D which represents the current location of the user
-    
-    - Returns: reactive self
-    */
-    @discardableResult open func location(_ location: CLLocationCoordinate2D) -> Self {
-        self.location = location
-        return self
-    }
-    
     
     /**
     Reactive method to set device signal information of the device, this method is optional and is used for fraud prevention
