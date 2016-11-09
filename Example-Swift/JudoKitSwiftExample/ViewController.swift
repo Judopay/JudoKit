@@ -25,6 +25,7 @@
 import UIKit
 import PassKit
 import JudoKit
+import CoreLocation
 
 enum TableViewContent : Int {
     case payment = 0, preAuth, createCardToken, repeatPayment, tokenPreAuth, applePayPayment, applePayPreAuth
@@ -93,9 +94,13 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     var reference = ""
     
+    var locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.locationManager.requestWhenInUseAuthorization()
+
         self.reference = self.getSampleConsumerReference()
         
         self.judoKitSession.theme.acceptedCardNetworks = [Card.Configuration(.visa, 16), Card.Configuration(.masterCard, 16), Card.Configuration(.maestro, 16), Card.Configuration(.amex, 15)]
