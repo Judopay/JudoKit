@@ -53,7 +53,7 @@ class JudoKitMaestroTests: XCTestCase {
         
         let startDateTextField = elementsQuery.textFields["Start date"]
         startDateTextField.tap()
-        startDateTextField.typeText("0107")
+        startDateTextField.typeText("0108")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.tap()
@@ -87,7 +87,7 @@ class JudoKitMaestroTests: XCTestCase {
         
         let startDateTextField = elementsQuery.textFields["Start date"]
         startDateTextField.tap()
-        startDateTextField.typeText("0107")
+        startDateTextField.typeText("0108")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.tap()
