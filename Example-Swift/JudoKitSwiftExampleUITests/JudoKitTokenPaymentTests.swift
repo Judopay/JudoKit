@@ -92,7 +92,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         
         let startDateTextField = elementsQuery.textFields["Start date"]
         startDateTextField.tap()
-        startDateTextField.typeText("0107")
+        startDateTextField.typeText("0108")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.tap()
@@ -113,7 +113,7 @@ class JudoKitTokenPaymentTests: XCTestCase {
         
         let startDateTextField2 = elementsQuery.textFields["Start date"]
         startDateTextField2.tap()
-        startDateTextField2.typeText("0107")
+        startDateTextField2.typeText("0108")
         
         let cvvTextField2 = elementsQuery.secureTextFields["CVV"]
         cvvTextField2.tap()

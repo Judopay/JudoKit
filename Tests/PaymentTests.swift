@@ -191,14 +191,12 @@ class PaymentTests: JudoTestCase {
         let amount = Amount(amountString: "30", currency: .GBP)
         let emailAddress = "hans@email.com"
         let mobileNumber = "07100000000"
-        
-        let location = CLLocationCoordinate2D(latitude: 0, longitude: 65)
-        
+
         let expectation = self.expectation(description: "payment expectation")
         
         // When
         do {
-            let makePayment = try judo.payment(myJudoId, amount: amount, reference: references).card(card).location(location).contact(mobileNumber, emailAddress).validate { dict, error in
+            let makePayment = try judo.payment(myJudoId, amount: amount, reference: references).card(card).contact(mobileNumber, emailAddress).validate { dict, error in
                 if let error = error {
                     XCTAssertEqual(error.code, JudoErrorCode.validation_Passed)
                 } else {
