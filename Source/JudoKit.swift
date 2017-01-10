@@ -24,7 +24,6 @@
 
 import Foundation
 import PassKit
-import JudoShield
 import DeviceDNA
 
 let JudoKitVersion = "6.2.6"
@@ -53,7 +52,6 @@ public class JudoKit {
     public weak var activeViewController: JudoPayViewController?
     
     /// Fraud Prevention
-    //fileprivate let judoShield = JudoShield()
     fileprivate let deviceDNA = LegacyDeviceDNA()
     
     private var deviceSignals = JSONDictionary()
