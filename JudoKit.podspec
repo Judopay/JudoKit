@@ -13,9 +13,9 @@ Pod::Spec.new do |s|
   s.requires_arc          = true
   s.source_files          = 'Source/**/*.swift'
 
-  s.dependency 'JudoShield'
+  s.dependency 'DeviceDNA'
 
   s.frameworks            = 'CoreLocation', 'Security', 'CoreTelephony'
-  s.pod_target_xcconfig   = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/JudoShield/Source' }
+  s.pod_target_xcconfig   = { 'FRAMEWORK_SEARCH_PATHS'   => '$(inherited) ${PODS_ROOT}/DeviceDNA/Source' }
 
 end

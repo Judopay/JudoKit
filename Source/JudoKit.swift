@@ -25,6 +25,7 @@
 import Foundation
 import PassKit
 import JudoShield
+import DeviceDNA
 
 let JudoKitVersion = "6.2.6"
 
@@ -53,6 +54,7 @@ public struct JudoKit {
     
     /// Fraud Prevention
     fileprivate let judoShield = JudoShield()
+    fileprivate let deviceDNA = LegacyDeviceDNA()
     
     
     /**

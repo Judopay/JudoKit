@@ -55,6 +55,9 @@
 		3BC4C0D01C6204A60010CE14 /* JudoPayView+JudoPayInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BC4C0CF1C6204A60010CE14 /* JudoPayView+JudoPayInputDelegate.swift */; };
 		3BFD9A951CD9F74E00B8385D /* DedupTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A931CD9F72B00B8385D /* DedupTestCase.swift */; };
 		7028042E1CE4DC2100150B21 /* CardDetailsSetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7028042D1CE4DC2100150B21 /* CardDetailsSetTests.swift */; };
+		705214251E25435E00C17BD8 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 705214241E25435E00C17BD8 /* DeviceDNA.framework */; };
+		705214261E25439700C17BD8 /* DeviceDNA.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 705214241E25435E00C17BD8 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		705214271E2543A000C17BD8 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 705214241E25435E00C17BD8 /* DeviceDNA.framework */; };
 		7068ABF31D2BC19300581A5A /* ThemeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7068ABF11D2BC0B600581A5A /* ThemeTests.swift */; };
 		708E1F891CBFDB4500114057 /* ErrorMessageContentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708E1F881CBFDB4500114057 /* ErrorMessageContentsTests.swift */; };
 		70A7EF3E1D91280700FF573B /* JudoShield.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B125B931C5FC67E0086BB18 /* JudoShield.framework */; };
@@ -102,6 +105,7 @@
 			files = (
 				3B8D60481CE21ACD00EA7533 /* JudoKit.framework in CopyFiles */,
 				3B5A602B1CAAD9F000E98AC6 /* JudoShield.framework in CopyFiles */,
+				705214261E25439700C17BD8 /* DeviceDNA.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +160,7 @@
 		3BC4C0CF1C6204A60010CE14 /* JudoPayView+JudoPayInputDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JudoPayView+JudoPayInputDelegate.swift"; sourceTree = "<group>"; };
 		3BFD9A931CD9F72B00B8385D /* DedupTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DedupTestCase.swift; sourceTree = "<group>"; };
 		7028042D1CE4DC2100150B21 /* CardDetailsSetTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDetailsSetTests.swift; sourceTree = "<group>"; };
+		705214241E25435E00C17BD8 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = DeviceDNA/Framework/DeviceDNA.framework; sourceTree = "<group>"; };
 		7068ABF11D2BC0B600581A5A /* ThemeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeTests.swift; sourceTree = "<group>"; };
 		708E1F881CBFDB4500114057 /* ErrorMessageContentsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorMessageContentsTests.swift; sourceTree = "<group>"; };
 		70ADAAD21CE247E400DC0172 /* JudoTestCaseConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoTestCaseConfig.swift; sourceTree = "<group>"; };
@@ -192,6 +197,7 @@
 			files = (
 				3B5A60271CAAD3EA00E98AC6 /* JudoShield.framework in Frameworks */,
 				3B5A600E1CAACF6100E98AC6 /* JudoKit.framework in Frameworks */,
+				705214271E2543A000C17BD8 /* DeviceDNA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				705214251E25435E00C17BD8 /* DeviceDNA.framework in Frameworks */,
 				70A7EF3E1D91280700FF573B /* JudoShield.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,6 +284,14 @@
 			path = Tests;
 			sourceTree = "<group>";
 		};
+		705214231E25435100C17BD8 /* DeviceDNA */ = {
+			isa = PBXGroup;
+			children = (
+				705214241E25435E00C17BD8 /* DeviceDNA.framework */,
+			);
+			name = DeviceDNA;
+			sourceTree = "<group>";
+		};
 		DA0C19BC1B986B5800CD2613 /* CardLogos */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +343,7 @@
 		DA76A5F31B7B73D30033E553 = {
 			isa = PBXGroup;
 			children = (
+				705214231E25435100C17BD8 /* DeviceDNA */,
 				DAB261AB1B7B79EE005024FF /* JudoShield */,
 				DA76A5FF1B7B73D30033E553 /* Source */,
 				3B5A600A1CAACF6100E98AC6 /* Tests */,
@@ -511,7 +527,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh \"${SRCROOT}/JudoShield/Framework/strip-frameworks.sh\"";
+			shellScript = "sh \"${SRCROOT}/JudoShield/Framework/strip-frameworks.sh\"\nsh \"${SRCROOT}/DeviceDNA/Framework/strip-frameworks.sh\"";
 		};
 		3B5A60281CAAD40200E98AC6 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -524,7 +540,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh \"${SRCROOT}/JudoShield/Framework/strip-frameworks.sh\"";
+			shellScript = "sh \"${SRCROOT}/JudoShield/Framework/strip-frameworks.sh\"\nsh \"${SRCROOT}/DeviceDNA/Framework/strip-frameworks.sh\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -629,6 +645,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JudoShield/Framework",
+					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -645,6 +662,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JudoShield/Framework",
+					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -766,6 +784,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JudoShield/Framework",
+					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -789,6 +808,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/JudoShield/Framework",
+					"$(PROJECT_DIR)/DeviceDNA/Framework",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Source/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
