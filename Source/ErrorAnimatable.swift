@@ -61,11 +61,12 @@ extension ErrorAnimatable where Self: JudoPayInputField {
         }
         
         if redBlock {
-            self.redBlock.frame = CGRect(x: 0, y: self.bounds.height, width: self.bounds.width, height: 4.0)
+            self.redBlockAsError()
             
             UIView.animate(withDuration: 0.2, animations: { () -> Void in
-                self.redBlock.frame = CGRect(x: 0, y: self.bounds.height - 4, width: self.bounds.width, height: 4.0)
+                self.redBlockAsError()
                 self.textField.textColor = self.theme.getErrorColor()
+                self.hintLabel.textColor = self.theme.getErrorColor()
                 }, completion: blockAnimation)
         } else {
             blockAnimation(true)
