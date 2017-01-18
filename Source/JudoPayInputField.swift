@@ -106,6 +106,9 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
         self.init(frame: CGRect.zero)
     }
     
+    override open func layoutSubviews() {
+       super.layoutSubviews()
+    }
     
     /**
      Helper method to initialize the view
