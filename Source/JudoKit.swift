@@ -52,7 +52,7 @@ public class JudoKit {
     public weak var activeViewController: JudoPayViewController?
     
     /// Fraud Prevention
-    fileprivate let deviceDNA = LegacyDeviceDNA()
+    fileprivate let deviceDNA: LegacyDeviceDNA
     
     private var deviceSignals = JSONDictionary()
     
@@ -73,6 +73,9 @@ public class JudoKit {
         if !allowJailbrokenDevices && isCurrentDeviceJailbroken() {
             throw JudoError(.jailbrokenDeviceDisallowedError)
         }
+        
+        let credentials = Credentials(token: token, secret: secret)
+        self.deviceDNA = LegacyDeviceDNA(credentials: credentials)
         
         self.setToken(token, secret: secret)
         
