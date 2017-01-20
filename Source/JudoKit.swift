@@ -80,7 +80,7 @@ public class JudoKit {
         self.setToken(token, secret: secret)
         
         self.deviceDNA.getEncryptedDeviceSignals { (device, error) in
-            if let device = device, error == nil {
+            if let device = device {
                 self.deviceSignals = device as JSONDictionary
             }
         }
