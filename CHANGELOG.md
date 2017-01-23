@@ -22,13 +22,13 @@ Released on 2016-11-10
 - Removed call to JudoShield to get current location.
 
 ## [6.2.5](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.5)
-Released on 2016-11-02
+Released on 2016-11-01
 
 #### Added
 - SDK now supports Xcode8 and Swift 3
 
 ## [6.2.4](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.4)
-Released on 2016-10-26
+Released on 2016-10-25
 
 #### Added
 - Latest version of JudoShield

@@ -188,9 +188,7 @@ public struct Session {
         request.addValue("5.0.0", forHTTPHeaderField: "API-Version")
         
         // Adds the version and lang of the SDK to the header
-        request.addValue("iOS-Version/\(JudoKitVersion) lang/(Swift)", forHTTPHeaderField: "User-Agent")
-        
-        request.addValue("iOSSwift-\(JudoKitVersion)", forHTTPHeaderField: "Sdk-Version")
+        request.addValue(self.getUserAgent(), forHTTPHeaderField: "User-Agent")
         
         var uiClientModeString = "Judo-SDK"
         
@@ -212,6 +210,33 @@ public struct Session {
         return request
     }
     
+    private func getUserAgent() -> String {
+        let device = UIDevice()
+        let mainBundle = Bundle.main
+        
+        var userAgentParts = [String]()
+        
+        //Base user agent
+        userAgentParts.append("iOS-Swift/\(JudoKitVersion)")
+        
+        //Model
+        userAgentParts.append(device.model)
+        
+        //Operating system
+        userAgentParts.append("\(device.systemName)/\(device.systemVersion)")
+        
+        //App Name and version
+        if let appName = mainBundle.object(forInfoDictionaryKey: "CFBundleName") as? String, let appVersion = mainBundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+            userAgentParts.append("\(appName.replacingOccurrences(of: " ", with: ""))/\(appVersion)")
+        }
+        
+        //Platform running on (simulator or device)
+        if let platformName = mainBundle.object(forInfoDictionaryKey: "DTPlatformName") as? String {
+            userAgentParts.append(platformName)
+        }
+        
+        return userAgentParts.joined(separator: " ")
+    }
     
     /**
     Helper Method to create a JSON HTTP request with authentication

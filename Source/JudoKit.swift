@@ -24,9 +24,9 @@
 
 import Foundation
 import PassKit
-import JudoShield
+import DeviceDNA
 
-let JudoKitVersion = "6.2.6"
+let JudoKitVersion = "6.2.7"
 
 /**
  A method that checks if the device it is currently running on is jailbroken or not
@@ -40,7 +40,7 @@ public func isCurrentDeviceJailbroken() -> Bool {
 
 
 /// Entry point for interacting with judoKit
-public struct JudoKit {
+public class JudoKit {
     
     /// JudoKit local judo session
     public var apiSession = Session()
@@ -52,7 +52,9 @@ public struct JudoKit {
     public weak var activeViewController: JudoPayViewController?
     
     /// Fraud Prevention
-    fileprivate let judoShield = JudoShield()
+    fileprivate let deviceDNA: LegacyDeviceDNA
+    
+    private var deviceSignals = JSONDictionary()
     
     
     /**
@@ -72,7 +74,16 @@ public struct JudoKit {
             throw JudoError(.jailbrokenDeviceDisallowedError)
         }
         
+        let credentials = Credentials(token: token, secret: secret)
+        self.deviceDNA = LegacyDeviceDNA(credentials: credentials)
+        
         self.setToken(token, secret: secret)
+        
+        self.deviceDNA.getEncryptedDeviceSignals { (device, error) in
+            if let device = device {
+                self.deviceSignals = device as JSONDictionary
+            }
+        }
     }
     
     
@@ -84,7 +95,7 @@ public struct JudoKit {
      
      - returns: a new instance of JudoKit
      */
-    public init(token: String, secret: String) {
+    public convenience init(token: String, secret: String) {
         try! self.init(token: token, secret: secret, allowJailbrokenDevices: true)
     }
     
@@ -96,7 +107,7 @@ public struct JudoKit {
      
      - parameter enabled: true to set the SDK to sandboxed mode
      */
-    public mutating func sandboxed(_ enabled: Bool) {
+    public func sandboxed(_ enabled: Bool) {
         self.apiSession.sandboxed = enabled
     }
     
@@ -107,7 +118,7 @@ public struct JudoKit {
      - Parameter token:  a string object representing the token
      - Parameter secret: a string object representing the secret
      */
-    public mutating func setToken(_ token: String, secret: String) {
+    public func setToken(_ token: String, secret: String) {
         let plainString = token + ":" + secret
         let plainData = plainString.data(using: String.Encoding.isoLatin1)
         let base64String = plainData!.base64EncodedString(options: NSData.Base64EncodingOptions.init(rawValue: 0))
@@ -136,7 +147,7 @@ public struct JudoKit {
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public mutating func invokePayment(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
+    public func invokePayment(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
         let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
@@ -150,7 +161,7 @@ public struct JudoKit {
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public mutating func invokePreAuth(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
+    public func invokePreAuth(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
         let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
@@ -168,7 +179,7 @@ public struct JudoKit {
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public mutating func invokeRegisterCard(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
+    public func invokeRegisterCard(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
         let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
@@ -186,7 +197,7 @@ public struct JudoKit {
     - parameter paymentToken: The consumer and card token to make a token payment with
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public mutating func invokeTokenPayment(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: @escaping (Response?, JudoError?) -> ()) throws {
+    public func invokeTokenPayment(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: @escaping (Response?, JudoError?) -> ()) throws {
         let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .Payment, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken)
         self.initiateAndShow(judoPayViewController)
     }
@@ -202,7 +213,7 @@ public struct JudoKit {
     - parameter paymentToken: The consumer and card token to make a token payment with
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public mutating func invokeTokenPreAuth(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: @escaping (Response?, JudoError?) -> ()) throws {
+    public func invokeTokenPreAuth(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: @escaping (Response?, JudoError?) -> ()) throws {
         let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken)
         self.initiateAndShow(judoPayViewController)
     }
@@ -247,7 +258,7 @@ public struct JudoKit {
      - Returns: a Payment Object
      */
     public func payment(_ judoId: String, amount: Amount, reference: Reference) throws -> Payment {
-        return try Payment(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
+        return try Payment(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
     }
     
     
@@ -263,7 +274,7 @@ public struct JudoKit {
      - Returns: pre-auth Object
      */
     public func preAuth(_ judoId: String, amount: Amount, reference: Reference) throws -> PreAuth {
-        return try PreAuth(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
+        return try PreAuth(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
     }
     
     
@@ -279,7 +290,7 @@ public struct JudoKit {
      - Returns: a RegisterCard Object
      */
     public func registerCard(_ judoId: String, reference: Reference) throws -> RegisterCard {
-        return try RegisterCard(judoId: judoId, amount: nil, reference: reference).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
+        return try RegisterCard(judoId: judoId, amount: nil, reference: reference).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
     }
     
     
@@ -313,7 +324,7 @@ public struct JudoKit {
      - Returns: a Collection object for reactive usage
      */
     public func collection(_ receiptId: String, amount: Amount) throws -> Collection {
-        return try Collection(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
+        return try Collection(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
     }
     
     
@@ -329,7 +340,7 @@ public struct JudoKit {
      - Returns: a Refund object for reactive usage
      */
     public func refund(_ receiptId: String, amount: Amount) throws -> Refund {
-        return try Refund(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
+        return try Refund(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
     }
     
     
@@ -345,7 +356,7 @@ public struct JudoKit {
      - Returns: a Void object for reactive usage
      */
     public func voidTransaction(_ receiptId: String, amount: Amount) throws -> VoidTransaction {
-        return try VoidTransaction(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.judoShield.encryptedDeviceSignal())
+        return try VoidTransaction(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
     }
     
     
@@ -371,7 +382,7 @@ public struct JudoKit {
     - parameter viewController: the viewController to initiate and show
     - parameter cardDetails:    optional dictionary that contains card info
     */
-    mutating func initiateAndShow(_ viewController: JudoPayViewController) {
+    func initiateAndShow(_ viewController: JudoPayViewController) {
         self.activeViewController = viewController
         self.showViewController(UINavigationController(rootViewController: viewController))
     }
