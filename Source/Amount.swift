@@ -144,6 +144,8 @@ public struct Currency {
     public static let PLN = Currency("PLN")
     /// Swedish Krone
     public static let SEK = Currency("SEK")
+    /// Singapore dollar
+    public static let SGD = Currency("SGD")
     /// United States Dollar
     public static let USD = Currency("USD")
     /// South African Rand
