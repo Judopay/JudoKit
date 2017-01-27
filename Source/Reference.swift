@@ -67,7 +67,7 @@ public struct Reference {
      
      - returns: a Reference object
      */
-    fileprivate init(consumerRef: String, paymentRef: String, metaData: [String : String]? = nil) {
+    public init(consumerRef: String, paymentRef: String, metaData: [String : String]? = nil) {
         self.yourConsumerReference = consumerRef
         self.yourPaymentReference = paymentRef
         self.yourPaymentMetaData = metaData
