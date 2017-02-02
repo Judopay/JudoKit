@@ -100,6 +100,35 @@ class PaymentTests: JudoTestCase {
         self.waitForExpectations(timeout: 30, handler: nil)
     }
     
+    func testJudoMakePaymentWithSingaporeDollar() {
+        do {
+            // Given I have a Payment
+            let amount = Amount(amountString: "17.72", currency: .SGD)
+            let payment = try judo.payment(myJudoId, amount: amount, reference: validReference)
+            
+            // When I provide all the required fields
+            payment.card(validVisaTestCard)
+            
+            // Then I should be able to make a payment
+            let expectation = self.expectation(description: "payment expectation")
+            
+            try payment.completion({ (response, error) -> () in
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
+                }
+                XCTAssertNotNil(response)
+                XCTAssertNotNil(response?.items.first)
+                expectation.fulfill()
+            })
+            
+            XCTAssertNotNil(payment)
+            XCTAssertEqual(payment.judoId, myJudoId)
+        } catch {
+            XCTFail("exception thrown: \(error)")
+        }
+        
+        self.waitForExpectations(timeout: 30, handler: nil)
+    }
     
     func testJudoMakePaymentWithoutReference() {
         do {
