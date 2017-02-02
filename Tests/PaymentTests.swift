@@ -100,6 +100,35 @@ class PaymentTests: JudoTestCase {
         self.waitForExpectations(timeout: 30, handler: nil)
     }
     
+    func testJudoMakePaymentWithSingaporeDollar() {
+        do {
+            // Given I have a Payment
+            let amount = Amount(amountString: "17.72", currency: .SGD)
+            let payment = try judo.payment(myJudoId, amount: amount, reference: validReference)
+            
+            // When I provide all the required fields
+            payment.card(validVisaTestCard)
+            
+            // Then I should be able to make a payment
+            let expectation = self.expectation(description: "payment expectation")
+            
+            try payment.completion({ (response, error) -> () in
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
+                }
+                XCTAssertNotNil(response)
+                XCTAssertNotNil(response?.items.first)
+                expectation.fulfill()
+            })
+            
+            XCTAssertNotNil(payment)
+            XCTAssertEqual(payment.judoId, myJudoId)
+        } catch {
+            XCTFail("exception thrown: \(error)")
+        }
+        
+        self.waitForExpectations(timeout: 30, handler: nil)
+    }
     
     func testJudoMakePaymentWithoutReference() {
         do {
@@ -131,6 +160,128 @@ class PaymentTests: JudoTestCase {
         self.waitForExpectations(timeout: 30, handler: nil)
     }
     
+    func test_PassingAnEmptyPaymentReferenceMustResultInPaymentError() {
+        do {
+            // Given I have a Payment
+            // When I provide an empty payment reference
+            let reference = Reference(consumerRef: UUID().uuidString, paymentRef: "")
+            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: reference)
+            
+            payment.card(validVisaTestCard)
+            
+            // Then I should receive an error
+            let expectation = self.expectation(description: "payment expectation")
+            
+            try payment.completion({ (response, error) -> () in
+                XCTAssertNil(response)
+                XCTAssertNotNil(error)
+                XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
+                
+                XCTAssertEqual(error?.details?.count, 2)
+                
+                expectation.fulfill()
+            })
+            
+            XCTAssertNotNil(payment)
+            XCTAssertEqual(payment.judoId, myJudoId)
+        } catch {
+            XCTFail("exception thrown: \(error)")
+        }
+        
+        self.waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func test_PassingAWhiteSpacePaymentReferenceMustResultInPaymentError() {
+        do {
+            // Given I have a Payment
+            // When I provide a whitespace payment reference
+            let reference = Reference(consumerRef: UUID().uuidString, paymentRef: " ")
+            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: reference)
+            
+            payment.card(validVisaTestCard)
+            
+            // Then I should receive an error
+            let expectation = self.expectation(description: "payment expectation")
+            
+            try payment.completion({ (response, error) -> () in
+                XCTAssertNil(response)
+                XCTAssertNotNil(error)
+                XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
+                
+                XCTAssertEqual(error?.details?.count, 1)
+                
+                expectation.fulfill()
+            })
+            
+            XCTAssertNotNil(payment)
+            XCTAssertEqual(payment.judoId, myJudoId)
+        } catch {
+            XCTFail("exception thrown: \(error)")
+        }
+        
+        self.waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func test_PassingAPaymentReferenceOver50CharsMustResultInPaymentError() {
+        do {
+            // Given I have a Payment
+            // When I do not provide a consumer reference
+            let reference = Reference(consumerRef: UUID().uuidString, paymentRef: String(repeating: "a", count: 51))
+            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: reference)
+            
+            payment.card(validVisaTestCard)
+            
+            // Then I should receive an error
+            let expectation = self.expectation(description: "payment expectation")
+            
+            try payment.completion({ (response, error) -> () in
+                XCTAssertNil(response)
+                XCTAssertNotNil(error)
+                XCTAssertEqual(error!.code, JudoErrorCode.general_Model_Error)
+                
+                XCTAssertEqual(error?.details?.count, 1)
+                
+                expectation.fulfill()
+            })
+            
+            XCTAssertNotNil(payment)
+            XCTAssertEqual(payment.judoId, myJudoId)
+        } catch {
+            XCTFail("exception thrown: \(error)")
+        }
+        
+        self.waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func test_PassingAUniquePaymentReferenceMustResultInASuccessfulPayment() {
+        do {
+            // Given I have a Payment
+            let reference = Reference(consumerRef: UUID().uuidString, paymentRef: UUID().uuidString)
+            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: reference)
+            
+            // When I provide all the required fields
+            payment.card(validVisaTestCard)
+            
+            // Then I should be able to make a payment
+            let expectation = self.expectation(description: "payment expectation")
+            
+            try payment.completion({ (response, error) -> () in
+                if let error = error {
+                    XCTFail("api call failed with error: \(error)")
+                }
+                XCTAssertNotNil(response)
+                XCTAssertNotNil(response?.items.first)
+                expectation.fulfill()
+            })
+            
+            XCTAssertNotNil(payment)
+            XCTAssertEqual(payment.judoId, myJudoId)
+        } catch {
+            XCTFail("exception thrown: \(error)")
+        }
+        
+        self.waitForExpectations(timeout: 30, handler: nil)
+    }
     
     func testJudoMakeInvalidJudoIdPayment() throws {
         // Given
