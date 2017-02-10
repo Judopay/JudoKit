@@ -53,7 +53,7 @@ $ pod install
 - In the shell script, paste the following line:
 
 ```bash
-sh "${SRCROOT}/JudoShield/Framework/strip-frameworks-cocoapods.sh"
+sh "${PODS_ROOT}/DeviceDNA/Framework/strip-frameworks-cocoapods.sh"
 ```
 
 #### 2. Setup
