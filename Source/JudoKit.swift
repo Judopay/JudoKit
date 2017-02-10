@@ -52,7 +52,7 @@ public class JudoKit {
     public weak var activeViewController: JudoPayViewController?
     
     /// Fraud Prevention
-    fileprivate let deviceDNA: LegacyDeviceDNA
+    fileprivate let deviceDNA: DeviceDNA
     
     private var deviceSignals = JSONDictionary()
     
@@ -75,11 +75,11 @@ public class JudoKit {
         }
         
         let credentials = Credentials(token: token, secret: secret)
-        self.deviceDNA = LegacyDeviceDNA(credentials: credentials)
+        self.deviceDNA = DeviceDNA(credentials: credentials)
         
         self.setToken(token, secret: secret)
         
-        self.deviceDNA.getEncryptedDeviceSignals { (device, error) in
+        self.deviceDNA.getDeviceSignals { (device, error) in
             if let device = device {
                 self.deviceSignals = device as JSONDictionary
             }
