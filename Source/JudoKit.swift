@@ -54,8 +54,7 @@ public class JudoKit {
     /// Fraud Prevention
     fileprivate let deviceDNA: DeviceDNA
     
-    private var deviceSignals = JSONDictionary()
-    
+    private var deviceSignals: JSONDictionary?
     
     /**
      designated initializer of JudoKit
@@ -78,12 +77,6 @@ public class JudoKit {
         self.deviceDNA = DeviceDNA(credentials: credentials)
         
         self.setToken(token, secret: secret)
-        
-        self.deviceDNA.getDeviceSignals { (device, error) in
-            if let device = device {
-                self.deviceSignals = device as JSONDictionary
-            }
-        }
     }
     
     
@@ -99,6 +92,34 @@ public class JudoKit {
         try! self.init(token: token, secret: secret, allowJailbrokenDevices: true)
     }
     
+    /**
+     Completion caller - this method will automatically trigger a Session Call to the judo REST API and execute the request based on the information that were set in the previous methods
+     
+     - Parameter transaction: the transaction to be completed
+     - Parameter block: a completion block that is called when the request finishes
+     */
+    open func completion(_ transaction: Transaction, block: @escaping JudoCompletionBlock) throws {
+        if let device = self.deviceSignals {
+            _ = try transaction.deviceSignal(device).completion(block)
+        }
+        else {
+            self.deviceDNA.getDeviceSignals({ (device, error) in
+                if let device = device as JSONDictionary? {
+                    _ = transaction.deviceSignal(device)
+                }
+                
+                do {
+                    _ = try transaction.completion(block)
+                }
+                catch let error as JudoError{
+                    block(nil, error)
+                }
+                catch {
+                    block(nil, JudoError(.unknown))
+                }
+            })
+        }
+    }
     
     // MARK: Configuration
     
@@ -258,7 +279,7 @@ public class JudoKit {
      - Returns: a Payment Object
      */
     public func payment(_ judoId: String, amount: Amount, reference: Reference) throws -> Payment {
-        return try Payment(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
+        return try Payment(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession)
     }
     
     
@@ -274,7 +295,7 @@ public class JudoKit {
      - Returns: pre-auth Object
      */
     public func preAuth(_ judoId: String, amount: Amount, reference: Reference) throws -> PreAuth {
-        return try PreAuth(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
+        return try PreAuth(judoId: judoId, amount: amount, reference: reference).apiSession(self.apiSession)
     }
     
     
@@ -290,7 +311,7 @@ public class JudoKit {
      - Returns: a RegisterCard Object
      */
     public func registerCard(_ judoId: String, reference: Reference) throws -> RegisterCard {
-        return try RegisterCard(judoId: judoId, amount: nil, reference: reference).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
+        return try RegisterCard(judoId: judoId, amount: nil, reference: reference).apiSession(self.apiSession)
     }
     
     
@@ -324,7 +345,7 @@ public class JudoKit {
      - Returns: a Collection object for reactive usage
      */
     public func collection(_ receiptId: String, amount: Amount) throws -> Collection {
-        return try Collection(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
+        return try Collection(receiptId: receiptId, amount: amount).apiSession(self.apiSession)
     }
     
     
@@ -340,7 +361,7 @@ public class JudoKit {
      - Returns: a Refund object for reactive usage
      */
     public func refund(_ receiptId: String, amount: Amount) throws -> Refund {
-        return try Refund(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
+        return try Refund(receiptId: receiptId, amount: amount).apiSession(self.apiSession)
     }
     
     
@@ -356,7 +377,7 @@ public class JudoKit {
      - Returns: a Void object for reactive usage
      */
     public func voidTransaction(_ receiptId: String, amount: Amount) throws -> VoidTransaction {
-        return try VoidTransaction(receiptId: receiptId, amount: amount).apiSession(self.apiSession).deviceSignal(self.deviceSignals)
+        return try VoidTransaction(receiptId: receiptId, amount: amount).apiSession(self.apiSession)
     }
     
     
@@ -383,6 +404,12 @@ public class JudoKit {
     - parameter cardDetails:    optional dictionary that contains card info
     */
     func initiateAndShow(_ viewController: JudoPayViewController) {
+        self.deviceDNA.getDeviceSignals { (device, error) in
+            if let device = device as JSONDictionary? {
+                self.deviceSignals = device
+            }
+        }
+        
         self.activeViewController = viewController
         self.showViewController(UINavigationController(rootViewController: viewController))
     }

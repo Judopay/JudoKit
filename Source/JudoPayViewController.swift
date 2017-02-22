@@ -276,7 +276,7 @@ open class JudoPayViewController: UIViewController {
                 transaction.card(Card(number: cardNumberString!, expiryDate: self.myView.expiryDateInputField.textField.text!, securityCode: self.myView.secureCodeInputField.textField.text!, address: address, startDate: startDate, issueNumber: issueNumber))
             }
             
-            self.pending3DSTransaction = try transaction.completion({ [weak self] (response, error) -> () in
+            try self.judoKitSession.completion(transaction, block: { [weak self] (response, error) -> () in
                 if let error = error {
                     if error.domain == JudoErrorDomain && error.code == .threeDSAuthRequest {
                         guard let payload = error.payload else {
@@ -285,6 +285,7 @@ open class JudoPayViewController: UIViewController {
                         }
                         
                         do {
+                            self?.pending3DSTransaction = transaction
                             self?.pending3DSReceiptID = try self?.myView.threeDSecureWebView.load3DSWithPayload(payload)
                         } catch {
                             self?.myView.loadingView.stopAnimating()
