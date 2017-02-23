@@ -57,11 +57,6 @@ open class TransactionProcess {
         }
         let finalString = String((uuidString + String(describing: Date())).characters.filter { ![":", "-", "+"].contains(String($0)) }).replacingOccurrences(of: " ", with: "")
         self.paymentReference = finalString.substring(to: finalString.characters.index(finalString.endIndex, offsetBy: -4))
-        
-        // Luhn check the receipt ID
-        if !receiptId.isLuhnValid() {
-            throw JudoError(.luhnValidationError)
-        }
     }
     
     

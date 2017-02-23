@@ -45,11 +45,6 @@ open class Receipt {
     init(receiptId: String? = nil) throws {
         // luhn check the receipt id
         self.receiptId = receiptId
-
-        // validate receiptId format
-        if let recID = receiptId , !recID.isLuhnValid() {
-            throw JudoError(.luhnValidationError)
-        }
     }
     
     
