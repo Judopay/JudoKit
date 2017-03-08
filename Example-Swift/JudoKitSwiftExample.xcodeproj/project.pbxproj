@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3BFD9A911CD9F58400B8385D /* JudoKitUIDedupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A901CD9F58400B8385D /* JudoKitUIDedupTests.swift */; };
 		705214361E25474C00C17BD8 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 705214341E25473400C17BD8 /* DeviceDNA.framework */; };
-		7052143B1E25478200C17BD8 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052143A1E25478200C17BD8 /* DeviceDNA.framework */; };
 		7052143C1E25479500C17BD8 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052143A1E25478200C17BD8 /* DeviceDNA.framework */; };
 		7052143D1E25479500C17BD8 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7052143A1E25478200C17BD8 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70791E431D66121D009CE638 /* ExampleAppCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70791E421D66121D009CE638 /* ExampleAppCredentials.swift */; };
@@ -121,7 +120,6 @@
 				7052143C1E25479500C17BD8 /* DeviceDNA.framework in Frameworks */,
 				DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */,
 				DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */,
-				7052143B1E25478200C17BD8 /* DeviceDNA.framework in Frameworks */,
 				DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */,
 				705214361E25474C00C17BD8 /* DeviceDNA.framework in Frameworks */,
 			);
@@ -248,7 +246,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Judo Payments";
 				TargetAttributes = {
 					DA30486B1C036192000E1B79 = {
