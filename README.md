@@ -62,7 +62,7 @@ You can set your token and secret here when initializing the session:
 
 ```swift
 // initialize the SDK by setting it up with a token and a secret
-var judoKitSession = JudoKit(token: token, secret: secret)
+var judoKitSession = JudoKit(token: "<TOKEN>", secret: "<SECRET>")
 ```
 
 To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
