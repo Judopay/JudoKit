@@ -76,7 +76,7 @@ When you are ready to go live you can remove this line.
 
 #### 3. Make a payment
 
-```swift
+    ```swift
     func paymentOperation() {
         guard let ref = Reference(consumerRef: "<CONSUMER_REFERENCE>") else { return }
         try! self.judoKit.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
@@ -110,9 +110,9 @@ When you are ready to go live you can remove this line.
             
             viewController.response = response
             self.navigationController?.pushViewController(viewController, animated: true)
-            })
+        })
     }
-```
+    ```
 **Note:** Please make sure that you are using a unique Consumer Reference for each different consumer.
 
 ## Next steps
