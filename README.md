@@ -76,43 +76,43 @@ When you are ready to go live you can remove this line.
 
 #### 3. Make a payment
 
-    ```swift
-    func paymentOperation() {
-        guard let ref = Reference(consumerRef: "<CONSUMER_REFERENCE>") else { return }
-        try! self.judoKit.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
-            self.dismiss(animated: true, completion: nil)
+```swift
+func paymentOperation() {
+    guard let ref = Reference(consumerRef: "<CONSUMER_REFERENCE>") else { return }
+    try! self.judoKit.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
+        self.dismiss(animated: true, completion: nil)
             
-            if let error = error {
-                if error.code == .userDidCancel {
-                    self.dismiss(animated: true, completion: nil)
-                    return
-                }
-                
-                var errorTitle = "Error"
-                if let errorCategory = error.category {
-                    errorTitle = errorCategory.stringValue()
-                }
-                
-                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
-                self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.dismiss(animated: true, completion:nil)
-                
-                return // BAIL
+        if let error = error {
+            if error.code == .userDidCancel {
+                self.dismiss(animated: true, completion: nil)
+                return
             }
-            
-            if let resp = response, let receipt = resp.items.first {
-                self.cardDetails = receipt.cardDetails
-                self.paymentToken = receipt.paymentToken()
+                
+            var errorTitle = "Error"
+            if let errorCategory = error.category {
+                errorTitle = errorCategory.stringValue()
             }
+                
+            self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+            self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.dismiss(animated: true, completion:nil)
+                
+            return // BAIL
+        }
             
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
+        if let resp = response, let receipt = resp.items.first {
+            self.cardDetails = receipt.cardDetails
+            self.paymentToken = receipt.paymentToken()
+        }
             
-            viewController.response = response
-            self.navigationController?.pushViewController(viewController, animated: true)
-        })
-    }
-    ```
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
+            
+        viewController.response = response
+        self.navigationController?.pushViewController(viewController, animated: true)
+    })
+}
+```
 **Note:** Please make sure that you are using a unique Consumer Reference for each different consumer.
 
 ## Next steps
