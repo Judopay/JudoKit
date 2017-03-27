@@ -81,7 +81,7 @@ public struct Theme {
     // MARK: Input fields
     
     /// the height of the input fields
-    public var inputFieldHeight: CGFloat = 48
+    public var inputFieldHeight: CGFloat = 68
     
     // MARK: Security message
     
@@ -310,7 +310,7 @@ public struct Theme {
      - returns: A UIColor object
      */
     public func getInputFieldBackgroundColor() -> UIColor {
-        return self.judoInputFieldBackgroundColor ?? .white
+        return self.judoInputFieldBackgroundColor ?? self.getContentViewBackgroundColor()
     }
     
 }

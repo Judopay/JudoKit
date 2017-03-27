@@ -64,6 +64,8 @@ class FloatingTextField: UITextField {
         }
     }
     
+    var keepBaseline = false
+    
     var hintYPadding: CGFloat = 0.0
     
     var titleYPadding: CGFloat = 6.0 {
@@ -131,7 +133,7 @@ class FloatingTextField: UITextField {
     
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         var r = super.textRect(forBounds: bounds)
-        if !text!.isEmpty {
+        if !text!.isEmpty || self.keepBaseline {
             var top = ceil(title.font.lineHeight + hintYPadding)
             top = min(top, maxTopInset())
             r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top, 0.0, 0.0, 0.0))
@@ -141,7 +143,7 @@ class FloatingTextField: UITextField {
     
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         var r = super.editingRect(forBounds: bounds)
-        if !text!.isEmpty {
+        if !text!.isEmpty || self.keepBaseline {
             var top = ceil(title.font.lineHeight + hintYPadding)
             top = min(top, maxTopInset())
             r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top, 0.0, 0.0, 0.0))
@@ -151,7 +153,7 @@ class FloatingTextField: UITextField {
     
     override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
         var r = super.clearButtonRect(forBounds: bounds)
-        if !text!.isEmpty {
+        if !text!.isEmpty || self.keepBaseline {
             var top = ceil(title.font.lineHeight + hintYPadding)
             top = min(top, maxTopInset())
             r = CGRect(x:r.origin.x, y:r.origin.y + (top * 0.5), width:r.size.width, height:r.size.height)
