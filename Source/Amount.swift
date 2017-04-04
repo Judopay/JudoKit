@@ -116,6 +116,8 @@ public struct Currency {
     
     /// Australian Dollars
     public static let AUD = Currency("AUD")
+    /// United Arab Emirates Dirham
+    public static let AED = Currency("AED")
     /// Brazilian Real
     public static let BRL = Currency("BRL")
     /// Canadian Dollars
@@ -142,6 +144,10 @@ public struct Currency {
     public static let NZD = Currency("NZD")
     /// Polish Zloty
     public static let PLN = Currency("PLN")
+    /// Qatari Rial
+    public static let QAR = Currency("QAR")
+    /// Saudi Riyal
+    public static let SAR = Currency("SAR")
     /// Swedish Krone
     public static let SEK = Currency("SEK")
     /// Singapore dollar
