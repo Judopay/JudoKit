@@ -35,10 +35,12 @@ public typealias JSONDictionary = [String : AnyObject]
 public typealias JudoCompletionBlock = (Response?, JudoError?) -> ()
 
 /// The Session struct is a wrapper for the REST API calls
-class Session : NSObject {
+public class Session : NSObject {
     
     /// The endpoint for REST API calls to the judo API
     fileprivate (set) var endpoint = "https://gw1.judopay.com/"
+    
+    fileprivate let judoBundleId = "com.judo.JudoKit"
     
     
     /// identifying whether developers are using their own UI or the Judo Out of the box UI
@@ -69,12 +71,12 @@ class Session : NSObject {
     
     
     /**
-    POST Helper Method for accessing the judo REST API
-    
-    - Parameter path:       the path
-    - Parameter parameters: information that is set in the HTTP Body
-    - Parameter completion: completion callblack block with the results
-    */
+     POST Helper Method for accessing the judo REST API
+     
+     - Parameter path:       the path
+     - Parameter parameters: information that is set in the HTTP Body
+     - Parameter completion: completion callblack block with the results
+     */
     public func POST(_ path: String, parameters: JSONDictionary, completion: @escaping JudoCompletionBlock) {
         
         // Create request
@@ -107,12 +109,12 @@ class Session : NSObject {
     
     
     /**
-    GET Helper Method for accessing the judo REST API
-    
-    - Parameter path:       the path
-    - Parameter parameters: information that is set in the HTTP Body
-    - Parameter completion: completion callblack block with the results
-    */
+     GET Helper Method for accessing the judo REST API
+     
+     - Parameter path:       the path
+     - Parameter parameters: information that is set in the HTTP Body
+     - Parameter completion: completion callblack block with the results
+     */
     func GET(_ path: String, parameters: JSONDictionary?, completion: @escaping JudoCompletionBlock) {
         
         // Create request
@@ -142,12 +144,12 @@ class Session : NSObject {
     
     
     /**
-    PUT Helper Method for accessing the judo REST API - PUT should only be accessed for 3DS transactions to fulfill the transaction
-    
-    - Parameter path:       the path
-    - Parameter parameters: information that is set in the HTTP Body
-    - Parameter completion: completion callblack block with the results
-    */
+     PUT Helper Method for accessing the judo REST API - PUT should only be accessed for 3DS transactions to fulfill the transaction
+     
+     - Parameter path:       the path
+     - Parameter parameters: information that is set in the HTTP Body
+     - Parameter completion: completion callblack block with the results
+     */
     func PUT(_ path: String, parameters: JSONDictionary, completion: @escaping JudoCompletionBlock) {
         // Create request
         let request = self.judoRequest(endpoint + path)
@@ -181,12 +183,12 @@ class Session : NSObject {
     
     
     /**
-    Helper Method to create a JSON HTTP request with authentication
-    
-    - Parameter url: the url for the request
-    
-    - Returns: a JSON HTTP request with authorization set
-    */
+     Helper Method to create a JSON HTTP request with authentication
+     
+     - Parameter url: the url for the request
+     
+     - Returns: a JSON HTTP request with authorization set
+     */
     public func judoRequest(_ url: String) -> NSMutableURLRequest {
         let request = NSMutableURLRequest(url: URL(string: url)!)
         // json configuration header
@@ -246,13 +248,13 @@ class Session : NSObject {
     }
     
     /**
-    Helper Method to create a JSON HTTP request with authentication
-    
-    - Parameter request: the request that is accessed
-    - Parameter completion: a block that gets called when the call finishes, it carries two objects that indicate whether the call was a success or a failure
-    
-    - Returns: a NSURLSessionDataTask that can be used to manipulate the call
-    */
+     Helper Method to create a JSON HTTP request with authentication
+     
+     - Parameter request: the request that is accessed
+     - Parameter completion: a block that gets called when the call finishes, it carries two objects that indicate whether the call was a success or a failure
+     
+     - Returns: a NSURLSessionDataTask that can be used to manipulate the call
+     */
     public func task(_ request: URLRequest, completion: @escaping JudoCompletionBlock) -> URLSessionDataTask {
         let urlSession = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
         return urlSession.dataTask(with: request, completionHandler: { (data, resp, err) -> Void in
@@ -347,14 +349,14 @@ class Session : NSObject {
     
     
     /**
-    Helper method to create a dictionary of all the parameters necessary for a refund or a collection
-    
-    - parameter receiptId:        The receipt ID for a refund or a collection
-    - parameter amount:           The amount to process
-    - parameter paymentReference: the payment reference
-    
-    - returns: a Dictionary containing all the information to submit for a refund or a collection
-    */
+     Helper method to create a dictionary of all the parameters necessary for a refund or a collection
+     
+     - parameter receiptId:        The receipt ID for a refund or a collection
+     - parameter amount:           The amount to process
+     - parameter paymentReference: the payment reference
+     
+     - returns: a Dictionary containing all the information to submit for a refund or a collection
+     */
     func progressionParameters(_ receiptId: String, amount: Amount, paymentReference: String, deviceSignal: JSONDictionary?) -> JSONDictionary {
         var dictionary = ["receiptId":receiptId, "amount": amount.amount, "yourPaymentReference": paymentReference] as [String : Any]
         if let deviceSignal = deviceSignal {
@@ -371,9 +373,9 @@ class Session : NSObject {
 
 /**
  **Pagination**
-
+ 
  Struct to save state of a paginated response
-*/
+ */
 public struct Pagination {
     var pageSize: Int = 10
     var offset: Int = 0
@@ -395,8 +397,8 @@ public enum Sort: String {
 }
 
 extension Session: URLSessionDelegate {
-
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+    
+    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         let serverTrust = challenge.protectionSpace.serverTrust
         let certificate = SecTrustGetCertificateAtIndex(serverTrust!, 0)
         
@@ -408,8 +410,7 @@ extension Session: URLSessionDelegate {
         // Evaluate server certificate
         var result: SecTrustResultType = SecTrustResultType(rawValue: 0)!
         let status = SecTrustEvaluate(serverTrust!, &result)
-        var isServerTrusted:Bool = false// (SecTrustResultType(rawValue: result.rawValue) == SecTrustResultType(rawValue: .kSecTrustResultUnspecified) || SecTrustResultType(rawValue: result.rawValue) == SecTrustResultType(rawValue: .kSecTrustResultProceed))
-        
+        var isServerTrusted:Bool = false
         if status == errSecSuccess {
             let unspecified = SecTrustResultType(rawValue: SecTrustResultType.unspecified.rawValue)
             let proceed = SecTrustResultType(rawValue: SecTrustResultType.proceed.rawValue)
@@ -419,7 +420,8 @@ extension Session: URLSessionDelegate {
         
         // Get local and remote cert data
         let remoteCertificateData:NSData = SecCertificateCopyData(certificate!)
-        let pathToCert = Bundle.main.path(forResource: certPath(), ofType: "cer")
+        let bundle = Bundle.init(identifier: judoBundleId)
+        let pathToCert = bundle?.path(forResource: certPath(), ofType: "cer")
         let localCertificate:NSData = NSData(contentsOfFile: pathToCert!)!
         
         if (isServerTrusted && remoteCertificateData.isEqual(to: localCertificate as Data)) {
