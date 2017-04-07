@@ -35,7 +35,7 @@ public typealias JSONDictionary = [String : AnyObject]
 public typealias JudoCompletionBlock = (Response?, JudoError?) -> ()
 
 /// The Session struct is a wrapper for the REST API calls
-public struct Session {
+class Session : NSObject {
     
     /// The endpoint for REST API calls to the judo API
     fileprivate (set) var endpoint = "https://gw1.judopay.com/"
@@ -56,6 +56,13 @@ public struct Session {
         }
     }
     
+    public func certPath()->String{
+        if sandboxed {
+            return "judopay-sandbox.com"
+        } else {
+            return "gw1.judopay.com"
+        }
+    }
     
     /// Token and secret are saved in the authorizationHeader for authentication of REST API calls
     var authorizationHeader: String?
@@ -247,7 +254,8 @@ public struct Session {
     - Returns: a NSURLSessionDataTask that can be used to manipulate the call
     */
     public func task(_ request: URLRequest, completion: @escaping JudoCompletionBlock) -> URLSessionDataTask {
-        return URLSession.shared.dataTask(with: request, completionHandler: { (data, resp, err) -> Void in
+        let urlSession = URLSession(configuration: URLSessionConfiguration.default, delegate: self, delegateQueue: nil)
+        return urlSession.dataTask(with: request, completionHandler: { (data, resp, err) -> Void in
             
             // Error handling
             if data == nil, let error = err {
@@ -384,5 +392,43 @@ public enum Sort: String {
     case Descending = "time-descending"
     /// Ascended Sorting
     case Ascending = "time-ascending"
+}
+
+extension Session: URLSessionDelegate {
+
+    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        let serverTrust = challenge.protectionSpace.serverTrust
+        let certificate = SecTrustGetCertificateAtIndex(serverTrust!, 0)
+        
+        // Set SSL policies for domain name check
+        let policies = NSMutableArray();
+        policies.add(SecPolicyCreateSSL(true, (challenge.protectionSpace.host as CFString?)))
+        SecTrustSetPolicies(serverTrust!, policies);
+        
+        // Evaluate server certificate
+        var result: SecTrustResultType = SecTrustResultType(rawValue: 0)!
+        let status = SecTrustEvaluate(serverTrust!, &result)
+        var isServerTrusted:Bool = false// (SecTrustResultType(rawValue: result.rawValue) == SecTrustResultType(rawValue: .kSecTrustResultUnspecified) || SecTrustResultType(rawValue: result.rawValue) == SecTrustResultType(rawValue: .kSecTrustResultProceed))
+        
+        if status == errSecSuccess {
+            let unspecified = SecTrustResultType(rawValue: SecTrustResultType.unspecified.rawValue)
+            let proceed = SecTrustResultType(rawValue: SecTrustResultType.proceed.rawValue)
+            
+            isServerTrusted = result == unspecified || result == proceed
+        }
+        
+        // Get local and remote cert data
+        let remoteCertificateData:NSData = SecCertificateCopyData(certificate!)
+        let pathToCert = Bundle.main.path(forResource: certPath(), ofType: "cer")
+        let localCertificate:NSData = NSData(contentsOfFile: pathToCert!)!
+        
+        if (isServerTrusted && remoteCertificateData.isEqual(to: localCertificate as Data)) {
+            let credential:URLCredential = URLCredential(trust: serverTrust!)
+            completionHandler(.useCredential, credential)
+        } else {
+            completionHandler(.cancelAuthenticationChallenge, nil)
+        }
+    }
+    
 }
 
