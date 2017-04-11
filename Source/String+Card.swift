@@ -68,7 +68,7 @@ public extension String {
         
         if cardLengthMatchedPatterns.count == 0 {
             // If no patterns are left - the entered number is invalid
-            var message = "We do not accept "
+            var message = "We don't accept "
             if cardLengthMatchedPatterns.count != patterns.count {
                 message += "\(strippedSelf.characters.count)-digit \(cardNetwork.stringValue()) cards"
             } else {
