@@ -151,10 +151,12 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[text(40)]", options: .alignAllLastBaseline, metrics: nil, views: ["text":textField]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[hintLabel]|", options: .alignAllLastBaseline, metrics: nil, views: ["hintLabel":hintLabel]))
         
-        self.heightConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.theme.inputFieldHeight)
-        self.heightConstraint.identifier = "123123"
-        self.addConstraint(heightConstraint)
         
+        let height = self.isKind(of: BillingCountryInputField.self) || self.isKind(of: PostCodeInputField.self) ? 0.0 : self.theme.inputFieldHeight
+        self.heightConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: height)
+        if !self.isKind(of: SecurityInputField.self) && !self.isKind(of: IssueNumberInputField.self){
+            self.addConstraint(heightConstraint)
+        }
         self.setActive(false)
         
         self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName: self.theme.getPlaceholderTextColor()])
