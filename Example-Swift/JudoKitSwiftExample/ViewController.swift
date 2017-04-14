@@ -105,7 +105,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         
         self.judoKitSession.theme.acceptedCardNetworks = //[Card.Configuration(.visa, 16), Card.Configuration(.masterCard, 16), Card.Configuration(.maestro, 16), Card.Configuration(.amex, 15)]
             //Allow all card types
-            [Card.Configuration(.visa, 16), Card.Configuration(.masterCard, 16), Card.Configuration(.amex, 15), Card.Configuration(.dinersClub, 14), Card.Configuration(.maestro, 16), Card.Configuration(.chinaUnionPay, 16), Card.Configuration(.discover, 16), Card.Configuration(.interPayment, 16), Card.Configuration(.instaPayment, 16), Card.Configuration(.jcb, 16), Card.Configuration(.dankort, 16), Card.Configuration(.uatp, 15)]
+            [Card.Configuration(.visa, 16), Card.Configuration(.masterCard, 16), Card.Configuration(.amex, 15), Card.Configuration(.dinersClub, 14), Card.Configuration(.maestro, 16), Card.Configuration(.chinaUnionPay, 19), Card.Configuration(.discover, 16), Card.Configuration(.interPayment, 16), Card.Configuration(.instaPayment, 16), Card.Configuration(.jcb, 16), Card.Configuration(.dankort, 16), Card.Configuration(.uatp, 15)]
         
         self.judoKitSession.sandboxed(true)
         

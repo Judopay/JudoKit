@@ -519,7 +519,7 @@
 				INFOPLIST_FILE = JudoKitSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoAppSwift;
 				PRODUCT_NAME = JudoKitSwiftExample;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
@@ -540,7 +540,7 @@
 				INFOPLIST_FILE = JudoKitSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitExampleApp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoAppSwift;
 				PRODUCT_NAME = JudoKitSwiftExample;
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 3.0;
