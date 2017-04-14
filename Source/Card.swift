@@ -471,6 +471,10 @@ public enum CardNetwork: Int64 {
      */
     public static func networkForString(_ string: String, constrainedToNetworks networks: [CardNetwork]) -> CardNetwork {
         let result = networks.filter({ $0.prefixes().filter({ string.hasPrefix($0) }).count > 0 })
+        //Case when maestro and china union pay are returned by the filter
+        if result.count == 2 {
+            return result[1]
+        }
         if result.count == 1 {
             return result[0]
         }
