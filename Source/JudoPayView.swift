@@ -275,7 +275,7 @@ open class JudoPayView: UIView {
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 1.0)
         self.avsFieldsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.billingCountryInputField.heightConstraint.constant)
-        self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: -self.postCodeInputField.bounds.height)
+        self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 24.0)
         
         self.securityMessageLabel.isHidden = !(self.theme.showSecurityMessage)
 
