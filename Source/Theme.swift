@@ -86,7 +86,7 @@ public struct Theme {
     // MARK: Security message
     
     /// the message that is shown below the input fields the ensure safety when entering card information
-    public var securityMessageString = "Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers."
+    public var securityMessageString = "Your card details are encrypted using SSL before transmission to our secure payment service provider."
     
     /// the text size of the security message
     public var securityMessageTextSize: CGFloat = 12

@@ -410,7 +410,7 @@ open class JudoPayView: UIView {
             input.displayHint(message: "")
         }
         self.updateSecurityMessagePosition(toggleUp: true)
-        _ = Timer.schedule(3.0, handler: { (timer) -> Void in
+        _ = Timer.schedule(5.0, handler: { (timer) -> Void in
             let hintLabelText = input.hintLabelText()
             if hintLabelText.characters.count > 0
                 && input.textField.text?.characters.count == 0
