@@ -322,7 +322,6 @@ open class JudoPayView: UIView {
      */
     open func toggleStartDateVisibility(_ isVisible: Bool) {
         self.startDateInputField.heightConstraint.constant = isVisible ? self.theme.inputFieldHeight : 1
-        //        self.maestroFieldsHeightConstraint?.constant = isVisible ? self.theme.inputFieldHeight : 1
         self.issueNumberInputField.setNeedsUpdateConstraints()
         self.startDateInputField.setNeedsUpdateConstraints()
         
@@ -348,6 +347,10 @@ open class JudoPayView: UIView {
         self.avsFieldsHeightConstraint?.constant = isVisible ? self.theme.inputFieldHeight : 0
         self.billingCountryInputField.setNeedsUpdateConstraints()
         self.postCodeInputField.setNeedsUpdateConstraints()
+        //Trigger constraint update for Start date for maestro cards to recalculate space
+        if isVisible {
+            self.startDateInputField.displayHint(message: "")
+        }
         
         UIView.animate(withDuration: 0.2, animations: { () -> Void in
             self.billingCountryInputField.layoutIfNeeded()
@@ -408,7 +411,10 @@ open class JudoPayView: UIView {
             input.displayHint(message: self.secureCodeInputField.hintLabelText())
         } else {
             input.displayHint(message: "")
+            self.cardInputField.displayHint(message: "")
+            self.expiryDateInputField.displayHint(message: "")
         }
+        self.updateViews(input: input, isFirstRun: true)
         self.updateSecurityMessagePosition(toggleUp: true)
         _ = Timer.schedule(5.0, handler: { (timer) -> Void in
             let hintLabelText = input.hintLabelText()
@@ -418,6 +424,7 @@ open class JudoPayView: UIView {
                 
                 self.updateSecurityMessagePosition(toggleUp: false)
                 input.displayHint(message: input.hintLabelText())
+                self.updateViews(input: input, isFirstRun: false)
             }
         })
     }
@@ -432,6 +439,16 @@ open class JudoPayView: UIView {
         self.contentView.layoutIfNeeded()
         //self.securityMessageTopConstraint?.constant = (toggleUp && !self.hintLabel.isActive()) ? -self.hintLabel.bounds.height : 14
         UIView.animate(withDuration: 0.3, animations: { self.contentView.layoutIfNeeded() })
+    }
+    
+    func updateViews(input: JudoPayInputField, isFirstRun: Bool){
+    //Just trigger first view constraint in Horizontal view
+    if input.isKind(of: SecurityInputField.self) {
+        self.expiryDateInputField.displayHint(message: (self.expiryDateInputField.textField.text?.characters.count)! > 0 ? (self.secureCodeInputField.textField.text?.characters.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
+    }
+    if input.isKind(of: IssueNumberInputField.self){
+        self.startDateInputField.displayHint(message: (self.startDateInputField.textField.text?.characters.count)! > 0 ? (self.issueNumberInputField.textField.text?.characters.count)! > 0 ? isFirstRun ? "" : " " : " " : isFirstRun ? "" : " ")
+    }
     }
     
 }

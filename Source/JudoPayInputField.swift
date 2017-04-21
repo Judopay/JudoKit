@@ -356,9 +356,7 @@ extension JudoPayInputField: JudoInputType {
     
     private func updateConstraints(message: String) {
         self.heightConstraint.constant = message.characters.count == 0 ? 50 : self.theme.inputFieldHeight
-        UIView.animate(withDuration: 0.2, delay: 0.0, options:UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
-            self.layoutIfNeeded()
-        }, completion: nil)
+        self.layoutIfNeeded()
     }
     
     private  func setRedBlockFrameAndBackgroundColor(height: CGFloat, backgroundColor: UIColor) {
