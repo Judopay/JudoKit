@@ -456,7 +456,7 @@ open class JudoPayView: UIView {
             self.expiryDateInputField.displayHint(message: (self.expiryDateInputField.textField.text?.characters.count)! > 0 ? (self.secureCodeInputField.textField.text?.characters.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
         }
         if input.isKind(of: IssueNumberInputField.self){
-            self.startDateInputField.displayHint(message: (self.startDateInputField.textField.text?.characters.count)! > 0 ? (self.issueNumberInputField.textField.text?.characters.count)! > 0 ? isFirstRun ? "" : " " : " " : isFirstRun ? "" : " ")
+            self.startDateInputField.displayHint(message: (self.startDateInputField.textField.text?.characters.count)! > 0 ? (self.issueNumberInputField.textField.text?.characters.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
         }
     }
     
