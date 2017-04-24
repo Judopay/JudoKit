@@ -400,6 +400,9 @@ open class JudoPayView: UIView {
             self.paymentButton.layoutIfNeeded()
         }, completion: nil)
         
+        if enabled {
+            self.paymentNavBarButton?.setTitleTextAttributes([NSForegroundColorAttributeName: self.theme.tintColor], for: .normal)
+        }
         self.paymentNavBarButton!.isEnabled = enabled
     }
     
