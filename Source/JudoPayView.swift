@@ -246,6 +246,8 @@ open class JudoPayView: UIView {
         self.billingCountryInputField.delegate = self
         self.postCodeInputField.delegate = self
         
+        let verticalTopSpace = 10
+        
         // Layout constraints
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[scrollView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[scrollView]-1-[button]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView, "button":paymentButton]))
@@ -270,8 +272,8 @@ open class JudoPayView: UIView {
         
         self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(12)-[securityMessage]-(12)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["securityMessage":securityMessageLabel]))
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(<=fieldHeight)]-(5)-[start]-(5)-[expiry(<=fieldHeight)]-(5)-[billing]-(20)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":self.theme.inputFieldHeight], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(<=fieldHeight)]-(5)-[issue(==start)]-(5)-[security(<=fieldHeight)]-(5)-[post]-(20)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":self.theme.inputFieldHeight], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(<=fieldHeight)]-(topSpacing)-[start]-(topSpacing)-[expiry(<=fieldHeight)]-(topSpacing)-[billing]-(20)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":self.theme.inputFieldHeight, "topSpacing": verticalTopSpace], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(<=fieldHeight)]-(topSpacing)-[issue(==start)]-(topSpacing)-[security(<=fieldHeight)]-(topSpacing)-[post]-(20)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":self.theme.inputFieldHeight, "topSpacing": verticalTopSpace], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField]))
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 1.0)
         self.avsFieldsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.billingCountryInputField.heightConstraint.constant)
@@ -321,9 +323,10 @@ open class JudoPayView: UIView {
      - parameter isVisible: Whether start date and issue number fields should be visible
      */
     open func toggleStartDateVisibility(_ isVisible: Bool) {
-        self.startDateInputField.heightConstraint.constant = isVisible ? self.theme.inputFieldHeight : 1
+        self.startDateInputField.heightConstraint.constant = isVisible ? 50 : 1
         self.issueNumberInputField.setNeedsUpdateConstraints()
         self.startDateInputField.setNeedsUpdateConstraints()
+        self.startDateInputField.isVisible = isVisible
         
         UIView.animate(withDuration: 0.2, delay: 0.0, options:UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
             self.issueNumberInputField.layoutIfNeeded()
@@ -413,6 +416,9 @@ open class JudoPayView: UIView {
             input.displayHint(message: "")
             self.cardInputField.displayHint(message: "")
             self.expiryDateInputField.displayHint(message: "")
+            if self.startDateInputField.isVisible {
+                self.startDateInputField.displayHint(message: "")
+            }
         }
         self.updateViews(input: input, isFirstRun: true)
         self.updateSecurityMessagePosition(toggleUp: true)
@@ -442,13 +448,13 @@ open class JudoPayView: UIView {
     }
     
     func updateViews(input: JudoPayInputField, isFirstRun: Bool){
-    //Just trigger first view constraint in Horizontal view
-    if input.isKind(of: SecurityInputField.self) {
-        self.expiryDateInputField.displayHint(message: (self.expiryDateInputField.textField.text?.characters.count)! > 0 ? (self.secureCodeInputField.textField.text?.characters.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
-    }
-    if input.isKind(of: IssueNumberInputField.self){
-        self.startDateInputField.displayHint(message: (self.startDateInputField.textField.text?.characters.count)! > 0 ? (self.issueNumberInputField.textField.text?.characters.count)! > 0 ? isFirstRun ? "" : " " : " " : isFirstRun ? "" : " ")
-    }
+        //Just trigger first view constraint in Horizontal view
+        if input.isKind(of: SecurityInputField.self) {
+            self.expiryDateInputField.displayHint(message: (self.expiryDateInputField.textField.text?.characters.count)! > 0 ? (self.secureCodeInputField.textField.text?.characters.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
+        }
+        if input.isKind(of: IssueNumberInputField.self){
+            self.startDateInputField.displayHint(message: (self.startDateInputField.textField.text?.characters.count)! > 0 ? (self.issueNumberInputField.textField.text?.characters.count)! > 0 ? isFirstRun ? "" : " " : " " : isFirstRun ? "" : " ")
+        }
     }
     
 }

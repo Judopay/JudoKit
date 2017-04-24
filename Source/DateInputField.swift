@@ -100,6 +100,9 @@ open class DateInputField: JudoPayInputField {
         }
     }
     
+    /// Boolean stating whether input field should identify as a start or end date
+    open var isVisible: Bool = false
+    
     
     /// Variable defining the input type (text or picker)
     open var dateInputType: DateInputType = .text {
