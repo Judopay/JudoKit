@@ -185,7 +185,7 @@ public struct Card {
 
 extension Card: CustomStringConvertible {
     public var description: String {
-        return "number: \(self.number), expiryDate: \(self.expiryDate), securityCode: \(self.securityCode), address: \(self.address), startDate: \(self.startDate), issueNumber: \(self.issueNumber)"
+        return "number: \(self.number), expiryDate: \(self.expiryDate), securityCode: \(self.securityCode), address: \(String(describing: self.address)), startDate: \(String(describing: self.startDate)), issueNumber: \(String(describing: self.issueNumber))"
     }
 }
 

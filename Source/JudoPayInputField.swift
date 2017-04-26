@@ -124,6 +124,7 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
      */
     func setupView() {
         self.redBlock.backgroundColor = self.theme.getErrorColor()
+        self.redBlock.autoresizingMask = .flexibleWidth
         
         self.backgroundColor = self.theme.getInputFieldBackgroundColor()
         self.clipsToBounds = true

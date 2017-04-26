@@ -187,6 +187,7 @@ open class JudoPayViewController: UIViewController {
         }
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getNavigationBarTitleColor()]
         
+        self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
     
