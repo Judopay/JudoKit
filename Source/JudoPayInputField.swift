@@ -225,7 +225,7 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
     open func dismissError() {
         if self.theme.getErrorColor().isEqual(self.redBlock.backgroundColor) {
             self.setActive(true)
-            self.hintLabel.textColor = self.theme.getInputFieldTextColor()
+            self.hintLabel.textColor = self.theme.getInputFieldHintTextColor()
             self.textField.textColor = self.theme.getInputFieldTextColor()
             self.hintLabel.text = ""
         }
@@ -345,7 +345,7 @@ extension JudoPayInputField: JudoInputType {
     
     public func displayHint(message: String) {
         self.hintLabel.text = message
-        self.hintLabel.textColor = self.theme.getTextColor()
+        self.hintLabel.textColor = self.theme.getInputFieldHintTextColor()
         self.updateConstraints(message: message)
     }
     
