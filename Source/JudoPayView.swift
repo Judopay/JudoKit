@@ -422,8 +422,9 @@ open class JudoPayView: UIView {
             if self.startDateInputField.isVisible {
                 self.startDateInputField.displayHint(message: "")
             }
+            self.updateViews(input: input, isFirstRun: true)
         }
-        self.updateViews(input: input, isFirstRun: true)
+//        self.updateViews(input: input, isFirstRun: true)
         self.updateSecurityMessagePosition(toggleUp: true)
         _ = Timer.schedule(5.0, handler: { (timer) -> Void in
             let hintLabelText = input.hintLabelText()
