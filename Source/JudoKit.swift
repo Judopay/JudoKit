@@ -239,6 +239,24 @@ public class JudoKit {
         self.initiateAndShow(judoPayViewController)
     }
     
+    /**
+     Initiates the token pre-auth process
+     
+     - parameter judoId:       The judoId of the merchant to receive the pre-auth
+     - parameter amount:       The amount and currency of the payment (default is GBP)
+     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+     - parameter cardDetails:  The card details to present in the input fields
+     - parameter paymentToken: The consumer and card token to make a token payment with
+     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
+     */
+    public func invokeWallet()
+//        (_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: @escaping (Response?, JudoError?) -> ()) throws
+    {
+//        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken)
+        let walletViewController = WalletViewController.init(currentSession: self)
+        self.showViewController(walletViewController)
+    }
+    
     
     /**
      Starting point and a reactive method to create a transaction that is sent to a certain judo ID

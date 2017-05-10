@@ -48,6 +48,8 @@ public enum CardLogoType {
     case cid
     /// CVC logo
     case cvc
+    /// add card logo
+    case addCard
     /// Unknown placeholder logo
     case unknown
 }
@@ -103,6 +105,8 @@ open class CardLogoView: UIView {
             drawIc_card_cidvCanvas()
         case .cvc:
             drawIc_card_cvcCanvas()
+        case .addCard:
+            drawIc_add_card_canvas()
         default:
             drawIc_card_unknownCanvas()
         }
@@ -7776,4 +7780,42 @@ open class CardLogoView: UIView {
         fillColor16.setFill()
         bezier23Path.fill()
 
+}
+
+public func drawIc_add_card_canvas() {
+    //// Color Declarations
+    let fillColor = UIColor(red: 0.647, green: 0.647, blue: 0.647, alpha: 1.000)
+    let fillColor2 = UIColor(red: 0.951, green: 0.951, blue: 0.951, alpha: 1.000)
+    
+    //// Group
+    //// Group 2
+    //// Bezier Drawing
+    let bezierPath = UIBezierPath()
+    bezierPath.move(to: CGPoint(x: 43.77, y: 0))
+    bezierPath.addLine(to: CGPoint(x: 2.23, y: 0))
+    bezierPath.addCurve(to: CGPoint(x: 0, y: 2.22), controlPoint1: CGPoint(x: 1, y: 0), controlPoint2: CGPoint(x: 0, y: 0.99))
+    bezierPath.addLine(to: CGPoint(x: 0, y: 3.33))
+    bezierPath.addLine(to: CGPoint(x: 0, y: 26.67))
+    bezierPath.addLine(to: CGPoint(x: 0, y: 27.79))
+    bezierPath.addCurve(to: CGPoint(x: 2.23, y: 30), controlPoint1: CGPoint(x: 0, y: 29.01), controlPoint2: CGPoint(x: 1, y: 30))
+    bezierPath.addLine(to: CGPoint(x: 43.77, y: 30))
+    bezierPath.addCurve(to: CGPoint(x: 46, y: 27.79), controlPoint1: CGPoint(x: 45, y: 30), controlPoint2: CGPoint(x: 46, y: 29.01))
+    bezierPath.addLine(to: CGPoint(x: 46, y: 2.22))
+    bezierPath.addCurve(to: CGPoint(x: 43.77, y: 0), controlPoint1: CGPoint(x: 46, y: 0.99), controlPoint2: CGPoint(x: 45, y: 0))
+    bezierPath.close()
+    bezierPath.miterLimit = 4;
+    
+    fillColor.setFill()
+    bezierPath.fill()
+    
+    
+    //// Rectangle Drawing
+    let rectanglePath = UIBezierPath(roundedRect: CGRect(x: 0.55, y: 0.57, width: 44.9, height: 28.35), cornerRadius: 1.6)
+    fillColor2.setFill()
+    rectanglePath.fill()
+    
+    //// Rectangle top bold line Drawing
+    let rectanglePath2 = UIBezierPath(roundedRect: CGRect(x: 0.55, y: 8.00, width: 44.9, height: 5.35), cornerRadius: 0.0)
+    fillColor.setFill()
+    rectanglePath2.fill()
 }

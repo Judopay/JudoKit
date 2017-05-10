@@ -28,10 +28,10 @@ import JudoKit
 import CoreLocation
 
 enum TableViewContent : Int {
-    case payment = 0, preAuth, createCardToken, repeatPayment, tokenPreAuth, applePayPayment, applePayPreAuth
+    case payment = 0, preAuth, createCardToken, repeatPayment, tokenPreAuth, applePayPayment, applePayPreAuth, wallet
     
     static func count() -> Int {
-        return 7
+        return 8
     }
     
     func title() -> String {
@@ -50,6 +50,8 @@ enum TableViewContent : Int {
             return "ApplePay payment"
         case .applePayPreAuth:
             return "ApplePay preAuth"
+        case .wallet:
+            return "Wallet"
         }
     }
     
@@ -69,6 +71,8 @@ enum TableViewContent : Int {
             return "make a payment using ApplePay"
         case .applePayPreAuth:
             return "make a preAuth using ApplePay"
+        case .wallet:
+            return "to manage your cards"
         }
     }
     
@@ -214,6 +218,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             applePayPayment()
         case .applePayPreAuth:
             applePayPreAuth()
+        case .wallet:
+            walletOperation()
         }
     }
     
@@ -369,6 +375,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    func walletOperation() {
+        self.judoKitSession.invokeWallet()
     }
     
     func dismissView(){
