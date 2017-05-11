@@ -103,7 +103,9 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
 
         self.reference = self.getSampleConsumerReference()
         
-        self.judoKitSession.theme.acceptedCardNetworks = [Card.Configuration(.visa, 16), Card.Configuration(.masterCard, 16), Card.Configuration(.maestro, 16), Card.Configuration(.amex, 15)]
+        self.judoKitSession.theme.acceptedCardNetworks = //[Card.Configuration(.visa, 16), Card.Configuration(.masterCard, 16), Card.Configuration(.maestro, 16), Card.Configuration(.amex, 15)]
+            //Allow all card types
+            [Card.Configuration(.visa, 16), Card.Configuration(.masterCard, 16), Card.Configuration(.amex, 15), Card.Configuration(.dinersClub, 14), Card.Configuration(.maestro, 16), Card.Configuration(.chinaUnionPay, 19), Card.Configuration(.discover, 16), Card.Configuration(.interPayment, 16), Card.Configuration(.instaPayment, 16), Card.Configuration(.jcb, 16), Card.Configuration(.dankort, 16), Card.Configuration(.uatp, 15)]
         
         self.judoKitSession.sandboxed(true)
         
@@ -220,10 +222,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     func paymentOperation() {
         guard let ref = Reference(consumerRef: self.reference) else { return }
         try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
-            self.dismiss(animated: true, completion: nil)
+            self.dismissView()
             if let error = error {
                 if error.code == .userDidCancel {
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismissView()
                     return
                 }
                 var errorTitle = "Error"
@@ -232,7 +234,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 }
                 self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.dismiss(animated: true, completion:nil)
+                self.dismissView()
                 return // BAIL
             }
             
@@ -250,10 +252,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     func preAuthOperation() {
         guard let ref = Reference(consumerRef: self.reference) else { return }
         try! self.judoKitSession.invokePreAuth(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
-            self.dismiss(animated: true, completion: nil)
+            self.dismissView()
             if let error = error {
                 if error.code == .userDidCancel {
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismissView()
                     return
                 }
                 var errorTitle = "Error"
@@ -262,7 +264,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 }
                 self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.dismiss(animated: true, completion:nil)
+                self.dismissView()
                 return // BAIL
             }
             if let resp = response, let transactionData = resp.items.first {
@@ -279,10 +281,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     func createCardTokenOperation() {
         guard let ref = Reference(consumerRef: self.reference) else { return }
         try! self.judoKitSession.invokeRegisterCard(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
-            self.dismiss(animated: true, completion: nil)
+            self.dismissView()
             if let error = error {
                 if error.code == .userDidCancel {
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismissView()
                     return
                 }
                 var errorTitle = "Error"
@@ -291,7 +293,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 }
                 self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
                 self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.dismiss(animated: true, completion:nil)
+                self.dismissView()
                 return // BAIL
             }
             if let resp = response, let transactionData = resp.items.first {
@@ -304,10 +306,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     func repeatPaymentOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: self.reference) {
             try! self.judoKitSession.invokeTokenPayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
-                self.dismiss(animated: true, completion: nil)
+                self.dismissView()
                 if let error = error {
                     if error.code == .userDidCancel {
-                        self.dismiss(animated: true, completion: nil)
+                        self.dismissView()
                         return
                     }
                     var errorTitle = "Error"
@@ -316,7 +318,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                     }
                     self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
                     self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.dismiss(animated: true, completion:nil)
+                    self.dismissView()
                     return // BAIL
                 }
                 if let resp = response, let transactionData = resp.items.first {
@@ -338,10 +340,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     func repeatPreAuthOperation() {
         if let cardDetails = self.cardDetails, let payToken = self.paymentToken, let ref = Reference(consumerRef: self.reference) {
             try! self.judoKitSession.invokeTokenPreAuth(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
-                self.dismiss(animated: true, completion: nil)
+                self.dismissView()
                 if let error = error {
                     if error.code == .userDidCancel {
-                        self.dismiss(animated: true, completion: nil)
+                        self.dismissView()
                         return
                     }
                     var errorTitle = "Error"
@@ -350,7 +352,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                     }
                     self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
                     self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.dismiss(animated: true, completion:nil)
+                    self.dismissView()
                     return // BAIL
                 }
                 if let resp = response, let transactionData = resp.items.first {
@@ -366,6 +368,14 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func dismissView(){
+        if (UIApplication.shared.keyWindow?.rootViewController?.isKind(of: UINavigationController.self))! {
+            _=self.navigationController?.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -428,7 +438,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
         // WARNING: this can not be properly tested with the sandbox due to restrictions from Apple- if you need to test ApplePay you have to make actual valid transaction and then void them
         let completionBlock: (Response?, JudoError?) -> () = { (response, error) -> () in
-            self.dismiss(animated: true, completion: nil)
+            self.dismissView()
             if let _ = error {
                 let alertCont = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .alert)
                 alertCont.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -455,7 +465,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
-        self.dismiss(animated: true, completion: nil)
+        self.dismissView()
     }
     
     func getSampleConsumerReference() -> String {

@@ -185,7 +185,7 @@ public struct Card {
 
 extension Card: CustomStringConvertible {
     public var description: String {
-        return "number: \(self.number), expiryDate: \(self.expiryDate), securityCode: \(self.securityCode), address: \(self.address), startDate: \(self.startDate), issueNumber: \(self.issueNumber)"
+        return "number: \(self.number), expiryDate: \(self.expiryDate), securityCode: \(self.securityCode), address: \(String(describing: self.address)), startDate: \(String(describing: self.startDate)), issueNumber: \(String(describing: self.issueNumber))"
     }
 }
 
@@ -471,6 +471,10 @@ public enum CardNetwork: Int64 {
      */
     public static func networkForString(_ string: String, constrainedToNetworks networks: [CardNetwork]) -> CardNetwork {
         let result = networks.filter({ $0.prefixes().filter({ string.hasPrefix($0) }).count > 0 })
+        //Case when maestro and china union pay are returned by the filter
+        if result.count == 2 {
+            return result[1]
+        }
         if result.count == 1 {
             return result[0]
         }

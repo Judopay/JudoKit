@@ -25,23 +25,23 @@
 import UIKit
 
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l < r
+    case (nil, _?):
+        return true
+    default:
+        return false
+    }
 }
 
 fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
+    switch (lhs, rhs) {
+    case let (l?, r?):
+        return l > r
+    default:
+        return rhs < lhs
+    }
 }
 
 /**
@@ -67,6 +67,8 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
     
     let hintLabel = UILabel()
     var hasRedBlockBeenLaiedout = false
+    
+    var heightConstraint: NSLayoutConstraint!
     
     // MARK: Initializers
     
@@ -122,7 +124,8 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
      */
     func setupView() {
         self.redBlock.backgroundColor = self.theme.getErrorColor()
-
+        self.redBlock.autoresizingMask = .flexibleWidth
+        
         self.backgroundColor = self.theme.getInputFieldBackgroundColor()
         self.clipsToBounds = true
         
@@ -149,6 +152,12 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[text(40)]", options: .alignAllLastBaseline, metrics: nil, views: ["text":textField]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[hintLabel]|", options: .alignAllLastBaseline, metrics: nil, views: ["hintLabel":hintLabel]))
         
+        
+        let height = self.isKind(of: BillingCountryInputField.self) || self.isKind(of: PostCodeInputField.self) ? 0.0 : self.theme.inputFieldHeight
+        self.heightConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: height)
+        if !self.isKind(of: SecurityInputField.self) && !self.isKind(of: IssueNumberInputField.self){
+            self.addConstraint(heightConstraint)
+        }
         self.setActive(false)
         
         self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName: self.theme.getPlaceholderTextColor()])
@@ -216,7 +225,7 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
     open func dismissError() {
         if self.theme.getErrorColor().isEqual(self.redBlock.backgroundColor) {
             self.setActive(true)
-            self.hintLabel.textColor = self.theme.getInputFieldTextColor()
+            self.hintLabel.textColor = self.theme.getInputFieldHintTextColor()
             self.textField.textColor = self.theme.getInputFieldTextColor()
             self.hintLabel.text = ""
         }
@@ -336,17 +345,25 @@ extension JudoPayInputField: JudoInputType {
     
     public func displayHint(message: String) {
         self.hintLabel.text = message
-        self.hintLabel.textColor = self.theme.getTextColor()
+        self.hintLabel.textColor = self.theme.getInputFieldHintTextColor()
+        self.updateConstraints(message: message)
     }
     
     public func displayError(message: String) {
         self.hintLabel.text = message
         self.hintLabel.textColor = self.theme.getErrorColor()
+        self.updateConstraints(message: message)
+    }
+    
+    private func updateConstraints(message: String) {
+        self.heightConstraint.constant = message.characters.count == 0 ? 50 : self.theme.inputFieldHeight
+        self.layoutIfNeeded()
     }
     
     private  func setRedBlockFrameAndBackgroundColor(height: CGFloat, backgroundColor: UIColor) {
         self.redBlock.backgroundColor = backgroundColor
-        self.redBlock.frame = CGRect(x: 13.0, y: self.frame.size.height - 22.0, width: self.frame.size.width - 26.0, height: height)
+        let yPosition:CGFloat = self.frame.size.height == 50 ? 4 : 22;
+        self.redBlock.frame = CGRect(x: 13.0, y: self.frame.size.height - yPosition, width: self.frame.size.width - 26.0, height: height)
     }
     
     func redBlockAsError() {

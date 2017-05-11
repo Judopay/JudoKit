@@ -182,11 +182,14 @@ open class JudoPayViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
         
         self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.getTextColor()
+        self.navigationController?.navigationBar.barTintColor = self.judoKitSession.theme.getNavigationBarBackgroundColor()
         if !self.judoKitSession.theme.colorMode() {
             self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         }
+        self.navigationController?.navigationBar.setBottomBorderColor(color: self.judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getNavigationBarTitleColor()]
         
+        self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
     

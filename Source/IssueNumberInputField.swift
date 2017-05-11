@@ -135,7 +135,7 @@ open class IssueNumberInputField: JudoPayInputField {
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */
     open override func hintLabelText() -> String {
-        return "Issue number on front of card"
+        return "Issue on front of card"
     }
 
 }
