@@ -22,7 +22,7 @@ Versions >= 6.2.5 require Xcode 8 and Swift 3. Version 6.2.4 is the last version
 
 Add `import JudoKit` to the top of the file where you want to use the SDK.
 
-If you are integrating using Cocoapods, follow the steps below (if your integration is based on Carthage, then visit https://github.com/JudoPay/JudoKit/wiki/Carthage. If you are integrating the SDK manually then follow the guide here https://github.com/JudoPay/JudoKit/wiki/Manual-integration):
+If you are integrating using Cocoapods, follow the steps below (if your integration is based on Carthage, then visit https://github.com/JudoPay/JudoKit/wiki/Carthage.
 
 - You can install CocoaPods with the following command:
 
