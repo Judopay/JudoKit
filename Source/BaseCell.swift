@@ -39,7 +39,6 @@ class BaseCell: UITableViewCell {
         cellView.layer.borderColor = UIColor.gray.cgColor
         cellView.layer.borderWidth = 1.0
         cellView.layer.cornerRadius = 8.0
-        contentView.addSubview(cellView)
         
         let logoView = CardLogoView.init(type: .addCard)
         logoView.frame = CGRect(x: 0, y: 0, width: 46, height: 30)
@@ -49,19 +48,20 @@ class BaseCell: UITableViewCell {
         self.logoContainerView.layer.cornerRadius = 2
         self.logoContainerView.addSubview(logoView)
         
-        contentView.addSubview(logoContainerView)
-        
         arrowLabel.text = ">"
         arrowLabel.textColor = UIColor.darkGray
         arrowLabel.font = UIFont.boldSystemFont(ofSize: 22)
-        contentView.addSubview(arrowLabel)
         arrowLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addSubview(cellView)
+        contentView.addSubview(logoContainerView)
+        contentView.addSubview(arrowLabel)
         
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(y)-[logo(30)]", options: .alignAllLastBaseline, metrics: ["y":centerY], views: ["logo":self.logoContainerView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-28-[content]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["content":cellView]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-24-[content]-24-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["content": cellView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[content]-14-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["content": cellView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(y)-[arrow]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["y":centerY], views: ["arrow":arrowLabel]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[arrow]-42-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["arrow": self.arrowLabel]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[arrow]-32-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["arrow": self.arrowLabel]))
 
     }
     

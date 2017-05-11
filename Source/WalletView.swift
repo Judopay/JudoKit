@@ -38,6 +38,8 @@ open class WalletView: UIView {
     
     let theme: Theme
     
+    var delegate : WalletCardOperationProtocol!
+    
     /**
      Designated initializer
      
@@ -89,7 +91,7 @@ extension WalletView : UITableViewDelegate, UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        delegate.onAddWalletCard()
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

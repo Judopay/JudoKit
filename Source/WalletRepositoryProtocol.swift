@@ -30,3 +30,7 @@ protocol WalletRepositoryProtocol {
     func get(id: UUID) -> WalletCard?
     func remove(id: UUID)
 }
+
+protocol WalletCardOperationProtocol {
+    func onAddWalletCard()
+}

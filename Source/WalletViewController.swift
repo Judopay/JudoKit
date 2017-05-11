@@ -30,6 +30,15 @@ open class WalletViewController: UIViewController {
     /// the current JudoKit Session
     open var judoKitSession: JudoKit
     
+    /// The amount and currency to process, amount to two decimal places and currency in string
+    open fileprivate (set) var amount: Amount?
+    /// The number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
+    open fileprivate (set) var judoId: String?
+    /// Your reference for this consumer, this payment and an object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
+    open fileprivate (set) var reference: Reference?
+    /// Card token and Consumer token
+    open fileprivate (set) var paymentToken: PaymentToken?
+    
     /// The overridden view object forwarding to a JudoPayView
     override open var view: UIView! {
         get { return self.myView as UIView }
@@ -59,8 +68,12 @@ open class WalletViewController: UIViewController {
     
     - returns: a JPayViewController object for presentation on a view stack
     */
-    public init(currentSession: JudoKit) {
+    public init(judoId: String, amount: Amount, reference: Reference, currentSession: JudoKit) {
         
+        self.judoId = judoId
+        self.amount = amount
+        self.reference = reference
+//        self.paymentToken = paymentToken
         self.judoKitSession = currentSession
         
         self.myView = WalletView(currentTheme: currentSession.theme)
@@ -102,7 +115,7 @@ open class WalletViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Wallet"
-        
+        self.myView.delegate = self
 //        self.myView.threeDSecureWebView.delegate = self
 //        
 //        // Button actions
@@ -158,5 +171,47 @@ open class WalletViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
 //        self.completionBlock?(nil, JudoError(.userDidCancel))
     }
+    
+    
+    //MARK: instantiate add card view
+    func addCardTokenOperation() {
+        guard let ref = self.reference else { return }
+        try! self.judoKitSession.invokeRegisterCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, completion: { (response, error) -> () in
+            self.dismissView()
+//            if let error = error {
+//                if error.code == .userDidCancel {
+//                    self.dismissView()
+//                    return
+//                }
+//                var errorTitle = "Error"
+//                if let errorCategory = error.category {
+//                    errorTitle = errorCategory.stringValue()
+//                }
+//                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+//                self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//                self.dismissView()
+//                return // BAIL
+//            }
+//            if let resp = response, let transactionData = resp.items.first {
+//                self.cardDetails = transactionData.cardDetails
+//                self.paymentToken = transactionData.paymentToken()
+//            }
+        })
+    }
+    
+    func dismissView(){
+        if (UIApplication.shared.keyWindow?.rootViewController?.isKind(of: UINavigationController.self))! {
+            _=self.navigationController?.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
 
+}
+
+extension WalletViewController : WalletCardOperationProtocol {
+
+    func onAddWalletCard() {
+        self.addCardTokenOperation()
+    }
 }

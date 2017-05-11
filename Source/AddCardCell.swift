@@ -35,7 +35,8 @@ class AddCardCell: BaseCell {
         self.selectionStyle = .none
         
         addCardLabel.text = "Add a card"
-        addCardLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        addCardLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        addCardLabel.textColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
         addCardLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let centerY = contentView.frame.size.height
@@ -43,7 +44,7 @@ class AddCardCell: BaseCell {
         
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(y)-[label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["y":centerY+5], views: ["label":addCardLabel]))
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-42-[logo(46)]-18-[label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["label": addCardLabel, "logo": self.logoContainerView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["label": addCardLabel, "logo": self.logoContainerView]))
     }
     
     required init?(coder aDecoder: NSCoder) {

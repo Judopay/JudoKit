@@ -378,7 +378,8 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     }
     
     func walletOperation() {
-        self.judoKitSession.invokeWallet()
+        guard let ref = Reference(consumerRef: self.reference) else { return }
+        self.judoKitSession.invokeWallet(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref)
     }
     
     func dismissView(){
