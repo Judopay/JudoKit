@@ -34,8 +34,11 @@ class WalletCellFactory: NSObject {
         return AddCardCell()
     }
     
-    private func createCardCell()->UITableViewCell{
-        return CardCell()
+    func createCardCell(cardDetails: CardDetails, paymentToken: PaymentToken)->UITableViewCell{
+        let cardCell = CardCell()
+        cardCell.cardDetails = cardDetails
+        cardCell.paymentToken = paymentToken
+        return cardCell
     }
     
 }

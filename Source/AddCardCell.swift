@@ -30,7 +30,6 @@ class AddCardCell: BaseCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.frame.size.height = 110.0
         self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.selectionStyle = .none
         
@@ -39,10 +38,9 @@ class AddCardCell: BaseCell {
         addCardLabel.textColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
         addCardLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        let centerY = contentView.frame.size.height
         contentView.addSubview(addCardLabel)
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(y)-[label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["y":centerY+5], views: ["label":addCardLabel]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-30-[label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":addCardLabel]))
         
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["label": addCardLabel, "logo": self.logoContainerView]))
     }

@@ -40,6 +40,8 @@ open class WalletView: UIView {
     
     var delegate : WalletCardOperationProtocol!
     
+    var cards = NSMutableArray()
+    
     /**
      Designated initializer
      
@@ -50,7 +52,6 @@ open class WalletView: UIView {
      */
     public init(currentTheme: Theme) {
         self.theme = currentTheme
-        
         super.init(frame: UIScreen.main.bounds)
         
         self.setupView()
@@ -70,6 +71,8 @@ open class WalletView: UIView {
     
     // MARK: View LifeCycle
     func setupView(){
+        //Add "Add a card" cell
+        cards.add(WalletCellFactory().createCard(cardType: 0))
         // View
         self.addSubview(contentView)
         let navHeight:CGFloat = 60.0
@@ -87,19 +90,26 @@ open class WalletView: UIView {
 extension WalletView : UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 110.0
+        return 80.0
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate.onAddWalletCard()
+        let item = self.cards[indexPath.row] as! BaseCell
+        if item.isKind(of: AddCardCell.self){
+            delegate.onAddWalletCard()
+        }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.cards.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return WalletCellFactory().createCard(cardType: 0)
+        let item = self.cards[indexPath.row] as! BaseCell
+        if item.isKind(of: AddCardCell.self){
+            return WalletCellFactory().createCard(cardType: 0)
+        }
+        return item as! CardCell
     }
     
 }

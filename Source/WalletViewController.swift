@@ -54,6 +54,10 @@ open class WalletViewController: UIViewController {
     /// The main JudoPayView of this ViewController
     var myView: WalletView!
     
+    var cardDetails: CardDetails?
+    
+    var alertController: UIAlertController?
+    
     /**
     Initializer to start a payment journey
     
@@ -73,7 +77,6 @@ open class WalletViewController: UIViewController {
         self.judoId = judoId
         self.amount = amount
         self.reference = reference
-//        self.paymentToken = paymentToken
         self.judoKitSession = currentSession
         
         self.myView = WalletView(currentTheme: currentSession.theme)
@@ -178,24 +181,27 @@ open class WalletViewController: UIViewController {
         guard let ref = self.reference else { return }
         try! self.judoKitSession.invokeRegisterCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, completion: { (response, error) -> () in
             self.dismissView()
-//            if let error = error {
-//                if error.code == .userDidCancel {
-//                    self.dismissView()
-//                    return
-//                }
-//                var errorTitle = "Error"
-//                if let errorCategory = error.category {
-//                    errorTitle = errorCategory.stringValue()
-//                }
-//                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
-//                self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//                self.dismissView()
-//                return // BAIL
-//            }
-//            if let resp = response, let transactionData = resp.items.first {
-//                self.cardDetails = transactionData.cardDetails
-//                self.paymentToken = transactionData.paymentToken()
-//            }
+            if let error = error {
+                if error.code == .userDidCancel {
+                    self.dismissView()
+                    return
+                }
+                var errorTitle = "Error"
+                if let errorCategory = error.category {
+                    errorTitle = errorCategory.stringValue()
+                }
+                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+                self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.dismissView()
+                return // BAIL
+            }
+            if let resp = response, let transactionData = resp.items.first {
+                self.cardDetails = transactionData.cardDetails
+                self.paymentToken = transactionData.paymentToken()
+                let cardCell = WalletCellFactory().createCardCell(cardDetails: self.cardDetails!, paymentToken: self.paymentToken!)
+                self.myView.cards.add(cardCell)
+                self.myView.contentView.reloadData()
+            }
         })
     }
     

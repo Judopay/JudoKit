@@ -24,6 +24,50 @@
 
 import UIKit
 
-class CardCell: UITableViewCell {
+class CardCell: BaseCell {
+    
+    var cardDetails: CardDetails? {
+    
+        didSet{
+            updateTitles()
+        }
+    }
+    var paymentToken: PaymentToken?
+    
+    let cardNameLabel = UILabel()
+    let cardSubLabel = UILabel()
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.selectionStyle = .none
+        
+        contentView.addSubview(cardNameLabel)
+        contentView.addSubview(cardSubLabel)
+        
+        cardNameLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        cardNameLabel.textColor = .black
+        cardNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        cardSubLabel.font = UIFont.systemFont(ofSize: 14)
+        cardSubLabel.textColor = .gray
+        cardSubLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-30-[label]-1-[sub_label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":cardNameLabel, "sub_label":cardSubLabel]))
+        
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["label": cardNameLabel, "logo": self.logoContainerView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[sub_label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["sub_label": cardSubLabel, "logo": self.logoContainerView]))
+    }
+    
+    func updateTitles(){
+        cardNameLabel.text = cardDetails?.cardNetwork?.stringValue()
+        cardSubLabel.text = "****"+(cardDetails?.cardLastFour)!+" • Expiry "+(cardDetails?.formattedEndDate())!
+        logoView = CardLogoView.init(type: (cardDetails?.cardNetwork?.cardLogoType())!)
+        logoView.frame = CGRect(x: 0, y: 0, width: 46, height: 30)
+        logoContainerView.addSubview(logoView)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
 }
