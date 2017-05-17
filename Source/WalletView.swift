@@ -38,9 +38,8 @@ open class WalletView: UIView {
     
     let theme: Theme
     
-    var delegate : WalletCardOperationProtocol!
-    
-    var cards = NSMutableArray()
+    var delegate: WalletCardOperationProtocol!
+    var walletService: WalletService!
     
     /**
      Designated initializer
@@ -71,8 +70,6 @@ open class WalletView: UIView {
     
     // MARK: View LifeCycle
     func setupView(){
-        //Add "Add a card" cell
-        cards.add(WalletCellFactory().createCard(cardType: 0))
         // View
         self.addSubview(contentView)
         let navHeight:CGFloat = 60.0
@@ -82,7 +79,6 @@ open class WalletView: UIView {
         self.contentView.dataSource = self
         self.contentView.delegate = self
         self.contentView.separatorStyle = .none
-        self.contentView.reloadData()
     }
 
 }
@@ -90,26 +86,25 @@ open class WalletView: UIView {
 extension WalletView : UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80.0
+        return 100.0
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = self.cards[indexPath.row] as! BaseCell
-        if item.isKind(of: AddCardCell.self){
+        if indexPath.row == self.walletService.get().count {
             delegate.onAddWalletCard()
         }
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.cards.count
+        return self.walletService.get().count+1//+1 reserved an item for Add Card cell
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = self.cards[indexPath.row] as! BaseCell
-        if item.isKind(of: AddCardCell.self){
+        if indexPath.row == self.walletService.get().count {
             return WalletCellFactory().createCard(cardType: 0)
         }
-        return item as! CardCell
+        let item = self.walletService.get()[indexPath.row]
+        return WalletCellFactory().createCardCell(walletCard: item)
     }
     
 }

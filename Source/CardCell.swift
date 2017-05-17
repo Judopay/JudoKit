@@ -26,7 +26,7 @@ import UIKit
 
 class CardCell: BaseCell {
     
-    var cardDetails: CardDetails? {
+    var walletCard: WalletCard? {
     
         didSet{
             updateTitles()
@@ -52,16 +52,16 @@ class CardCell: BaseCell {
         cardSubLabel.textColor = .gray
         cardSubLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-30-[label]-1-[sub_label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":cardNameLabel, "sub_label":cardSubLabel]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-45-[label]-1-[sub_label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":cardNameLabel, "sub_label":cardSubLabel]))
         
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["label": cardNameLabel, "logo": self.logoContainerView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[sub_label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["sub_label": cardSubLabel, "logo": self.logoContainerView]))
     }
     
     func updateTitles(){
-        cardNameLabel.text = cardDetails?.cardNetwork?.stringValue()
-        cardSubLabel.text = "****"+(cardDetails?.cardLastFour)!+" • Expiry "+(cardDetails?.formattedEndDate())!
-        logoView = CardLogoView.init(type: (cardDetails?.cardNetwork?.cardLogoType())!)
+        cardNameLabel.text = walletCard?.assignedName
+        cardSubLabel.text = "****"+(walletCard?.cardNumberLastFour)!+" • Expiry "+(walletCard?.expiryDate)!
+        logoView = CardLogoView.init(type: (walletCard?.cardType)!)
         logoView.frame = CGRect(x: 0, y: 0, width: 46, height: 30)
         logoContainerView.addSubview(logoView)
     }

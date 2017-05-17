@@ -59,10 +59,10 @@ class BaseCell: UITableViewCell {
         contentView.addSubview(logoContainerView)
         contentView.addSubview(arrowLabel)
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(y)-[logo(30)]", options: .alignAllLastBaseline, metrics: ["y":centerY], views: ["logo":self.logoContainerView]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-1-[content]-11-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["content":cellView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-48-[logo(30)]-24-|", options: .alignAllLastBaseline, metrics: nil, views: ["logo":self.logoContainerView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-28-[content]-1-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["content":cellView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[content]-14-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["content": cellView]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(y)-[arrow]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["y":centerY], views: ["arrow":arrowLabel]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(y)-[arrow]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["y":centerY+5], views: ["arrow":arrowLabel]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "[arrow]-32-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["arrow": self.arrowLabel]))
 
     }

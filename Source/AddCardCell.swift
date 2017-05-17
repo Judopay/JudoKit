@@ -40,7 +40,7 @@ class AddCardCell: BaseCell {
         
         contentView.addSubview(addCardLabel)
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-30-[label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":addCardLabel]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-52-[label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":addCardLabel]))
         
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["label": addCardLabel, "logo": self.logoContainerView]))
     }

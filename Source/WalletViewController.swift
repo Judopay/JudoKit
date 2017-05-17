@@ -39,6 +39,15 @@ open class WalletViewController: UIViewController {
     /// Card token and Consumer token
     open fileprivate (set) var paymentToken: PaymentToken?
     
+    /// The main JudoPayView of this ViewController
+    var myView: WalletView!
+    
+    var cardDetails: CardDetails?
+    
+    var alertController: UIAlertController?
+    
+    var walletService: WalletService!
+    
     /// The overridden view object forwarding to a JudoPayView
     override open var view: UIView! {
         get { return self.myView as UIView }
@@ -49,14 +58,7 @@ open class WalletViewController: UIViewController {
             // Do nothing
         }
     }
-    
-    
-    /// The main JudoPayView of this ViewController
-    var myView: WalletView!
-    
-    var cardDetails: CardDetails?
-    
-    var alertController: UIAlertController?
+
     
     /**
     Initializer to start a payment journey
@@ -78,7 +80,8 @@ open class WalletViewController: UIViewController {
         self.amount = amount
         self.reference = reference
         self.judoKitSession = currentSession
-        
+        let inMemoryRepository = InMemoryWalletRepository()
+        self.walletService = WalletService.init(repo: inMemoryRepository)
         self.myView = WalletView(currentTheme: currentSession.theme)
         
         super.init(nibName: nil, bundle: nil)
@@ -119,6 +122,7 @@ open class WalletViewController: UIViewController {
         
         self.title = "Wallet"
         self.myView.delegate = self
+        self.myView.walletService = walletService
 //        self.myView.threeDSecureWebView.delegate = self
 //        
 //        // Button actions
@@ -150,7 +154,7 @@ open class WalletViewController: UIViewController {
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.myView.layoutIfNeeded()
+//        self.myView.layoutIfNeeded()
     }
     
     
@@ -198,11 +202,16 @@ open class WalletViewController: UIViewController {
             if let resp = response, let transactionData = resp.items.first {
                 self.cardDetails = transactionData.cardDetails
                 self.paymentToken = transactionData.paymentToken()
-                let cardCell = WalletCellFactory().createCardCell(cardDetails: self.cardDetails!, paymentToken: self.paymentToken!)
-                self.myView.cards.add(cardCell)
+    
+                try! self.walletService.add(card: self.walletCardAdapter(cardDetails: self.cardDetails!))
                 self.myView.contentView.reloadData()
             }
         })
+    }
+    
+    func walletCardAdapter(cardDetails: CardDetails)->WalletCard{
+    let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardNetwork?.stringValue(), defaultPaymentMethod: true)
+        return walletCard
     }
     
     func dismissView(){

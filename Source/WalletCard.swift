@@ -29,13 +29,13 @@ struct WalletCard {
     let cardNumberLastFour: String
     let expiryDate: String
     let cardToken: String
-    let cardType: Int
+    let cardType: CardLogoType?
     let assignedName: String?
     let dateCreated: Date
     let dateUpdated: Date?
     let defaultPaymentMethod: Bool
     
-    fileprivate init(id: UUID, cardNumberLastFour: String, expiryDate: String, cardToken: String, cardType: Int, assignedName: String?, dateCreated: Date, dateUpdated: Date?, defaultPaymentMethod: Bool) {
+    fileprivate init(id: UUID, cardNumberLastFour: String, expiryDate: String, cardToken: String, cardType: CardLogoType, assignedName: String?, dateCreated: Date, dateUpdated: Date?, defaultPaymentMethod: Bool) {
         self.id = id
         self.cardNumberLastFour = cardNumberLastFour
         self.expiryDate = expiryDate
@@ -47,7 +47,7 @@ struct WalletCard {
         self.defaultPaymentMethod = defaultPaymentMethod
     }
     
-    init(cardNumberLastFour: String, expiryDate: String, cardToken: String, cardType: Int, assignedName: String?, defaultPaymentMethod: Bool) {
+    init(cardNumberLastFour: String, expiryDate: String, cardToken: String, cardType: CardLogoType, assignedName: String?, defaultPaymentMethod: Bool) {
         self.init(id: UUID(), cardNumberLastFour: cardNumberLastFour, expiryDate: expiryDate, cardToken: cardToken, cardType: cardType, assignedName: assignedName, dateCreated: Date(), dateUpdated: nil, defaultPaymentMethod: defaultPaymentMethod)
     }
     
@@ -70,14 +70,14 @@ struct WalletCard {
 
 extension WalletCard {
     func withDefaultCard() -> WalletCard {
-        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), defaultPaymentMethod: true)
+        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), defaultPaymentMethod: true)
     }
     
     func withNonDefaultCard() -> WalletCard {
-        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), defaultPaymentMethod: false)
+        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), defaultPaymentMethod: false)
     }
     
     func withAssignedCardName(assignedName: String?) -> WalletCard {
-        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType, assignedName: assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), defaultPaymentMethod: self.defaultPaymentMethod)
+        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), defaultPaymentMethod: self.defaultPaymentMethod)
     }
 }
