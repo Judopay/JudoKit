@@ -42,7 +42,7 @@ class BaseCell: UITableViewCell {
         cellView.layer.cornerRadius = 8.0
         
         logoView = CardLogoView.init(type: .addCard)
-        logoView.frame = CGRect(x: 0, y: 0, width: 50, height: 34)
+        logoView.frame = CGRect(x: 0, y: 0, width: 46, height: 30)
         self.addSubview(self.logoContainerView)
         self.logoContainerView.translatesAutoresizingMaskIntoConstraints = false
         self.logoContainerView.clipsToBounds = true

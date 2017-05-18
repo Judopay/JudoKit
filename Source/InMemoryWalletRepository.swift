@@ -25,14 +25,24 @@
 import Foundation
 
 class InMemoryWalletRepository : WalletRepositoryProtocol {
+    let wallet_repo = "wallet_repo"
     
     var repo = [WalletCard]()
     
     func save(walletCard: WalletCard) {
         self.repo.append(walletCard)
+        let walletData = NSKeyedArchiver.archivedData(withRootObject: self.repo)
+        UserDefaults.standard.set(walletData, forKey: wallet_repo)
     }
     
     func get() -> [WalletCard] {
+        var cards = self.repo
+        if let walletData : Data = UserDefaults.standard.object(forKey: wallet_repo) as? Data {
+            if let wallet_list = NSKeyedUnarchiver.unarchiveObject(with: walletData) {
+                cards = wallet_list as! [WalletCard]
+            }
+        }
+        self.repo = cards
         return self.repo
     }
     

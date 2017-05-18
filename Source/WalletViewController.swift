@@ -32,7 +32,7 @@ open class WalletViewController: UIViewController {
     
     /// The amount and currency to process, amount to two decimal places and currency in string
     open fileprivate (set) var amount: Amount?
-    /// The number (e.g. "123-456" or "654321") identifying the Merchant you wish to pay
+    /// The number (e.g. "123-456" or "654321") identifvarg the Merchant you wish to pay
     open fileprivate (set) var judoId: String?
     /// Your reference for this consumer, this payment and an object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
     open fileprivate (set) var reference: Reference?
@@ -187,7 +187,6 @@ open class WalletViewController: UIViewController {
             self.dismissView()
             if let error = error {
                 if error.code == .userDidCancel {
-                    self.dismissView()
                     return
                 }
                 var errorTitle = "Error"
@@ -203,14 +202,53 @@ open class WalletViewController: UIViewController {
                 self.cardDetails = transactionData.cardDetails
                 self.paymentToken = transactionData.paymentToken()
     
-                try! self.walletService.add(card: self.walletCardAdapter(cardDetails: self.cardDetails!))
+                try! self.walletService.add(card: self.walletCardAdapter(cardDetails: self.cardDetails!, paymentToken: transactionData.paymentToken()!))
                 self.myView.contentView.reloadData()
             }
         })
     }
     
-    func walletCardAdapter(cardDetails: CardDetails)->WalletCard{
-    let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardNetwork?.stringValue(), defaultPaymentMethod: true)
+    //Repeat Payment using selected cards from Wallet
+    func repeatPaymentOperation(card: WalletCard) {
+        if let cardDetails = card.cardDetails, let payToken = card.paymentToken {
+            guard let ref = self.reference else { return }
+            try! self.judoKitSession.invokeTokenPayment(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+                self.dismissView()
+                if let error = error {
+                    if error.code == .userDidCancel {
+                        self.dismissView()
+                        return
+                    }
+                    var errorTitle = "Error"
+                    if let errorCategory = error.category {
+                        errorTitle = errorCategory.stringValue()
+                    }
+                    self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+                    self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.dismissView()
+                    return // BAIL
+                }
+                if let resp = response, let transactionData = resp.items.first {
+                    self.cardDetails = transactionData.cardDetails
+                    self.paymentToken = transactionData.paymentToken()
+                }
+                let alert = UIAlertController(title: "Success!", message: "You've success made payment or preauth operation", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+//                let sb = UIStoryboard(name: "Main", bundle: nil)
+//                let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
+//                viewController.response = response
+//                self.navigationController?.pushViewController(viewController, animated: true)
+            })
+        } else {
+            let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func walletCardAdapter(cardDetails: CardDetails, paymentToken: PaymentToken)->WalletCard{
+        let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardNetwork?.stringValue(), defaultPaymentMethod: true, paymentToken: paymentToken, cardDetails: cardDetails)
         return walletCard
     }
     
@@ -228,5 +266,9 @@ extension WalletViewController : WalletCardOperationProtocol {
 
     func onAddWalletCard() {
         self.addCardTokenOperation()
+    }
+    
+    func onSelectWalletCard(card: WalletCard) {
+        self.repeatPaymentOperation(card: card)
     }
 }

@@ -33,4 +33,5 @@ protocol WalletRepositoryProtocol {
 
 protocol WalletCardOperationProtocol {
     func onAddWalletCard()
+    func onSelectWalletCard(card: WalletCard)
 }

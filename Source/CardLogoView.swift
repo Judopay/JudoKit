@@ -35,23 +35,23 @@ import Foundation
  - CVC:        CVC logo
  - Unknown:    Unknown placeholder logo
  */
-public enum CardLogoType {
+public enum CardLogoType: Int64 {
     /// Visa card logo
-    case visa
+    case visa = 0
     /// MasterCard card logo
-    case masterCard
+    case masterCard = 1
     /// AMEX card logo
-    case amex
+    case amex = 2
     /// Maestro card logo
-    case maestro
+    case maestro = 3
     /// CID logo
-    case cid
+    case cid = 4
     /// CVC logo
-    case cvc
+    case cvc = 5
     /// add card logo
-    case addCard
+    case addCard = 6
     /// Unknown placeholder logo
-    case unknown
+    case unknown = 7
 }
 
 

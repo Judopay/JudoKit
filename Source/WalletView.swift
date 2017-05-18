@@ -92,6 +92,8 @@ extension WalletView : UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == self.walletService.get().count {
             delegate.onAddWalletCard()
+        } else {
+            delegate.onSelectWalletCard(card: self.walletService.get()[indexPath.row])
         }
     }
     
