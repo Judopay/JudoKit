@@ -64,6 +64,12 @@ public struct Theme {
     public var refundTitle = "Refund"
     /// the title for an authentication
     public var authenticationTitle = "Authentication"
+    /// the title for an edit wallet's card
+    public var editTitle = "Edit"
+    /// the title for an delete wallet's card
+    public var deleteTitle = "Delete"
+    /// the title for an save wallet's card
+    public var saveTitle = "Save"
     
     
     // MARK: Loading

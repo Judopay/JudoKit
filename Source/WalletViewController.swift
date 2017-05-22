@@ -212,11 +212,15 @@ open class WalletViewController: UIViewController {
     func repeatPaymentOperation(card: WalletCard) {
         if let cardDetails = card.cardDetails, let payToken = card.paymentToken {
             guard let ref = self.reference else { return }
-            try! self.judoKitSession.invokeTokenPayment(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+            try! self.judoKitSession.invokeEditWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
                 self.dismissView()
                 if let error = error {
                     if error.code == .userDidCancel {
-                        self.dismissView()
+                        return
+                    }
+                    if error.code == .deleteWalletCard {
+                        try! self.walletService.remove(card: card)
+                        self.myView.contentView.reloadData()
                         return
                     }
                     var errorTitle = "Error"

@@ -36,13 +36,7 @@ class InMemoryWalletRepository : WalletRepositoryProtocol {
     }
     
     func get() -> [WalletCard] {
-        var cards = self.repo
-        if let walletData : Data = UserDefaults.standard.object(forKey: wallet_repo) as? Data {
-            if let wallet_list = NSKeyedUnarchiver.unarchiveObject(with: walletData) {
-                cards = wallet_list as! [WalletCard]
-            }
-        }
-        self.repo = cards
+        self.repo = self.getCardsArchived()
         return self.repo
     }
     
@@ -51,6 +45,32 @@ class InMemoryWalletRepository : WalletRepositoryProtocol {
     }
     
     func remove(id: UUID) {
-        self.repo = self.repo.filter({ return $0.id != id })
+        self.removeCardFromArchive(id: id)
+        
+    }
+    
+    private func getCardsArchived()->[WalletCard]{
+        var cards = self.repo
+        if let walletData : Data = UserDefaults.standard.object(forKey: wallet_repo) as? Data {
+            if let wallet_list = NSKeyedUnarchiver.unarchiveObject(with: walletData) {
+                cards = wallet_list as! [WalletCard]
+            }
+        }
+        return cards
+    }
+    
+    private func removeCardFromArchive(id: UUID){
+        var cards = self.repo
+        var cardsFromArchive = self.getCardsArchived()
+        var index = 0
+        for card in cardsFromArchive {
+            if card.id == id {
+                cardsFromArchive.remove(at: index)
+            }
+            index += 1
+        }
+        cards = cardsFromArchive
+        let walletData = NSKeyedArchiver.archivedData(withRootObject: cards)
+        UserDefaults.standard.set(walletData, forKey: wallet_repo)
     }
 }

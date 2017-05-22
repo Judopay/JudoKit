@@ -158,25 +158,29 @@ open class JudoPayViewController: UIViewController {
         
         self.judoKitSession.apiSession.uiClientMode = true
         
+        // Button actions
+        var payButtonTitle = self.judoKitSession.theme.paymentButtonTitle
+        
         switch self.myView.transactionType {
         case .Payment, .PreAuth:
             self.title = self.judoKitSession.theme.paymentTitle
         case .RegisterCard:
             self.title = self.judoKitSession.theme.registerCardTitle
+            payButtonTitle = self.judoKitSession.theme.registerCardNavBarButtonTitle
         case .Refund:
             self.title = self.judoKitSession.theme.refundTitle
+        case .EditWaletCard:
+            self.title = self.judoKitSession.theme.editTitle
+            payButtonTitle = self.judoKitSession.theme.deleteTitle
         default:
             self.title = "Invalid"
         }
 
         self.myView.threeDSecureWebView.delegate = self
-        
-        // Button actions
-        let payButtonTitle = self.myView.transactionType == .RegisterCard ? self.judoKitSession.theme.registerCardNavBarButtonTitle : self.judoKitSession.theme.paymentButtonTitle
 
         self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), for: .touchUpInside)
         self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
-        self.myView.paymentNavBarButton!.isEnabled = false
+        self.myView.paymentNavBarButton!.isEnabled = self.myView.transactionType == .EditWaletCard
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
@@ -221,7 +225,11 @@ open class JudoPayViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if self.myView.cardInputField.textField.text?.characters.count > 0 {
-            self.myView.secureCodeInputField.textField.becomeFirstResponder()
+            if self.myView.transactionType == .EditWaletCard {
+                self.myView.cardName.textField.becomeFirstResponder()
+            } else {
+                self.myView.secureCodeInputField.textField.becomeFirstResponder()
+            }
         } else {
             self.myView.cardInputField.textField.becomeFirstResponder()
         }
@@ -246,6 +254,11 @@ open class JudoPayViewController: UIViewController {
         self.myView.postCodeInputField.textField.resignFirstResponder()
         
         self.myView.loadingView.startAnimating()
+        
+        if self.myView.transactionType == .EditWaletCard {
+            self.completionBlock?(nil, JudoError(.deleteWalletCard))
+            return
+        }
         
         do {
             let transaction = try self.judoKitSession.transaction(self.myView.transactionType, judoId: judoId, amount: amount, reference: reference)

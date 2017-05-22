@@ -368,6 +368,8 @@ public enum TransactionType: String {
     case Collection
     /// A Wallet
     case Wallet
+    /// A Wallet
+    case EditWaletCard
     /// VOID
     case VOID
 }
