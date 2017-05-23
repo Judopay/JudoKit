@@ -357,6 +357,8 @@ public enum JudoErrorCode: Int {
     case locationServicesDisabled = 91
     /// User deletes wallet's card
     case deleteWalletCard
+    /// User saves wallet's card
+    case saveWalletCard
     
     // MARK: Card Errors
     /// CardLengthMismatchError

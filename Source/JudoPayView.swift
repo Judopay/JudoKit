@@ -252,6 +252,7 @@ open class JudoPayView: UIView {
         self.startDateInputField.delegate = self
         self.billingCountryInputField.delegate = self
         self.postCodeInputField.delegate = self
+        self.cardName.delegate = self
         
         let verticalTopSpace = 10
         
@@ -299,6 +300,7 @@ open class JudoPayView: UIView {
             self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[cardName]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["cardName": cardName]))
             self.cardNameTopConstraint = NSLayoutConstraint(item: cardName, attribute: .top, relatedBy: .equal, toItem: self.securityMessageLabel, attribute: .bottom, multiplier: 1.0, constant: 24.0)
             self.contentView.addConstraint(cardNameTopConstraint!)
+            self.cardName.textField.text = cardDetails?.cardName
         }
         
         // If card details are available, fill out the fields
@@ -311,7 +313,6 @@ open class JudoPayView: UIView {
             } else {
                 self.cardInputField.textField.text = formattedLastFour
             }
-            
             self.expiryDateInputField.textField.text = expiryDate
             self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
             self.secureCodeInputField.isTokenPayment = self.isTokenPayment

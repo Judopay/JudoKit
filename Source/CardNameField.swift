@@ -35,46 +35,14 @@ open class CardNameField : JudoPayInputField {
     // MARK: UITextFieldDelegate
     
     /**
-     Delegate method implementation
+     Subclassed method that is called when textField content was changed
      
-     - parameter textField: Text field
-     - parameter range:     Range
-     - parameter string:    String
-     
-     - returns: boolean to change characters in given range for a textfield
+     - parameter textField: the textfield of which the content has changed
      */
-    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open override func textFieldDidChangeValue(_ textField: UITextField) {
+        super.textFieldDidChangeValue(textField)
         
-//        // Only handle delegate calls for own text field
-//        guard textField == self.textField else { return false }
-//        
-//        if string.characters.count > 0 && self.textField.isSecureTextEntry {
-//            self.textField.isSecureTextEntry = false
-//        }
-//        
-//        // Get old and new text
-//        let oldString = textField.text!
-//        let newString = (oldString as NSString).replacingCharacters(in: range, with: string)
-//        
-//        if newString.characters.count == 0 || string.characters.count == 0 {
-//            return true
-//        }
-//        
-//        var result: String?
-//        
-//        do {
-//            result = try self.textField.text?.cardPresentationString(self.theme.acceptedCardNetworks)
-//            self.dismissError()
-//        } catch let error {
-//            self.delegate?.cardInput(self, error: error as! JudoError)
-//        }
-//        
-//        if result == nil {
-//            return false
-//        }
-        
-        return true
-        
+        self.didChangeInputText()
     }
     
     /**

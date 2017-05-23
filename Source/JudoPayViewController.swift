@@ -179,6 +179,7 @@ open class JudoPayViewController: UIViewController {
         self.myView.threeDSecureWebView.delegate = self
 
         self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), for: .touchUpInside)
+        self.myView.paymentButton.tag = 1
         self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
         self.myView.paymentNavBarButton!.isEnabled = self.myView.transactionType == .EditWaletCard
 
@@ -255,8 +256,16 @@ open class JudoPayViewController: UIViewController {
         
         self.myView.loadingView.startAnimating()
         
+        let senderTag = sender.tag
+        
         if self.myView.transactionType == .EditWaletCard {
-            self.completionBlock?(nil, JudoError(.deleteWalletCard))
+            if senderTag == 1 {
+                var error = JudoError(.saveWalletCard)
+                error.message = self.myView.cardName.textField.text
+                self.completionBlock?(nil, error)
+            } else {
+                self.completionBlock?(nil, JudoError(.deleteWalletCard))
+            }
             return
         }
         

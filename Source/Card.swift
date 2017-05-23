@@ -555,6 +555,8 @@ open class CardDetails: NSObject, NSCoding {
     open let endDate: String?
     /// Can be used to charge future payments against this card
     open let cardToken: String?
+    /// Card custom name for wallet's card
+    open var cardName: String?
     
     fileprivate var _cardNetwork: CardNetwork?
     /// The computed card network
@@ -638,6 +640,7 @@ open class CardDetails: NSObject, NSCoding {
         self.cardLastFour = dict?["cardLastfour"] as? String
         self.endDate = dict?["endDate"] as? String
         self.cardToken = dict?["cardToken"] as? String
+        self.cardName = dict?["cardName"] as? String
         self._cardNumber = dict?["cardNumber"] as? String
         super.init()
         if let cardType = dict?["cardType"] as? Int {
@@ -660,11 +663,13 @@ open class CardDetails: NSObject, NSCoding {
         let endDate = decoder.decodeObject(forKey: "endDate") as? String?
         let cardToken = decoder.decodeObject(forKey: "cardToken") as? String?
         let cardNetwork = decoder.decodeInt64(forKey: "cardNetwork")
+        let cardName = decoder.decodeObject(forKey: "cardName") as? String?
         
         self.cardLastFour = cardLastFour ?? nil
         self.endDate = endDate ?? nil
         self.cardToken = cardToken ?? nil
         self._cardNumber = nil
+        self.cardName = cardName ?? nil
         super.init()
         self.cardNetwork = CardNetwork(rawValue: Int64(cardNetwork))
     }
@@ -679,6 +684,7 @@ open class CardDetails: NSObject, NSCoding {
         aCoder.encode(self.cardLastFour, forKey: "cardLastFour")
         aCoder.encode(self.endDate, forKey: "endDate")
         aCoder.encode(self.cardToken, forKey: "cardToken")
+        aCoder.encode(self.cardName, forKey: "cardName")
         if let cardNetwork = self.cardNetwork {
             aCoder.encode(cardNetwork.rawValue, forKey: "cardNetwork")
         } else {

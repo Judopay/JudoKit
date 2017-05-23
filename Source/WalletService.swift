@@ -61,7 +61,7 @@ struct WalletService {
             throw WalletError.cannotResignDefaultCard
         }
         
-        self.repo.remove(id: card.id)
+        try! self.remove(card: card)
         try self.add(card: card)
     }
     

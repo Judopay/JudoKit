@@ -30,7 +30,7 @@ open class WalletViewController: UIViewController {
     /// the current JudoKit Session
     open var judoKitSession: JudoKit
     
-    /// The amount and currency to process, amount to two decimal places and currency in string
+    /// The amount and currency to process, varunt to two decimal places and currency in string
     open fileprivate (set) var amount: Amount?
     /// The number (e.g. "123-456" or "654321") identifvarg the Merchant you wish to pay
     open fileprivate (set) var judoId: String?
@@ -128,7 +128,7 @@ open class WalletViewController: UIViewController {
 //        // Button actions
 //        let payButtonTitle = self.myView.transactionType == .RegisterCard ? self.judoKitSession.theme.registerCardNavBarButtonTitle : self.judoKitSession.theme.paymentButtonTitle
 //        
-//        self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), for: .touchUpInside)
+        //self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), for: .touchUpInside)
 //        self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
 //        self.myView.paymentNavBarButton!.isEnabled = false
         
@@ -220,6 +220,12 @@ open class WalletViewController: UIViewController {
                     }
                     if error.code == .deleteWalletCard {
                         try! self.walletService.remove(card: card)
+                        self.myView.contentView.reloadData()
+                        return
+                    }
+                    if error.code == .saveWalletCard {
+                        card.cardDetails?.cardName = error.message
+                        try! self.walletService.update(card: card)
                         self.myView.contentView.reloadData()
                         return
                     }

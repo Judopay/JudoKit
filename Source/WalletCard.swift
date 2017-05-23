@@ -30,10 +30,10 @@ open class WalletCard: NSObject, NSCoding {
     let expiryDate: String
     let cardToken: String
     let cardType: CardLogoType?
-    let assignedName: String?
+    var assignedName: String?
     let dateCreated: Date
     let dateUpdated: Date?
-    let defaultPaymentMethod: Bool
+    var defaultPaymentMethod: Bool
     /// Card token and Consumer token
     let paymentToken: PaymentToken?
     let cardDetails: CardDetails?
