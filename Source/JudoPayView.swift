@@ -56,6 +56,9 @@ open class JudoPayView: UIView {
     
     //Components for editting wallet's card
     let cardName: CardNameField
+    let primarySwitch: PrimaryCardSwitch
+    
+    
     
     /// The card details object
     var cardDetails: CardDetails?
@@ -123,6 +126,7 @@ open class JudoPayView: UIView {
         self.postCodeInputField = PostCodeInputField(theme: currentTheme)
         
         self.cardName = CardNameField(theme: currentTheme)
+        self.primarySwitch = PrimaryCardSwitch(theme: currentTheme)
         
         self.isTokenPayment = isTokenPayment
         
@@ -297,9 +301,13 @@ open class JudoPayView: UIView {
         
         if transactionType == .EditWaletCard {
             self.contentView.addSubview(cardName)
+            self.contentView.addSubview(primarySwitch)
             self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[cardName]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["cardName": cardName]))
+            //self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-15-[cardName2]-15-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["cardName2": primarySwitch]))
             self.cardNameTopConstraint = NSLayoutConstraint(item: cardName, attribute: .top, relatedBy: .equal, toItem: self.securityMessageLabel, attribute: .bottom, multiplier: 1.0, constant: 24.0)
+            let cardName2TopConstraint = NSLayoutConstraint(item: primarySwitch, attribute: .top, relatedBy: .equal, toItem: self.cardName, attribute: .bottom, multiplier: 1.0, constant: 24.0)
             self.contentView.addConstraint(cardNameTopConstraint!)
+            self.contentView.addConstraint(cardName2TopConstraint)
             self.cardName.textField.text = cardDetails?.cardName
         }
         
