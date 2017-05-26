@@ -24,6 +24,14 @@
 
 import Foundation
 
+public enum WallerCardEvent: Int64 {
+    
+    /// Delete event
+    case delete = 0
+    /// Save
+    case save = 1
+}
+
 open class WalletCard: NSObject, NSCoding {
     let id: UUID
     let cardNumberLastFour: String
@@ -33,12 +41,12 @@ open class WalletCard: NSObject, NSCoding {
     var assignedName: String?
     let dateCreated: Date
     let dateUpdated: Date?
-    var defaultPaymentMethod: Bool
+    var isPrimaryCard: Bool
     /// Card token and Consumer token
     let paymentToken: PaymentToken?
     let cardDetails: CardDetails?
     
-    fileprivate init(id: UUID, cardNumberLastFour: String, expiryDate: String, cardToken: String, cardType: CardLogoType, assignedName: String?, dateCreated: Date, dateUpdated: Date?, defaultPaymentMethod: Bool, paymentToken: PaymentToken, cardDetails: CardDetails) {
+    fileprivate init(id: UUID, cardNumberLastFour: String, expiryDate: String, cardToken: String, cardType: CardLogoType, assignedName: String?, dateCreated: Date, dateUpdated: Date?, isPrimaryCard: Bool, paymentToken: PaymentToken, cardDetails: CardDetails) {
         self.id = id
         self.cardNumberLastFour = cardNumberLastFour
         self.expiryDate = expiryDate
@@ -47,13 +55,13 @@ open class WalletCard: NSObject, NSCoding {
         self.assignedName = assignedName
         self.dateCreated = dateCreated
         self.dateUpdated = dateUpdated
-        self.defaultPaymentMethod = defaultPaymentMethod
+        self.isPrimaryCard = isPrimaryCard
         self.paymentToken = paymentToken
         self.cardDetails = cardDetails
     }
     
-    convenience init(cardNumberLastFour: String, expiryDate: String, cardToken: String, cardType: CardLogoType, assignedName: String?, defaultPaymentMethod: Bool, paymentToken: PaymentToken, cardDetails: CardDetails) {
-        self.init(id: UUID(), cardNumberLastFour: cardNumberLastFour, expiryDate: expiryDate, cardToken: cardToken, cardType: cardType, assignedName: assignedName, dateCreated: Date(), dateUpdated: Date(), defaultPaymentMethod: defaultPaymentMethod, paymentToken: paymentToken, cardDetails: cardDetails)
+    convenience init(cardNumberLastFour: String, expiryDate: String, cardToken: String, cardType: CardLogoType, assignedName: String?, isPrimaryCard: Bool, paymentToken: PaymentToken, cardDetails: CardDetails) {
+        self.init(id: UUID(), cardNumberLastFour: cardNumberLastFour, expiryDate: expiryDate, cardToken: cardToken, cardType: cardType, assignedName: assignedName, dateCreated: Date(), dateUpdated: Date(), isPrimaryCard: isPrimaryCard, paymentToken: paymentToken, cardDetails: cardDetails)
     }
     
     func hasCardExpired() -> Bool {
@@ -89,7 +97,7 @@ open class WalletCard: NSObject, NSCoding {
         let assignedName = decoder.decodeObject(forKey: "assignedName") as? String
         let dateCreated = decoder.decodeObject(forKey: "dateCreated") as? Date
         let dateUpdated = decoder.decodeObject(forKey: "dateUpdated") as? Date
-        let defaultPaymentMethod = decoder.decodeObject(forKey: "defaultPaymentMethod") as? Bool
+        let isPrimaryCard = decoder.decodeBool(forKey: "isPrimaryCard")
         let paymentToken = decoder.decodeObject(forKey: "paymentToken") as? PaymentToken
         let cardDetails = decoder.decodeObject(forKey: "cardDetails") as? CardDetails
         
@@ -101,7 +109,7 @@ open class WalletCard: NSObject, NSCoding {
         self.assignedName = assignedName!
         self.dateCreated = dateCreated!
         self.dateUpdated = dateUpdated!
-        self.defaultPaymentMethod = defaultPaymentMethod ?? false
+        self.isPrimaryCard = isPrimaryCard
         self.paymentToken = paymentToken!
         self.cardDetails = cardDetails!
         
@@ -127,7 +135,7 @@ open class WalletCard: NSObject, NSCoding {
         aCoder.encode(self.assignedName, forKey: "assignedName")
         aCoder.encode(self.dateCreated, forKey: "dateCreated")
         aCoder.encode(self.dateUpdated, forKey: "dateUpdated")
-        aCoder.encode(self.defaultPaymentMethod, forKey: "defaultPaymentMethod")
+        aCoder.encode(self.isPrimaryCard, forKey: "isPrimaryCard")
         aCoder.encode(self.paymentToken, forKey: "paymentToken")
         aCoder.encode(self.cardDetails, forKey: "cardDetails")
     }
@@ -135,14 +143,14 @@ open class WalletCard: NSObject, NSCoding {
 
 extension WalletCard {
     func withDefaultCard() -> WalletCard {
-        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), defaultPaymentMethod: true, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
+        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), isPrimaryCard: self.isPrimaryCard, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
     }
     
     func withNonDefaultCard() -> WalletCard {
-        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), defaultPaymentMethod: false, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
+        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), isPrimaryCard: self.isPrimaryCard, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
     }
     
     func withAssignedCardName(assignedName: String?) -> WalletCard {
-        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), defaultPaymentMethod: self.defaultPaymentMethod, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
+        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), isPrimaryCard: self.isPrimaryCard, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
     }
 }

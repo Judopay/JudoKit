@@ -264,8 +264,8 @@ public class JudoKit {
      - parameter paymentToken: The consumer and card token to make a token payment with
      - parameter completion:   The completion handler which will respond with a Response Object or an NSError
      */
-    public func invokeEditWalletCard(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: @escaping (Response?, JudoError?) -> ()) throws {
-        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .EditWaletCard, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken)
+    public func invokeEditWalletCard(_ judoId: String, amount: Amount, reference: Reference, walletCard: WalletCard, paymentToken: PaymentToken, completion: @escaping (WalletCard?, WallerCardEvent?, JudoError?) -> ()) throws {
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .EditWaletCard, completion: completion, currentSession: self, walletCard: walletCard, paymentToken: paymentToken)
         self.initiateAndShow(judoPayViewController)
     }
     

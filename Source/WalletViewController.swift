@@ -210,45 +210,20 @@ open class WalletViewController: UIViewController {
     
     //Repeat Payment using selected cards from Wallet
     func repeatPaymentOperation(card: WalletCard) {
-        if let cardDetails = card.cardDetails, let payToken = card.paymentToken {
+        if let payToken = card.paymentToken {
             guard let ref = self.reference else { return }
-            try! self.judoKitSession.invokeEditWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+            try! self.judoKitSession.invokeEditWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, walletCard: card, paymentToken: payToken, completion: { (walletCard, event, error) -> () in
                 self.dismissView()
-                if let error = error {
-                    if error.code == .userDidCancel {
-                        return
-                    }
-                    if error.code == .deleteWalletCard {
-                        try! self.walletService.remove(card: card)
-                        self.myView.contentView.reloadData()
-                        return
-                    }
-                    if error.code == .saveWalletCard {
-                        card.cardDetails?.cardName = error.message
-                        try! self.walletService.update(card: card)
-                        self.myView.contentView.reloadData()
-                        return
-                    }
-                    var errorTitle = "Error"
-                    if let errorCategory = error.category {
-                        errorTitle = errorCategory.stringValue()
-                    }
-                    self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
-                    self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.dismissView()
-                    return // BAIL
+                if event == .delete {
+                    try! self.walletService.remove(card: card)
+                    self.myView.contentView.reloadData()
+                    return
                 }
-                if let resp = response, let transactionData = resp.items.first {
-                    self.cardDetails = transactionData.cardDetails
-                    self.paymentToken = transactionData.paymentToken()
+                if event == .save {
+                    try! self.walletService.update(card: walletCard!)
+                    self.myView.contentView.reloadData()
+                    return
                 }
-                let alert = UIAlertController(title: "Success!", message: "You've success made payment or preauth operation", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-//                let sb = UIStoryboard(name: "Main", bundle: nil)
-//                let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
-//                viewController.response = response
-//                self.navigationController?.pushViewController(viewController, animated: true)
             })
         } else {
             let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .alert)
@@ -258,7 +233,7 @@ open class WalletViewController: UIViewController {
     }
     
     func walletCardAdapter(cardDetails: CardDetails, paymentToken: PaymentToken)->WalletCard{
-        let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardNetwork?.stringValue(), defaultPaymentMethod: true, paymentToken: paymentToken, cardDetails: cardDetails)
+        let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardNetwork?.stringValue(), isPrimaryCard: false, paymentToken: paymentToken, cardDetails: cardDetails)
         return walletCard
     }
     

@@ -59,7 +59,7 @@ class CardCell: BaseCell {
     }
     
     func updateTitles(){
-        cardNameLabel.text = walletCard?.cardDetails?.cardName
+        cardNameLabel.text = walletCard?.assignedName
         cardSubLabel.text = "****"+(walletCard?.cardNumberLastFour)!+" • Expiry "+(walletCard?.expiryDate)!
         logoView = CardLogoView.init(type: (walletCard?.cardType)!)
         logoView.frame = CGRect(x: 0, y: 0, width: 46, height: 30)

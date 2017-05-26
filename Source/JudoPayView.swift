@@ -58,8 +58,8 @@ open class JudoPayView: UIView {
     let cardName: CardNameField
     let primarySwitch: PrimaryCardSwitch
     
-    
-    
+    /// The wallet's card details object
+    var walletCard: WalletCard?
     /// The card details object
     var cardDetails: CardDetails?
     
@@ -113,6 +113,43 @@ open class JudoPayView: UIView {
     public init(type: TransactionType, currentTheme: Theme, cardDetails: CardDetails? = nil, isTokenPayment: Bool = false) {
         self.transactionType = type
         self.cardDetails = cardDetails
+        self.theme = currentTheme
+        self.paymentButton = PayButton(currentTheme: currentTheme)
+        self.loadingView = LoadingView(currentTheme: currentTheme)
+        
+        self.cardInputField = CardInputField(theme: currentTheme)
+        self.expiryDateInputField = DateInputField(theme: currentTheme)
+        self.secureCodeInputField = SecurityInputField(theme: currentTheme)
+        self.startDateInputField = DateInputField(theme: currentTheme)
+        self.issueNumberInputField = IssueNumberInputField(theme: currentTheme)
+        self.billingCountryInputField = BillingCountryInputField(theme: currentTheme)
+        self.postCodeInputField = PostCodeInputField(theme: currentTheme)
+        
+        self.cardName = CardNameField(theme: currentTheme)
+        self.primarySwitch = PrimaryCardSwitch(theme: currentTheme)
+        
+        self.isTokenPayment = isTokenPayment
+        
+        super.init(frame: UIScreen.main.bounds)
+        
+        self.setupView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(JudoPayView.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(JudoPayView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    /**
+     Designated initializer
+     
+     - parameter type:        The transactionType of this transaction
+     - parameter cardDetails: Wallet card information if they have been passed
+     
+     - returns: a JudoPayView object
+     */
+    public init(type: TransactionType, currentTheme: Theme, walletCard: WalletCard? = nil, isTokenPayment: Bool = false) {
+        self.transactionType = type
+        self.walletCard = walletCard
+        self.cardDetails = walletCard?.cardDetails
         self.theme = currentTheme
         self.paymentButton = PayButton(currentTheme: currentTheme)
         self.loadingView = LoadingView(currentTheme: currentTheme)
@@ -303,12 +340,13 @@ open class JudoPayView: UIView {
             self.contentView.addSubview(cardName)
             self.contentView.addSubview(primarySwitch)
             self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[cardName]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["cardName": cardName]))
-            //self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-15-[cardName2]-15-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["cardName2": primarySwitch]))
             self.cardNameTopConstraint = NSLayoutConstraint(item: cardName, attribute: .top, relatedBy: .equal, toItem: self.securityMessageLabel, attribute: .bottom, multiplier: 1.0, constant: 24.0)
             let cardName2TopConstraint = NSLayoutConstraint(item: primarySwitch, attribute: .top, relatedBy: .equal, toItem: self.cardName, attribute: .bottom, multiplier: 1.0, constant: 24.0)
             self.contentView.addConstraint(cardNameTopConstraint!)
             self.contentView.addConstraint(cardName2TopConstraint)
-            self.cardName.textField.text = cardDetails?.cardName
+            self.cardName.textField.text = walletCard?.assignedName
+            self.primarySwitch.primarySwitch.isOn = (walletCard?.isPrimaryCard)!
+            self.primarySwitch.primarySwitch.addTarget(self, action: #selector(onPrimary), for: .valueChanged)
         }
         
         // If card details are available, fill out the fields
@@ -434,6 +472,16 @@ open class JudoPayView: UIView {
             self.paymentNavBarButton?.setTitleTextAttributes([NSForegroundColorAttributeName: self.theme.tintActiveColor], for: .normal)
         }
         self.paymentNavBarButton!.isEnabled = self.transactionType == .EditWaletCard ? true : enabled
+    }
+    
+    /**
+ 
+     Method to make card as primary
+ 
+    */
+    @objc func onPrimary(){
+        self.walletCard?.isPrimaryCard = self.primarySwitch.primarySwitch.isOn
+        paymentEnabled(true)
     }
     
     

@@ -44,7 +44,7 @@ struct WalletService {
             self.repo.save(walletCard: card.withDefaultCard())
         }
         else {
-            if card.defaultPaymentMethod {
+            if card.isPrimaryCard {
                 self.resignCurrentDefault()
             }
             
@@ -66,13 +66,13 @@ struct WalletService {
     }
     
     func remove(card: WalletCard) throws {
-        if self.getUnordered().count > 1 && card.defaultPaymentMethod {
+        if self.getUnordered().count > 1 && card.isPrimaryCard {
             throw WalletError.cannotRemoveDefaultCard
         }
         
         self.repo.remove(id: card.id)
         
-        if card.defaultPaymentMethod {
+        if card.isPrimaryCard {
             self.resignCurrentDefault()
             
             if let newDefault = self.get().first {
@@ -87,10 +87,10 @@ struct WalletService {
     
     func get() -> OrderedWallet {
         return self.getUnordered().sorted(by: { (lhs, rhs) -> Bool in
-            if lhs.defaultPaymentMethod && !rhs.defaultPaymentMethod {
+            if lhs.isPrimaryCard && !rhs.isPrimaryCard {
                 return true
             }
-            else if(!lhs.defaultPaymentMethod && rhs.defaultPaymentMethod) {
+            else if(!lhs.isPrimaryCard && rhs.isPrimaryCard) {
                 return false
             }
 
@@ -99,7 +99,7 @@ struct WalletService {
     }
   
     func getDefault() -> WalletCard? {
-        return self.getUnordered().filter({ $0.defaultPaymentMethod }).first
+        return self.getUnordered().filter({ $0.isPrimaryCard }).first
     }
     
     private func makeDefault(card: WalletCard) {
@@ -115,7 +115,7 @@ struct WalletService {
     }
     
     private func isIllegallyResigningDefault(currentCard: WalletCard, updatedCard: WalletCard) -> Bool {
-        return !self.walletIsEmpty() && currentCard.defaultPaymentMethod && !updatedCard.defaultPaymentMethod
+        return !self.walletIsEmpty() && currentCard.isPrimaryCard && !updatedCard.isPrimaryCard
     }
     
     private func getUnordered() -> [WalletCard] {

@@ -188,7 +188,8 @@ extension JudoPayView: JudoPayInputDelegate {
             allFieldsValid = allFieldsValid && (self.issueNumberInputField.isValid() || self.startDateInputField.isValid())
         }
         if transactionType == .EditWaletCard {
-            allFieldsValid = self.cardDetails?.cardName != input.textField.text
+            allFieldsValid = self.walletCard?.assignedName != input.textField.text
+            self.walletCard?.assignedName = input.textField.text
         }
         self.paymentEnabled(allFieldsValid)
     }
