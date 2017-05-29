@@ -60,7 +60,11 @@ class CardCell: BaseCell {
     
     func updateTitles(){
         cardNameLabel.text = walletCard?.assignedName
-        cardSubLabel.text = "****"+(walletCard?.cardNumberLastFour)!+" • Expiry "+(walletCard?.expiryDate)!
+        var text = "****"+(walletCard?.cardNumberLastFour)!+" • Expiry "+(walletCard?.expiryDate)!
+        if (walletCard?.isPrimaryCard)! {
+            text += " • Primary"
+        }
+        cardSubLabel.text = text
         logoView = CardLogoView.init(type: (walletCard?.cardType)!)
         logoView.frame = CGRect(x: 0, y: 0, width: 46, height: 30)
         logoContainerView.addSubview(logoView)

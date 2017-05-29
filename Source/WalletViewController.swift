@@ -183,7 +183,7 @@ open class WalletViewController: UIViewController {
     //MARK: instantiate add card view
     func addCardTokenOperation() {
         guard let ref = self.reference else { return }
-        try! self.judoKitSession.invokeRegisterCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, completion: { (response, error) -> () in
+        try! self.judoKitSession.invokeRegisterWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, completion: { (response, error) -> () in
             self.dismissView()
             if let error = error {
                 if error.code == .userDidCancel {
@@ -201,7 +201,10 @@ open class WalletViewController: UIViewController {
             if let resp = response, let transactionData = resp.items.first {
                 self.cardDetails = transactionData.cardDetails
                 self.paymentToken = transactionData.paymentToken()
-    
+                
+                self.cardDetails?.cardName = resp.cardName
+                self.cardDetails?.isPrimary = resp.isPrimary
+                
                 try! self.walletService.add(card: self.walletCardAdapter(cardDetails: self.cardDetails!, paymentToken: transactionData.paymentToken()!))
                 self.myView.contentView.reloadData()
             }
@@ -220,8 +223,12 @@ open class WalletViewController: UIViewController {
                     return
                 }
                 if event == .save {
-                    try! self.walletService.update(card: walletCard!)
-                    self.myView.contentView.reloadData()
+                    do {
+                        try self.walletService.update(card: walletCard!)
+                        self.myView.contentView.reloadData()
+                    } catch {
+                    
+                    }
                     return
                 }
             })
@@ -233,7 +240,8 @@ open class WalletViewController: UIViewController {
     }
     
     func walletCardAdapter(cardDetails: CardDetails, paymentToken: PaymentToken)->WalletCard{
-        let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardNetwork?.stringValue(), isPrimaryCard: false, paymentToken: paymentToken, cardDetails: cardDetails)
+        let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardName ?? cardDetails.cardNetwork?.stringValue(), isPrimaryCard: cardDetails.isPrimary!, paymentToken: paymentToken, cardDetails: cardDetails)
+        
         return walletCard
     }
     

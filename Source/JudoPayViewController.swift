@@ -194,7 +194,7 @@ open class JudoPayViewController: UIViewController {
         switch self.myView.transactionType {
         case .Payment, .PreAuth:
             self.title = self.judoKitSession.theme.paymentTitle
-        case .RegisterCard:
+        case .RegisterCard, .Wallet:
             self.title = self.judoKitSession.theme.registerCardTitle
             payButtonTitle = self.judoKitSession.theme.registerCardNavBarButtonTitle
         case .Refund:
@@ -341,7 +341,11 @@ open class JudoPayViewController: UIViewController {
                         self?.completionBlock?(nil, error)
                         self?.myView.loadingView.stopAnimating()
                     }
-                } else if let response = response {
+                } else if var response = response {
+                    if self?.myView.transactionType == .Wallet {
+                        response.cardName = (self?.myView.cardName.textField.text)!
+                        response.isPrimary = (self?.myView.primarySwitch.primarySwitch.isOn)!
+                    }
                     self?.completionBlock?(response, nil)
                     self?.myView.loadingView.stopAnimating()
                 }

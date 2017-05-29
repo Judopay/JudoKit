@@ -249,8 +249,8 @@ open class JudoPayView: UIView {
     // MARK: View LifeCycle
     
     func setupView() {
-        let payButtonTitle = self.transactionType == .RegisterCard ? self.theme.registerCardTitle : self.transactionType == .EditWaletCard ? self.theme.saveTitle : self.theme.paymentButtonTitle
-        self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle
+        let payButtonTitle = self.transactionType == .RegisterCard || self.transactionType == .Wallet ? self.theme.registerCardTitle : self.transactionType == .EditWaletCard || transactionType == .Wallet ? self.theme.saveTitle : self.theme.paymentButtonTitle
+        self.loadingView.actionLabel.text = self.transactionType == .RegisterCard || self.transactionType == .Wallet ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle
         
         let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:self.theme.getTextColor(), NSFontAttributeName:UIFont.boldSystemFont(ofSize: self.theme.securityMessageTextSize)])
         attributedString.append(NSAttributedString(string: self.theme.securityMessageString, attributes: [NSForegroundColorAttributeName:self.theme.getInputFieldHintTextColor(), NSFontAttributeName:UIFont.systemFont(ofSize: self.theme.securityMessageTextSize)]))
@@ -336,7 +336,7 @@ open class JudoPayView: UIView {
         
         self.contentView.addConstraint(securityMessageTopConstraint!)
         
-        if transactionType == .EditWaletCard {
+        if transactionType == .EditWaletCard || transactionType == .Wallet {
             self.contentView.addSubview(cardName)
             self.contentView.addSubview(primarySwitch)
             self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[cardName]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["cardName": cardName]))
@@ -345,7 +345,7 @@ open class JudoPayView: UIView {
             self.contentView.addConstraint(cardNameTopConstraint!)
             self.contentView.addConstraint(cardName2TopConstraint)
             self.cardName.textField.text = walletCard?.assignedName
-            self.primarySwitch.primarySwitch.isOn = (walletCard?.isPrimaryCard)!
+            self.primarySwitch.primarySwitch.isOn = walletCard != nil ? (walletCard?.isPrimaryCard)! : false
             self.primarySwitch.primarySwitch.addTarget(self, action: #selector(onPrimary), for: .valueChanged)
         }
         
@@ -362,7 +362,7 @@ open class JudoPayView: UIView {
             self.expiryDateInputField.textField.text = expiryDate
             self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
             self.secureCodeInputField.isTokenPayment = self.isTokenPayment
-            self.secureCodeInputField.isUserInteractionEnabled = transactionType == .EditWaletCard ? false : self.isTokenPayment
+            self.secureCodeInputField.isUserInteractionEnabled = transactionType == .EditWaletCard  || transactionType == .Wallet ? false : self.isTokenPayment
             self.cardInputField.isTokenPayment = self.isTokenPayment
             self.cardInputField.isUserInteractionEnabled = !self.isTokenPayment
             self.expiryDateInputField.isUserInteractionEnabled = !self.isTokenPayment
@@ -446,8 +446,8 @@ open class JudoPayView: UIView {
         self.secureCodeInputField.updateCardLogo()
         self.secureCodeInputField.textField.placeholder = network.securityCodeTitle()
         self.toggleStartDateVisibility(network == .maestro)
-        if transactionType == .EditWaletCard {
-            self.secureCodeInputField.textField.text = "***"
+        if transactionType == .EditWaletCard || transactionType == .Wallet {
+            self.secureCodeInputField.textField.text = walletCard != nil ? "***" : ""
         }
     }
     
@@ -471,7 +471,7 @@ open class JudoPayView: UIView {
         if enabled {
             self.paymentNavBarButton?.setTitleTextAttributes([NSForegroundColorAttributeName: self.theme.tintActiveColor], for: .normal)
         }
-        self.paymentNavBarButton!.isEnabled = self.transactionType == .EditWaletCard ? true : enabled
+        self.paymentNavBarButton!.isEnabled = self.transactionType == .EditWaletCard || transactionType == .Wallet ? true : enabled
     }
     
     /**

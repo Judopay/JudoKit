@@ -41,7 +41,7 @@ struct WalletService {
 
         if self.walletIsEmpty() {
             //Make default as this will be the only card in the wallet.
-            self.repo.save(walletCard: card.withDefaultCard())
+            self.repo.save(walletCard: card)//card.withDefaultCard()
         }
         else {
             if card.isPrimaryCard {
@@ -53,22 +53,22 @@ struct WalletService {
     }
     
     func update(card: WalletCard) throws {
-        guard let currentCard = self.get(id: card.id) else {
+        guard self.get(id: card.id) != nil else {
             throw WalletError.unknownWalletCard
         }
         
-        if self.isIllegallyResigningDefault(currentCard: currentCard, updatedCard: card) {
-            throw WalletError.cannotResignDefaultCard
-        }
+//        if self.isIllegallyResigningDefault(currentCard: currentCard, updatedCard: card) {
+//            throw WalletError.cannotResignDefaultCard
+//        }
         
         try! self.remove(card: card)
         try self.add(card: card)
     }
     
     func remove(card: WalletCard) throws {
-        if self.getUnordered().count > 1 && card.isPrimaryCard {
-            throw WalletError.cannotRemoveDefaultCard
-        }
+//        if self.getUnordered().count > 1 && card.isPrimaryCard {
+//            throw WalletError.cannotRemoveDefaultCard
+//        }
         
         self.repo.remove(id: card.id)
         

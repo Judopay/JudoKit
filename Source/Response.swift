@@ -44,6 +44,10 @@ public struct Response: IteratorProtocol, ExpressibleByArrayLiteral {
     /// Helper to count in case of Generation of elements for loops
     public var indexInSequence = 0
     
+    //For Wallet card's transaction info
+    public var cardName = ""
+    public var isPrimary = false
+    
     
     /**
      Convenience initializer for ArrayLiteralConvertible support

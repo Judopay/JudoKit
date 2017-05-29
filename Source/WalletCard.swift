@@ -143,11 +143,11 @@ open class WalletCard: NSObject, NSCoding {
 
 extension WalletCard {
     func withDefaultCard() -> WalletCard {
-        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), isPrimaryCard: self.isPrimaryCard, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
+        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), isPrimaryCard: true, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
     }
     
     func withNonDefaultCard() -> WalletCard {
-        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), isPrimaryCard: self.isPrimaryCard, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
+        return WalletCard(id: self.id, cardNumberLastFour: self.cardNumberLastFour, expiryDate: self.expiryDate, cardToken: self.cardToken, cardType: self.cardType!, assignedName: self.assignedName, dateCreated: self.dateCreated, dateUpdated: Date(), isPrimaryCard: false, paymentToken: self.paymentToken!, cardDetails: self.cardDetails!)
     }
     
     func withAssignedCardName(assignedName: String?) -> WalletCard {

@@ -41,12 +41,12 @@ class InMemoryWalletRepository : WalletRepositoryProtocol {
     }
     
     func get(id: UUID) -> WalletCard? {
+        self.repo = self.getCardsArchived()
         return self.repo.filter({ return $0.id == id }).first
     }
     
     func remove(id: UUID) {
         self.removeCardFromArchive(id: id)
-        
     }
     
     private func getCardsArchived()->[WalletCard]{
@@ -60,10 +60,10 @@ class InMemoryWalletRepository : WalletRepositoryProtocol {
     }
     
     private func removeCardFromArchive(id: UUID){
-        var cards = self.repo
         var cardsFromArchive = self.getCardsArchived()
+        var cards = cardsFromArchive
         var index = 0
-        for card in cardsFromArchive {
+        for card in cards {
             if card.id == id {
                 cardsFromArchive.remove(at: index)
             }
