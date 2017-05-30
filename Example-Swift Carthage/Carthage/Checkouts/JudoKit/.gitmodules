@@ -1,0 +1,3 @@
+[submodule "DeviceDNA"]
+	path = DeviceDNA
+	url = https://github.com/Judopay/DeviceDNA-iOS.git

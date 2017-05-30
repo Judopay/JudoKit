@@ -1,0 +1,795 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3BFD9A911CD9F58400B8385D /* JudoKitUIDedupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A901CD9F58400B8385D /* JudoKitUIDedupTests.swift */; };
+		7071531C1EDD8CA600E5B438 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7071531B1EDD8CA600E5B438 /* DeviceDNA.framework */; };
+		7071531D1EDD8CA600E5B438 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7071531B1EDD8CA600E5B438 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		70791E431D66121D009CE638 /* ExampleAppCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70791E421D66121D009CE638 /* ExampleAppCredentials.swift */; };
+		DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CC31B84AA0C003FBAA5 /* Security.framework */; };
+		DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */; };
+		DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */; };
+		DA30489E1C038944000E1B79 /* JudoKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA30488E1C038932000E1B79 /* JudoKit.framework */; };
+		DA30489F1C038944000E1B79 /* JudoKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DA30488E1C038932000E1B79 /* JudoKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DA3048E11C05F079000E1B79 /* JudoKitAVSPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3048E01C05F079000E1B79 /* JudoKitAVSPaymentTests.swift */; };
+		DA3048E51C05F087000E1B79 /* JudoKitPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3048E41C05F087000E1B79 /* JudoKitPaymentTests.swift */; };
+		DA7418C11BA0226000C4D323 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7418C01BA0226000C4D323 /* DetailViewController.swift */; };
+		DA7A988A1B7E3291005754F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A98891B7E3291005754F1 /* AppDelegate.swift */; };
+		DA7A988C1B7E3291005754F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7A988B1B7E3291005754F1 /* ViewController.swift */; };
+		DA7A988F1B7E3291005754F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA7A988D1B7E3291005754F1 /* Main.storyboard */; };
+		DA7A98911B7E3291005754F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7A98901B7E3291005754F1 /* Assets.xcassets */; };
+		DA7A98941B7E3291005754F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA7A98921B7E3291005754F1 /* LaunchScreen.storyboard */; };
+		DABB74581C06137100361F9D /* JudoKitTokenPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DABB74571C06137100361F9D /* JudoKitTokenPaymentTests.swift */; };
+		DAC14E031C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC14E021C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift */; };
+		DAC14E051C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC14E041C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift */; };
+		DAC14E071C06097B00BF4E28 /* JudoKitMaestroTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAC14E061C06097B00BF4E28 /* JudoKitMaestroTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3B5A60031CAACE3C00E98AC6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA3048871C038932000E1B79 /* JudoKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3B02A0711CAA7BEA00953312;
+			remoteInfo = JudoKitTests;
+		};
+		DA3048711C036192000E1B79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA7A987E1B7E3291005754F1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DA7A98851B7E3291005754F1;
+			remoteInfo = JudoKitSwiftExample;
+		};
+		DA30488D1C038932000E1B79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA3048871C038932000E1B79 /* JudoKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA76A5FD1B7B73D30033E553;
+			remoteInfo = JudoKit;
+		};
+		DA3048A01C038944000E1B79 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DA3048871C038932000E1B79 /* JudoKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DA76A5FC1B7B73D30033E553;
+			remoteInfo = JudoKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DA5E29671BFB7B6000DC73E2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				7071531D1EDD8CA600E5B438 /* DeviceDNA.framework in Embed Frameworks */,
+				DA30489F1C038944000E1B79 /* JudoKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		3BFD9A901CD9F58400B8385D /* JudoKitUIDedupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitUIDedupTests.swift; sourceTree = "<group>"; };
+		707152F01EDD841C00E5B438 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		707152F41EDD841C00E5B438 /* DeviceDNA.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = DeviceDNA.podspec; sourceTree = "<group>"; };
+		707152F61EDD841C00E5B438 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeviceDNA.framework; sourceTree = "<group>"; };
+		707152F71EDD841C00E5B438 /* strip-frameworks-cocoapods.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "strip-frameworks-cocoapods.sh"; sourceTree = "<group>"; };
+		707152F81EDD841C00E5B438 /* strip-frameworks.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "strip-frameworks.sh"; sourceTree = "<group>"; };
+		707152F91EDD841C00E5B438 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		707152FA1EDD841C00E5B438 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		707152FC1EDD841C00E5B438 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeviceDNA.framework; sourceTree = "<group>"; };
+		707152FE1EDD844700E5B438 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		707153021EDD844700E5B438 /* DeviceDNA.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = DeviceDNA.podspec; sourceTree = "<group>"; };
+		707153041EDD844700E5B438 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeviceDNA.framework; sourceTree = "<group>"; };
+		707153051EDD844700E5B438 /* strip-frameworks-cocoapods.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "strip-frameworks-cocoapods.sh"; sourceTree = "<group>"; };
+		707153061EDD844700E5B438 /* strip-frameworks.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "strip-frameworks.sh"; sourceTree = "<group>"; };
+		707153071EDD844700E5B438 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		707153081EDD844700E5B438 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7071530A1EDD844700E5B438 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeviceDNA.framework; sourceTree = "<group>"; };
+		7071530C1EDD847400E5B438 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		707153101EDD847400E5B438 /* DeviceDNA.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = DeviceDNA.podspec; sourceTree = "<group>"; };
+		707153121EDD847400E5B438 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeviceDNA.framework; sourceTree = "<group>"; };
+		707153131EDD847400E5B438 /* strip-frameworks-cocoapods.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "strip-frameworks-cocoapods.sh"; sourceTree = "<group>"; };
+		707153141EDD847400E5B438 /* strip-frameworks.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "strip-frameworks.sh"; sourceTree = "<group>"; };
+		707153151EDD847400E5B438 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		707153161EDD847400E5B438 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		707153181EDD847400E5B438 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DeviceDNA.framework; sourceTree = "<group>"; };
+		7071531B1EDD8CA600E5B438 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework"; sourceTree = "<group>"; };
+		70791E421D66121D009CE638 /* ExampleAppCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleAppCredentials.swift; sourceTree = "<group>"; };
+		DA1B9CC31B84AA0C003FBAA5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		DA30486C1C036192000E1B79 /* JudoKitSwiftExampleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JudoKitSwiftExampleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA3048701C036192000E1B79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DA3048871C038932000E1B79 /* JudoKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JudoKit.xcodeproj; path = ../JudoKit.xcodeproj; sourceTree = "<group>"; };
+		DA3048E01C05F079000E1B79 /* JudoKitAVSPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitAVSPaymentTests.swift; sourceTree = "<group>"; };
+		DA3048E41C05F087000E1B79 /* JudoKitPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitPaymentTests.swift; sourceTree = "<group>"; };
+		DA7418C01BA0226000C4D323 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		DA7A98861B7E3291005754F1 /* JudoKitSwiftExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JudoKitSwiftExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA7A98891B7E3291005754F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DA7A988B1B7E3291005754F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DA7A988E1B7E3291005754F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DA7A98901B7E3291005754F1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DA7A98931B7E3291005754F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DA7A98951B7E3291005754F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DABB74571C06137100361F9D /* JudoKitTokenPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitTokenPaymentTests.swift; sourceTree = "<group>"; };
+		DAC14E021C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitPaymentDeclinedTests.swift; sourceTree = "<group>"; };
+		DAC14E041C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKit3DSPaymentTests.swift; sourceTree = "<group>"; };
+		DAC14E061C06097B00BF4E28 /* JudoKitMaestroTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitMaestroTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DA3048691C036192000E1B79 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA7A98831B7E3291005754F1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA30489E1C038944000E1B79 /* JudoKit.framework in Frameworks */,
+				DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */,
+				DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */,
+				DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */,
+				7071531C1EDD8CA600E5B438 /* DeviceDNA.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		707152EF1EDD841C00E5B438 /* DeviceDNA-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				707152F01EDD841C00E5B438 /* .gitignore */,
+				707152F11EDD841C00E5B438 /* Carthage */,
+				707152F41EDD841C00E5B438 /* DeviceDNA.podspec */,
+				707152F51EDD841C00E5B438 /* Framework */,
+				707152F91EDD841C00E5B438 /* LICENSE */,
+				707152FA1EDD841C00E5B438 /* README.md */,
+				707152FB1EDD841C00E5B438 /* Source */,
+			);
+			name = "DeviceDNA-iOS";
+			path = "Carthage/Checkouts/DeviceDNA-iOS";
+			sourceTree = "<group>";
+		};
+		707152F11EDD841C00E5B438 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				707152F21EDD841C00E5B438 /* Build */,
+				707152F31EDD841C00E5B438 /* Checkouts */,
+			);
+			path = Carthage;
+			sourceTree = "<group>";
+		};
+		707152F21EDD841C00E5B438 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Build;
+			sourceTree = "<group>";
+		};
+		707152F31EDD841C00E5B438 /* Checkouts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Checkouts;
+			sourceTree = "<group>";
+		};
+		707152F51EDD841C00E5B438 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				707152F61EDD841C00E5B438 /* DeviceDNA.framework */,
+				707152F71EDD841C00E5B438 /* strip-frameworks-cocoapods.sh */,
+				707152F81EDD841C00E5B438 /* strip-frameworks.sh */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		707152FB1EDD841C00E5B438 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				707152FC1EDD841C00E5B438 /* DeviceDNA.framework */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		707152FD1EDD844700E5B438 /* DeviceDNA-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				707152FE1EDD844700E5B438 /* .gitignore */,
+				707152FF1EDD844700E5B438 /* Carthage */,
+				707153021EDD844700E5B438 /* DeviceDNA.podspec */,
+				707153031EDD844700E5B438 /* Framework */,
+				707153071EDD844700E5B438 /* LICENSE */,
+				707153081EDD844700E5B438 /* README.md */,
+				707153091EDD844700E5B438 /* Source */,
+			);
+			name = "DeviceDNA-iOS";
+			path = "Carthage/Checkouts/DeviceDNA-iOS";
+			sourceTree = "<group>";
+		};
+		707152FF1EDD844700E5B438 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				707153001EDD844700E5B438 /* Build */,
+				707153011EDD844700E5B438 /* Checkouts */,
+			);
+			path = Carthage;
+			sourceTree = "<group>";
+		};
+		707153001EDD844700E5B438 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Build;
+			sourceTree = "<group>";
+		};
+		707153011EDD844700E5B438 /* Checkouts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Checkouts;
+			sourceTree = "<group>";
+		};
+		707153031EDD844700E5B438 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				707153041EDD844700E5B438 /* DeviceDNA.framework */,
+				707153051EDD844700E5B438 /* strip-frameworks-cocoapods.sh */,
+				707153061EDD844700E5B438 /* strip-frameworks.sh */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		707153091EDD844700E5B438 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				7071530A1EDD844700E5B438 /* DeviceDNA.framework */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		7071530B1EDD847400E5B438 /* DeviceDNA-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				7071530C1EDD847400E5B438 /* .gitignore */,
+				7071530D1EDD847400E5B438 /* Carthage */,
+				707153101EDD847400E5B438 /* DeviceDNA.podspec */,
+				707153111EDD847400E5B438 /* Framework */,
+				707153151EDD847400E5B438 /* LICENSE */,
+				707153161EDD847400E5B438 /* README.md */,
+				707153171EDD847400E5B438 /* Source */,
+			);
+			name = "DeviceDNA-iOS";
+			path = "Carthage/Checkouts/DeviceDNA-iOS";
+			sourceTree = "<group>";
+		};
+		7071530D1EDD847400E5B438 /* Carthage */ = {
+			isa = PBXGroup;
+			children = (
+				7071530E1EDD847400E5B438 /* Build */,
+				7071530F1EDD847400E5B438 /* Checkouts */,
+			);
+			path = Carthage;
+			sourceTree = "<group>";
+		};
+		7071530E1EDD847400E5B438 /* Build */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Build;
+			sourceTree = "<group>";
+		};
+		7071530F1EDD847400E5B438 /* Checkouts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Checkouts;
+			sourceTree = "<group>";
+		};
+		707153111EDD847400E5B438 /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				707153121EDD847400E5B438 /* DeviceDNA.framework */,
+				707153131EDD847400E5B438 /* strip-frameworks-cocoapods.sh */,
+				707153141EDD847400E5B438 /* strip-frameworks.sh */,
+			);
+			path = Framework;
+			sourceTree = "<group>";
+		};
+		707153171EDD847400E5B438 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				707153181EDD847400E5B438 /* DeviceDNA.framework */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		DA1B9CC61B84AA13003FBAA5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7071530B1EDD847400E5B438 /* DeviceDNA-iOS */,
+				707152FD1EDD844700E5B438 /* DeviceDNA-iOS */,
+				707152EF1EDD841C00E5B438 /* DeviceDNA-iOS */,
+				DA3048871C038932000E1B79 /* JudoKit.xcodeproj */,
+				DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */,
+				DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */,
+				DA1B9CC31B84AA0C003FBAA5 /* Security.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DA30486D1C036192000E1B79 /* JudoKitSwiftExampleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DA3048701C036192000E1B79 /* Info.plist */,
+				DA3048E41C05F087000E1B79 /* JudoKitPaymentTests.swift */,
+				DA3048E01C05F079000E1B79 /* JudoKitAVSPaymentTests.swift */,
+				DAC14E021C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift */,
+				DAC14E041C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift */,
+				DAC14E061C06097B00BF4E28 /* JudoKitMaestroTests.swift */,
+				DABB74571C06137100361F9D /* JudoKitTokenPaymentTests.swift */,
+				3BFD9A901CD9F58400B8385D /* JudoKitUIDedupTests.swift */,
+			);
+			path = JudoKitSwiftExampleUITests;
+			sourceTree = "<group>";
+		};
+		DA3048881C038932000E1B79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA30488E1C038932000E1B79 /* JudoKit.framework */,
+				3B5A60041CAACE3C00E98AC6 /* JudoKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA7A987D1B7E3291005754F1 = {
+			isa = PBXGroup;
+			children = (
+				7071531B1EDD8CA600E5B438 /* DeviceDNA.framework */,
+				DA7A98881B7E3291005754F1 /* JudoKitExampleApp */,
+				DA30486D1C036192000E1B79 /* JudoKitSwiftExampleUITests */,
+				DA1B9CC61B84AA13003FBAA5 /* Frameworks */,
+				DA7A98871B7E3291005754F1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DA7A98871B7E3291005754F1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DA7A98861B7E3291005754F1 /* JudoKitSwiftExample.app */,
+				DA30486C1C036192000E1B79 /* JudoKitSwiftExampleUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DA7A98881B7E3291005754F1 /* JudoKitExampleApp */ = {
+			isa = PBXGroup;
+			children = (
+				70791E421D66121D009CE638 /* ExampleAppCredentials.swift */,
+				DA7A98891B7E3291005754F1 /* AppDelegate.swift */,
+				DA7A988B1B7E3291005754F1 /* ViewController.swift */,
+				DA7418C01BA0226000C4D323 /* DetailViewController.swift */,
+				DA7A988D1B7E3291005754F1 /* Main.storyboard */,
+				DA7A98901B7E3291005754F1 /* Assets.xcassets */,
+				DA7A98921B7E3291005754F1 /* LaunchScreen.storyboard */,
+				DA7A98951B7E3291005754F1 /* Info.plist */,
+			);
+			name = JudoKitExampleApp;
+			path = JudoKitSwiftExample;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DA30486B1C036192000E1B79 /* JudoKitSwiftExampleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA3048761C036192000E1B79 /* Build configuration list for PBXNativeTarget "JudoKitSwiftExampleUITests" */;
+			buildPhases = (
+				DA3048681C036192000E1B79 /* Sources */,
+				DA3048691C036192000E1B79 /* Frameworks */,
+				DA30486A1C036192000E1B79 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA3048721C036192000E1B79 /* PBXTargetDependency */,
+			);
+			name = JudoKitSwiftExampleUITests;
+			productName = JudoKitSwiftExampleUITests;
+			productReference = DA30486C1C036192000E1B79 /* JudoKitSwiftExampleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		DA7A98851B7E3291005754F1 /* JudoKitSwiftExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DA7A98981B7E3291005754F1 /* Build configuration list for PBXNativeTarget "JudoKitSwiftExample" */;
+			buildPhases = (
+				DA7A98821B7E3291005754F1 /* Sources */,
+				DA7A98831B7E3291005754F1 /* Frameworks */,
+				DA7A98841B7E3291005754F1 /* Resources */,
+				DA5E29671BFB7B6000DC73E2 /* Embed Frameworks */,
+				7071531A1EDD84D100E5B438 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DA3048A11C038944000E1B79 /* PBXTargetDependency */,
+			);
+			name = JudoKitSwiftExample;
+			productName = JudoKitExampleApp;
+			productReference = DA7A98861B7E3291005754F1 /* JudoKitSwiftExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DA7A987E1B7E3291005754F1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0710;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Judo Payments";
+				TargetAttributes = {
+					DA30486B1C036192000E1B79 = {
+						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0800;
+						TestTargetID = DA7A98851B7E3291005754F1;
+					};
+					DA7A98851B7E3291005754F1 = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 95V535S6TQ;
+						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.OMC = {
+								enabled = 0;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = DA7A98811B7E3291005754F1 /* Build configuration list for PBXProject "JudoKitSwiftExample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DA7A987D1B7E3291005754F1;
+			productRefGroup = DA7A98871B7E3291005754F1 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = DA3048881C038932000E1B79 /* Products */;
+					ProjectRef = DA3048871C038932000E1B79 /* JudoKit.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				DA7A98851B7E3291005754F1 /* JudoKitSwiftExample */,
+				DA30486B1C036192000E1B79 /* JudoKitSwiftExampleUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3B5A60041CAACE3C00E98AC6 /* JudoKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = JudoKitTests.xctest;
+			remoteRef = 3B5A60031CAACE3C00E98AC6 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DA30488E1C038932000E1B79 /* JudoKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = JudoKit.framework;
+			remoteRef = DA30488D1C038932000E1B79 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DA30486A1C036192000E1B79 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA7A98841B7E3291005754F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA7A98941B7E3291005754F1 /* LaunchScreen.storyboard in Resources */,
+				DA7A98911B7E3291005754F1 /* Assets.xcassets in Resources */,
+				DA7A988F1B7E3291005754F1 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7071531A1EDD84D100E5B438 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Checkouts/DeviceDNA-iOS/Framework/DeviceDNA.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA3048681C036192000E1B79 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAC14E051C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift in Sources */,
+				DABB74581C06137100361F9D /* JudoKitTokenPaymentTests.swift in Sources */,
+				DAC14E031C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift in Sources */,
+				3BFD9A911CD9F58400B8385D /* JudoKitUIDedupTests.swift in Sources */,
+				DA3048E11C05F079000E1B79 /* JudoKitAVSPaymentTests.swift in Sources */,
+				DAC14E071C06097B00BF4E28 /* JudoKitMaestroTests.swift in Sources */,
+				DA3048E51C05F087000E1B79 /* JudoKitPaymentTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DA7A98821B7E3291005754F1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DA7418C11BA0226000C4D323 /* DetailViewController.swift in Sources */,
+				70791E431D66121D009CE638 /* ExampleAppCredentials.swift in Sources */,
+				DA7A988C1B7E3291005754F1 /* ViewController.swift in Sources */,
+				DA7A988A1B7E3291005754F1 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DA3048721C036192000E1B79 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DA7A98851B7E3291005754F1 /* JudoKitSwiftExample */;
+			targetProxy = DA3048711C036192000E1B79 /* PBXContainerItemProxy */;
+		};
+		DA3048A11C038944000E1B79 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = JudoKit;
+			targetProxy = DA3048A01C038944000E1B79 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DA7A988D1B7E3291005754F1 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA7A988E1B7E3291005754F1 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DA7A98921B7E3291005754F1 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DA7A98931B7E3291005754F1 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DA3048731C036192000E1B79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = JudoKitSwiftExampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitSwiftExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = JudoKitSwiftExample;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		DA3048741C036192000E1B79 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = JudoKitSwiftExampleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.judopay.JudoKitSwiftExampleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = JudoKitSwiftExample;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+		DA7A98961B7E3291005754F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DA7A98971B7E3291005754F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DA7A98991B7E3291005754F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../DeviceDNA/Framework",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
+				);
+				INFOPLIST_FILE = JudoKitSwiftExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoAppSwift;
+				PRODUCT_NAME = JudoKitSwiftExample;
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		DA7A989A1B7E3291005754F1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../DeviceDNA/Framework",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Checkouts/DeviceDNA-iOS/Framework",
+				);
+				INFOPLIST_FILE = JudoKitSwiftExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoPayDemoAppSwift;
+				PRODUCT_NAME = JudoKitSwiftExample;
+				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DA3048761C036192000E1B79 /* Build configuration list for PBXNativeTarget "JudoKitSwiftExampleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA3048731C036192000E1B79 /* Debug */,
+				DA3048741C036192000E1B79 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA7A98811B7E3291005754F1 /* Build configuration list for PBXProject "JudoKitSwiftExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA7A98961B7E3291005754F1 /* Debug */,
+				DA7A98971B7E3291005754F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DA7A98981B7E3291005754F1 /* Build configuration list for PBXNativeTarget "JudoKitSwiftExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DA7A98991B7E3291005754F1 /* Debug */,
+				DA7A989A1B7E3291005754F1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DA7A987E1B7E3291005754F1 /* Project object */;
+}
