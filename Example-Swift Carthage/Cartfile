@@ -1,3 +1,0 @@
-# use a specific version
-github "JudoPay/DeviceDNA-iOS" "master"
-github "JudoPay/JudoKit" == 6.2.11
