@@ -59,7 +59,7 @@ class CardCell: BaseCell {
     }
     
     func updateTitles(){
-        cardNameLabel.text = walletCard?.assignedName
+        cardNameLabel.text = walletCard?.assignedName == "" ? walletCard?.cardDetails?.cardNetwork?.stringValue() : walletCard?.assignedName
         var text = "****"+(walletCard?.cardNumberLastFour)!+" • Expiry "+(walletCard?.expiryDate)!
         if (walletCard?.isPrimaryCard)! {
             text += " • Primary"

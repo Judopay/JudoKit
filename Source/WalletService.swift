@@ -41,11 +41,15 @@ struct WalletService {
 
         if self.walletIsEmpty() {
             //Make default as this will be the only card in the wallet.
-            self.repo.save(walletCard: card)//card.withDefaultCard()
-        }
-        else {
+            self.repo.save(walletCard: card.withDefaultCard())
+        } else {
             if card.isPrimaryCard {
                 self.resignCurrentDefault()
+            }
+            if self.getUnordered().count >= 1 && !card.isPrimaryCard {
+                if let newDefault = self.get().first {
+                    self.makeDefault(card: newDefault)
+                }
             }
             
             self.repo.save(walletCard: card)

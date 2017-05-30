@@ -328,25 +328,26 @@ open class JudoPayView: UIView {
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 1.0)
         self.avsFieldsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.billingCountryInputField.heightConstraint.constant)
         
-        self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 24.0)
-        
         self.securityMessageLabel.isHidden = !(self.theme.showSecurityMessage)
 
         self.billingCountryInputField.addConstraint(avsFieldsHeightConstraint!)
         
-        self.contentView.addConstraint(securityMessageTopConstraint!)
+        //self.contentView.addConstraint(NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 24.0))
         
         if transactionType == .EditWaletCard || transactionType == .Wallet {
             self.contentView.addSubview(cardName)
             self.contentView.addSubview(primarySwitch)
             self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[cardName]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["cardName": cardName]))
-            self.cardNameTopConstraint = NSLayoutConstraint(item: cardName, attribute: .top, relatedBy: .equal, toItem: self.securityMessageLabel, attribute: .bottom, multiplier: 1.0, constant: 24.0)
-            let cardName2TopConstraint = NSLayoutConstraint(item: primarySwitch, attribute: .top, relatedBy: .equal, toItem: self.cardName, attribute: .bottom, multiplier: 1.0, constant: 24.0)
+            self.cardNameTopConstraint = NSLayoutConstraint(item: cardName, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 1.0)
+            let primarySwitchTopConstraint = NSLayoutConstraint(item: primarySwitch, attribute: .top, relatedBy: .equal, toItem: self.cardName, attribute: .bottom, multiplier: 1.0, constant: 10.0)
             self.contentView.addConstraint(cardNameTopConstraint!)
-            self.contentView.addConstraint(cardName2TopConstraint)
+            self.contentView.addConstraint(primarySwitchTopConstraint)
+            self.contentView.addConstraint(NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.primarySwitch, attribute: .bottom, multiplier: 1.0, constant: 24.0))
             self.cardName.textField.text = walletCard?.assignedName
             self.primarySwitch.primarySwitch.isOn = walletCard != nil ? (walletCard?.isPrimaryCard)! : false
             self.primarySwitch.primarySwitch.addTarget(self, action: #selector(onPrimary), for: .valueChanged)
+        } else {
+            self.contentView.addConstraint(NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 24.0))
         }
         
         // If card details are available, fill out the fields

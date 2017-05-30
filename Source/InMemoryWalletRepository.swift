@@ -30,6 +30,7 @@ class InMemoryWalletRepository : WalletRepositoryProtocol {
     var repo = [WalletCard]()
     
     func save(walletCard: WalletCard) {
+        self.repo = self.getCardsArchived()
         self.repo.append(walletCard)
         let walletData = NSKeyedArchiver.archivedData(withRootObject: self.repo)
         UserDefaults.standard.set(walletData, forKey: wallet_repo)
@@ -66,6 +67,7 @@ class InMemoryWalletRepository : WalletRepositoryProtocol {
         for card in cards {
             if card.id == id {
                 cardsFromArchive.remove(at: index)
+                break
             }
             index += 1
         }

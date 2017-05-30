@@ -33,6 +33,7 @@ open class PrimaryCardSwitch: UIView {
     let primarySwitch = UISwitch()
     
     let redBlock = UIView()
+    var hasRedBlockBeenLaiedout = false
     
     // MARK: Initializers
     
@@ -73,6 +74,14 @@ open class PrimaryCardSwitch: UIView {
         self.init(frame: CGRect.zero)
     }
     
+    override open func layoutSubviews() {
+        if !self.hasRedBlockBeenLaiedout && self.frame.size.height == self.theme.inputFieldHeight {
+            super.layoutSubviews()
+            self.redBlockAsActive()
+            self.hasRedBlockBeenLaiedout = true
+        }
+    }
+    
     /**
      Helper method to initialize the view
      */
@@ -104,14 +113,14 @@ open class PrimaryCardSwitch: UIView {
         redBlockAsActive()
     }
     
-    func  redBlockAsActive() {
+    func redBlockAsActive() {
         self.setRedBlockFrameAndBackgroundColor(height: 0.5, backgroundColor: self.theme.getInputFieldBorderColor().withAlphaComponent(1.0))
     }
     
     private  func setRedBlockFrameAndBackgroundColor(height: CGFloat, backgroundColor: UIColor) {
-        self.redBlock.backgroundColor = backgroundColor
+        self.redBlock.backgroundColor = .red
         let yPosition:CGFloat = self.frame.size.height == 50 ? 4 : 22;
-        self.redBlock.frame = CGRect(x: 13.0, y: self.frame.size.height - yPosition, width: self.frame.size.width - 26.0, height: height)
+        self.redBlock.frame = CGRect(x: 13.0, y: self.frame.size.height - yPosition, width: self.frame.size.width + 26.0, height: height)
     }
     
 }
