@@ -12,6 +12,7 @@
 		7052143C1E25479500C17BD8 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052143A1E25478200C17BD8 /* DeviceDNA.framework */; };
 		7052143D1E25479500C17BD8 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7052143A1E25478200C17BD8 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70791E431D66121D009CE638 /* ExampleAppCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70791E421D66121D009CE638 /* ExampleAppCredentials.swift */; };
+		BB58C1B81EDEFC9200FEEC78 /* JudoKitWalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB58C1B71EDEFC9200FEEC78 /* JudoKitWalletTests.swift */; };
 		DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CC31B84AA0C003FBAA5 /* Security.framework */; };
 		DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */; };
 		DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */; };
@@ -82,6 +83,7 @@
 		705214341E25473400C17BD8 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "/Users/ashleybarrett/Documents/iOS/JudoKit/Example-Swift/DeviceDNA.framework"; sourceTree = "<absolute>"; };
 		7052143A1E25478200C17BD8 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = ../DeviceDNA/Framework/DeviceDNA.framework; sourceTree = "<group>"; };
 		70791E421D66121D009CE638 /* ExampleAppCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleAppCredentials.swift; sourceTree = "<group>"; };
+		BB58C1B71EDEFC9200FEEC78 /* JudoKitWalletTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitWalletTests.swift; sourceTree = "<group>"; };
 		DA1B9CC31B84AA0C003FBAA5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		DA1B9CC91B84AAAD003FBAA5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		DA1B9CCC1B84AAB4003FBAA5 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -151,6 +153,7 @@
 				DAC14E061C06097B00BF4E28 /* JudoKitMaestroTests.swift */,
 				DABB74571C06137100361F9D /* JudoKitTokenPaymentTests.swift */,
 				3BFD9A901CD9F58400B8385D /* JudoKitUIDedupTests.swift */,
+				BB58C1B71EDEFC9200FEEC78 /* JudoKitWalletTests.swift */,
 			);
 			path = JudoKitSwiftExampleUITests;
 			sourceTree = "<group>";
@@ -334,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DAC14E051C05FACB00BF4E28 /* JudoKit3DSPaymentTests.swift in Sources */,
+				BB58C1B81EDEFC9200FEEC78 /* JudoKitWalletTests.swift in Sources */,
 				DABB74581C06137100361F9D /* JudoKitTokenPaymentTests.swift in Sources */,
 				DAC14E031C05F49E00BF4E28 /* JudoKitPaymentDeclinedTests.swift in Sources */,
 				3BFD9A911CD9F58400B8385D /* JudoKitUIDedupTests.swift in Sources */,
