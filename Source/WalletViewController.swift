@@ -39,7 +39,7 @@ open class WalletViewController: UIViewController {
     /// Card token and Consumer token
     open fileprivate (set) var paymentToken: PaymentToken?
     
-    /// The main JudoPayView of this ViewController
+    /// The main WalletView of this ViewController
     var myView: WalletView!
     
     var cardDetails: CardDetails?
@@ -48,7 +48,13 @@ open class WalletViewController: UIViewController {
     
     var walletService: WalletService!
     
-    /// The overridden view object forwarding to a JudoPayView
+    /// Flag to determine what SDK should do if card was selected:
+    // false - editing mode
+    // true - payment mode
+    var isPaymentMode = true
+    
+    
+    /// The overridden view object forwarding to a WalletView
     override open var view: UIView! {
         get { return self.myView as UIView }
         set {
@@ -72,7 +78,7 @@ open class WalletViewController: UIViewController {
     - parameter cardDetails:      An object containing all card information - default: nil
     - parameter paymentToken:     A payment token if a payment by token is to be made - default: nil
     
-    - returns: a JPayViewController object for presentation on a view stack
+    - returns: a WalletViewController object for presentation on a view stack
     */
     public init(judoId: String, amount: Amount, reference: Reference, currentSession: JudoKit) {
         
@@ -179,6 +185,12 @@ open class WalletViewController: UIViewController {
 //        self.completionBlock?(nil, JudoError(.userDidCancel))
     }
     
+    /// Private methods
+    private func walletCardAdapter(cardDetails: CardDetails, paymentToken: PaymentToken)->WalletCard{
+        let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardName ?? cardDetails.cardNetwork?.stringValue(), isPrimaryCard: cardDetails.isPrimary!, paymentToken: paymentToken, cardDetails: cardDetails)
+        
+        return walletCard
+    }
     
     //MARK: instantiate add card view
     func addCardTokenOperation() {
@@ -211,8 +223,8 @@ open class WalletViewController: UIViewController {
         })
     }
     
-    //Repeat Payment using selected cards from Wallet
-    func repeatPaymentOperation(card: WalletCard) {
+    //Run editing card from Wallet
+    func onEditWalletCard(card: WalletCard) {
         if let payToken = card.paymentToken {
             guard let ref = self.reference else { return }
             try! self.judoKitSession.invokeEditWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, walletCard: card, paymentToken: payToken, completion: { (walletCard, event, error) -> () in
@@ -239,10 +251,38 @@ open class WalletViewController: UIViewController {
         }
     }
     
-    func walletCardAdapter(cardDetails: CardDetails, paymentToken: PaymentToken)->WalletCard{
-        let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardName ?? cardDetails.cardNetwork?.stringValue(), isPrimaryCard: cardDetails.isPrimary!, paymentToken: paymentToken, cardDetails: cardDetails)
-        
-        return walletCard
+    func repeatPreAuthOperation(card: WalletCard) {
+        if let cardDetails = card.cardDetails, let payToken = card.paymentToken {
+            guard let ref = self.reference else { return }
+            try! self.judoKitSession.invokeTokenPreAuth(judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+                self.dismissView()
+                if let error = error {
+                    if error.code == .userDidCancel {
+                        self.dismissView()
+                        return
+                    }
+                    var errorTitle = "Error"
+                    if let errorCategory = error.category {
+                        errorTitle = errorCategory.stringValue()
+                    }
+                    self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+                    self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.dismissView()
+                    return // BAIL
+                }
+                if let resp = response, let transactionData = resp.items.first {
+                    self.cardDetails = transactionData.cardDetails
+                    self.paymentToken = transactionData.paymentToken()
+                }
+                let alert = UIAlertController(title: "Payment", message: "You've success made a repeat payment or preauth operation", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            })
+        } else {
+            let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func dismissView(){
@@ -262,6 +302,6 @@ extension WalletViewController : WalletCardOperationProtocol {
     }
     
     func onSelectWalletCard(card: WalletCard) {
-        self.repeatPaymentOperation(card: card)
+        isPaymentMode ? self.repeatPreAuthOperation(card: card) : self.onEditWalletCard(card: card)
     }
 }
