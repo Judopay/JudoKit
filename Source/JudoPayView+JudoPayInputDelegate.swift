@@ -191,7 +191,13 @@ extension JudoPayView: JudoPayInputDelegate {
             allFieldsValid = self.walletCard?.assignedName != input.textField.text
             self.walletCard?.assignedName = input.textField.text
         }
-        self.paymentEnabled(allFieldsValid)
+        if transactionType == .ExpiredWaletCard {allFieldsValid = true}
+        if cardDetails != nil && !(cardDetails?.isCVVAuth)! {
+            allFieldsValid = true
+            self.paymentEnabled(allFieldsValid)
+        } else {
+            self.paymentEnabled(allFieldsValid)
+        }
     }
 }
 

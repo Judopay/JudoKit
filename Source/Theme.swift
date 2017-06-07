@@ -70,6 +70,8 @@ public struct Theme {
     public var deleteTitle = "Delete"
     /// the title for an save wallet's card
     public var saveTitle = "Save"
+    /// the title for an expired wallet's card
+    public var expiredTitle = "Card expired"
     
     
     // MARK: Loading

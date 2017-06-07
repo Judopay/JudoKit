@@ -98,7 +98,7 @@ struct WalletService {
                 return false
             }
 
-            return lhs.dateCreated > rhs.dateCreated
+            return lhs.dateCreated < rhs.dateCreated
         })
     }
   
@@ -106,7 +106,7 @@ struct WalletService {
         return self.getUnordered().filter({ $0.isPrimaryCard }).first
     }
     
-    private func makeDefault(card: WalletCard) {
+    func makeDefault(card: WalletCard) {
         self.repo.remove(id: card.id)
         self.repo.save(walletCard: card.withDefaultCard())
     }

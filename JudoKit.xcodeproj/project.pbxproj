@@ -61,6 +61,7 @@
 		70F49E281DC353C6003B8D3B /* NSDate+Judo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F49E271DC353C6003B8D3B /* NSDate+Judo.swift */; };
 		BB02FE711EB207FD000B9254 /* UINavigationBar+Judo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02FE701EB207FD000B9254 /* UINavigationBar+Judo.swift */; };
 		BB2485911ED595B900AA71E0 /* PrimaryCardSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2485901ED595B900AA71E0 /* PrimaryCardSwitch.swift */; };
+		BB44FA4F1EE57E1900DDA149 /* UITableViewCell+Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB44FA4E1EE57E1900DDA149 /* UITableViewCell+Card.swift */; };
 		BB4972F81EC22A9D008CBA3D /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4972F71EC22A9D008CBA3D /* WalletViewController.swift */; };
 		BB4972F91EC22A9D008CBA3D /* WalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4972F71EC22A9D008CBA3D /* WalletViewController.swift */; };
 		BB4972FB1EC233C8008CBA3D /* WalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4972FA1EC233C8008CBA3D /* WalletView.swift */; };
@@ -189,6 +190,7 @@
 		70F49E271DC353C6003B8D3B /* NSDate+Judo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Judo.swift"; sourceTree = "<group>"; };
 		BB02FE701EB207FD000B9254 /* UINavigationBar+Judo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+Judo.swift"; sourceTree = "<group>"; };
 		BB2485901ED595B900AA71E0 /* PrimaryCardSwitch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrimaryCardSwitch.swift; sourceTree = "<group>"; };
+		BB44FA4E1EE57E1900DDA149 /* UITableViewCell+Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Card.swift"; sourceTree = "<group>"; };
 		BB4972F71EC22A9D008CBA3D /* WalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletViewController.swift; sourceTree = "<group>"; };
 		BB4972FA1EC233C8008CBA3D /* WalletView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletView.swift; sourceTree = "<group>"; };
 		BB4972FE1EC2F1B1008CBA3D /* WalletCellFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WalletCellFactory.swift; sourceTree = "<group>"; };
@@ -409,6 +411,7 @@
 				DA7418BE1B9EF8F000C4D323 /* UIColor+Judo.swift */,
 				70F49E271DC353C6003B8D3B /* NSDate+Judo.swift */,
 				BB02FE701EB207FD000B9254 /* UINavigationBar+Judo.swift */,
+				BB44FA4E1EE57E1900DDA149 /* UITableViewCell+Card.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				DA3902351B95B5DF001A703C /* JudoPayViewController.swift in Sources */,
 				3B02A0381CAA76A500953312 /* TransactionProcess.swift in Sources */,
 				BB4972FB1EC233C8008CBA3D /* WalletView.swift in Sources */,
+				BB44FA4F1EE57E1900DDA149 /* UITableViewCell+Card.swift in Sources */,
 				3B02ED1B1C63BD770045C705 /* Theme.swift in Sources */,
 				DAC0A3D51BB14A8000EA689D /* 3DSWebView.swift in Sources */,
 				3B02A04B1CAA76B000953312 /* JudoModelErrorCode.swift in Sources */,

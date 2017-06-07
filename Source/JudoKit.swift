@@ -253,7 +253,7 @@ public class JudoKit {
     }
     
     /**
-     Initiates the token pre-auth process
+     Initiates wallet
      
      - parameter judoId:       The judoId of the merchant to receive the pre-auth
      - parameter amount:       The amount and currency of the payment (default is GBP)
@@ -268,7 +268,7 @@ public class JudoKit {
     }
     
     /**
-     Initiates the token payment process
+     Initiates editing wallet's card process
      
      - parameter judoId:       The judoId of the merchant to receive the payment
      - parameter amount:       The amount and currency of the payment (default is GBP)
@@ -277,8 +277,23 @@ public class JudoKit {
      - parameter paymentToken: The consumer and card token to make a token payment with
      - parameter completion:   The completion handler which will respond with a Response Object or an NSError
      */
-    public func invokeEditWalletCard(_ judoId: String, amount: Amount, reference: Reference, walletCard: WalletCard, paymentToken: PaymentToken, completion: @escaping (WalletCard?, WallerCardEvent?, JudoError?) -> ()) throws {
-        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .EditWaletCard, completion: completion, currentSession: self, walletCard: walletCard, paymentToken: paymentToken)
+    public func invokeEditWalletCard(_ judoId: String, amount: Amount, reference: Reference, walletCard: WalletCard, paymentToken: PaymentToken, isExpired: Bool, completion: @escaping (WalletCard?, WallerCardEvent?, JudoError?) -> ()) throws {
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: isExpired ? .ExpiredWaletCard : .EditWaletCard, completion: completion, currentSession: self, walletCard: walletCard, paymentToken: paymentToken)
+        self.initiateAndShow(judoPayViewController)
+    }
+    
+    /**
+     Initiates editing wallet's card process
+     
+     - parameter judoId:       The judoId of the merchant to receive the payment
+     - parameter amount:       The amount and currency of the payment (default is GBP)
+     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+     - parameter cardDetails:  The card details to present in the input fields
+     - parameter paymentToken: The consumer and card token to make a token payment with
+     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
+     */
+    public func invokeExpiredWalletCard(_ judoId: String, amount: Amount, reference: Reference, walletCard: WalletCard, paymentToken: PaymentToken, completion: @escaping (WalletCard?, WallerCardEvent?, JudoError?) -> ()) throws {
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .ExpiredWaletCard, completion: completion, currentSession: self, walletCard: walletCard, paymentToken: paymentToken)
         self.initiateAndShow(judoPayViewController)
     }
     
@@ -304,7 +319,7 @@ public class JudoKit {
             return try self.preAuth(judoId, amount: amount, reference: reference)
         case .RegisterCard, .Wallet:
             return try self.registerCard(judoId, reference: reference)
-        case .EditWaletCard:
+        case .EditWaletCard, .ExpiredWaletCard:
             return try self.payment(judoId, amount: amount, reference: reference)
         default:
             throw JudoError(.invalidOperationError)

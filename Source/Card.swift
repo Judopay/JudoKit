@@ -559,6 +559,8 @@ open class CardDetails: NSObject, NSCoding {
     open var cardName: String?
     /// Card primary value
     open var isPrimary: Bool?
+    /// Card CVV/2 auth
+    open var isCVVAuth = true
     
     fileprivate var _cardNetwork: CardNetwork?
     /// The computed card network

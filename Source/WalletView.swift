@@ -79,6 +79,7 @@ open class WalletView: UIView {
         self.contentView.dataSource = self
         self.contentView.delegate = self
         self.contentView.separatorStyle = .none
+        self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
 
 }

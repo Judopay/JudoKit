@@ -334,7 +334,7 @@ open class JudoPayView: UIView {
         
         //self.contentView.addConstraint(NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 24.0))
         
-        if transactionType == .EditWaletCard || transactionType == .Wallet {
+        if transactionType == .EditWaletCard || transactionType == .Wallet || transactionType == .ExpiredWaletCard {
             self.contentView.addSubview(cardName)
             self.contentView.addSubview(primarySwitch)
             self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[cardName]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["cardName": cardName]))
@@ -363,11 +363,14 @@ open class JudoPayView: UIView {
             self.expiryDateInputField.textField.text = expiryDate
             self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
             self.secureCodeInputField.isTokenPayment = self.isTokenPayment
-            self.secureCodeInputField.isUserInteractionEnabled = transactionType == .EditWaletCard  || transactionType == .Wallet ? false : self.isTokenPayment
+            self.secureCodeInputField.isUserInteractionEnabled = transactionType == .EditWaletCard  || transactionType == .Wallet || transactionType == .ExpiredWaletCard ? false : self.isTokenPayment
             self.cardInputField.isTokenPayment = self.isTokenPayment
             self.cardInputField.isUserInteractionEnabled = !self.isTokenPayment
             self.expiryDateInputField.isUserInteractionEnabled = !self.isTokenPayment
             self.cardInputField.textField.isSecureTextEntry = false
+            self.cardName.textField.isEnabled = transactionType != .ExpiredWaletCard
+            self.primarySwitch.primarySwitch.isEnabled = transactionType != .ExpiredWaletCard
+            self.primarySwitch.titleLabel.alpha = transactionType == .ExpiredWaletCard ? 0.5 : 1.0
         }
     }
     
@@ -447,9 +450,6 @@ open class JudoPayView: UIView {
         self.secureCodeInputField.updateCardLogo()
         self.secureCodeInputField.textField.placeholder = network.securityCodeTitle()
         self.toggleStartDateVisibility(network == .maestro)
-        if transactionType == .EditWaletCard || transactionType == .Wallet {
-            self.secureCodeInputField.textField.text = walletCard != nil ? "***" : ""
-        }
     }
     
     
@@ -469,10 +469,8 @@ open class JudoPayView: UIView {
             self.paymentButton.layoutIfNeeded()
         }, completion: nil)
         
-        if enabled {
-            self.paymentNavBarButton?.setTitleTextAttributes([NSForegroundColorAttributeName: self.theme.tintActiveColor], for: .normal)
-        }
-        self.paymentNavBarButton!.isEnabled = self.transactionType == .EditWaletCard || transactionType == .Wallet ? true : enabled
+        self.paymentNavBarButton?.isEnabled = self.transactionType == .EditWaletCard ? true : enabled// || transactionType == .Wallet
+        self.paymentNavBarButton?.setTitleTextAttributes([NSForegroundColorAttributeName: self.paymentNavBarButton!.isEnabled ? self.theme.tintActiveColor : self.theme.tintColor], for: .normal)
     }
     
     /**

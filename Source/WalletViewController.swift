@@ -51,7 +51,11 @@ open class WalletViewController: UIViewController {
     /// Flag to determine what SDK should do if card was selected:
     // false - editing mode
     // true - payment mode
-    var isPaymentMode = true
+    var isPaymentMode = false
+    /// Flag to determine what SDK should do if card was selected:
+    // false - payment without CVV/2 code
+    // true - payment only with CVV/2 code
+    var isCVVAuth = true
     
     
     /// The overridden view object forwarding to a WalletView
@@ -130,17 +134,8 @@ open class WalletViewController: UIViewController {
         self.myView.delegate = self
         self.myView.walletService = walletService
 //        self.myView.threeDSecureWebView.delegate = self
-//        
-//        // Button actions
-//        let payButtonTitle = self.myView.transactionType == .RegisterCard ? self.judoKitSession.theme.registerCardNavBarButtonTitle : self.judoKitSession.theme.paymentButtonTitle
-//        
-        //self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), for: .touchUpInside)
-//        self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
-//        self.myView.paymentNavBarButton!.isEnabled = false
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .plain, target: self, action: #selector(self.doneButtonAction(_:)))
-//        self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
-        
         self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.getTextColor()
         self.navigationController?.navigationBar.barTintColor = self.judoKitSession.theme.getNavigationBarBackgroundColor()
         if !self.judoKitSession.theme.colorMode() {
@@ -224,10 +219,10 @@ open class WalletViewController: UIViewController {
     }
     
     //Run editing card from Wallet
-    func onEditWalletCard(card: WalletCard) {
+    func onEditWalletCard(card: WalletCard, isExpired: Bool) {
         if let payToken = card.paymentToken {
             guard let ref = self.reference else { return }
-            try! self.judoKitSession.invokeEditWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, walletCard: card, paymentToken: payToken, completion: { (walletCard, event, error) -> () in
+            try! self.judoKitSession.invokeEditWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, walletCard: card, paymentToken: payToken, isExpired: isExpired, completion: { (walletCard, event, error) -> () in
                 self.dismissView()
                 if event == .delete {
                     try! self.walletService.remove(card: card)
@@ -253,9 +248,9 @@ open class WalletViewController: UIViewController {
     
     func repeatPreAuthOperation(card: WalletCard) {
         if let cardDetails = card.cardDetails, let payToken = card.paymentToken {
+            cardDetails.isCVVAuth = self.isCVVAuth
             guard let ref = self.reference else { return }
             try! self.judoKitSession.invokeTokenPreAuth(judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
-                self.dismissView()
                 if let error = error {
                     if error.code == .userDidCancel {
                         self.dismissView()
@@ -270,6 +265,7 @@ open class WalletViewController: UIViewController {
                     self.dismissView()
                     return // BAIL
                 }
+                self.dismissView()
                 if let resp = response, let transactionData = resp.items.first {
                     self.cardDetails = transactionData.cardDetails
                     self.paymentToken = transactionData.paymentToken()
@@ -302,6 +298,7 @@ extension WalletViewController : WalletCardOperationProtocol {
     }
     
     func onSelectWalletCard(card: WalletCard) {
-        isPaymentMode ? self.repeatPreAuthOperation(card: card) : self.onEditWalletCard(card: card)
+        let isExpired = card.hasCardExpired()
+        isExpired ? self.onEditWalletCard(card: card, isExpired: isExpired) : isPaymentMode ? self.repeatPreAuthOperation(card: card) : self.onEditWalletCard(card: card, isExpired: false)
     }
 }

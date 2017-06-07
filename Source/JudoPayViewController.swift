@@ -152,7 +152,6 @@ open class JudoPayViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    
     /**
      Designated initializer that will fail if called
      
@@ -202,17 +201,20 @@ open class JudoPayViewController: UIViewController {
         case .EditWaletCard:
             self.title = self.judoKitSession.theme.editTitle
             payButtonTitle = self.judoKitSession.theme.deleteTitle
+        case .ExpiredWaletCard:
+            self.title = self.judoKitSession.theme.expiredTitle
+            payButtonTitle = self.judoKitSession.theme.deleteTitle
         default:
             self.title = "Invalid"
         }
 
         self.myView.threeDSecureWebView.delegate = self
-        let selector = self.myView.transactionType == .EditWaletCard ? #selector(JudoPayViewController.saveButtonAction(_:)) :  #selector(JudoPayViewController.payButtonAction(_:))
+        let selector = self.myView.transactionType == .EditWaletCard ? #selector(JudoPayViewController.saveButtonAction(_:)) : self.myView.transactionType == .ExpiredWaletCard ? #selector(JudoPayViewController.deleteCardButtonAction(_:)) : #selector(JudoPayViewController.payButtonAction(_:))
         self.myView.paymentButton.addTarget(self, action: selector, for: .touchUpInside)
         self.myView.paymentButton.tag = 1
-        let selectorNav = self.myView.transactionType == .EditWaletCard ? #selector(JudoPayViewController.deleteCardButtonAction(_:)) :  #selector(JudoPayViewController.payButtonAction(_:))
+        let selectorNav = self.myView.transactionType == .EditWaletCard || self.myView.transactionType == .ExpiredWaletCard ? #selector(JudoPayViewController.deleteCardButtonAction(_:)) :  #selector(JudoPayViewController.payButtonAction(_:))
         self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .done, target: self, action: selectorNav)
-        self.myView.paymentNavBarButton!.isEnabled = self.myView.transactionType == .EditWaletCard
+        self.myView.paymentNavBarButton!.isEnabled = self.myView.transactionType == .EditWaletCard  || self.myView.transactionType == .ExpiredWaletCard
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
@@ -259,11 +261,16 @@ open class JudoPayViewController: UIViewController {
         if self.myView.cardInputField.textField.text?.characters.count > 0 {
             if self.myView.transactionType == .EditWaletCard {
                 self.myView.cardName.textField.becomeFirstResponder()
-            } else {
-                self.myView.secureCodeInputField.textField.becomeFirstResponder()
+            } else if self.myView.transactionType != .ExpiredWaletCard {
+                if (self.myView.cardDetails?.isCVVAuth)! {
+                    self.myView.secureCodeInputField.textField.becomeFirstResponder()
+                }
             }
         } else {
             self.myView.cardInputField.textField.becomeFirstResponder()
+        }
+        if self.myView.cardDetails != nil && !(self.myView.cardDetails?.isCVVAuth)! {
+            self.myView.paymentEnabled(true)
         }
     }
 
@@ -386,8 +393,8 @@ open class JudoPayViewController: UIViewController {
      - parameter sender: the button
      */
     func doneButtonAction(_ sender: UIBarButtonItem) {
-        if self.myView.transactionType == .EditWaletCard {
-        self.walletCompletionBlock!(nil, nil, JudoError(.userDidCancel))
+        if self.myView.transactionType == .EditWaletCard || self.myView.transactionType == .ExpiredWaletCard {
+            self.walletCompletionBlock!(nil, nil, JudoError(.userDidCancel))
         } else {
             self.completionBlock?(nil, JudoError(.userDidCancel))
         }

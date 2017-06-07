@@ -63,8 +63,17 @@ class CardCell: BaseCell {
         var text = "****"+(walletCard?.cardNumberLastFour)!+" • Expiry "+(walletCard?.expiryDate)!
         if (walletCard?.isPrimaryCard)! {
             text += " • Primary"
+            cellView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.05)
         }
-        cardSubLabel.text = text
+        if (walletCard?.hasCardExpired())! {
+            var attrString = NSMutableAttributedString()
+            attrString = NSMutableAttributedString(string: text)
+            attrString.setAttributes([NSForegroundColorAttributeName : UIColor.red], range: NSRange(location:11,length:12))
+            cardSubLabel.attributedText = attrString
+            self.enable(on: false)
+        } else {
+            cardSubLabel.text = text
+        }
         logoView = CardLogoView.init(type: (walletCard?.cardType)!)
         logoView.frame = CGRect(x: 0, y: 0, width: 46, height: 30)
         logoContainerView.addSubview(logoView)
