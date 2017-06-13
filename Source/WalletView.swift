@@ -72,8 +72,8 @@ open class WalletView: UIView {
     func setupView(){
         // View
         self.addSubview(contentView)
-        let navHeight:CGFloat = 60.0
-        self.contentView.frame = CGRect.init(x: self.bounds.origin.x, y: self.bounds.origin.y + navHeight, width: self.bounds.size.width, height: self.bounds.size.height-navHeight)
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-74-[contentView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["contentView":contentView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[contentView]-0-|", options: .directionLeftToRight, metrics: nil, views: ["contentView": contentView]))
         self.contentView.contentSize = self.bounds.size
         //Reload card table
         self.contentView.dataSource = self
@@ -87,7 +87,7 @@ open class WalletView: UIView {
 extension WalletView : UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
+        return 80.0
     }
 
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -104,7 +104,7 @@ extension WalletView : UITableViewDelegate, UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == self.walletService.get().count {
-            return WalletCellFactory().createCard(cardType: 0)
+            return WalletCellFactory().createAddCard(theme: self.theme)
         }
         let item = self.walletService.get()[indexPath.row]
         return WalletCellFactory().createCardCell(walletCard: item)

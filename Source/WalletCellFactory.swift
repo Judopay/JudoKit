@@ -26,8 +26,8 @@ import UIKit
 
 class WalletCellFactory: NSObject {
     
-    func createCard(cardType: Int)->UITableViewCell{
-        return createAddCardCell()
+    func createAddCard(theme: Theme)->UITableViewCell{
+        return createAddCardCell(theme: theme)
     }
     
     func createCardCell(walletCard: WalletCard)->UITableViewCell{
@@ -36,8 +36,10 @@ class WalletCellFactory: NSObject {
         return cardCell
     }
     
-    private func createAddCardCell()->UITableViewCell{
-        return AddCardCell()
+    private func createAddCardCell(theme: Theme)->UITableViewCell{
+        let addCardCell = AddCardCell()
+        addCardCell.updateTitle(theme: theme)
+        return addCardCell
     }
     
 }

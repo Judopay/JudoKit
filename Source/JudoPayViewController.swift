@@ -191,7 +191,7 @@ open class JudoPayViewController: UIViewController {
         var payButtonTitle = self.judoKitSession.theme.paymentButtonTitle
         
         switch self.myView.transactionType {
-        case .Payment, .PreAuth:
+        case .Payment, .PreAuth, .PayAndSaveCard:
             self.title = self.judoKitSession.theme.paymentTitle
         case .RegisterCard, .Wallet:
             self.title = self.judoKitSession.theme.registerCardTitle
@@ -224,7 +224,7 @@ open class JudoPayViewController: UIViewController {
         if !self.judoKitSession.theme.colorMode() {
             self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         }
-        self.navigationController?.navigationBar.setBottomBorderColor(color: self.judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
+//        self.navigationController?.navigationBar.setBottomBorderColor(color: self.judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getNavigationBarTitleColor()]
         
         self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -349,9 +349,9 @@ open class JudoPayViewController: UIViewController {
                         self?.myView.loadingView.stopAnimating()
                     }
                 } else if var response = response {
-                    if self?.myView.transactionType == .Wallet {
+                    if self?.myView.transactionType == .Wallet || self?.myView.transactionType == .PayAndSaveCard {
                         response.cardName = (self?.myView.cardName.textField.text)!
-                        response.isPrimary = (self?.myView.primarySwitch.primarySwitch.isOn)!
+                        response.isPrimary = self?.myView.transactionType == .PayAndSaveCard ? (self?.myView.saveSwitch.judoSwitch.isOn)! : (self?.myView.primarySwitch.judoSwitch.isOn)!
                     }
                     self?.completionBlock?(response, nil)
                     self?.myView.loadingView.stopAnimating()

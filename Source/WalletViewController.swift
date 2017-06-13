@@ -138,12 +138,12 @@ open class WalletViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .plain, target: self, action: #selector(self.doneButtonAction(_:)))
         self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.getTextColor()
         self.navigationController?.navigationBar.barTintColor = self.judoKitSession.theme.getNavigationBarBackgroundColor()
+        self.view.backgroundColor = .white
         if !self.judoKitSession.theme.colorMode() {
             self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         }
-        self.navigationController?.navigationBar.setBottomBorderColor(color: self.judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
+//        self.navigationController?.navigationBar.setBottomBorderColor(color: self.judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getNavigationBarTitleColor()]
-        
         self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
     
@@ -167,7 +167,6 @@ open class WalletViewController: UIViewController {
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-
     
     /**
      executed if the user hits the "Back" button
@@ -281,6 +280,45 @@ open class WalletViewController: UIViewController {
         }
     }
     
+    func paymentOperationAndSave() {
+        guard let ref = self.reference else { return }
+        try! self.judoKitSession.invokePaymentAndSave(judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, completion: { (response, error) -> () in
+            if let error = error {
+                if error.code == .userDidCancel {
+                    self.dismissView()
+                    return
+                }
+                var errorTitle = "Error"
+                if let errorCategory = error.category {
+                    errorTitle = errorCategory.stringValue()
+                }
+                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+                self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.dismissView()
+                return // BAIL
+            }
+            
+            if let resp = response, let transactionData = resp.items.first {
+                self.cardDetails = transactionData.cardDetails
+                self.paymentToken = transactionData.paymentToken()
+                
+                if resp.isPrimary {
+                    self.cardDetails?.cardName = resp.cardName
+                    self.cardDetails?.isPrimary = resp.isPrimary
+                    
+                    try! self.walletService.add(card: self.walletCardAdapter(cardDetails: self.cardDetails!, paymentToken: transactionData.paymentToken()!))
+                    self.myView.contentView.reloadData()
+                }
+                
+            }
+            self.dismissView()
+            let alert = UIAlertController(title: "Payment", message: "You've success made a repeat payment or preauth operation", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        })
+    }
+
+    
     func dismissView(){
         if (UIApplication.shared.keyWindow?.rootViewController?.isKind(of: UINavigationController.self))! {
             _=self.navigationController?.popViewController(animated: true)
@@ -294,7 +332,7 @@ open class WalletViewController: UIViewController {
 extension WalletViewController : WalletCardOperationProtocol {
 
     func onAddWalletCard() {
-        self.addCardTokenOperation()
+        self.walletService.get().count == 0 ? self.paymentOperationAndSave() : self.addCardTokenOperation()
     }
     
     func onSelectWalletCard(card: WalletCard) {

@@ -33,16 +33,19 @@ class AddCardCell: BaseCell {
         self.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.selectionStyle = .none
         
-        addCardLabel.text = "Add a card"
         addCardLabel.font = UIFont.boldSystemFont(ofSize: 16)
         addCardLabel.textColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
         addCardLabel.translatesAutoresizingMaskIntoConstraints = false
         
         contentView.addSubview(addCardLabel)
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-52-[label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":addCardLabel]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-28-[label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":addCardLabel]))
         
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["label": addCardLabel, "logo": self.logoContainerView]))
+    }
+    
+    func updateTitle(theme: Theme){
+        addCardLabel.text = theme.addCardTitle
     }
     
     required init?(coder aDecoder: NSCoder) {

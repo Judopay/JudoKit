@@ -52,6 +52,8 @@ public struct Theme {
     public var registerCardNavBarButtonTitle = "Add"
     /// the title for the back button
     public var backButtonTitle = "< Back"
+    /// the title for Add card cell for Wallet card list
+    public var addCardTitle = "Add a card"
     
     
     // MARK: Titles
@@ -72,6 +74,11 @@ public struct Theme {
     public var saveTitle = "Save"
     /// the title for an expired wallet's card
     public var expiredTitle = "Card expired"
+    
+    /// the title for an expired wallet's card
+    public var makePrimaryTitle = "Make primary card"
+    /// the title for an expired wallet's card
+    public var saveForWalletTitle = "Save for future payments"
     
     
     // MARK: Loading

@@ -376,6 +376,8 @@ public enum TransactionType: String {
     case EditWaletCard
     /// A Wallet's Eard Expired
     case ExpiredWaletCard
+    /// A Payment Transaction with save to wallet possibility
+    case PayAndSaveCard
     /// VOID
     case VOID
 }

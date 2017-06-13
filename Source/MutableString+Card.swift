@@ -1,5 +1,5 @@
 //
-//  UINavigationBar+Judo.swift
+//  MutableString+Card.swift
 //  JudoKit
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,13 +22,18 @@
 
 import Foundation
 
-extension UINavigationBar {
+
+extension NSMutableAttributedString {
+    @discardableResult func bold(_ text:String) -> NSMutableAttributedString {
+        let attrs:[String:AnyObject] = [NSFontAttributeName : UIFont.boldSystemFont(ofSize: 12)]
+        let boldString = NSMutableAttributedString(string:"\(text)", attributes:attrs)
+        self.append(boldString)
+        return self
+    }
     
-    func setBottomBorderColor(color: UIColor, height: CGFloat) {
-        let bottomBorderRect = CGRect(x: 0, y: frame.height, width: frame.width, height: height)
-        let bottomBorderView = UIView(frame: bottomBorderRect)
-        bottomBorderView.backgroundColor = color
-        bottomBorderView.autoresizingMask = .flexibleWidth
-        addSubview(bottomBorderView)
+    @discardableResult func normal(_ text:String)->NSMutableAttributedString {
+        let normal =  NSAttributedString(string: text)
+        self.append(normal)
+        return self
     }
 }

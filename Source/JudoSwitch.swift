@@ -1,5 +1,5 @@
 //
-//  PrimaryCardSwitch.swift
+//  JudoSwitch.swift
 //  JudoKit
 //
 //  Copyright (c) 2017 Alternative Payments Ltd
@@ -24,13 +24,13 @@
 
 import UIKit
 
-open class PrimaryCardSwitch: UIView {
+open class JudoSwitch: UIView {
     
     /// the theme of the current judoKit session
     open var theme: Theme
     
     let titleLabel = UILabel()
-    let primarySwitch = UISwitch()
+    let judoSwitch = UISwitch()
     
     let redBlock = UIView()
     var hasRedBlockBeenLaiedout = false
@@ -38,7 +38,7 @@ open class PrimaryCardSwitch: UIView {
     // MARK: Initializers
     
     /**
-     Designated Initializer for PrimaryCardSwitch
+     Designated Initializer for JudoSwitch
      
      - parameter theme: the theme to use
      
@@ -51,7 +51,7 @@ open class PrimaryCardSwitch: UIView {
     }
     
     /**
-     Designated Initializer for PrimaryCardSwitch
+     Designated Initializer for JudoSwitch
      
      - parameter frame: the frame of the input view
      
@@ -89,28 +89,30 @@ open class PrimaryCardSwitch: UIView {
         self.redBlock.backgroundColor = self.theme.getErrorColor()
         self.redBlock.autoresizingMask = .flexibleWidth
         self.redBlock.translatesAutoresizingMaskIntoConstraints = false
+        self.redBlock.backgroundColor = self.theme.getInputFieldBorderColor().withAlphaComponent(1.0)
         
         self.backgroundColor = self.theme.getInputFieldBackgroundColor()
         self.clipsToBounds = true
         self.translatesAutoresizingMaskIntoConstraints = false
         
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.primarySwitch.translatesAutoresizingMaskIntoConstraints = false
-        self.primarySwitch.onTintColor = self.theme.getButtonColor()
+        self.judoSwitch.translatesAutoresizingMaskIntoConstraints = false
+        self.judoSwitch.onTintColor = self.theme.getButtonColor()
         self.titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
         self.titleLabel.textColor = .black
-        self.titleLabel.text = "Make primary card"
+        self.titleLabel.backgroundColor = .clear
         
         self.addSubview(self.titleLabel)
-        self.addSubview(self.primarySwitch)
+        self.addSubview(self.judoSwitch)
         self.addSubview(self.redBlock)
         
         //Setup constraints
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-1-[label(40)]-1-|", options: .alignAllLastBaseline, metrics: nil, views: ["label":self.titleLabel]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[switch]-5-|", options: .alignAllLastBaseline, metrics: nil, views: ["switch": primarySwitch]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-15-[label(width)][switch]-15-|", options: .directionLeftToRight, metrics: ["width": UIScreen.main.bounds.size.width - primarySwitch.frame.size.width - 30], views: ["label":self.titleLabel, "switch": primarySwitch]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-1-[label(40)][redBlock(1)]-1-|", options: NSLayoutFormatOptions.init(rawValue: 0), metrics: nil, views: ["label":self.titleLabel, "redBlock": redBlock]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-1-[switch]-5-|", options: .alignAllLastBaseline, metrics: nil, views: ["switch": judoSwitch]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-15-[label(width)][switch]-15-|", options: .directionLeftToRight, metrics: ["width": UIScreen.main.bounds.size.width - judoSwitch.frame.size.width - 30], views: ["label":self.titleLabel, "switch": judoSwitch]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-10-[redBlock(<=width)]-10-|", options: .directionLeftToRight, metrics: ["width": UIScreen.main.bounds.size.width], views: ["redBlock": redBlock]))
         
-        redBlockAsActive()
+//        redBlockAsActive()
     }
     
     func redBlockAsActive() {

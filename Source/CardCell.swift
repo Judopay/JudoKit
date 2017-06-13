@@ -46,13 +46,13 @@ class CardCell: BaseCell {
         contentView.addSubview(cardSubLabel)
         
         cardNameLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        cardNameLabel.textColor = .black
+        cardNameLabel.textColor = UIColor.init(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
         cardNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        cardSubLabel.font = UIFont.systemFont(ofSize: 14)
-        cardSubLabel.textColor = .gray
+        cardSubLabel.font = UIFont.systemFont(ofSize: 12)
+        cardSubLabel.textColor = UIColor.init(red: 130/255, green: 130/255, blue: 130/255, alpha: 1.0)
         cardSubLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-45-[label]-1-[sub_label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":cardNameLabel, "sub_label":cardSubLabel]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-22-[label]-5-[sub_label]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["label":cardNameLabel, "sub_label":cardSubLabel]))
         
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["label": cardNameLabel, "logo": self.logoContainerView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-32-[logo(46)]-18-[sub_label]-28-|", options: .directionLeftToRight, metrics: nil, views: ["sub_label": cardSubLabel, "logo": self.logoContainerView]))
@@ -60,10 +60,12 @@ class CardCell: BaseCell {
     
     func updateTitles(){
         cardNameLabel.text = walletCard?.assignedName == "" ? walletCard?.cardDetails?.cardNetwork?.stringValue() : walletCard?.assignedName
-        var text = "****"+(walletCard?.cardNumberLastFour)!+" • Expiry "+(walletCard?.expiryDate)!
+        let text = "****"+(walletCard?.cardNumberLastFour)!+" • Expiry "+(walletCard?.expiryDate)!
         if (walletCard?.isPrimaryCard)! {
-            text += " • Primary"
-            cellView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.05)
+            let attrString = NSMutableAttributedString()
+            attrString.normal(text).bold(" • Primary")
+            cardSubLabel.attributedText = attrString
+            cellView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.07)
         }
         if (walletCard?.hasCardExpired())! {
             var attrString = NSMutableAttributedString()
@@ -72,7 +74,9 @@ class CardCell: BaseCell {
             cardSubLabel.attributedText = attrString
             self.enable(on: false)
         } else {
-            cardSubLabel.text = text
+            if !(walletCard?.isPrimaryCard)! {
+                cardSubLabel.text = text
+            }
         }
         logoView = CardLogoView.init(type: (walletCard?.cardType)!)
         logoView.frame = CGRect(x: 0, y: 0, width: 46, height: 30)
