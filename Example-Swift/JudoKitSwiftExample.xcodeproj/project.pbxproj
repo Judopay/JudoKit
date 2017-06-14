@@ -130,6 +130,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BBA8082A1EF1250B00A11772 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				705214341E25473400C17BD8 /* DeviceDNA.framework */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		DA1B9CC61B84AA13003FBAA5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,6 +182,7 @@
 				DA30486D1C036192000E1B79 /* JudoKitSwiftExampleUITests */,
 				DA1B9CC61B84AA13003FBAA5 /* Frameworks */,
 				DA7A98871B7E3291005754F1 /* Products */,
+				BBA8082A1EF1250B00A11772 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};

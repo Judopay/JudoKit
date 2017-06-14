@@ -80,6 +80,12 @@ enum TableViewContent : Int {
 
 class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
+    @available(iOS 11.0, *)
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+        self.didFinishAuthorizePaymentWithResult(controller, didAuthorizePayment: payment, completion: completion)
+    }
+    
+    
     static let kCellIdentifier = "com.judo.judopaysample.tableviewcellidentifier"
     
     @IBOutlet var tableView: UITableView!
@@ -400,6 +406,65 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         self.initiateApplePay()
     }
     
+    @available(iOS 11.0, *)
+    func didFinishAuthorizePaymentWithResult(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationResult) -> Void){
+        // WARNING: this can not be properly tested with the sandbox due to restrictions from Apple- if you need to test ApplePay you have to make actual valid transaction and then void them
+        let completionBlock: (Response?, JudoError?) -> () = { (response, error) -> () in
+            self.dismissView()
+            if let _ = error {
+                let alertCont = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .alert)
+                alertCont.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alertCont, animated: true, completion: nil)
+                return // BAIL
+            }
+            if let resp = response, let transactionData = resp.items.first {
+                self.cardDetails = transactionData.cardDetails
+                self.paymentToken = transactionData.paymentToken()
+            }
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
+            viewController.response = response
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+        guard let ref = Reference(consumerRef: self.reference) else { return }
+        
+        if self.isTransactingApplePayPreAuth {
+            try! self.judoKitSession.preAuth(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref).pkPayment(payment).completion(completionBlock)
+        } else {
+            try! self.judoKitSession.payment(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref).pkPayment(payment).completion(completionBlock)
+        }
+    }
+    
+    func didFinishAuthorizePayment(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void){
+        // WARNING: this can not be properly tested with the sandbox due to restrictions from Apple- if you need to test ApplePay you have to make actual valid transaction and then void them
+        let completionBlock: (Response?, JudoError?) -> () = { (response, error) -> () in
+            self.dismissView()
+            if let _ = error {
+                let alertCont = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .alert)
+                alertCont.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alertCont, animated: true, completion: nil)
+                return // BAIL
+            }
+            if let resp = response, let transactionData = resp.items.first {
+                self.cardDetails = transactionData.cardDetails
+                self.paymentToken = transactionData.paymentToken()
+            }
+            let sb = UIStoryboard(name: "Main", bundle: nil)
+            let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
+            viewController.response = response
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+        
+        guard let ref = Reference(consumerRef: self.reference) else { return }
+        
+        if self.isTransactingApplePayPreAuth {
+            try! self.judoKitSession.preAuth(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref).pkPayment(payment).completion(completionBlock)
+        } else {
+            try! self.judoKitSession.payment(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref).pkPayment(payment).completion(completionBlock)
+        }
+    }
+    
     func initiateApplePay() {
         // Set up our payment request.
         let paymentRequest = PKPaymentRequest()
@@ -447,32 +512,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     // MARK: PKPaymentAuthorizationViewControllerDelegate
     
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-        // WARNING: this can not be properly tested with the sandbox due to restrictions from Apple- if you need to test ApplePay you have to make actual valid transaction and then void them
-        let completionBlock: (Response?, JudoError?) -> () = { (response, error) -> () in
-            self.dismissView()
-            if let _ = error {
-                let alertCont = UIAlertController(title: "Error", message: "there was an error performing the operation", preferredStyle: .alert)
-                alertCont.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.present(alertCont, animated: true, completion: nil)
-                return // BAIL
-            }
-            if let resp = response, let transactionData = resp.items.first {
-                self.cardDetails = transactionData.cardDetails
-                self.paymentToken = transactionData.paymentToken()
-            }
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
-            viewController.response = response
-            self.navigationController?.pushViewController(viewController, animated: true)
-        }
-        
-        guard let ref = Reference(consumerRef: self.reference) else { return }
-        
-        if self.isTransactingApplePayPreAuth {
-            try! self.judoKitSession.preAuth(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref).pkPayment(payment).completion(completionBlock)
-        } else {
-            try! self.judoKitSession.payment(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref).pkPayment(payment).completion(completionBlock)
-        }
+        self.didFinishAuthorizePayment(controller, didAuthorizePayment: payment, completion: completion)
     }
     
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
