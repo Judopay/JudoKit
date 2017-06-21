@@ -60,19 +60,25 @@ class JudoKitWalletTests: XCTestCase {
         
         elementsQuery.secureTextFields["CVV2"].typeText("452")
         
-        let cardName = elementsQuery.textFields["Name this card (optional)"]
+//        let cardName = elementsQuery.textFields["Name this card (optional)"]
         
-        cardName.typeText("My first Visa card")
+//        cardName.typeText("My first Visa card")
         
-        app.navigationBars["Add"].buttons["Add"].tap()
+        app.navigationBars["Add card"].buttons["Add"].tap()
         
-//        let button = app.buttons["Home"]
-//        let existsPredicate = NSPredicate(format: "exists == 1")
-//        
-//        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
-//        waitForExpectations(timeout: 15, handler: nil)
-//        
-//        button.tap()
+    }
+    
+    func deleteCard(){
+        //Precondition - create a new card
+        testAddWalletCard()
+        
+        let app = XCUIApplication()
+        
+        //Tap on just created card cell
+        app.tables.staticTexts["Visa"].tap()
+        
+        //Click on delete nav button
+        app.navigationBars["Edit"].buttons["Delete"].tap()
     }
     
 }

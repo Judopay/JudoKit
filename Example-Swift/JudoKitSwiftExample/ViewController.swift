@@ -80,10 +80,10 @@ enum TableViewContent : Int {
 
 class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    @available(iOS 11.0, *)
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
-        self.didFinishAuthorizePaymentWithResult(controller, didAuthorizePayment: payment, completion: completion)
-    }
+//    @available(iOS 11.0, *)
+//    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
+//        self.didFinishAuthorizePaymentWithResult(controller, didAuthorizePayment: payment, completion: completion)
+//    }
     
     
     static let kCellIdentifier = "com.judo.judopaysample.tableviewcellidentifier"
@@ -166,7 +166,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     @IBAction func settingsButtonDismissHandler(_ sender: AnyObject) {
         if self.settingsViewBottomConstraint.constant == 0 {
             self.view.layoutIfNeeded()
-            self.settingsViewBottomConstraint.constant = -190
+            self.settingsViewBottomConstraint.constant = -240
             UIView.animate(withDuration: 0.5, animations: { () -> Void in
                 self.tableView.alpha = 1.0
                 self.view.layoutIfNeeded()
@@ -182,6 +182,10 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     @IBAction func AVSValueChanged(_ theSwitch: UISwitch) {
         self.judoKitSession.theme.avsEnabled = theSwitch.isOn
+    }
+    
+    @IBAction func isPaymentValueChanged(_ theSwitch: UISwitch) {
+        self.judoKitSession.theme.isPaymentMode = theSwitch.isOn
     }
     
     // TODO: need to think of a way to add or remove certain card type acceptance as samples
@@ -406,6 +410,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         self.initiateApplePay()
     }
     
+    /*
     @available(iOS 11.0, *)
     func didFinishAuthorizePaymentWithResult(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationResult) -> Void){
         // WARNING: this can not be properly tested with the sandbox due to restrictions from Apple- if you need to test ApplePay you have to make actual valid transaction and then void them
@@ -435,6 +440,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             try! self.judoKitSession.payment(judoId, amount: Amount(decimalNumber: 30, currency: currentCurrency), reference: ref).pkPayment(payment).completion(completionBlock)
         }
     }
+ */
     
     func didFinishAuthorizePayment(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void){
         // WARNING: this can not be properly tested with the sandbox due to restrictions from Apple- if you need to test ApplePay you have to make actual valid transaction and then void them

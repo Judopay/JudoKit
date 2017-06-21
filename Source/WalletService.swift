@@ -98,7 +98,7 @@ struct WalletService {
                 return false
             }
 
-            return lhs.dateCreated < rhs.dateCreated
+            return lhs.dateCreated > rhs.dateCreated
         })
     }
   

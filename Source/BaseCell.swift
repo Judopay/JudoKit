@@ -58,7 +58,7 @@ class BaseCell: UITableViewCell {
         contentView.addSubview(logoContainerView)
         contentView.addSubview(arrowLabel)
         
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-24-[logo(30)]-24-|", options: .alignAllLastBaseline, metrics: nil, views: ["logo":self.logoContainerView]))
+        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-24-[logo]-24-|", options: .alignAllLastBaseline, metrics: nil, views: ["logo":self.logoContainerView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[content]-5-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["content":cellView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[content]-14-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["content": cellView]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(y)-[arrow]", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["y":centerY+5], views: ["arrow":arrowLabel]))

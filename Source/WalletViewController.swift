@@ -49,10 +49,6 @@ open class WalletViewController: UIViewController {
     var walletService: WalletService!
     
     /// Flag to determine what SDK should do if card was selected:
-    // false - editing mode
-    // true - payment mode
-    var isPaymentMode = false
-    /// Flag to determine what SDK should do if card was selected:
     // false - payment without CVV/2 code
     // true - payment only with CVV/2 code
     var isCVVAuth = true
@@ -190,9 +186,9 @@ open class WalletViewController: UIViewController {
     func addCardTokenOperation() {
         guard let ref = self.reference else { return }
         try! self.judoKitSession.invokeRegisterWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, completion: { (response, error) -> () in
-            self.dismissView()
             if let error = error {
                 if error.code == .userDidCancel {
+                    self.dismissView()
                     return
                 }
                 var errorTitle = "Error"
@@ -332,11 +328,12 @@ open class WalletViewController: UIViewController {
 extension WalletViewController : WalletCardOperationProtocol {
 
     func onAddWalletCard() {
-        self.walletService.get().count == 0 ? self.paymentOperationAndSave() : self.addCardTokenOperation()
+        // self.paymentOperationAndSave() - using in case empty wallet and allow user to make payment and save or not card for future usage
+        self.addCardTokenOperation()
     }
     
     func onSelectWalletCard(card: WalletCard) {
         let isExpired = card.hasCardExpired()
-        isExpired ? self.onEditWalletCard(card: card, isExpired: isExpired) : isPaymentMode ? self.repeatPreAuthOperation(card: card) : self.onEditWalletCard(card: card, isExpired: false)
+        isExpired ? self.onEditWalletCard(card: card, isExpired: isExpired) : self.judoKitSession.theme.isPaymentMode ? self.repeatPreAuthOperation(card: card) : self.onEditWalletCard(card: card, isExpired: false)
     }
 }

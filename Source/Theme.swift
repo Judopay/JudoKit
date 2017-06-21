@@ -35,6 +35,9 @@ public struct Theme {
     /// Set the address verification service to true to prompt the user to input his country and post code information
     public var avsEnabled: Bool = false
     
+    /// Set the mode, false - editing, true - payment
+    public var isPaymentMode: Bool = false
+    
     /// a boolean indicating whether a security message should be shown below the input
     public var showSecurityMessage: Bool = false
     
