@@ -201,14 +201,21 @@ open class WalletViewController: UIViewController {
                 return // BAIL
             }
             if let resp = response, let transactionData = resp.items.first {
-                self.cardDetails = transactionData.cardDetails
-                self.paymentToken = transactionData.paymentToken()
-                
-                self.cardDetails?.cardName = resp.cardName
-                self.cardDetails?.isPrimary = resp.isPrimary
-                
-                try! self.walletService.add(card: self.walletCardAdapter(cardDetails: self.cardDetails!, paymentToken: transactionData.paymentToken()!))
-                self.myView.contentView.reloadData()
+                if let payToken = transactionData.paymentToken() {
+                    self.cardDetails = transactionData.cardDetails
+                    self.paymentToken = payToken
+                    
+                    self.cardDetails?.cardName = resp.cardName
+                    self.cardDetails?.isPrimary = resp.isPrimary
+                    
+                    try! self.walletService.add(card: self.walletCardAdapter(cardDetails: self.cardDetails!, paymentToken: payToken))
+                    self.myView.contentView.reloadData()
+                } else {
+                    self.dismissView()
+                    let alert = UIAlertController(title: "Error", message: "You've entered wrong card details, please check CVV/2 code first", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
         })
     }
@@ -258,6 +265,7 @@ open class WalletViewController: UIViewController {
                     self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
                     self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     self.dismissView()
+                    self.present(self.alertController!, animated: true, completion: nil)
                     return // BAIL
                 }
                 self.dismissView()
