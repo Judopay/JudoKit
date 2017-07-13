@@ -62,14 +62,14 @@ You can set your token and secret here when initializing the session:
 
 ```swift
 // initialize the SDK by setting it up with a token and a secret
-var judoKitSession = JudoKit(token: token, secret: secret)
+var judoKit = JudoKit(token: "<TOKEN>", secret: "<SECRET>")
 ```
 
 To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
 
 ```swift
 // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
-self.judoKitSession.sandboxed(true)
+self.judoKit.sandboxed(true)
 ```
 
 When you are ready to go live you can remove this line.
@@ -77,35 +77,41 @@ When you are ready to go live you can remove this line.
 #### 3. Make a payment
 
 ```swift
-    func paymentOperation() {
-        guard let ref = Reference(consumerRef: "payment reference") else { return }
-        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
-            self.dismiss(animated: true, completion: nil)
-            if let error = error {
-                if error.code == .userDidCancel {
-                    self.dismiss(animated: true, completion: nil)
-                    return
-                }
-                var errorTitle = "Error"
-                if let errorCategory = error.category {
-                    errorTitle = errorCategory.stringValue()
-                }
-                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
-                self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.dismiss(animated: true, completion:nil)
-                return // BAIL
-            }
+func paymentOperation() {
+    guard let ref = Reference(consumerRef: "<CONSUMER_REFERENCE>") else { return }
+    try! self.judoKit.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
+        self.dismiss(animated: true, completion: nil)
             
-            if let resp = response, let transactionData = resp.items.first {
-                self.cardDetails = transactionData.cardDetails
-                self.paymentToken = transactionData.paymentToken()
+        if let error = error {
+            if error.code == .userDidCancel {
+                self.dismiss(animated: true, completion: nil)
+                return
             }
-            let sb = UIStoryboard(name: "Main", bundle: nil)
-            let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
-            viewController.response = response
-            self.navigationController?.pushViewController(viewController, animated: true)
-            })
-    }
+                
+            var errorTitle = "Error"
+            if let errorCategory = error.category {
+                errorTitle = errorCategory.stringValue()
+            }
+                
+            self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+            self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.dismiss(animated: true, completion:nil)
+                
+            return // BAIL
+        }
+            
+        if let resp = response, let receipt = resp.items.first {
+            self.cardDetails = receipt.cardDetails
+            self.paymentToken = receipt.paymentToken()
+        }
+            
+        let sb = UIStoryboard(name: "Main", bundle: nil)
+        let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
+            
+        viewController.response = response
+        self.navigationController?.pushViewController(viewController, animated: true)
+    })
+}
 ```
 **Note:** Please make sure that you are using a unique Consumer Reference for each different consumer.
 

@@ -1,18 +1,6 @@
 # Change Log
-All notable changes to this project will be documented in this file.
-'JudoKit' adheres to [Semantic Versioning](http://semver.org/).
 
-- `6.2.x` Releases - [6.2.0](#620) | [6.2.1](#621) | [6.2.2](#622) | [6.2.3](#623) | [6.2.4](#624) | [6.2.5](#625) | [6.2.6](#626)
-- `6.1.x` Releases - [6.1.0](#610) | [6.1.1](#611) | [6.1.2](#612)
-- `6.0.x` Releases - [6.0.0](#600) | [6.0.1](#601) | [6.0.2](#602)
-- `5.6.x` Releases - [5.6.0](#560)
-- `5.5.x` Releases - [5.5.0](#550) | [5.5.1](#551) | [5.5.2](#552) | [5.5.3](#553) | [5.5.4](#554)
-- `5.4.x` Releases - [5.4.0](#540)
-- `5.3.x` Releases - [5.3.0](#530)
-- `5.2.x` Releases - [5.2.0](#520) | [5.2.1](#521)
-- `5.1.x` Releases - [5.1.0](#510) | [5.1.1](#511) | [5.1.2](#512)
-- `5.0.x` Releases - [5.0.0](#500) | [5.0.1](#501)
-- `4.x` Releases and below are related to the [JudoSDK](https://github.com/JudoPay/Judo-ObjC) 
+For the latest SDK changes, please see the [Github release page](https://github.com/Judopay/JudoKit/releases).
 
 ## [6.2.6](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.6)
 Released on 2016-11-10
