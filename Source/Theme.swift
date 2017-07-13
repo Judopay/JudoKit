@@ -28,7 +28,9 @@ import Foundation
 public struct Theme {
     
     /// A tint color that is used to generate a theme for the judo payment form
-    public var tintColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
+    public var tintColor: UIColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.42)
+    
+    public var tintActiveColor: UIColor = UIColor(red: 30/255, green: 120/255, blue: 160/255, alpha: 1.0)
     
     /// Set the address verification service to true to prompt the user to input his country and post code information
     public var avsEnabled: Bool = false
@@ -49,7 +51,7 @@ public struct Theme {
     /// the title for the back button of the navigation controller
     public var registerCardNavBarButtonTitle = "Add"
     /// the title for the back button
-    public var backButtonTitle = "Back"
+    public var backButtonTitle = "< Back"
     
     
     // MARK: Titles
@@ -81,12 +83,12 @@ public struct Theme {
     // MARK: Input fields
     
     /// the height of the input fields
-    public var inputFieldHeight: CGFloat = 48
+    public var inputFieldHeight: CGFloat = 68
     
     // MARK: Security message
     
     /// the message that is shown below the input fields the ensure safety when entering card information
-    public var securityMessageString = "Your card details are encrypted using SSL before transmission to our secure payment service provider. They will not be stored on this device or on our servers."
+    public var securityMessageString = "Your card details are encrypted using SSL before transmission to our secure payment service provider."
     
     /// the text size of the security message
     public var securityMessageTextSize: CGFloat = 12
@@ -109,8 +111,17 @@ public struct Theme {
     /// The default navigation bar title color
     public var judoNavigationBarTitleColor: UIColor?
     
+    /// The default navigation bar bottom color
+    public var judoNavigationBarBottomColor: UIColor?
+    
+    /// The default navigation bar background color
+    public var judoNavigationBarBackgroundColor: UIColor?
+    
     /// The color that is used for active input fields
     public var judoInputFieldTextColor: UIColor?
+    
+    /// The color that is used for active input fields
+    public var judoInputFieldHintTextColor: UIColor?
     
     /// The color that is used for the placeholders of the input fields
     public var judoPlaceholderTextColor: UIColor?
@@ -149,7 +160,7 @@ public struct Theme {
         if self.judoTextColor != nil {
             return self.judoTextColor!
         }
-        let dgc = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        let dgc = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.87)
         if self.colorMode() {
             return dgc
         } else {
@@ -167,7 +178,41 @@ public struct Theme {
         if self.judoNavigationBarTitleColor != nil {
             return self.judoNavigationBarTitleColor!
         }
-        let dgc = UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        let dgc = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.87)
+        if self.colorMode() {
+            return dgc
+        } else {
+            return dgc.inverseColor()
+        }
+    }
+    
+    /**
+     The default text color
+     
+     - returns: A UIColor object
+     */
+    public func getNavigationBarBottomColor() -> UIColor {
+        if self.judoNavigationBarBottomColor != nil {
+            return self.judoNavigationBarBottomColor!
+        }
+        let dgc = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.42)
+        if self.colorMode() {
+            return dgc
+        } else {
+            return dgc.inverseColor()
+        }
+    }
+    
+    /**
+     The default text color
+     
+     - returns: A UIColor object
+     */
+    public func getNavigationBarBackgroundColor() -> UIColor {
+        if self.judoNavigationBarBackgroundColor != nil {
+            return self.judoNavigationBarBackgroundColor!
+        }
+        let dgc = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
         if self.colorMode() {
             return dgc
         } else {
@@ -182,7 +227,16 @@ public struct Theme {
      - returns: A UIColor object
      */
     public func getInputFieldTextColor() -> UIColor {
-        return self.judoInputFieldTextColor ?? UIColor(red: 75/255, green: 75/255, blue: 75/255, alpha: 1.0)
+        return self.judoInputFieldTextColor ?? UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.87)
+    }
+    
+    /**
+     The color that is used for active input fields
+     
+     - returns: A UIColor object
+     */
+    public func getInputFieldHintTextColor() -> UIColor {
+        return self.judoInputFieldHintTextColor ?? UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.87)
     }
     
     
@@ -195,7 +249,7 @@ public struct Theme {
         if self.judoPlaceholderTextColor != nil {
             return self.judoPlaceholderTextColor!
         }
-        let lgc = UIColor(red: 180/255, green: 180/255, blue: 180/255, alpha: 1.0)
+        let lgc = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.42)
         if self.colorMode() {
             return lgc
         } else {
@@ -238,7 +292,7 @@ public struct Theme {
      - returns: A UIColor object
      */
     public func getButtonColor() -> UIColor {
-        return self.judoButtonColor ?? self.tintColor
+        return self.judoButtonColor ?? self.tintActiveColor
     }
     
     
@@ -310,7 +364,7 @@ public struct Theme {
      - returns: A UIColor object
      */
     public func getInputFieldBackgroundColor() -> UIColor {
-        return self.judoInputFieldBackgroundColor ?? .white
+        return self.judoInputFieldBackgroundColor ?? self.getContentViewBackgroundColor()
     }
     
 }

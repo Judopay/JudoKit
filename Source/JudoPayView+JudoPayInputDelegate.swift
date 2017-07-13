@@ -39,7 +39,7 @@ extension JudoPayView: JudoPayInputDelegate {
     public func cardInput(_ input: CardInputField, error: JudoError) {
         input.errorAnimation(error.code != .inputLengthMismatchError)
         if let message = error.message {
-            self.showAlertOnHintLabel(message)
+            input.displayError(message: message)
         }
     }
     
@@ -67,7 +67,7 @@ extension JudoPayView: JudoPayInputDelegate {
      */
     public func cardInput(_ input: CardInputField, didDetectNetwork network: CardNetwork) {
         self.updateInputFieldsWithNetwork(network)
-        self.hintLabel.hideAlert()
+        input.displayHint(message: "")
         self.updateSecurityMessagePosition(toggleUp: true)
     }
     
@@ -83,7 +83,7 @@ extension JudoPayView: JudoPayInputDelegate {
     public func dateInput(_ input: DateInputField, error: JudoError) {
         input.errorAnimation(error.code != .inputLengthMismatchError)
         if let message = error.message {
-            self.showAlertOnHintLabel(message)
+            input.displayError(message: message)
         }
     }
     
@@ -95,7 +95,7 @@ extension JudoPayView: JudoPayInputDelegate {
      - parameter date:  The valid date that has been entered
      */
     public func dateInput(_ input: DateInputField, didFindValidDate date: String) {
-        self.hideAlertOnHintLabel()
+        input.displayHint(message: "")
         if input == self.startDateInputField {
             self.issueNumberInputField.textField.becomeFirstResponder()
         } else {
@@ -143,7 +143,7 @@ extension JudoPayView: JudoPayInputDelegate {
      */
     public func postCodeInputField(_ input: PostCodeInputField, didEnterInvalidPostCodeWithError error: JudoError) {
         if let errorMessage = error.message {
-            self.showAlertOnHintLabel(errorMessage)
+            input.displayError(message: errorMessage)
         }
     }
     
@@ -167,7 +167,7 @@ extension JudoPayView: JudoPayInputDelegate {
                 }
             }
         } else if input == self.postCodeInputField {
-            self.hideAlertOnHintLabel()
+            input.displayHint(message: "")
         }
     }
     
@@ -189,26 +189,5 @@ extension JudoPayView: JudoPayInputDelegate {
         }
         self.paymentEnabled(allFieldsValid)
     }
-    
-    
-    /**
-     helper method to show an alert message on the hint label and take care of the security message animation if necessary
-     
-     - parameter message: the message that needs to be displayed
-     */
-    public func showAlertOnHintLabel(_ message: String) {
-        self.hintLabel.showAlert(message)
-        self.updateSecurityMessagePosition(toggleUp: false)
-    }
-    
-    
-    /**
-     helper method to hide an alert message on the hint label if visible
-     */
-    public func hideAlertOnHintLabel() {
-        self.hintLabel.hideAlert()
-        self.updateSecurityMessagePosition(toggleUp: true)
-    }
-    
 }
 

@@ -26,7 +26,7 @@ import Foundation
 import PassKit
 import DeviceDNA
 
-let JudoKitVersion = "6.2.12"
+let JudoKitVersion = "6.2.14"
 
 /**
  A method that checks if the device it is currently running on is jailbroken or not
@@ -411,7 +411,8 @@ public class JudoKit {
         }
         
         self.activeViewController = viewController
-        self.showViewController(UINavigationController(rootViewController: viewController))
+        self.showViewController(viewController)
+        //self.showViewController(UINavigationController(rootViewController: viewController))
     }
     
     
@@ -425,29 +426,31 @@ public class JudoKit {
        
         var viewController = UIApplication.shared.keyWindow?.rootViewController
         
-        if let presented = viewController?.presentedViewController {
-            
-            switch presented {
+//        if let presented = viewController?.presentedViewController {
+        
+            switch viewController {
             case is UINavigationController:
-                let navigationController = presented as! UINavigationController
+                let navigationController = viewController as! UINavigationController
                 viewController = navigationController.viewControllers.last!
                 if let presentedVC = viewController?.presentedViewController {
                     viewController = presentedVC
                 }
+                navigationController.pushViewController(vc, animated: true)
                 
             case is UITabBarController:
-                let tabBarController = presented as! UITabBarController
+                let tabBarController = viewController as! UITabBarController
                 viewController = tabBarController.selectedViewController!
                 if let presentedVC = viewController?.presentedViewController {
                     viewController = presentedVC
                 }
+                tabBarController.addChildViewController(vc)
                 
             default:
-                viewController = presented
-            }
+                viewController?.present(vc, animated:true, completion:nil)
+//            }
         }
         
-        viewController?.present(vc, animated:true, completion:nil)
+        
     }
     
     

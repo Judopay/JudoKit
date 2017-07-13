@@ -68,7 +68,7 @@ public extension String {
         
         if cardLengthMatchedPatterns.count == 0 {
             // If no patterns are left - the entered number is invalid
-            var message = "We do not accept "
+            var message = "We don't accept "
             if cardLengthMatchedPatterns.count != patterns.count {
                 message += "\(strippedSelf.characters.count)-digit \(cardNetwork.stringValue()) cards"
             } else {
@@ -145,7 +145,7 @@ public extension String {
                 return strippedSelfCount == 15
             case .visa:
                 return strippedSelfCount == 13 || strippedSelfCount == 16
-            case .masterCard, .dankort, .jcb, .instaPayment, .discover:
+            case .masterCard, .dankort, .jcb, .instaPayment, .discover, .masterCardDebit:
                 return strippedSelfCount == 16
             case .maestro:
                 return (12...19).contains(strippedSelfCount)
