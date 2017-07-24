@@ -33,6 +33,7 @@ internal let kJudoIDLenght = (6...10)
 public typealias JSONDictionary = [String : AnyObject]
 
 public typealias JudoCompletionBlock = (Response?, JudoError?) -> ()
+public typealias JudoWalletCompletionBlock = (WalletCard?, WallerCardEvent?, JudoError?) -> ()
 
 /// The Session struct is a wrapper for the REST API calls
 public class Session : NSObject {

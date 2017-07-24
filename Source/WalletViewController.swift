@@ -1,0 +1,347 @@
+//
+//  WalletViewController.swift
+//  JudoKit
+//
+//  Copyright (c) 2016 Alternative Payments Ltd
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+
+
+import UIKit
+
+open class WalletViewController: UIViewController {
+    
+    /// the current JudoKit Session
+    open var judoKitSession: JudoKit
+    
+    /// The amount and currency to process, varunt to two decimal places and currency in string
+    open fileprivate (set) var amount: Amount?
+    /// The number (e.g. "123-456" or "654321") identifvarg the Merchant you wish to pay
+    open fileprivate (set) var judoId: String?
+    /// Your reference for this consumer, this payment and an object containing any additional data you wish to tag this payment with. The property name and value are both limited to 50 characters, and the whole object cannot be more than 1024 characters
+    open fileprivate (set) var reference: Reference?
+    /// Card token and Consumer token
+    open fileprivate (set) var paymentToken: PaymentToken?
+    
+    /// The main WalletView of this ViewController
+    var myView: WalletView!
+    
+    var cardDetails: CardDetails?
+    
+    var alertController: UIAlertController?
+    
+    var walletService: WalletService!
+    
+    /// Flag to determine what SDK should do if card was selected:
+    // false - payment without CVV/2 code
+    // true - payment only with CVV/2 code
+    var isCVVAuth = true
+    
+    
+    /// The overridden view object forwarding to a WalletView
+    override open var view: UIView! {
+        get { return self.myView as UIView }
+        set {
+            if newValue is WalletView {
+                myView = newValue as! WalletView
+            }
+            // Do nothing
+        }
+    }
+
+    
+    /**
+    Initializer to start a payment journey
+    
+    - parameter judoId:           The judoId of the recipient
+    - parameter amount:           An amount and currency for the transaction
+    - parameter reference:        A Reference for the transaction
+    - parameter transactionType:  The type of the transaction
+    - parameter completion:       Completion block called when transaction has been finished
+    - parameter currentSession:   The current judo apiSession
+    - parameter cardDetails:      An object containing all card information - default: nil
+    - parameter paymentToken:     A payment token if a payment by token is to be made - default: nil
+    
+    - returns: a WalletViewController object for presentation on a view stack
+    */
+    public init(judoId: String, amount: Amount, reference: Reference, currentSession: JudoKit) {
+        
+        self.judoId = judoId
+        self.amount = amount
+        self.reference = reference
+        self.judoKitSession = currentSession
+        let inMemoryRepository = InMemoryWalletRepository()
+        self.walletService = WalletService.init(repo: inMemoryRepository)
+        self.myView = WalletView(currentTheme: currentSession.theme)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    /**
+     Designated initializer that will fail if called
+     
+     - parameter nibNameOrNil:   Nib name or nil
+     - parameter nibBundleOrNil: Bundle or nil
+     
+     - returns: will crash if executed
+     */
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        fatalError("This class should not be initialised with initWithNibName:Bundle:")
+    }
+    
+    
+    /**
+     Designated initializer that will fail if called
+     
+     - parameter aDecoder: A decoder
+     
+     - returns: will crash if executed
+     */
+    convenience required public init?(coder aDecoder: NSCoder) {
+        fatalError("This class should not be initialised with initWithCoder:")
+    }
+    
+    // MARK: View Lifecycle
+    
+    
+    /**
+     viewDidLoad
+     */
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.title = "Wallet"
+        self.myView.delegate = self
+        self.myView.walletService = walletService
+//        self.myView.threeDSecureWebView.delegate = self
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .plain, target: self, action: #selector(self.doneButtonAction(_:)))
+        self.navigationController?.navigationBar.tintColor = self.judoKitSession.theme.getTextColor()
+        self.navigationController?.navigationBar.barTintColor = self.judoKitSession.theme.getNavigationBarBackgroundColor()
+        self.view.backgroundColor = .white
+        if !self.judoKitSession.theme.colorMode() {
+            self.navigationController?.navigationBar.barStyle = UIBarStyle.black
+        }
+//        self.navigationController?.navigationBar.setBottomBorderColor(color: self.judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getNavigationBarTitleColor()]
+        self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
+    
+    /**
+     viewWillAppear
+     
+     - parameter animated: Animated
+     */
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+//        self.myView.layoutIfNeeded()
+    }
+    
+    
+    /**
+     viewDidAppear
+     
+     - parameter animated: Animated
+     */
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    /**
+     executed if the user hits the "Back" button
+     
+     - parameter sender: the button
+     */
+    func doneButtonAction(_ sender: UIBarButtonItem) {
+        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+//        self.completionBlock?(nil, JudoError(.userDidCancel))
+    }
+    
+    /// Private methods
+    private func walletCardAdapter(cardDetails: CardDetails, paymentToken: PaymentToken)->WalletCard{
+        let walletCard = WalletCard.init(cardNumberLastFour: cardDetails.cardLastFour!, expiryDate: cardDetails.formattedEndDate()!, cardToken: cardDetails.cardToken!, cardType: (cardDetails.cardNetwork?.cardLogoType())!, assignedName: cardDetails.cardName ?? cardDetails.cardNetwork?.stringValue(), isPrimaryCard: cardDetails.isPrimary!, paymentToken: paymentToken, cardDetails: cardDetails)
+        
+        return walletCard
+    }
+    
+    //MARK: instantiate add card view
+    func addCardTokenOperation() {
+        guard let ref = self.reference else { return }
+        try! self.judoKitSession.invokeRegisterWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, completion: { (response, error) -> () in
+            if let error = error {
+                if error.code == .userDidCancel {
+                    self.dismissView()
+                    return
+                }
+                var errorTitle = "Error"
+                if let errorCategory = error.category {
+                    errorTitle = errorCategory.stringValue()
+                }
+                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+                self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.dismissView()
+                return // BAIL
+            }
+            if let resp = response, let transactionData = resp.items.first {
+                if let payToken = transactionData.paymentToken() {
+                    self.cardDetails = transactionData.cardDetails
+                    self.paymentToken = payToken
+                    
+                    self.cardDetails?.cardName = resp.cardName
+                    self.cardDetails?.isPrimary = resp.isPrimary
+                    
+                    try! self.walletService.add(card: self.walletCardAdapter(cardDetails: self.cardDetails!, paymentToken: payToken))
+                    self.myView.contentView.reloadData()
+                } else {
+                    self.dismissView()
+                    let alert = UIAlertController(title: "Error", message: "You've entered wrong card details, please check CVV/2 code first", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        })
+    }
+    
+    //Run editing card from Wallet
+    func onEditWalletCard(card: WalletCard, isExpired: Bool) {
+        if let payToken = card.paymentToken {
+            guard let ref = self.reference else { return }
+            try! self.judoKitSession.invokeEditWalletCard(self.judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, walletCard: card, paymentToken: payToken, isExpired: isExpired, completion: { (walletCard, event, error) -> () in
+                self.dismissView()
+                if event == .delete {
+                    try! self.walletService.remove(card: card)
+                    self.myView.contentView.reloadData()
+                    return
+                }
+                if event == .save {
+                    do {
+                        try self.walletService.update(card: walletCard!)
+                        self.myView.contentView.reloadData()
+                    } catch {
+                    
+                    }
+                    return
+                }
+            })
+        } else {
+            let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func repeatPreAuthOperation(card: WalletCard) {
+        if let cardDetails = card.cardDetails, let payToken = card.paymentToken {
+            cardDetails.isCVVAuth = self.isCVVAuth
+            guard let ref = self.reference else { return }
+            try! self.judoKitSession.invokeTokenPreAuth(judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, cardDetails: cardDetails, paymentToken: payToken, completion: { (response, error) -> () in
+                if let error = error {
+                    if error.code == .userDidCancel {
+                        self.dismissView()
+                        return
+                    }
+                    var errorTitle = "Error"
+                    if let errorCategory = error.category {
+                        errorTitle = errorCategory.stringValue()
+                    }
+                    self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+                    self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    self.dismissView()
+                    self.present(self.alertController!, animated: true, completion: nil)
+                    return // BAIL
+                }
+                self.dismissView()
+                if let resp = response, let transactionData = resp.items.first {
+                    self.cardDetails = transactionData.cardDetails
+                    self.paymentToken = transactionData.paymentToken()
+                }
+                let alert = UIAlertController(title: "Payment", message: "You've success made a repeat payment or preauth operation", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            })
+        } else {
+            let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func paymentOperationAndSave() {
+        guard let ref = self.reference else { return }
+        try! self.judoKitSession.invokePaymentAndSave(judoId!, amount: Amount(decimalNumber: 0.01, currency: (self.amount?.currency)!), reference: ref, completion: { (response, error) -> () in
+            if let error = error {
+                if error.code == .userDidCancel {
+                    self.dismissView()
+                    return
+                }
+                var errorTitle = "Error"
+                if let errorCategory = error.category {
+                    errorTitle = errorCategory.stringValue()
+                }
+                self.alertController = UIAlertController(title: errorTitle, message: error.message, preferredStyle: .alert)
+                self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                self.dismissView()
+                return // BAIL
+            }
+            
+            if let resp = response, let transactionData = resp.items.first {
+                self.cardDetails = transactionData.cardDetails
+                self.paymentToken = transactionData.paymentToken()
+                
+                if resp.isPrimary {
+                    self.cardDetails?.cardName = resp.cardName
+                    self.cardDetails?.isPrimary = resp.isPrimary
+                    
+                    try! self.walletService.add(card: self.walletCardAdapter(cardDetails: self.cardDetails!, paymentToken: transactionData.paymentToken()!))
+                    self.myView.contentView.reloadData()
+                }
+                
+            }
+            self.dismissView()
+            let alert = UIAlertController(title: "Payment", message: "You've success made a repeat payment or preauth operation", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        })
+    }
+
+    
+    func dismissView(){
+        if (UIApplication.shared.keyWindow?.rootViewController?.isKind(of: UINavigationController.self))! {
+            _=self.navigationController?.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+
+}
+
+extension WalletViewController : WalletCardOperationProtocol {
+
+    func onAddWalletCard() {
+        // self.paymentOperationAndSave() - using in case empty wallet and allow user to make payment and save or not card for future usage
+        self.addCardTokenOperation()
+    }
+    
+    func onSelectWalletCard(card: WalletCard) {
+        let isExpired = card.hasCardExpired()
+        isExpired ? self.onEditWalletCard(card: card, isExpired: isExpired) : self.judoKitSession.theme.isPaymentMode ? self.repeatPreAuthOperation(card: card) : self.onEditWalletCard(card: card, isExpired: false)
+    }
+}

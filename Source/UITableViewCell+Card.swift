@@ -1,5 +1,5 @@
 //
-//  UINavigationBar+Judo.swift
+//  UITableViewCell+Card.swift
 //  JudoKit
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,13 +22,13 @@
 
 import Foundation
 
-extension UINavigationBar {
+extension UITableViewCell {
     
-    func setBottomBorderColor(color: UIColor, height: CGFloat) {
-        let bottomBorderRect = CGRect(x: 0, y: frame.height, width: frame.width, height: height)
-        let bottomBorderView = UIView(frame: bottomBorderRect)
-        bottomBorderView.backgroundColor = color
-        bottomBorderView.autoresizingMask = .flexibleWidth
-        addSubview(bottomBorderView)
+    func enable(on: Bool) {
+//        self.isUserInteractionEnabled = on
+        for view in contentView.subviews {
+            view.isUserInteractionEnabled = on
+            view.alpha = on ? 1 : 0.5
+        }
     }
 }

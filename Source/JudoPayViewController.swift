@@ -75,7 +75,7 @@ open class JudoPayViewController: UIViewController {
     
     // MARK: completion blocks
     fileprivate var completionBlock: JudoCompletionBlock?
-    
+    fileprivate var walletCompletionBlock: JudoWalletCompletionBlock?
     
     /// The overridden view object forwarding to a JudoPayView
     override open var view: UIView! {
@@ -122,6 +122,35 @@ open class JudoPayViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    /**
+     Initializer to start a payment journey
+     
+     - parameter judoId:           The judoId of the recipient
+     - parameter amount:           An amount and currency for the transaction
+     - parameter reference:        A Reference for the transaction
+     - parameter transactionType:  The type of the transaction
+     - parameter completion:       Completion block called when transaction has been finished
+     - parameter currentSession:   The current judo apiSession
+     - parameter walletCard:      An object containing all card information - default: nil
+     - parameter paymentToken:     A payment token if a payment by token is to be made - default: nil
+     
+     - returns: a JPayViewController object for presentation on a view stack
+     */
+    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: @escaping JudoWalletCompletionBlock, currentSession: JudoKit, walletCard: WalletCard? = nil, paymentToken: PaymentToken? = nil)  throws {
+        self.judoId = judoId
+        self.amount = amount
+        self.reference = reference
+        self.paymentToken = paymentToken
+        self.walletCompletionBlock = completion
+        
+        self.judoKitSession = currentSession
+        self.myView = JudoPayView(type: transactionType, currentTheme: currentSession.theme, walletCard: walletCard, isTokenPayment: paymentToken != nil)
+        self.myView.walletCard = walletCard
+        
+        self.transaction = try self.judoKitSession.transaction(self.myView.transactionType, judoId: judoId, amount: amount, reference: reference)
+        
+        super.init(nibName: nil, bundle: nil)
+    }
     
     /**
      Designated initializer that will fail if called
@@ -158,25 +187,34 @@ open class JudoPayViewController: UIViewController {
         
         self.judoKitSession.apiSession.uiClientMode = true
         
+        // Button actions
+        var payButtonTitle = self.judoKitSession.theme.paymentButtonTitle
+        
         switch self.myView.transactionType {
-        case .Payment, .PreAuth:
+        case .Payment, .PreAuth, .PayAndSaveCard:
             self.title = self.judoKitSession.theme.paymentTitle
-        case .RegisterCard:
+        case .RegisterCard, .Wallet:
             self.title = self.judoKitSession.theme.registerCardTitle
+            payButtonTitle = self.judoKitSession.theme.registerCardNavBarButtonTitle
         case .Refund:
             self.title = self.judoKitSession.theme.refundTitle
+        case .EditWaletCard:
+            self.title = self.judoKitSession.theme.editTitle
+            payButtonTitle = self.judoKitSession.theme.deleteTitle
+        case .ExpiredWaletCard:
+            self.title = self.judoKitSession.theme.expiredTitle
+            payButtonTitle = self.judoKitSession.theme.deleteTitle
         default:
             self.title = "Invalid"
         }
 
         self.myView.threeDSecureWebView.delegate = self
-        
-        // Button actions
-        let payButtonTitle = self.myView.transactionType == .RegisterCard ? self.judoKitSession.theme.registerCardNavBarButtonTitle : self.judoKitSession.theme.paymentButtonTitle
-
-        self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), for: .touchUpInside)
-        self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
-        self.myView.paymentNavBarButton!.isEnabled = false
+        let selector = self.myView.transactionType == .EditWaletCard ? #selector(JudoPayViewController.saveButtonAction(_:)) : self.myView.transactionType == .ExpiredWaletCard ? #selector(JudoPayViewController.deleteCardButtonAction(_:)) : #selector(JudoPayViewController.payButtonAction(_:))
+        self.myView.paymentButton.addTarget(self, action: selector, for: .touchUpInside)
+        self.myView.paymentButton.tag = 1
+        let selectorNav = self.myView.transactionType == .EditWaletCard || self.myView.transactionType == .ExpiredWaletCard ? #selector(JudoPayViewController.deleteCardButtonAction(_:)) :  #selector(JudoPayViewController.payButtonAction(_:))
+        self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .done, target: self, action: selectorNav)
+        self.myView.paymentNavBarButton!.isEnabled = self.myView.transactionType == .EditWaletCard  || self.myView.transactionType == .ExpiredWaletCard
 
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: self.judoKitSession.theme.backButtonTitle, style: .plain, target: self, action: #selector(JudoPayViewController.doneButtonAction(_:)))
         self.navigationItem.rightBarButtonItem = self.myView.paymentNavBarButton
@@ -186,7 +224,7 @@ open class JudoPayViewController: UIViewController {
         if !self.judoKitSession.theme.colorMode() {
             self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         }
-        self.navigationController?.navigationBar.setBottomBorderColor(color: self.judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
+//        self.navigationController?.navigationBar.setBottomBorderColor(color: self.judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getNavigationBarTitleColor()]
         
         self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -221,9 +259,18 @@ open class JudoPayViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if self.myView.cardInputField.textField.text?.characters.count > 0 {
-            self.myView.secureCodeInputField.textField.becomeFirstResponder()
+            if self.myView.transactionType == .EditWaletCard {
+                self.myView.cardName.textField.becomeFirstResponder()
+            } else if self.myView.transactionType != .ExpiredWaletCard {
+                if (self.myView.cardDetails?.isCVVAuth)! {
+                    self.myView.secureCodeInputField.textField.becomeFirstResponder()
+                }
+            }
         } else {
             self.myView.cardInputField.textField.becomeFirstResponder()
+        }
+        if self.myView.cardDetails != nil && !(self.myView.cardDetails?.isCVVAuth)! {
+            self.myView.paymentEnabled(true)
         }
     }
 
@@ -250,7 +297,7 @@ open class JudoPayViewController: UIViewController {
         do {
             let transaction = try self.judoKitSession.transaction(self.myView.transactionType, judoId: judoId, amount: amount, reference: reference)
             
-            if var payToken = self.paymentToken {
+            if let payToken = self.paymentToken {
                 payToken.cv2 = self.myView.secureCodeInputField.textField.text
                 transaction.paymentToken(payToken)
             } else {
@@ -301,7 +348,11 @@ open class JudoPayViewController: UIViewController {
                         self?.completionBlock?(nil, error)
                         self?.myView.loadingView.stopAnimating()
                     }
-                } else if let response = response {
+                } else if var response = response {
+                    if self?.myView.transactionType == .Wallet || self?.myView.transactionType == .PayAndSaveCard {
+                        response.cardName = (self?.myView.cardName.textField.text)!
+                        response.isPrimary = self?.myView.transactionType == .PayAndSaveCard ? (self?.myView.saveSwitch.judoSwitch.isOn)! : (self?.myView.primarySwitch.judoSwitch.isOn)!
+                    }
                     self?.completionBlock?(response, nil)
                     self?.myView.loadingView.stopAnimating()
                 }
@@ -318,12 +369,35 @@ open class JudoPayViewController: UIViewController {
     
     
     /**
+     When the user hits the save button, the information is collected from the fields and passed to the repo service.
+     
+     - parameter sender: The payment button
+     */
+    func saveButtonAction(_ sender: AnyObject) {
+        self.walletCompletionBlock!(self.myView.walletCard, .save, nil)
+    }
+
+    /**
+     When the user hits the delete button, the information according card for remove passed to repo service
+     
+     - parameter sender: The payment button
+     */
+    func deleteCardButtonAction(_ sender: AnyObject){
+        self.walletCompletionBlock?(self.myView.walletCard, .delete, nil)
+    }
+    
+    
+    /**
      executed if the user hits the "Back" button
      
      - parameter sender: the button
      */
     func doneButtonAction(_ sender: UIBarButtonItem) {
-        self.completionBlock?(nil, JudoError(.userDidCancel))
+        if self.myView.transactionType == .EditWaletCard || self.myView.transactionType == .ExpiredWaletCard {
+            self.walletCompletionBlock!(nil, nil, JudoError(.userDidCancel))
+        } else {
+            self.completionBlock?(nil, JudoError(.userDidCancel))
+        }
     }
     
 }

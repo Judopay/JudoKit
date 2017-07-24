@@ -555,6 +555,12 @@ open class CardDetails: NSObject, NSCoding {
     open let endDate: String?
     /// Can be used to charge future payments against this card
     open let cardToken: String?
+    /// Card custom name for wallet's card
+    open var cardName: String?
+    /// Card primary value
+    open var isPrimary: Bool?
+    /// Card CVV/2 auth
+    open var isCVVAuth = true
     
     fileprivate var _cardNetwork: CardNetwork?
     /// The computed card network
@@ -638,7 +644,9 @@ open class CardDetails: NSObject, NSCoding {
         self.cardLastFour = dict?["cardLastfour"] as? String
         self.endDate = dict?["endDate"] as? String
         self.cardToken = dict?["cardToken"] as? String
+        self.cardName = dict?["cardName"] as? String
         self._cardNumber = dict?["cardNumber"] as? String
+        self.isPrimary = dict?["isPrimary"] as? Bool
         super.init()
         if let cardType = dict?["cardType"] as? Int {
             self.cardNetwork = CardNetwork(rawValue: Int64(cardType))
@@ -660,11 +668,15 @@ open class CardDetails: NSObject, NSCoding {
         let endDate = decoder.decodeObject(forKey: "endDate") as? String?
         let cardToken = decoder.decodeObject(forKey: "cardToken") as? String?
         let cardNetwork = decoder.decodeInt64(forKey: "cardNetwork")
+        let cardName = decoder.decodeObject(forKey: "cardName") as? String?
+        let isPrimary = decoder.decodeObject(forKey: "isPrimary") as? Bool?
         
         self.cardLastFour = cardLastFour ?? nil
         self.endDate = endDate ?? nil
         self.cardToken = cardToken ?? nil
         self._cardNumber = nil
+        self.cardName = cardName ?? nil
+        self.isPrimary = isPrimary ?? false
         super.init()
         self.cardNetwork = CardNetwork(rawValue: Int64(cardNetwork))
     }
@@ -679,6 +691,8 @@ open class CardDetails: NSObject, NSCoding {
         aCoder.encode(self.cardLastFour, forKey: "cardLastFour")
         aCoder.encode(self.endDate, forKey: "endDate")
         aCoder.encode(self.cardToken, forKey: "cardToken")
+        aCoder.encode(self.cardName, forKey: "cardName")
+        aCoder.encode(self.isPrimary, forKey: "isPrimary")
         if let cardNetwork = self.cardNetwork {
             aCoder.encode(cardNetwork.rawValue, forKey: "cardNetwork")
         } else {

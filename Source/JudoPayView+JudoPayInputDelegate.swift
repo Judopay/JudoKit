@@ -187,7 +187,17 @@ extension JudoPayView: JudoPayInputDelegate {
         if self.cardInputField.cardNetwork == .maestro {
             allFieldsValid = allFieldsValid && (self.issueNumberInputField.isValid() || self.startDateInputField.isValid())
         }
-        self.paymentEnabled(allFieldsValid)
+        if transactionType == .EditWaletCard {
+            allFieldsValid = self.walletCard?.assignedName != input.textField.text
+            self.walletCard?.assignedName = input.textField.text
+        }
+        if transactionType == .ExpiredWaletCard {allFieldsValid = true}
+        if cardDetails != nil && !(cardDetails?.isCVVAuth)! {
+            allFieldsValid = true
+            self.paymentEnabled(allFieldsValid)
+        } else {
+            self.paymentEnabled(allFieldsValid)
+        }
     }
 }
 

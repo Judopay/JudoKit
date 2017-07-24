@@ -1,6 +1,8 @@
 //
-//  UINavigationBar+Judo.swift
+//  WalletError.swift
 //  JudoKit
+//
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,13 +24,20 @@
 
 import Foundation
 
-extension UINavigationBar {
+enum WalletError : Error {
+    case unknownWalletCard, walletCardLimitPassed, cannotRemoveDefaultCard, cannotResignDefaultCard
     
-    func setBottomBorderColor(color: UIColor, height: CGFloat) {
-        let bottomBorderRect = CGRect(x: 0, y: frame.height, width: frame.width, height: height)
-        let bottomBorderView = UIView(frame: bottomBorderRect)
-        bottomBorderView.backgroundColor = color
-        bottomBorderView.autoresizingMask = .flexibleWidth
-        addSubview(bottomBorderView)
+    func description() -> String {
+        switch self {
+        case .unknownWalletCard:
+            return "The wallet card is not know. Has it been added?"
+        case .walletCardLimitPassed:
+            return "Too many cards have been added to the wallet."
+        case .cannotRemoveDefaultCard:
+            return "Default card cannot be removed if two or more cards are in wallet."
+        case .cannotResignDefaultCard:
+            return "Card cannot resign default status of this card."
+        }
+        
     }
 }

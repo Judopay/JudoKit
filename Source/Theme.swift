@@ -35,6 +35,9 @@ public struct Theme {
     /// Set the address verification service to true to prompt the user to input his country and post code information
     public var avsEnabled: Bool = false
     
+    /// Set the mode, false - editing, true - payment
+    public var isPaymentMode: Bool = false
+    
     /// a boolean indicating whether a security message should be shown below the input
     public var showSecurityMessage: Bool = false
     
@@ -52,6 +55,8 @@ public struct Theme {
     public var registerCardNavBarButtonTitle = "Add"
     /// the title for the back button
     public var backButtonTitle = "< Back"
+    /// the title for Add card cell for Wallet card list
+    public var addCardTitle = "Add a card"
     
     
     // MARK: Titles
@@ -64,6 +69,19 @@ public struct Theme {
     public var refundTitle = "Refund"
     /// the title for an authentication
     public var authenticationTitle = "Authentication"
+    /// the title for an edit wallet's card
+    public var editTitle = "Edit"
+    /// the title for an delete wallet's card
+    public var deleteTitle = "Delete"
+    /// the title for an save wallet's card
+    public var saveTitle = "Save"
+    /// the title for an expired wallet's card
+    public var expiredTitle = "Card expired"
+    
+    /// the title for an expired wallet's card
+    public var makePrimaryTitle = "Make primary card"
+    /// the title for an expired wallet's card
+    public var saveForWalletTitle = "Save for future payments"
     
     
     // MARK: Loading

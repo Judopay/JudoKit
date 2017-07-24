@@ -173,6 +173,18 @@ public class JudoKit {
         self.initiateAndShow(judoPayViewController)
     }
     
+    /**
+     Main payment method with possibility to save card to wallet
+     
+     - parameter judoId:       The judoId of the merchant to receive the payment
+     - parameter amount:       The amount and currency of the payment (default is GBP)
+     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
+     */
+    public func invokePaymentAndSave(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .PayAndSaveCard, completion: completion, currentSession: self, cardDetails: cardDetails)
+        self.initiateAndShow(judoPayViewController)
+    }
     
     /**
     Make a pre-auth using this method
@@ -202,6 +214,19 @@ public class JudoKit {
     */
     public func invokeRegisterCard(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
         let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: self, cardDetails: cardDetails)
+        self.initiateAndShow(judoPayViewController)
+    }
+    
+    /**
+     Initiates a card registration for Wallet
+     
+     - parameter judoId:       The judoId of the merchant to receive the pre-auth
+     - parameter amount:       The amount and currency of the payment (default is GBP)
+     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
+     */
+    public func invokeRegisterWalletCard(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .Wallet, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
     
@@ -239,6 +264,51 @@ public class JudoKit {
         self.initiateAndShow(judoPayViewController)
     }
     
+    /**
+     Initiates wallet
+     
+     - parameter judoId:       The judoId of the merchant to receive the pre-auth
+     - parameter amount:       The amount and currency of the payment (default is GBP)
+     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+     - parameter cardDetails:  The card details to present in the input fields
+     - parameter paymentToken: The consumer and card token to make a token payment with
+     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
+     */
+    public func invokeWallet(_ judoId: String, amount: Amount, reference: Reference){
+        let walletViewController = WalletViewController.init(judoId: judoId, amount: amount, reference: reference, currentSession: self)
+        self.showViewController(walletViewController)
+    }
+    
+    /**
+     Initiates editing wallet's card process
+     
+     - parameter judoId:       The judoId of the merchant to receive the payment
+     - parameter amount:       The amount and currency of the payment (default is GBP)
+     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+     - parameter cardDetails:  The card details to present in the input fields
+     - parameter paymentToken: The consumer and card token to make a token payment with
+     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
+     */
+    public func invokeEditWalletCard(_ judoId: String, amount: Amount, reference: Reference, walletCard: WalletCard, paymentToken: PaymentToken, isExpired: Bool, completion: @escaping (WalletCard?, WallerCardEvent?, JudoError?) -> ()) throws {
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: isExpired ? .ExpiredWaletCard : .EditWaletCard, completion: completion, currentSession: self, walletCard: walletCard, paymentToken: paymentToken)
+        self.initiateAndShow(judoPayViewController)
+    }
+    
+    /**
+     Initiates editing wallet's card process
+     
+     - parameter judoId:       The judoId of the merchant to receive the payment
+     - parameter amount:       The amount and currency of the payment (default is GBP)
+     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+     - parameter cardDetails:  The card details to present in the input fields
+     - parameter paymentToken: The consumer and card token to make a token payment with
+     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
+     */
+    public func invokeExpiredWalletCard(_ judoId: String, amount: Amount, reference: Reference, walletCard: WalletCard, paymentToken: PaymentToken, completion: @escaping (WalletCard?, WallerCardEvent?, JudoError?) -> ()) throws {
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .ExpiredWaletCard, completion: completion, currentSession: self, walletCard: walletCard, paymentToken: paymentToken)
+        self.initiateAndShow(judoPayViewController)
+    }
+    
     
     /**
      Starting point and a reactive method to create a transaction that is sent to a certain judo ID
@@ -259,8 +329,10 @@ public class JudoKit {
             return try self.payment(judoId, amount: amount, reference: reference)
         case .PreAuth:
             return try self.preAuth(judoId, amount: amount, reference: reference)
-        case .RegisterCard:
+        case .RegisterCard, .Wallet:
             return try self.registerCard(judoId, reference: reference)
+        case .EditWaletCard, .ExpiredWaletCard, .PayAndSaveCard:
+            return try self.payment(judoId, amount: amount, reference: reference)
         default:
             throw JudoError(.invalidOperationError)
         }

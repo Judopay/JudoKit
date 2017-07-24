@@ -1,6 +1,8 @@
 //
-//  UINavigationBar+Judo.swift
+//  WalletRepositoryProtocol.swift
 //  JudoKit
+//
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,13 +24,14 @@
 
 import Foundation
 
-extension UINavigationBar {
-    
-    func setBottomBorderColor(color: UIColor, height: CGFloat) {
-        let bottomBorderRect = CGRect(x: 0, y: frame.height, width: frame.width, height: height)
-        let bottomBorderView = UIView(frame: bottomBorderRect)
-        bottomBorderView.backgroundColor = color
-        bottomBorderView.autoresizingMask = .flexibleWidth
-        addSubview(bottomBorderView)
-    }
+protocol WalletRepositoryProtocol {
+    func save(walletCard: WalletCard)
+    func get() -> [WalletCard]
+    func get(id: UUID) -> WalletCard?
+    func remove(id: UUID)
+}
+
+protocol WalletCardOperationProtocol {
+    func onAddWalletCard()
+    func onSelectWalletCard(card: WalletCard)
 }

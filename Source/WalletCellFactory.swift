@@ -1,6 +1,8 @@
 //
-//  UINavigationBar+Judo.swift
+//  WalletCellFactory.swift
 //  JudoKit
+//
+//  Copyright (c) 2016 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -20,15 +22,24 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
+import UIKit
 
-extension UINavigationBar {
+class WalletCellFactory: NSObject {
     
-    func setBottomBorderColor(color: UIColor, height: CGFloat) {
-        let bottomBorderRect = CGRect(x: 0, y: frame.height, width: frame.width, height: height)
-        let bottomBorderView = UIView(frame: bottomBorderRect)
-        bottomBorderView.backgroundColor = color
-        bottomBorderView.autoresizingMask = .flexibleWidth
-        addSubview(bottomBorderView)
+    func createAddCard(theme: Theme)->UITableViewCell{
+        return createAddCardCell(theme: theme)
     }
+    
+    func createCardCell(walletCard: WalletCard)->UITableViewCell{
+        let cardCell = CardCell()
+        cardCell.walletCard = walletCard
+        return cardCell
+    }
+    
+    private func createAddCardCell(theme: Theme)->UITableViewCell{
+        let addCardCell = AddCardCell()
+        addCardCell.updateTitle(theme: theme)
+        return addCardCell
+    }
+    
 }

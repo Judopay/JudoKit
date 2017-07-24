@@ -44,6 +44,10 @@ public struct Response: IteratorProtocol, ExpressibleByArrayLiteral {
     /// Helper to count in case of Generation of elements for loops
     public var indexInSequence = 0
     
+    //For Wallet card's transaction info
+    public var cardName = ""
+    public var isPrimary = false
+    
     
     /**
      Convenience initializer for ArrayLiteralConvertible support
@@ -121,11 +125,11 @@ public struct Response: IteratorProtocol, ExpressibleByArrayLiteral {
  
  A PaymentToken object which is one part to be used in any token transactions
 */
-public struct PaymentToken {
+public class PaymentToken: NSObject, NSCoding {
     /// Our unique reference for this Consumer. Used in conjunction with the card token in repeat transactions.
-    public let consumerToken: String
+    public let consumerToken: String?
     /// Can be used to charge future payments against this card.
-    public let cardToken: String
+    public let cardToken: String?
     /// CV2 of the card
     public var cv2: String?
     
@@ -144,6 +148,34 @@ public struct PaymentToken {
         self.cv2 = cv2
     }
     
+    /**
+     Initialise the PaymentToken object with a coder
+     
+     - parameter decoder: the decoder object
+     
+     - returns: a PaymentToken object or nil
+     */
+    public required init?(coder decoder: NSCoder) {
+        let consumerToken = decoder.decodeObject(forKey: "consumerToken") as? String?
+        let cardToken = decoder.decodeObject(forKey: "cardToken") as? String?
+        let cv2 = decoder.decodeObject(forKey: "cv2") as? String?
+        
+        self.consumerToken = consumerToken ?? nil
+        self.cardToken = cardToken ?? nil
+        self.cv2 = cv2 ?? nil
+    }
+    
+    
+    /**
+     Encode the receiver PaymentToken object
+     
+     - parameter aCoder: the Coder
+     */
+    open func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.consumerToken, forKey: "consumerToken")
+        aCoder.encode(self.cardToken, forKey: "cardToken")
+        aCoder.encode(self.cv2, forKey: "cv2")
+    }
 }
 
 
@@ -338,6 +370,14 @@ public enum TransactionType: String {
     case RegisterCard
     /// A Collection
     case Collection
+    /// A Wallet
+    case Wallet
+    /// Edit A Wallet
+    case EditWaletCard
+    /// A Wallet's Eard Expired
+    case ExpiredWaletCard
+    /// A Payment Transaction with save to wallet possibility
+    case PayAndSaveCard
     /// VOID
     case VOID
 }

@@ -54,6 +54,13 @@ open class JudoPayView: UIView {
     /// The post code input field object
     let postCodeInputField: PostCodeInputField
     
+    //Components for editting wallet's card
+    let cardName: CardNameField
+    let primarySwitch: JudoSwitch
+    let saveSwitch: JudoSwitch
+    
+    /// The wallet's card details object
+    var walletCard: WalletCard?
     /// The card details object
     var cardDetails: CardDetails?
     
@@ -64,6 +71,8 @@ open class JudoPayView: UIView {
     var maestroFieldsHeightConstraint: NSLayoutConstraint?
     /// The billing country field height constraint
     var avsFieldsHeightConstraint: NSLayoutConstraint?
+    /// the security messages top distance constraint
+    var cardNameTopConstraint: NSLayoutConstraint?
     /// the security messages top distance constraint
     var securityMessageTopConstraint: NSLayoutConstraint?
     
@@ -116,6 +125,48 @@ open class JudoPayView: UIView {
         self.issueNumberInputField = IssueNumberInputField(theme: currentTheme)
         self.billingCountryInputField = BillingCountryInputField(theme: currentTheme)
         self.postCodeInputField = PostCodeInputField(theme: currentTheme)
+        
+        self.cardName = CardNameField(theme: currentTheme)
+        self.primarySwitch = JudoSwitch(theme: currentTheme)
+        self.saveSwitch = JudoSwitch(theme: currentTheme)
+        
+        self.isTokenPayment = isTokenPayment
+        
+        super.init(frame: UIScreen.main.bounds)
+        
+        self.setupView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(JudoPayView.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(JudoPayView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    /**
+     Designated initializer
+     
+     - parameter type:        The transactionType of this transaction
+     - parameter cardDetails: Wallet card information if they have been passed
+     
+     - returns: a JudoPayView object
+     */
+    public init(type: TransactionType, currentTheme: Theme, walletCard: WalletCard? = nil, isTokenPayment: Bool = false) {
+        self.transactionType = type
+        self.walletCard = walletCard
+        self.cardDetails = walletCard?.cardDetails
+        self.theme = currentTheme
+        self.paymentButton = PayButton(currentTheme: currentTheme)
+        self.loadingView = LoadingView(currentTheme: currentTheme)
+        
+        self.cardInputField = CardInputField(theme: currentTheme)
+        self.expiryDateInputField = DateInputField(theme: currentTheme)
+        self.secureCodeInputField = SecurityInputField(theme: currentTheme)
+        self.startDateInputField = DateInputField(theme: currentTheme)
+        self.issueNumberInputField = IssueNumberInputField(theme: currentTheme)
+        self.billingCountryInputField = BillingCountryInputField(theme: currentTheme)
+        self.postCodeInputField = PostCodeInputField(theme: currentTheme)
+        
+        self.cardName = CardNameField(theme: currentTheme)
+        self.primarySwitch = JudoSwitch(theme: currentTheme)
+        self.saveSwitch = JudoSwitch(theme: currentTheme)
         
         self.isTokenPayment = isTokenPayment
         
@@ -201,8 +252,8 @@ open class JudoPayView: UIView {
     // MARK: View LifeCycle
     
     func setupView() {
-        let payButtonTitle = self.transactionType == .RegisterCard ? self.theme.registerCardTitle : self.theme.paymentButtonTitle
-        self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle
+        let payButtonTitle = self.transactionType == .RegisterCard || self.transactionType == .Wallet ? self.theme.registerCardTitle : self.transactionType == .EditWaletCard || transactionType == .Wallet ? self.theme.saveTitle : self.theme.paymentButtonTitle
+        self.loadingView.actionLabel.text = self.transactionType == .RegisterCard || self.transactionType == .Wallet ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle
         
         let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:self.theme.getTextColor(), NSFontAttributeName:UIFont.boldSystemFont(ofSize: self.theme.securityMessageTextSize)])
         attributedString.append(NSAttributedString(string: self.theme.securityMessageString, attributes: [NSForegroundColorAttributeName:self.theme.getInputFieldHintTextColor(), NSFontAttributeName:UIFont.systemFont(ofSize: self.theme.securityMessageTextSize)]))
@@ -245,6 +296,7 @@ open class JudoPayView: UIView {
         self.startDateInputField.delegate = self
         self.billingCountryInputField.delegate = self
         self.postCodeInputField.delegate = self
+        self.cardName.delegate = self
         
         let verticalTopSpace = 10
         
@@ -273,16 +325,40 @@ open class JudoPayView: UIView {
         self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(12)-[securityMessage]-(12)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["securityMessage":securityMessageLabel]))
         
         self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(<=fieldHeight)]-(topSpacing)-[start]-(topSpacing)-[expiry(<=fieldHeight)]-(topSpacing)-[billing]-(20)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":self.theme.inputFieldHeight, "topSpacing": verticalTopSpace], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
+        
         self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(<=fieldHeight)]-(topSpacing)-[issue(==start)]-(topSpacing)-[security(<=fieldHeight)]-(topSpacing)-[post]-(20)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: ["fieldHeight":self.theme.inputFieldHeight, "topSpacing": verticalTopSpace], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField]))
         
         self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 1.0)
         self.avsFieldsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: self.billingCountryInputField.heightConstraint.constant)
-        self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 24.0)
         
         self.securityMessageLabel.isHidden = !(self.theme.showSecurityMessage)
 
-        self.billingCountryInputField.addConstraint(avsFieldsHeightConstraint!)        
-        self.contentView.addConstraint(securityMessageTopConstraint!)
+        self.billingCountryInputField.addConstraint(avsFieldsHeightConstraint!)
+        
+        //self.contentView.addConstraint(NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 24.0))
+        
+        if transactionType == .EditWaletCard || transactionType == .Wallet || transactionType == .ExpiredWaletCard {
+            self.contentView.addSubview(cardName)
+            self.contentView.addSubview(primarySwitch)
+            self.primarySwitch.titleLabel.text = self.theme.makePrimaryTitle
+            self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[cardName]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["cardName": cardName]))
+            self.cardNameTopConstraint = NSLayoutConstraint(item: cardName, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 1.0)
+            let primarySwitchTopConstraint = NSLayoutConstraint(item: primarySwitch, attribute: .top, relatedBy: .equal, toItem: self.cardName, attribute: .bottom, multiplier: 1.0, constant: 10.0)
+            self.contentView.addConstraint(cardNameTopConstraint!)
+            self.contentView.addConstraint(primarySwitchTopConstraint)
+            self.contentView.addConstraint(NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.primarySwitch, attribute: .bottom, multiplier: 1.0, constant: 24.0))
+            self.cardName.textField.text = walletCard?.assignedName
+            self.primarySwitch.judoSwitch.isOn = walletCard != nil ? (walletCard?.isPrimaryCard)! : false
+            self.primarySwitch.judoSwitch.addTarget(self, action: #selector(onPrimary), for: .valueChanged)
+        } else {
+            if transactionType == .PayAndSaveCard {
+                self.contentView.addSubview(saveSwitch)
+                self.saveSwitch.titleLabel.text = self.theme.saveForWalletTitle
+                self.contentView.addConstraint(NSLayoutConstraint(item: saveSwitch, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 10.0))
+            } else {
+                self.contentView.addConstraint(NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 24.0))
+            }
+        }
         
         // If card details are available, fill out the fields
         if let cardDetails = self.cardDetails, let formattedLastFour = cardDetails.formattedLastFour(), let expiryDate = cardDetails.formattedEndDate() {
@@ -294,14 +370,17 @@ open class JudoPayView: UIView {
             } else {
                 self.cardInputField.textField.text = formattedLastFour
             }
-            
             self.expiryDateInputField.textField.text = expiryDate
             self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
             self.secureCodeInputField.isTokenPayment = self.isTokenPayment
+            self.secureCodeInputField.isUserInteractionEnabled = transactionType == .EditWaletCard  || transactionType == .Wallet || transactionType == .ExpiredWaletCard ? false : self.isTokenPayment
             self.cardInputField.isTokenPayment = self.isTokenPayment
             self.cardInputField.isUserInteractionEnabled = !self.isTokenPayment
             self.expiryDateInputField.isUserInteractionEnabled = !self.isTokenPayment
             self.cardInputField.textField.isSecureTextEntry = false
+            self.cardName.textField.isEnabled = transactionType != .ExpiredWaletCard
+            self.primarySwitch.judoSwitch.isEnabled = transactionType != .ExpiredWaletCard
+            self.primarySwitch.titleLabel.alpha = transactionType == .ExpiredWaletCard ? 0.5 : 1.0
         }
     }
     
@@ -400,10 +479,18 @@ open class JudoPayView: UIView {
             self.paymentButton.layoutIfNeeded()
         }, completion: nil)
         
-        if enabled {
-            self.paymentNavBarButton?.setTitleTextAttributes([NSForegroundColorAttributeName: self.theme.tintActiveColor], for: .normal)
-        }
-        self.paymentNavBarButton!.isEnabled = enabled
+        self.paymentNavBarButton?.isEnabled = self.transactionType == .EditWaletCard ? true : enabled// || transactionType == .Wallet
+        self.paymentNavBarButton?.setTitleTextAttributes([NSForegroundColorAttributeName: self.paymentNavBarButton!.isEnabled ? self.theme.tintActiveColor : self.theme.tintColor], for: .normal)
+    }
+    
+    /**
+ 
+     Method to make card as primary
+ 
+    */
+    @objc func onPrimary(){
+        self.walletCard?.isPrimaryCard = self.primarySwitch.judoSwitch.isOn
+        paymentEnabled(true)
     }
     
     
@@ -413,7 +500,7 @@ open class JudoPayView: UIView {
      - parameter input: The input field which the user is currently idling
      */
     func showHintAfterDefaultDelay(_ input: JudoPayInputField) {
-        if self.secureCodeInputField.isTokenPayment && self.secureCodeInputField.textField.text!.characters.count == 0 {
+        if self.secureCodeInputField.isTokenPayment && self.secureCodeInputField.textField.text!.characters.count == 0 && transactionType != .EditWaletCard {
             input.displayHint(message: self.secureCodeInputField.hintLabelText())
         } else {
             input.displayHint(message: "")

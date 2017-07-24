@@ -355,6 +355,10 @@ public enum JudoErrorCode: Int {
     case currencyNotSupportedError
     /// LocationServicesDisabled = 91
     case locationServicesDisabled = 91
+    /// User deletes wallet's card
+    case deleteWalletCard
+    /// User saves wallet's card
+    case saveWalletCard
     
     // MARK: Card Errors
     /// CardLengthMismatchError
