@@ -411,8 +411,7 @@ public class JudoKit {
         }
         
         self.activeViewController = viewController
-        self.showViewController(viewController)
-        //self.showViewController(UINavigationController(rootViewController: viewController))
+        UIApplication.shared.keyWindow?.rootViewController is UINavigationController ? self.showViewController(viewController) : self.showViewController(UINavigationController(rootViewController: viewController))
     }
     
     
@@ -447,10 +446,9 @@ public class JudoKit {
                 
             default:
                 viewController?.present(vc, animated:true, completion:nil)
-//            }
-        }
-        
-        
+            }
+//        }
+//     viewController?.present(vc, animated:true, completion:nil)
     }
     
     
