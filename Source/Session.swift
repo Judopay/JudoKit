@@ -399,36 +399,33 @@ public enum Sort: String {
 extension Session: URLSessionDelegate {
     
     public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        let serverTrust = challenge.protectionSpace.serverTrust
-        let certificate = SecTrustGetCertificateAtIndex(serverTrust!, 0)
-        
-        // Set SSL policies for domain name check
-        let policies = NSMutableArray();
-        policies.add(SecPolicyCreateSSL(true, (challenge.protectionSpace.host as CFString?)))
-        SecTrustSetPolicies(serverTrust!, policies);
-        
-        // Evaluate server certificate
-        var result: SecTrustResultType = SecTrustResultType(rawValue: 0)!
-        let status = SecTrustEvaluate(serverTrust!, &result)
-        var isServerTrusted:Bool = false
-        if status == errSecSuccess {
-            let unspecified = SecTrustResultType(rawValue: SecTrustResultType.unspecified.rawValue)
-            let proceed = SecTrustResultType(rawValue: SecTrustResultType.proceed.rawValue)
+        if(challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
             
-            isServerTrusted = result == unspecified || result == proceed
-        }
-        
-        // Get local and remote cert data
-        let remoteCertificateData:NSData = SecCertificateCopyData(certificate!)
-        let bundle = Bundle.init(identifier: judoBundleId)
-        let pathToCert = bundle?.path(forResource: certPath(), ofType: "cer")
-        let localCertificate:NSData = NSData(contentsOfFile: pathToCert!)!
-        
-        if (isServerTrusted && remoteCertificateData.isEqual(to: localCertificate as Data)) {
-            let credential:URLCredential = URLCredential(trust: serverTrust!)
-            completionHandler(.useCredential, credential)
-        } else {
-            completionHandler(.cancelAuthenticationChallenge, nil)
+            var localTrust: SecTrust?
+            let serverTrust = challenge.protectionSpace.serverTrust!
+            let serverPublicKey = SecTrustCopyPublicKey(serverTrust)
+            let bundle = Bundle.init(identifier: judoBundleId)
+            let pathToCert = bundle?.path(forResource: certPath(), ofType: "der")
+            let localCertificate:NSData = NSData(contentsOfFile: pathToCert!)!
+            let certData = SecCertificateCreateWithData(nil, localCertificate)
+            let policy = SecPolicyCreateBasicX509()
+            
+            let status = SecTrustCreateWithCertificates(certData!, policy, &localTrust)
+            if status == errSecSuccess {
+                let localTrustRef = localTrust
+                let localPublicKey = SecTrustCopyPublicKey(localTrustRef!)
+                if (localPublicKey as AnyObject).isEqual(serverPublicKey as AnyObject) {
+                    print("trusted")
+                    let credential:URLCredential = URLCredential(trust: serverTrust)
+                    completionHandler(.useCredential, credential)
+                } else {
+                    print("not trusted")
+                    completionHandler(.cancelAuthenticationChallenge, nil)
+                }
+            } else {
+                print("not trusted")
+                completionHandler(.cancelAuthenticationChallenge, nil)
+            }
         }
     }
     

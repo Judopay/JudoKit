@@ -78,7 +78,11 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func homeButtonHandler(_ sender: AnyObject) {
-        _ = self.navigationController?.popViewController(animated: true)
+        if UIApplication.shared.keyWindow?.rootViewController is UINavigationController {
+            _=self.navigationController?.popViewController(animated: true)
+        } else {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 }

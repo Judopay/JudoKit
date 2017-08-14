@@ -245,7 +245,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
             viewController.response = response
-            self.navigationController?.pushViewController(viewController, animated: true)
+            self.showResultInView(viewController: viewController)
             })
     }
     
@@ -274,7 +274,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             let sb = UIStoryboard(name: "Main", bundle: nil)
             let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
             viewController.response = response
-            self.navigationController?.pushViewController(viewController, animated: true)
+            self.showResultInView(viewController: viewController)
             })
     }
     
@@ -328,7 +328,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 let sb = UIStoryboard(name: "Main", bundle: nil)
                 let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
                 viewController.response = response
-                self.navigationController?.pushViewController(viewController, animated: true)
+                self.showResultInView(viewController: viewController)
             })
         } else {
             let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .alert)
@@ -362,7 +362,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
                 let sb = UIStoryboard(name: "Main", bundle: nil)
                 let viewController = sb.instantiateViewController(withIdentifier: "detailviewcontroller") as! DetailViewController
                 viewController.response = response
-                self.navigationController?.pushViewController(viewController, animated: true)
+                self.showResultInView(viewController: viewController)
                 })
         } else {
             let alert = UIAlertController(title: "Error", message: "you need to create a card token before making a repeat payment or preauth operation", preferredStyle: .alert)
@@ -371,8 +371,12 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         }
     }
     
+    func showResultInView(viewController: UIViewController){
+        UIApplication.shared.keyWindow?.rootViewController is UINavigationController ? self.navigationController?.pushViewController(viewController, animated: true) : self.present(viewController, animated: true, completion: nil)
+    }
+    
     func dismissView(){
-        if (UIApplication.shared.keyWindow?.rootViewController?.isKind(of: UINavigationController.self))! {
+        if UIApplication.shared.keyWindow?.rootViewController is UINavigationController {
             _=self.navigationController?.popViewController(animated: true)
         } else {
             self.dismiss(animated: true, completion: nil)
