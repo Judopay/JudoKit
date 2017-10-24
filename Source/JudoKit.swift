@@ -424,10 +424,7 @@ public class JudoKit {
         vc.modalPresentationStyle = .formSheet
        
         var viewController = UIApplication.shared.keyWindow?.rootViewController
-        
-//        if let presented = viewController?.presentedViewController {
-        
-            switch viewController {
+        switch viewController {
             case is UINavigationController:
                 let navigationController = viewController as! UINavigationController
                 viewController = navigationController.viewControllers.last!
@@ -438,17 +435,11 @@ public class JudoKit {
                 
             case is UITabBarController:
                 let tabBarController = viewController as! UITabBarController
-                viewController = tabBarController.selectedViewController!
-                if let presentedVC = viewController?.presentedViewController {
-                    viewController = presentedVC
-                }
-                tabBarController.addChildViewController(vc)
-                
+                let currentVc = tabBarController.selectedViewController
+                currentVc!.present(vc, animated:true, completion:nil)
             default:
                 viewController?.present(vc, animated:true, completion:nil)
-            }
-//        }
-//     viewController?.present(vc, animated:true, completion:nil)
+        }
     }
     
     
