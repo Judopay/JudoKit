@@ -10,8 +10,6 @@ The judo Swift SDK is a framework for integrating easy, fast and secure payments
 
 Use our UI components for a seamless user experience for card data capture. Minimise your [PCI scope](https://www.pcisecuritystandards.org/pci_security/completing_self_assessment) with a UI that can be themed or customised to match the look and feel of your app.
 
-##### **\*\*\*Due to industry-wide security updates, versions below 5.5.1 of this SDK will no longer be supported after 1st Oct 2016. For more information regarding these updates, please read our blog [here](http://hub.judopay.com/pci31-security-updates/).*****
-
 ## Requirements
 
 Versions >= 6.2.5 require Xcode 8 and Swift 3. Version 6.2.4 is the last version to support Xcode 7.3.1 and Swift 2.2.
