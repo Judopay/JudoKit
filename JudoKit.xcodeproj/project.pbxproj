@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1599F94C1FADF0370034A7AA /* VCOResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599F94B1FADF0370034A7AA /* VCOResult.swift */; };
 		3B02A02F1CAA76A500953312 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0251CAA76A500953312 /* Payment.swift */; };
 		3B02A0301CAA76A500953312 /* PreAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0261CAA76A500953312 /* PreAuth.swift */; };
 		3B02A0311CAA76A500953312 /* RegisterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0271CAA76A500953312 /* RegisterCard.swift */; };
@@ -114,6 +115,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1599F94B1FADF0370034A7AA /* VCOResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCOResult.swift; sourceTree = "<group>"; };
 		3B02A0251CAA76A500953312 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		3B02A0261CAA76A500953312 /* PreAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreAuth.swift; sourceTree = "<group>"; };
 		3B02A0271CAA76A500953312 /* RegisterCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCard.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				3B02A0411CAA76B000953312 /* JudoModelErrorCode.swift */,
 				3B02A03C1CAA76B000953312 /* Reference.swift */,
 				3B02A0391CAA76B000953312 /* Response.swift */,
+				1599F94B1FADF0370034A7AA /* VCOResult.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -605,6 +608,7 @@
 				3B02A0431CAA76B000953312 /* Response.swift in Sources */,
 				DA39023E1B96092B001A703C /* SecurityInputField.swift in Sources */,
 				3B02A04A1CAA76B000953312 /* JudoModelError.swift in Sources */,
+				1599F94C1FADF0370034A7AA /* VCOResult.swift in Sources */,
 				3B02A0341CAA76A500953312 /* VoidTransaction.swift in Sources */,
 				DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */,
 				3B02A0331CAA76A500953312 /* Collection.swift in Sources */,
