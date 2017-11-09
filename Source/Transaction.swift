@@ -162,6 +162,18 @@ open class Transaction: SessionProtocol {
             self.parameters["pkPayment"] = ["token":tokenDict] as AnyObject?
         }
     }
+
+    /// Support for Visa Checkout payments
+    open fileprivate (set) var vcoResult: VCOResult? {
+        didSet {
+            guard let vcoResult = vcoResult else { return }
+            var walletDict = JSONDictionary()
+            walletDict["callid"] = vcoResult.callId as AnyObject?
+            walletDict["encryptedKey"] = vcoResult.encryptedKey as AnyObject?
+            walletDict["encryptedPaymentData"] = vcoResult.encryptedPaymentData as AnyObject?
+            self.parameters["wallet"] = walletDict as AnyObject?
+        }
+    }
     
     /// hidden parameter to enable recurring payments
     open fileprivate (set) var initialRecurringPayment: Bool = false {
@@ -254,7 +266,7 @@ open class Transaction: SessionProtocol {
     
     - Returns: reactive self
     */
-    open func deviceSignal(_ deviceSignal: JSONDictionary) -> Self {
+    @discardableResult open func deviceSignal(_ deviceSignal: JSONDictionary) -> Self {
         self.deviceSignal = deviceSignal
         return self
     }
@@ -286,7 +298,20 @@ open class Transaction: SessionProtocol {
         self.pkPayment = payment
         return self
     }
-    
+
+
+    /**
+     For creating an Visa Checkout Transaction, use this method to add the VCOResult object
+
+     - Parameter vcoResult: the VCOResult object
+
+     - Returns: reactive self
+     */
+    @discardableResult open func vcoResult(_ vcoResult: VCOResult) -> Self {
+        self.vcoResult = vcoResult
+        return self
+    }
+
     
     /**
      apiSession caller - this method sets the session variable and returns itself for further use
@@ -310,7 +335,7 @@ open class Transaction: SessionProtocol {
     
     - Throws: ParameterError one or more of the given parameters were in the incorrect format or nil
     - Throws: CardAndTokenError multiple methods of payment have been provided, please make sure to only provide one method
-    - Throws: CardOrTokenMissingError no method of transaction was provided, please provide either a card, paymentToken or PKPayment
+    - Throws: CardOrTokenMissingError no method of transaction was provided, please provide either a card, paymentToken, PKPayment or VCOResult
     - Throws: AmountMissingError no amount has been provided
     - Throws: DuplicateTransactionError please provide a new Reference object if this transaction is not a duplicate
     */
@@ -318,7 +343,7 @@ open class Transaction: SessionProtocol {
         
         if self.card != nil && self.payToken != nil {
             throw JudoError(.cardAndTokenError)
-        } else if self.card == nil && self.payToken == nil && self.pkPayment == nil {
+        } else if self.card == nil && self.payToken == nil && self.pkPayment == nil && self.vcoResult == nil {
             throw JudoError(.cardOrTokenMissingError)
         }
         
