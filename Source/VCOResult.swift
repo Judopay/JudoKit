@@ -23,7 +23,7 @@
 //  SOFTWARE.
 
 public struct VCOResult {
-    let callId: String
-    let encryptedKey: String
-    let encryptedPaymentData: String
+    public let callId: String
+    public let encryptedKey: String
+    public let encryptedPaymentData: String
 }
