@@ -26,4 +26,10 @@ public struct VCOResult {
     let callId: String
     let encryptedKey: String
     let encryptedPaymentData: String
+
+    public init(callId: String, encryptedKey: String, encryptedPaymentData: String) {
+        self.callId = callId
+        self.encryptedKey = encryptedKey
+        self.encryptedPaymentData = encryptedPaymentData
+    }
 }
