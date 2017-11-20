@@ -23,7 +23,13 @@
 //  SOFTWARE.
 
 public struct VCOResult {
-    public let callId: String
-    public let encryptedKey: String
-    public let encryptedPaymentData: String
+    let callId: String
+    let encryptedKey: String
+    let encryptedPaymentData: String
+
+    public init(callId: String, encryptedKey: String, encryptedPaymentData: String) {
+        self.callId = callId
+        self.encryptedKey = encryptedKey
+        self.encryptedPaymentData = encryptedPaymentData
+    }
 }
