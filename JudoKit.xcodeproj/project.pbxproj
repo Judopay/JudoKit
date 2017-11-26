@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1599F94C1FADF0370034A7AA /* VCOResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599F94B1FADF0370034A7AA /* VCOResult.swift */; };
+		15D43ED51FCAE42300154C2A /* gw1.judopay.com.der in Resources */ = {isa = PBXBuildFile; fileRef = BB3D324A1F41886900CD1701 /* gw1.judopay.com.der */; };
+		15D43ED61FCAE42300154C2A /* judopay-sandbox.com.der in Resources */ = {isa = PBXBuildFile; fileRef = BB3D324D1F41886900CD1701 /* judopay-sandbox.com.der */; };
 		3B02A02F1CAA76A500953312 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0251CAA76A500953312 /* Payment.swift */; };
 		3B02A0301CAA76A500953312 /* PreAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0261CAA76A500953312 /* PreAuth.swift */; };
 		3B02A0311CAA76A500953312 /* RegisterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0271CAA76A500953312 /* RegisterCard.swift */; };
@@ -61,12 +63,6 @@
 		70ADAAD41CE247EC00DC0172 /* JudoTestCaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ADAAD21CE247E400DC0172 /* JudoTestCaseConfig.swift */; };
 		70F49E281DC353C6003B8D3B /* NSDate+Judo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F49E271DC353C6003B8D3B /* NSDate+Judo.swift */; };
 		BB02FE711EB207FD000B9254 /* UINavigationBar+Judo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB02FE701EB207FD000B9254 /* UINavigationBar+Judo.swift */; };
-		BB3D324F1F41886900CD1701 /* gw1.judopay.com.cer in Resources */ = {isa = PBXBuildFile; fileRef = BB3D32491F41886900CD1701 /* gw1.judopay.com.cer */; };
-		BB3D32501F41886900CD1701 /* gw1.judopay.com.der in Resources */ = {isa = PBXBuildFile; fileRef = BB3D324A1F41886900CD1701 /* gw1.judopay.com.der */; };
-		BB3D32511F41886900CD1701 /* gw1.judopay.com.pem in Resources */ = {isa = PBXBuildFile; fileRef = BB3D324B1F41886900CD1701 /* gw1.judopay.com.pem */; };
-		BB3D32521F41886900CD1701 /* judopay-sandbox.com.cer in Resources */ = {isa = PBXBuildFile; fileRef = BB3D324C1F41886900CD1701 /* judopay-sandbox.com.cer */; };
-		BB3D32531F41886900CD1701 /* judopay-sandbox.com.der in Resources */ = {isa = PBXBuildFile; fileRef = BB3D324D1F41886900CD1701 /* judopay-sandbox.com.der */; };
-		BB3D32541F41886900CD1701 /* judopay-sandbox.com.pem in Resources */ = {isa = PBXBuildFile; fileRef = BB3D324E1F41886900CD1701 /* judopay-sandbox.com.pem */; };
 		DA0C19B91B986B5400CD2613 /* CardLogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0C19B81B986B5400CD2613 /* CardLogoView.swift */; };
 		DA3902351B95B5DF001A703C /* JudoPayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902341B95B5DF001A703C /* JudoPayViewController.swift */; };
 		DA3902371B95DC62001A703C /* DateInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3902361B95DC62001A703C /* DateInputField.swift */; };
@@ -478,7 +474,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Judo Payments";
 				TargetAttributes = {
 					3B5A60081CAACF6100E98AC6 = {
@@ -521,12 +517,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB3D32521F41886900CD1701 /* judopay-sandbox.com.cer in Resources */,
-				BB3D32501F41886900CD1701 /* gw1.judopay.com.der in Resources */,
-				BB3D32541F41886900CD1701 /* judopay-sandbox.com.pem in Resources */,
-				BB3D32511F41886900CD1701 /* gw1.judopay.com.pem in Resources */,
-				BB3D324F1F41886900CD1701 /* gw1.judopay.com.cer in Resources */,
-				BB3D32531F41886900CD1701 /* judopay-sandbox.com.der in Resources */,
+				15D43ED51FCAE42300154C2A /* gw1.judopay.com.der in Resources */,
+				15D43ED61FCAE42300154C2A /* judopay-sandbox.com.der in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,7 +660,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -684,7 +675,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -696,14 +686,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -735,6 +731,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -749,14 +746,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -781,6 +784,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -807,7 +811,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -829,7 +832,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.judo.JudoKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
