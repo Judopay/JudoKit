@@ -39,10 +39,7 @@ public class Session : NSObject {
     
     /// The endpoint for REST API calls to the judo API
     fileprivate (set) var endpoint = "https://gw1.judopay.com/"
-    
-    fileprivate let judoBundleId = "com.judo.JudoKit"
-    
-    
+
     /// identifying whether developers are using their own UI or the Judo Out of the box UI
     public var uiClientMode = false
     
@@ -404,8 +401,8 @@ extension Session: URLSessionDelegate {
             var localTrust: SecTrust?
             let serverTrust = challenge.protectionSpace.serverTrust!
             let serverPublicKey = SecTrustCopyPublicKey(serverTrust)
-            let bundle = Bundle.init(identifier: judoBundleId)
-            let pathToCert = bundle?.path(forResource: certPath(), ofType: "der")
+            let bundle = Bundle(for: Session.self)
+            let pathToCert = bundle.path(forResource: certPath(), ofType: "der")
             let localCertificate:NSData = NSData(contentsOfFile: pathToCert!)!
             let certData = SecCertificateCreateWithData(nil, localCertificate)
             let policy = SecPolicyCreateBasicX509()
