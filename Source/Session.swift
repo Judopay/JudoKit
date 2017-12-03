@@ -25,6 +25,7 @@
 import Foundation
 import CoreLocation
 import PassKit
+import TrustKit
 
 /// The valid lengths of any judo Id
 internal let kJudoIDLenght = (6...10)
@@ -55,17 +56,33 @@ public class Session : NSObject {
         }
     }
     
-    public func certPath()->String{
-        if sandboxed {
-            return "judopay-sandbox.com"
-        } else {
-            return "gw1.judopay.com"
-        }
-    }
-    
     /// Token and secret are saved in the authorizationHeader for authentication of REST API calls
     var authorizationHeader: String?
-    
+
+    fileprivate let trustKit: TrustKit
+
+    override init() {
+        let trustKitConfig: [String: Any] = [
+            kTSKPinnedDomains: [
+                "judopay-sandbox.com": [
+                    kTSKPublicKeyAlgorithms: [kTSKAlgorithmRsa2048],
+                    kTSKPublicKeyHashes: [
+                        "mpCgFwbYmjH0jpQ3EruXVo+/S73NOAtPeqtGJE8OdZ0=",
+                        "XXXXXXXXXXXXXXXXXXXXXX+/XXXXXXXXXXXXXXXXXXX="
+                    ],
+                    kTSKIncludeSubdomains: true
+                ],
+                "gw1.judopay.com": [
+                    kTSKPublicKeyAlgorithms: [kTSKAlgorithmRsa2048],
+                    kTSKPublicKeyHashes: [
+                        "SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
+                        "XXXXXXXXXXXXXXXXXXXXXX+/XXXXXXXXXXXXXXXXXXX="
+                    ],
+                    kTSKIncludeSubdomains: true
+                ]
+            ]]
+        trustKit = TrustKit(configuration: trustKitConfig)
+    }
     
     /**
      POST Helper Method for accessing the judo REST API
@@ -393,38 +410,14 @@ public enum Sort: String {
     case Ascending = "time-ascending"
 }
 
+// MARK: Cert pinning
+
 extension Session: URLSessionDelegate {
-    
-    public func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        if(challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
-            
-            var localTrust: SecTrust?
-            let serverTrust = challenge.protectionSpace.serverTrust!
-            let serverPublicKey = SecTrustCopyPublicKey(serverTrust)
-            let bundle = Bundle(for: Session.self)
-            let pathToCert = bundle.path(forResource: certPath(), ofType: "der")
-            let localCertificate:NSData = NSData(contentsOfFile: pathToCert!)!
-            let certData = SecCertificateCreateWithData(nil, localCertificate)
-            let policy = SecPolicyCreateBasicX509()
-            
-            let status = SecTrustCreateWithCertificates(certData!, policy, &localTrust)
-            if status == errSecSuccess {
-                let localTrustRef = localTrust
-                let localPublicKey = SecTrustCopyPublicKey(localTrustRef!)
-                if (localPublicKey as AnyObject).isEqual(serverPublicKey as AnyObject) {
-                    print("trusted")
-                    let credential:URLCredential = URLCredential(trust: serverTrust)
-                    completionHandler(.useCredential, credential)
-                } else {
-                    print("not trusted")
-                    completionHandler(.cancelAuthenticationChallenge, nil)
-                }
-            } else {
-                print("not trusted")
-                completionHandler(.cancelAuthenticationChallenge, nil)
-            }
+    public func urlSession(_ session: URLSession,
+                           didReceive challenge: URLAuthenticationChallenge,
+                           completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
+        if !trustKit.pinningValidator.handle(challenge, completionHandler: completionHandler) {
+            completionHandler(.performDefaultHandling, nil)
         }
     }
-    
 }
-
