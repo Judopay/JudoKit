@@ -1,3 +1,6 @@
 [submodule "DeviceDNA"]
 	path = DeviceDNA
 	url = https://github.com/Judopay/DeviceDNA-iOS.git
+[submodule "TrustKit"]
+	path = TrustKit
+	url = https://github.com/datatheorem/TrustKit
