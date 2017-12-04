@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15850A241FD4575B005C1BCC /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15850A231FD4575B005C1BCC /* TrustKit.framework */; };
+		15850A251FD4575B005C1BCC /* TrustKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 15850A231FD4575B005C1BCC /* TrustKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3BFD9A911CD9F58400B8385D /* JudoKitUIDedupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFD9A901CD9F58400B8385D /* JudoKitUIDedupTests.swift */; };
-		705214361E25474C00C17BD8 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 705214341E25473400C17BD8 /* DeviceDNA.framework */; };
 		7052143C1E25479500C17BD8 /* DeviceDNA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7052143A1E25478200C17BD8 /* DeviceDNA.framework */; };
 		7052143D1E25479500C17BD8 /* DeviceDNA.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7052143A1E25478200C17BD8 /* DeviceDNA.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		70791E431D66121D009CE638 /* ExampleAppCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70791E421D66121D009CE638 /* ExampleAppCredentials.swift */; };
@@ -70,6 +71,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				7052143D1E25479500C17BD8 /* DeviceDNA.framework in Embed Frameworks */,
+				15850A251FD4575B005C1BCC /* TrustKit.framework in Embed Frameworks */,
 				DA30489F1C038944000E1B79 /* JudoKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -78,8 +80,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		15850A231FD4575B005C1BCC /* TrustKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TrustKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BFD9A901CD9F58400B8385D /* JudoKitUIDedupTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JudoKitUIDedupTests.swift; sourceTree = "<group>"; };
-		705214341E25473400C17BD8 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = "/Users/ashleybarrett/Documents/iOS/JudoKit/Example-Swift/DeviceDNA.framework"; sourceTree = "<absolute>"; };
 		7052143A1E25478200C17BD8 /* DeviceDNA.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceDNA.framework; path = ../DeviceDNA/Framework/DeviceDNA.framework; sourceTree = "<group>"; };
 		70791E421D66121D009CE638 /* ExampleAppCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleAppCredentials.swift; sourceTree = "<group>"; };
 		DA1B9CC31B84AA0C003FBAA5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -117,11 +119,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA30489E1C038944000E1B79 /* JudoKit.framework in Frameworks */,
+				15850A241FD4575B005C1BCC /* TrustKit.framework in Frameworks */,
 				7052143C1E25479500C17BD8 /* DeviceDNA.framework in Frameworks */,
 				DA1B9CCD1B84AAB4003FBAA5 /* CoreLocation.framework in Frameworks */,
 				DA1B9CCA1B84AAAD003FBAA5 /* CoreTelephony.framework in Frameworks */,
 				DA1B9CC41B84AA0C003FBAA5 /* Security.framework in Frameworks */,
-				705214361E25474C00C17BD8 /* DeviceDNA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +169,7 @@
 		DA7A987D1B7E3291005754F1 = {
 			isa = PBXGroup;
 			children = (
+				15850A231FD4575B005C1BCC /* TrustKit.framework */,
 				DA7A98881B7E3291005754F1 /* JudoKitExampleApp */,
 				DA30486D1C036192000E1B79 /* JudoKitSwiftExampleUITests */,
 				DA1B9CC61B84AA13003FBAA5 /* Frameworks */,
