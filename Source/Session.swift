@@ -68,7 +68,7 @@ public class Session : NSObject {
                     kTSKPublicKeyAlgorithms: [kTSKAlgorithmRsa2048],
                     kTSKPublicKeyHashes: [
                         "mpCgFwbYmjH0jpQ3EruXVo+/S73NOAtPeqtGJE8OdZ0=",
-                        "XXXXXXXXXXXXXXXXXXXXXX+/XXXXXXXXXXXXXXXXXXX="
+                        "SRjoMmxuXogV8jKdDUKPgRrk9YihOLsrx7ila3iDns4="
                     ],
                     kTSKIncludeSubdomains: true
                 ],
@@ -76,7 +76,7 @@ public class Session : NSObject {
                     kTSKPublicKeyAlgorithms: [kTSKAlgorithmRsa2048],
                     kTSKPublicKeyHashes: [
                         "SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
-                        "XXXXXXXXXXXXXXXXXXXXXX+/XXXXXXXXXXXXXXXXXXX="
+                        "c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8="
                     ],
                     kTSKIncludeSubdomains: true
                 ]
