@@ -379,7 +379,7 @@ class PaymentTests: JudoTestCase {
                 if let error = error {
                     XCTAssertEqual(error.code, JudoErrorCode.validation_Passed)
                 } else {
-                    XCTFail("api call failed with error: \(error)")
+                    XCTFail("api call did not respond with an error")
                 }
                 expectation.fulfill()
             }
@@ -413,7 +413,7 @@ class PaymentTests: JudoTestCase {
                 }
                 XCTAssertNotNil(response)
                 XCTAssertNotNil(response?.items.first)
-                XCTAssertEqual(response?.items.first?.result, .Success)
+                XCTAssertEqual(response?.items.first?.result, .success)
                 expectation.fulfill()
             })
         } catch {

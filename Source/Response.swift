@@ -252,9 +252,9 @@ public struct TransactionData {
             let consumerDict = dict["consumer"] as? JSONDictionary else {
                 self.receiptId = ""
                 self.yourPaymentReference = ""
-                self.type = TransactionType.Payment
+                self.type = .payment
                 self.createdAt = Date()
-                self.result = TransactionResult.Error
+                self.result = .error
                 self.message = ""
                 self.judoId = ""
                 self.merchantName = ""
@@ -329,17 +329,17 @@ public struct TransactionData {
 */
 public enum TransactionType: String {
     /// A Payment Transaction
-    case Payment
+    case payment = "Payment"
     /// A Pre-auth Transaction
-    case PreAuth
+    case preAuth = "PreAuth"
     /// A Refund Transaction
-    case Refund
+    case refund = "Refund"
     /// TransactionTypeRegisterCard for registering a card for a later transaction
-    case RegisterCard
+    case registerCard = "RegisterCard"
     /// A Collection
-    case Collection
+    case collection = "Collection"
     /// VOID
-    case VOID
+    case void = "VOID"
 }
 
 
@@ -352,11 +352,11 @@ public enum TransactionType: String {
 */
 public enum TransactionResult: String {
     /// Successful transaction
-    case Success
+    case success = "Success"
     /// Declined transaction
-    case Declined
+    case declined = "Declined"
     /// Something went wrong
-    case Error
+    case error = "Error"
 }
 
 // MARK: Helper

@@ -696,7 +696,7 @@ open class CardDetails: NSObject, NSCoding {
         if self.cardLastFour == nil && self._cardNumber == nil {
             return nil
         } else if let cardNumber = self._cardNumber {
-            self.cardLastFour = cardNumber.substring(from: cardNumber.characters.index(cardNumber.endIndex, offsetBy: -4))
+            self.cardLastFour = String(cardNumber[cardNumber.index(cardNumber.endIndex, offsetBy: -4)...])
         }
         
         guard let cardNetwork = self.cardNetwork else { return "**** \(cardLastFour!)" }
@@ -718,10 +718,10 @@ open class CardDetails: NSObject, NSCoding {
     open func formattedEndDate() -> String? {
         guard let ed = self.endDate else { return nil }
         
-        if ed.characters.count == 4 {
+        if ed.count == 4 {
             // backend returns the end date without a slash so for UI purposes we have to add it
-            let prefix = ed.substring(to: ed.characters.index(ed.startIndex, offsetBy: 2))
-            let suffix = ed.substring(from: ed.characters.index(ed.endIndex, offsetBy: -2))
+            let prefix = ed[..<ed.index(ed.startIndex, offsetBy: 2)]
+            let suffix = ed[ed.index(ed.endIndex, offsetBy: -2)...]
             return "\(prefix)/\(suffix)"
         } else {
             return ed

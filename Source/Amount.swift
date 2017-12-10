@@ -76,25 +76,28 @@ public struct Amount: ExpressibleByStringLiteral {
      - returns: an Amount object
      */
     init(amount value: String) {
-        self.amount = NSDecimalNumber(string: value.substring(to: value.characters.index(value.endIndex, offsetBy: -3)))
-        self.currency = Currency(value.substring(from: value.characters.index(value.endIndex, offsetBy: -3)))
+        let last3 = value.index(value.endIndex, offsetBy: -3)
+        self.amount = NSDecimalNumber(string: String(value[..<last3]))
+        self.currency = Currency(String(value[last3...]))
     }
-    
+
     public init(stringLiteral value: String) {
-        self.amount = NSDecimalNumber(string: value.substring(to: value.characters.index(value.endIndex, offsetBy: -3)))
-        self.currency = Currency(value.substring(from: value.characters.index(value.endIndex, offsetBy: -3)))
+        let last3 = value.index(value.endIndex, offsetBy: -3)
+        self.amount = NSDecimalNumber(string: String(value[..<last3]))
+        self.currency = Currency(String(value[last3...]))
     }
     
     public init(extendedGraphemeClusterLiteral value: String) {
-        self.amount = NSDecimalNumber(string: value.substring(to: value.characters.index(value.endIndex, offsetBy: -3)))
-        self.currency = Currency(value.substring(from: value.characters.index(value.endIndex, offsetBy: -3)))
+        let last3 = value.index(value.endIndex, offsetBy: -3)
+        self.amount = NSDecimalNumber(string: String(value[..<last3]))
+        self.currency = Currency(String(value[last3...]))
     }
     
     public init(unicodeScalarLiteral value: String) {
-        self.amount = NSDecimalNumber(string: value.substring(to: value.characters.index(value.endIndex, offsetBy: -3)))
-        self.currency = Currency(value.substring(from: value.characters.index(value.endIndex, offsetBy: -3)))
+        let last3 = value.index(value.endIndex, offsetBy: -3)
+        self.amount = NSDecimalNumber(string: String(value[..<last3]))
+        self.currency = Currency(String(value[last3...]))
     }
-    
 }
 
 

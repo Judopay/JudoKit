@@ -154,7 +154,7 @@ open class JudoPayView: UIView {
      
      - parameter note: the notification that calls this method
      */
-    func keyboardWillShow(_ note: Notification) {
+    @objc func keyboardWillShow(_ note: Notification) {
         guard UI_USER_INTERFACE_IDIOM() == .phone else { return } // BAIL
         
         guard let info = (note as NSNotification).userInfo else { return } // BAIL
@@ -180,7 +180,7 @@ open class JudoPayView: UIView {
      
      - parameter note: the notification that calls this method
      */
-    func keyboardWillHide(_ note: Notification) {
+    @objc func keyboardWillHide(_ note: Notification) {
         guard UI_USER_INTERFACE_IDIOM() == .phone else { return } // BAIL
         
         guard let info = (note as NSNotification).userInfo else { return } // BAIL
@@ -201,23 +201,28 @@ open class JudoPayView: UIView {
     // MARK: View LifeCycle
     
     func setupView() {
-        let payButtonTitle = self.transactionType == .RegisterCard ? self.theme.registerCardTitle : self.theme.paymentButtonTitle
-        self.loadingView.actionLabel.text = self.transactionType == .RegisterCard ? self.theme.loadingIndicatorRegisterCardTitle : self.theme.loadingIndicatorProcessingTitle
-        
-        let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [NSForegroundColorAttributeName:self.theme.getTextColor(), NSFontAttributeName:UIFont.boldSystemFont(ofSize: self.theme.securityMessageTextSize)])
-        attributedString.append(NSAttributedString(string: self.theme.securityMessageString, attributes: [NSForegroundColorAttributeName:self.theme.getInputFieldHintTextColor(), NSFontAttributeName:UIFont.systemFont(ofSize: self.theme.securityMessageTextSize)]))
-        
+        let payButtonTitle = transactionType == .registerCard ? theme.registerCardTitle : theme.paymentButtonTitle
+        loadingView.actionLabel.text = transactionType == .registerCard ? theme.loadingIndicatorRegisterCardTitle : theme.loadingIndicatorProcessingTitle
+
+        let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [
+            .foregroundColor: theme.getTextColor(),
+            .font: UIFont.boldSystemFont(ofSize: theme.securityMessageTextSize)
+            ])
+        attributedString.append(NSAttributedString(string: theme.securityMessageString, attributes: [
+            .foregroundColor: theme.getInputFieldHintTextColor(),
+            .font: UIFont.systemFont(ofSize: self.theme.securityMessageTextSize)
+            ]))
+
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .left
         paragraphStyle.lineSpacing = 3
-        
-        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
-        self.securityMessageLabel.attributedText = attributedString
-        
-        self.paymentButton.setTitle(payButtonTitle, for: UIControlState())
-        
-        self.startDateInputField.isStartDate = true
-        
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
+        securityMessageLabel.attributedText = attributedString
+
+        paymentButton.setTitle(payButtonTitle, for: .normal)
+
+        startDateInputField.isStartDate = true
+
         // View
         self.addSubview(contentView)
         self.contentView.contentSize = self.bounds.size
@@ -396,14 +401,14 @@ open class JudoPayView: UIView {
         self.keyboardHeightConstraint?.constant = -self.currentKeyboardHeight + (paymentEnabled ? 0 : self.paymentButton.bounds.height)
         self.paymentButton.setNeedsUpdateConstraints()
         
-        UIView.animate(withDuration: 0.25, delay: 0.0, options:enabled ? .curveEaseOut : .curveEaseIn, animations: { () -> Void in
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: enabled ? .curveEaseOut : .curveEaseIn, animations: { () -> Void in
             self.paymentButton.layoutIfNeeded()
         }, completion: nil)
         
         if enabled {
-            self.paymentNavBarButton?.setTitleTextAttributes([NSForegroundColorAttributeName: self.theme.tintActiveColor], for: .normal)
+            paymentNavBarButton?.setTitleTextAttributes([.foregroundColor: theme.tintActiveColor], for: .normal)
         }
-        self.paymentNavBarButton!.isEnabled = enabled
+        paymentNavBarButton?.isEnabled = enabled
     }
     
     
@@ -413,8 +418,8 @@ open class JudoPayView: UIView {
      - parameter input: The input field which the user is currently idling
      */
     func showHintAfterDefaultDelay(_ input: JudoPayInputField) {
-        if self.secureCodeInputField.isTokenPayment && self.secureCodeInputField.textField.text!.characters.count == 0 {
-            input.displayHint(message: self.secureCodeInputField.hintLabelText())
+        if secureCodeInputField.isTokenPayment && secureCodeInputField.textField.text?.count == 0 {
+            input.displayHint(message: secureCodeInputField.hintLabelText())
         } else {
             input.displayHint(message: "")
             self.cardInputField.displayHint(message: "")
@@ -424,12 +429,11 @@ open class JudoPayView: UIView {
             }
             self.updateViews(input: input, isFirstRun: true)
         }
-//        self.updateViews(input: input, isFirstRun: true)
         self.updateSecurityMessagePosition(toggleUp: true)
         _ = Timer.schedule(5.0, handler: { (timer) -> Void in
             let hintLabelText = input.hintLabelText()
-            if hintLabelText.characters.count > 0
-                && input.textField.text?.characters.count == 0
+            if hintLabelText.count > 0
+                && input.textField.text?.count == 0
                 && input.textField.isFirstResponder {
                 
                 self.updateSecurityMessagePosition(toggleUp: false)
@@ -454,10 +458,10 @@ open class JudoPayView: UIView {
     func updateViews(input: JudoPayInputField, isFirstRun: Bool){
         //Just trigger first view constraint in Horizontal view
         if input.isKind(of: SecurityInputField.self) {
-            self.expiryDateInputField.displayHint(message: (self.expiryDateInputField.textField.text?.characters.count)! > 0 ? (self.secureCodeInputField.textField.text?.characters.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
+            self.expiryDateInputField.displayHint(message: (self.expiryDateInputField.textField.text?.count)! > 0 ? (self.secureCodeInputField.textField.text?.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
         }
         if input.isKind(of: IssueNumberInputField.self){
-            self.startDateInputField.displayHint(message: (self.startDateInputField.textField.text?.characters.count)! > 0 ? (self.issueNumberInputField.textField.text?.characters.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
+            self.startDateInputField.displayHint(message: (self.startDateInputField.textField.text?.count)! > 0 ? (self.issueNumberInputField.textField.text?.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
         }
     }
     

@@ -67,9 +67,9 @@ class JudoKitTokenPaymentTests: XCTestCase {
         waitForExpectations(timeout: 125, handler: nil)
         
         tableQuery.tap()
-        
-        let cvv2TextField2 = elementsQuery.secureTextFields["CVV2"]
-        cvv2TextField2.typeText("452")
+
+        let cvvTextField = elementsQuery.secureTextFields["CVV"]
+        cvvTextField.typeText("452")
         
         app.navigationBars["Payment"].buttons["Pay"].tap()
         

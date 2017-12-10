@@ -2,6 +2,18 @@
 
 For the latest SDK changes, please see the [Github release page](https://github.com/Judopay/JudoKit/releases).
 
+## [7.0.0](https://github.com/Judopay/JudoKit/releases/tag/7.0.0)
+
+Swift 4 support! 🎉
+
+## [6.2.21](https://github.com/Judopay/JudoKit/releases/tag/6.2.21)
+
+Certificate pinning 🔑
+
+## [6.2.19](https://github.com/Judopay/JudoKit/releases/tag/6.2.19)
+
+Visa Checkout support 🛒
+
 ## [6.2.6](https://github.com/JudoPay/JudoKitObjC/releases/tag/6.2.6)
 Released on 2016-11-10
 

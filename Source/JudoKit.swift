@@ -26,7 +26,7 @@ import Foundation
 import PassKit
 import DeviceDNA
 
-let JudoKitVersion = "6.2.21"
+let JudoKitVersion = "7.0.0"
 
 /**
  A method that checks if the device it is currently running on is jailbroken or not
@@ -183,7 +183,7 @@ public class JudoKit {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public func invokePreAuth(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
-        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails)
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .preAuth, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
     
@@ -201,7 +201,7 @@ public class JudoKit {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public func invokeRegisterCard(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
-        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .RegisterCard, completion: completion, currentSession: self, cardDetails: cardDetails)
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .registerCard, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
     
@@ -219,7 +219,7 @@ public class JudoKit {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public func invokeTokenPayment(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: @escaping (Response?, JudoError?) -> ()) throws {
-        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .Payment, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken)
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .payment, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken)
         self.initiateAndShow(judoPayViewController)
     }
     
@@ -235,7 +235,7 @@ public class JudoKit {
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
     public func invokeTokenPreAuth(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails, paymentToken: PaymentToken, completion: @escaping (Response?, JudoError?) -> ()) throws {
-        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .PreAuth, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken)
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .preAuth, completion: completion, currentSession: self, cardDetails: cardDetails, paymentToken: paymentToken)
         self.initiateAndShow(judoPayViewController)
     }
     
@@ -255,11 +255,11 @@ public class JudoKit {
      */
     public func transaction(_ transactionType: TransactionType, judoId: String, amount: Amount, reference: Reference) throws -> Transaction {
         switch transactionType {
-        case .Payment:
+        case .payment:
             return try self.payment(judoId, amount: amount, reference: reference)
-        case .PreAuth:
+        case .preAuth:
             return try self.preAuth(judoId, amount: amount, reference: reference)
-        case .RegisterCard:
+        case .registerCard:
             return try self.registerCard(judoId, reference: reference)
         default:
             throw JudoError(.invalidOperationError)

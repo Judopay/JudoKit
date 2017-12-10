@@ -55,12 +55,12 @@ open class SecurityInputField: JudoPayInputField {
     
     - returns: Boolean to change characters in given range for a textfield
     */
-    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         // Only handle delegate calls for own text field
         guard textField == self.textField else { return false }
         
-        if string.characters.count > 0 && self.textField.isSecureTextEntry {
+        if string.count > 0 && self.textField.isSecureTextEntry {
             self.textField.isSecureTextEntry = false
         }
         
@@ -68,11 +68,11 @@ open class SecurityInputField: JudoPayInputField {
         let oldString = textField.text!
         let newString = (oldString as NSString).replacingCharacters(in: range, with: string)
         
-        if newString.characters.count == 0 {
+        if newString.count == 0 {
             return true
         }
         
-        return newString.isNumeric() && newString.characters.count <= self.cardNetwork.securityCodeLength()
+        return newString.isNumeric() && newString.count <= self.cardNetwork.securityCodeLength()
     }
     
     // MARK: Custom methods
@@ -84,7 +84,7 @@ open class SecurityInputField: JudoPayInputField {
     - returns: True if valid input
     */
     open override func isValid() -> Bool {
-        return self.textField.text?.characters.count == self.cardNetwork.securityCodeLength()
+        return self.textField.text?.count == self.cardNetwork.securityCodeLength()
     }
     
     
@@ -98,7 +98,7 @@ open class SecurityInputField: JudoPayInputField {
         self.didChangeInputText()
         guard let text = textField.text else { return }
         
-        self.delegate?.judoPayInput(self, isValid: text.characters.count == self.cardNetwork.securityCodeLength())
+        self.delegate?.judoPayInput(self, isValid: text.count == self.cardNetwork.securityCodeLength())
     }
     
     
@@ -108,7 +108,7 @@ open class SecurityInputField: JudoPayInputField {
      - returns: An Attributed String that is the placeholder of the receiver
      */
     open override func placeholder() -> NSAttributedString? {
-        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
+        return NSAttributedString(string: title(), attributes: [.foregroundColor: theme.getPlaceholderTextColor()])
     }
     
     

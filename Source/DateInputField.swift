@@ -96,7 +96,7 @@ open class DateInputField: JudoPayInputField {
     /// Boolean stating whether input field should identify as a start or end date
     open var isStartDate: Bool = false {
         didSet {
-            self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
+            textField.attributedPlaceholder = NSAttributedString(string: title(), attributes: [.foregroundColor: theme.getPlaceholderTextColor()])
         }
     }
     
@@ -158,7 +158,7 @@ open class DateInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a textfield
     */
-    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Only handle calls if textinput is selected
         guard self.dateInputType == .text else { return true }
         
@@ -168,13 +168,13 @@ open class DateInputField: JudoPayInputField {
         // Get old and new text
         let newString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
-        if newString.characters.count == 0 {
+        if newString.count == 0 {
             return true
-        } else if newString.characters.count == 1 {
+        } else if newString.count == 1 {
             return newString == "0" || newString == "1"
-        } else if newString.characters.count == 2 {
+        } else if newString.count == 2 {
             // if deletion is handled and user is trying to delete the month no slash should be added
-            guard string.characters.count > 0 else {
+            guard string.count > 0 else {
                 return true
             }
             
@@ -185,12 +185,12 @@ open class DateInputField: JudoPayInputField {
             self.textField.text = newString + "/"
             return false
 
-        } else if newString.characters.count == 3 {
-            return newString.characters.last == "/"
-        } else if newString.characters.count == 4 {
+        } else if newString.count == 3 {
+            return newString.last == "/"
+        } else if newString.count == 4 {
             // FIXME: need to make sure that number is numeric
             let deciYear = Int((Double((Calendar.current as NSCalendar).component(.year, from: Date()) - 2000) / 10.0))
-            let lastChar = Int(String(newString.characters.last!))
+            let lastChar = Int(String(newString.last!))
             
             if self.isStartDate {
                 return lastChar == deciYear || lastChar == deciYear - 1
@@ -198,7 +198,7 @@ open class DateInputField: JudoPayInputField {
                 return lastChar == deciYear || lastChar == deciYear + 1
             }
             
-        } else if newString.characters.count == 5 {
+        } else if newString.count == 5 {
             return true
         } else {
             self.delegate?.dateInput(self, error: JudoError(.inputLengthMismatchError))
@@ -215,8 +215,8 @@ open class DateInputField: JudoPayInputField {
     - returns: true if valid input
     */
     open override func isValid() -> Bool {
-        guard let dateString = textField.text , dateString.characters.count == 5,
-            let beginningOfMonthDate = self.dateFormatter.date(from: dateString) else { return false }
+        guard let dateString = textField.text, dateString.count == 5, let beginningOfMonthDate = dateFormatter.date(from: dateString) else { return false }
+
         if self.isStartDate {
             let minimumDate = Date().dateByAddingYears(-10)
             return beginningOfMonthDate.compare(Date()) == .orderedAscending && beginningOfMonthDate.compare(minimumDate!) == .orderedDescending
@@ -238,7 +238,7 @@ open class DateInputField: JudoPayInputField {
         
         self.didChangeInputText()
         
-        guard let text = textField.text , text.characters.count == 5 else { return }
+        guard let text = textField.text, text.count == 5 else { return }
         if self.dateFormatter.date(from: text) == nil { return }
         
         if self.isValid() {
@@ -259,7 +259,7 @@ open class DateInputField: JudoPayInputField {
      - returns: an Attributed String that is the placeholder of the receiver
      */
     open override func placeholder() -> NSAttributedString? {
-        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
+        return NSAttributedString(string: title(), attributes: [.foregroundColor: theme.getPlaceholderTextColor()])
     }
     
     
@@ -351,11 +351,11 @@ extension DateInputField: UIPickerViewDelegate {
         if component == 0 {
             let month = NSString(format: "%02i", row + 1)
             let oldDateString = self.textField.text!
-            let year = oldDateString.substring(from: oldDateString.characters.index(oldDateString.endIndex, offsetBy: -2))
+            let year = oldDateString[oldDateString.index(oldDateString.endIndex, offsetBy: -2)...]
             self.textField.text = "\(month)/\(year)"
         } else if component == 1 {
             let oldDateString = self.textField.text!
-            let month = oldDateString.substring(to: oldDateString.characters.index(oldDateString.startIndex, offsetBy: 2))
+            let month = oldDateString[..<oldDateString.index(oldDateString.startIndex, offsetBy: 2)]
             let year = NSString(format: "%02i", (self.isStartDate ? currentYear - row : currentYear + row) - 2000)
             self.textField.text = "\(month)/\(year)"
         }

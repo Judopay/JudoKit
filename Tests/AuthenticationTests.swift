@@ -39,7 +39,7 @@ class AuthenticationTests: JudoTestCase {
         let myJudoSession = JudoKit(token: myToken, secret: mySecret)
         
         // Then I can make a request
-        let request = try! myJudoSession.transaction(.Payment, judoId: myLuhnValidJudoId, amount: oneGBPAmount, reference: validReference)
+        let request = try! myJudoSession.transaction(.payment, judoId: myLuhnValidJudoId, amount: oneGBPAmount, reference: validReference)
         
         XCTAssertNotNil(request)
     }

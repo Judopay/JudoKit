@@ -107,7 +107,7 @@ open class JudoPayViewController: UIViewController {
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .Payment, completion: @escaping JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil)  throws {
+    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .payment, completion: @escaping JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) throws {
         self.judoId = judoId
         self.amount = amount
         self.reference = reference
@@ -159,11 +159,11 @@ open class JudoPayViewController: UIViewController {
         self.judoKitSession.apiSession.uiClientMode = true
         
         switch self.myView.transactionType {
-        case .Payment, .PreAuth:
+        case .payment, .preAuth:
             self.title = self.judoKitSession.theme.paymentTitle
-        case .RegisterCard:
+        case .registerCard:
             self.title = self.judoKitSession.theme.registerCardTitle
-        case .Refund:
+        case .refund:
             self.title = self.judoKitSession.theme.refundTitle
         default:
             self.title = "Invalid"
@@ -172,7 +172,7 @@ open class JudoPayViewController: UIViewController {
         self.myView.threeDSecureWebView.delegate = self
         
         // Button actions
-        let payButtonTitle = self.myView.transactionType == .RegisterCard ? self.judoKitSession.theme.registerCardNavBarButtonTitle : self.judoKitSession.theme.paymentButtonTitle
+        let payButtonTitle = myView.transactionType == .registerCard ? judoKitSession.theme.registerCardNavBarButtonTitle : judoKitSession.theme.paymentButtonTitle
 
         self.myView.paymentButton.addTarget(self, action: #selector(JudoPayViewController.payButtonAction(_:)), for: .touchUpInside)
         self.myView.paymentNavBarButton = UIBarButtonItem(title: payButtonTitle, style: .done, target: self, action: #selector(JudoPayViewController.payButtonAction(_:)))
@@ -186,8 +186,8 @@ open class JudoPayViewController: UIViewController {
         if !self.judoKitSession.theme.colorMode() {
             self.navigationController?.navigationBar.barStyle = UIBarStyle.black
         }
-        self.navigationController?.navigationBar.setBottomBorderColor(color: self.judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName:self.judoKitSession.theme.getNavigationBarTitleColor()]
+        navigationController?.navigationBar.setBottomBorderColor(color: judoKitSession.theme.getNavigationBarBottomColor(), height: 1.0)
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: judoKitSession.theme.getNavigationBarTitleColor()]
         
         self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     }
@@ -220,7 +220,7 @@ open class JudoPayViewController: UIViewController {
     open override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if self.myView.cardInputField.textField.text?.characters.count > 0 {
+        if self.myView.cardInputField.textField.text?.count > 0 {
             self.myView.secureCodeInputField.textField.becomeFirstResponder()
         } else {
             self.myView.cardInputField.textField.becomeFirstResponder()
@@ -236,7 +236,7 @@ open class JudoPayViewController: UIViewController {
     
     - parameter sender: The payment button
     */
-    func payButtonAction(_ sender: AnyObject) {
+    @objc func payButtonAction(_ sender: AnyObject) {
         guard let reference = self.reference, let amount = self.amount, let judoId = self.judoId else {
             self.completionBlock?(nil, JudoError(.parameterError))
             return // BAIL
@@ -322,7 +322,7 @@ open class JudoPayViewController: UIViewController {
      
      - parameter sender: the button
      */
-    func doneButtonAction(_ sender: UIBarButtonItem) {
+    @objc func doneButtonAction(_ sender: UIBarButtonItem) {
         self.completionBlock?(nil, JudoError(.userDidCancel))
     }
     
@@ -365,7 +365,7 @@ extension JudoPayViewController: UIWebViewDelegate {
             }
             
             if let receiptId = self.pending3DSReceiptID {
-                if self.myView.transactionType == .RegisterCard {
+                if self.myView.transactionType == .registerCard {
                     self.myView.loadingView.actionLabel.text = self.judoKitSession.theme.verifying3DSRegisterCardTitle
                 } else {
                     self.myView.loadingView.actionLabel.text = self.judoKitSession.theme.verifying3DSPaymentTitle

@@ -432,9 +432,9 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
         
         // Display the view controller.
         let viewController = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
-        viewController.delegate = self
+        viewController?.delegate = self
         
-        self.present(viewController, animated: true, completion: nil)
+        self.present(viewController!, animated: true, completion: nil)
     }
     
     // MARK: PKPaymentAuthorizationViewControllerDelegate

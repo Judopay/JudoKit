@@ -216,7 +216,7 @@ open class Transaction: SessionProtocol {
             throw JudoError(.luhnValidationError)
         }
         
-        if kJudoIDLenght ~= strippedJudoID.characters.count  {
+        if kJudoIDLenght ~= strippedJudoID.count  {
             self.judoId = strippedJudoID
         } else {
             throw JudoError(.judoIDInvalidError)
