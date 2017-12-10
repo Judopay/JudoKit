@@ -113,7 +113,7 @@ extension JudoPayView: JudoPayInputDelegate {
     - parameter issueNumber: The issue number that has been entered as a String
     */
     public func issueNumberInputDidEnterCode(_ inputField: IssueNumberInputField, issueNumber: String) {
-        if issueNumber.characters.count == 3 {
+        if issueNumber.count == 3 {
             self.expiryDateInputField.textField.becomeFirstResponder()
         }
     }

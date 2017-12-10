@@ -55,8 +55,8 @@ open class TransactionProcess {
         guard let uuidString = UIDevice.current.identifierForVendor?.uuidString else {
             throw JudoError(.unknownError)
         }
-        let finalString = String((uuidString + String(describing: Date())).characters.filter { ![":", "-", "+"].contains(String($0)) }).replacingOccurrences(of: " ", with: "")
-        self.paymentReference = finalString.substring(to: finalString.characters.index(finalString.endIndex, offsetBy: -4))
+        let finalString = String((uuidString + String(describing: Date())).filter { ![":", "-", "+"].contains(String($0)) }).replacingOccurrences(of: " ", with: "")
+        self.paymentReference = String(finalString[..<finalString.index(finalString.endIndex, offsetBy: -4)])
     }
     
     

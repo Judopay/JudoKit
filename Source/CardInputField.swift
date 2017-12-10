@@ -53,12 +53,12 @@ open class CardInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a textfield
     */
-    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         // Only handle delegate calls for own text field
         guard textField == self.textField else { return false }
         
-        if string.characters.count > 0 && self.textField.isSecureTextEntry {
+        if string.count > 0 && self.textField.isSecureTextEntry {
             self.textField.isSecureTextEntry = false
         }
         
@@ -66,7 +66,7 @@ open class CardInputField: JudoPayInputField {
         let oldString = textField.text!
         let newString = (oldString as NSString).replacingCharacters(in: range, with: string)
         
-        if newString.characters.count == 0 || string.characters.count == 0 {
+        if newString.count == 0 || string.count == 0 {
             return true
         }
         
@@ -119,7 +119,7 @@ open class CardInputField: JudoPayInputField {
         
         let lowestNumber = self.theme.acceptedCardNetworks.filter({ $0.cardNetwork == self.textField.text?.cardNetwork() }).sorted(by: <)
         
-        if let textCount = textField.text?.stripped.characters.count , textCount == lowestNumber.first?.cardLength {
+        if let textCount = textField.text?.stripped.count, textCount == lowestNumber.first?.cardLength {
             if textField.text!.isCardNumberValid() {
                 self.delegate?.cardInput(self, didFindValidNumber: textField.text!)
                 self.dismissError()
@@ -137,7 +137,7 @@ open class CardInputField: JudoPayInputField {
      - returns: an Attributed String that is the placeholder of the receiver
      */
     open override func placeholder() -> NSAttributedString? {
-        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
+        return NSAttributedString(string: title(), attributes: [NSAttributedStringKey.foregroundColor: theme.getPlaceholderTextColor()])
     }
     
     

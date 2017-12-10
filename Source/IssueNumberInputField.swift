@@ -64,7 +64,7 @@ open class IssueNumberInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a textfield
     */
-    open func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         // Only handle delegate calls for own textfield
         guard textField == self.textField else { return false }
@@ -73,11 +73,11 @@ open class IssueNumberInputField: JudoPayInputField {
         let oldString = textField.text!
         let newString = (oldString as NSString).replacingCharacters(in: range, with: string)
         
-        if newString.characters.count == 0 {
+        if newString.count == 0 {
             return true
         }
         
-        return newString.isNumeric() && newString.characters.count <= 3
+        return newString.isNumeric() && newString.count <= 3
     }
     
     // MARK: Custom methods
@@ -89,7 +89,7 @@ open class IssueNumberInputField: JudoPayInputField {
     - returns: True if valid input
     */
     open override func isValid() -> Bool {
-        return self.textField.text?.characters.count > 0 && self.textField.text?.characters.count < 4
+        return textField.text?.count > 0 && textField.text?.count < 4
     }
     
     
@@ -115,7 +115,7 @@ open class IssueNumberInputField: JudoPayInputField {
      - returns: an Attributed String that is the placeholder of the receiver
      */
     open override func placeholder() -> NSAttributedString? {
-        return NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName:self.theme.getPlaceholderTextColor()])
+        return NSAttributedString(string: title(), attributes: [.foregroundColor: theme.getPlaceholderTextColor()])
     }
     
     

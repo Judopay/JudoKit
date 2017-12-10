@@ -12,7 +12,11 @@ Use our UI components for a seamless user experience for card data capture. Mini
 
 ## Requirements
 
-Versions >= 6.2.5 require Xcode 8 and Swift 3. Version 6.2.4 is the last version to support Xcode 7.3.1 and Swift 2.2.
+Version 7.0.0+ requires Xcode 9 and Swift 4.
+
+Version 6.2.5+ requires Xcode 8 and Swift 3.
+
+Version 6.2.4 is the last version to support Xcode 7.3.1 and Swift 2.2.
 
 ## Getting started
 
@@ -35,7 +39,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 6.2'
+pod 'JudoKit', '~> 7.0'
 ```
 
 - Then run the following command:

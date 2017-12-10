@@ -96,7 +96,7 @@ class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceiptWithPagination() {
         // Given
-        let page = Pagination(pageSize: 5, offset: 8, sort: Sort.Ascending)
+        let page = Pagination(pageSize: 5, offset: 8, sort: .ascending)
         let expectation = self.expectation(description: "all receipts fetch expectation")
         
         let receipt = try! judo.receipt()

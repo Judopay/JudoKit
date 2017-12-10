@@ -78,12 +78,14 @@ class TokenPreAuthTests: JudoTestCase {
                 if let _ = error {
                     XCTFail()
                 } else {
-                    
                     // When I do not provide a card token
                     do {
                         try self.judo.preAuth(myJudoId, amount: self.oneGBPAmount, reference: self.validReference).completion({ (data, error) -> () in
-                            XCTFail("api call failed with error: \(error)")
-                            expectation.fulfill()
+                            if let error = error {
+                                XCTFail("api call failed with error: \(error)")
+                            } else {
+                                expectation.fulfill()
+                            }
                         })
                     } catch {
                         // Then I should receive an error

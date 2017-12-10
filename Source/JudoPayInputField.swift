@@ -160,7 +160,7 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
         }
         self.setActive(false)
         
-        self.textField.attributedPlaceholder = NSAttributedString(string: self.title(), attributes: [NSForegroundColorAttributeName: self.theme.getPlaceholderTextColor()])
+        textField.attributedPlaceholder = NSAttributedString(string: title(), attributes: [.foregroundColor: theme.getPlaceholderTextColor()])
         
         if self.containsLogo() {
             let logoView = self.logoView()!
@@ -248,7 +248,7 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
      - parameter textField: the `UITextField` that has ended editing
      */
     open func textFieldDidEndEditing(_ textField: UITextField) {
-        self.setActive(textField.text?.characters.count > 0)
+        self.setActive(textField.text?.count > 0)
     }
     
 }
@@ -356,8 +356,8 @@ extension JudoPayInputField: JudoInputType {
     }
     
     private func updateConstraints(message: String) {
-        self.heightConstraint.constant = message.characters.count == 0 ? 50 : self.theme.inputFieldHeight
-        self.layoutIfNeeded()
+        heightConstraint.constant = message.isEmpty ? 50 : theme.inputFieldHeight
+        layoutIfNeeded()
     }
     
     private  func setRedBlockFrameAndBackgroundColor(height: CGFloat, backgroundColor: UIColor) {

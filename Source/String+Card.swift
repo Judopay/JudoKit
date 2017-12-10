@@ -42,9 +42,9 @@ public extension String {
         let strippedSelf = self.strippedWhitespaces
         
         // Do not continue if the string is empty or out of range
-        if strippedSelf.characters.count == 0 {
+        if strippedSelf.count == 0 {
             return ""
-        } else if strippedSelf.characters.count > Card.maximumLength {
+        } else if strippedSelf.count > Card.maximumLength {
             throw JudoError(.cardLengthMismatchError)
         } else if !strippedSelf.isNumeric() {
             throw JudoError(.invalidEntry)
@@ -64,13 +64,13 @@ public extension String {
         // 3. Check if the current string has already passed any valid card number lengths
         let patterns = configurations.filter({ $0.cardNetwork == cardNetwork }).flatMap({ $0.patternString() })
         
-        let cardLengthMatchedPatterns = patterns.filter({ $0.strippedWhitespaces.characters.count >= strippedSelf.characters.count })
+        let cardLengthMatchedPatterns = patterns.filter({ $0.strippedWhitespaces.count >= strippedSelf.count })
         
         if cardLengthMatchedPatterns.count == 0 {
             // If no patterns are left - the entered number is invalid
             var message = "We don't accept "
             if cardLengthMatchedPatterns.count != patterns.count {
-                message += "\(strippedSelf.characters.count)-digit \(cardNetwork.stringValue()) cards"
+                message += "\(strippedSelf.count)-digit \(cardNetwork.stringValue()) cards"
             } else {
                 message += "\(cardNetwork.stringValue()), please use other cards"
             }
@@ -84,8 +84,8 @@ public extension String {
         
         var retString = ""
         
-        for element in strippedSelf.characters {
-            if patternString.characters[patternIndex] == "X" {
+        for element in strippedSelf {
+            if patternString[patternIndex] == "X" {
                 patternIndex = patternString.index(patternIndex, offsetBy: 1)
                 retString = retString + String(element)
             } else {
@@ -138,7 +138,7 @@ public extension String {
         }
         
         if strippedSelf.isLuhnValid() {
-            let strippedSelfCount = strippedSelf.characters.count
+            let strippedSelfCount = strippedSelf.count
             
             switch network {
             case .uatp, .amex:

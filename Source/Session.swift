@@ -393,7 +393,7 @@ public class Session : NSObject {
 public struct Pagination {
     var pageSize: Int = 10
     var offset: Int = 0
-    var sort: Sort = .Descending
+    var sort: Sort = .descending
 }
 
 
@@ -405,9 +405,9 @@ public struct Pagination {
  */
 public enum Sort: String {
     /// Descended Sorting
-    case Descending = "time-descending"
+    case descending = "time-descending"
     /// Ascended Sorting
-    case Ascending = "time-ascending"
+    case ascending = "time-ascending"
 }
 
 // MARK: Cert pinning

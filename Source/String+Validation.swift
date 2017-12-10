@@ -73,7 +73,7 @@ public extension String {
         guard self.isNumeric() else {
             return false
         }
-        let reversedInts = self.characters.reversed().map { Int(String($0)) }
+        let reversedInts = self.reversed().map { Int(String($0)) }
         return reversedInts.enumerated().reduce(0) { (sum, val) in
             let odd = val.offset % 2 == 1
             return sum + (odd ? (val.element! == 9 ? 9 : (val.element! * 2) % 9) : val.element!)

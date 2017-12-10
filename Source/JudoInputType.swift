@@ -29,7 +29,7 @@ import Foundation
  */
 @objc public protocol JudoInputType {
     /**
-     Helper method for the hintLabel to disappear or reset the timer when called. This is triggered by the `shouldChangeCharactersInRange:` method in each of the `inputField` subclasses
+     Helper method for the hintLabel to disappear or reset the timer when called. This is triggered by the `shouldChangeCharactersIn:` method in each of the `inputField` subclasses
      */
     @objc func didChangeInputText()
     

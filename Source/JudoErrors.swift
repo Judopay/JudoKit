@@ -144,7 +144,7 @@ public struct JudoError: Error {
      */
     public static func fromNSError(_ error: NSError) -> JudoError {
         if let judoErrorCode = JudoErrorCode(rawValue: error.code) {
-            return JudoError(judoErrorCode, dict: error.userInfo as? JSONDictionary)
+            return JudoError(judoErrorCode, dict: error.userInfo as JSONDictionary)
         } else {
             return JudoError(.unknownError, bridgedError: error)
         }
