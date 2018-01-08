@@ -26,7 +26,7 @@ import Foundation
 import PassKit
 import DeviceDNA
 
-let JudoKitVersion = "7.0.0"
+let JudoKitVersion = "7.0.1"
 
 /**
  A method that checks if the device it is currently running on is jailbroken or not
@@ -429,10 +429,10 @@ public class JudoKit {
                 let navigationController = viewController as! UINavigationController
                 viewController = navigationController.viewControllers.last!
                 if let presentedVC = viewController?.presentedViewController {
-                    viewController = presentedVC
+                    presentedVC.show(vc, sender: nil)
+                } else {
+                    navigationController.pushViewController(vc, animated: true)
                 }
-                navigationController.pushViewController(vc, animated: true)
-                
             case is UITabBarController:
                 let tabBarController = viewController as! UITabBarController
                 let currentVc = tabBarController.selectedViewController
