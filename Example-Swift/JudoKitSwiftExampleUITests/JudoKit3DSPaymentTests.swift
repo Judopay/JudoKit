@@ -155,7 +155,7 @@ class JudoKit3DSPaymentTests: XCTestCase {
         
         let startDateTextField = elementsQuery.textFields["Start date"]
         startDateTextField.tap()
-        startDateTextField.typeText("0108")
+        startDateTextField.typeText("0115")
         
         let expiryDateTextField = elementsQuery.textFields["Expiry date"]
         expiryDateTextField.tap()
