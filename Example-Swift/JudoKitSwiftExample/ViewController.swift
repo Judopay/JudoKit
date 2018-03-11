@@ -98,7 +98,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.locationManager.requestWhenInUseAuthorization()
 
         self.reference = self.getSampleConsumerReference()
@@ -129,6 +129,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        hideSettingsPanel()
         if let alertController = self.alertController {
             self.present(alertController, animated: true, completion: nil)
             self.alertController = nil
@@ -143,27 +144,33 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     // MARK: Actions
     
     @IBAction func settingsButtonHandler(_ sender: AnyObject) {
-        if self.settingsViewBottomConstraint.constant != 0 {
-            self.view.layoutIfNeeded()
-            self.settingsViewBottomConstraint.constant = 0.0
-            UIView.animate(withDuration: 0.5, animations: { () -> Void in
+        if settingsViewBottomConstraint.constant <= 0 {
+            settingsViewBottomConstraint.constant = 0.0
+            UIView.animate(withDuration: 0.3) {
                 self.tableView.alpha = 0.2
                 self.view.layoutIfNeeded()
-            })
+            }
         }
     }
-    
+
     @IBAction func settingsButtonDismissHandler(_ sender: AnyObject) {
         if self.settingsViewBottomConstraint.constant == 0 {
-            self.view.layoutIfNeeded()
-            self.settingsViewBottomConstraint.constant = -190
-            UIView.animate(withDuration: 0.5, animations: { () -> Void in
-                self.tableView.alpha = 1.0
-                self.view.layoutIfNeeded()
-            })
+            hideSettingsPanel()
         }
     }
-    
+
+    private func hideSettingsPanel() {
+        var hiddenPos: CGFloat = -190
+        if #available(iOS 11, *) {
+            hiddenPos -= view.safeAreaInsets.bottom
+        }
+        settingsViewBottomConstraint.constant = hiddenPos
+        UIView.animate(withDuration: 0.3) {
+            self.tableView.alpha = 1.0
+            self.view.layoutIfNeeded()
+        }
+    }
+
     @IBAction func segmentedControlValueChange(_ segmentedControl: UISegmentedControl) {
         if let selectedIndexTitle = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex) {
             self.currentCurrency = Currency(selectedIndexTitle)
