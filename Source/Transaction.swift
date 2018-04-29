@@ -347,10 +347,10 @@ open class Transaction: SessionProtocol {
             throw JudoError(.cardOrTokenMissingError)
         }
         
-        if !(type(of: self) == RegisterCard.self) && self.amount == nil {
+        if !(type(of: self) == RegisterCard.self) && !(type(of: self) == SaveCard.self) && self.amount == nil {
             throw JudoError(.amountMissingError)
         }
-        
+
         if self.reference.yourPaymentReference == self.currentTransactionReference {
             throw JudoError(.duplicateTransactionError)
         }

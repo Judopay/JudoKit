@@ -284,7 +284,27 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             self.showResultInView(viewController: viewController)
             })
     }
-    
+
+    func saveCard() {
+        guard let ref = Reference(consumerRef: reference) else { return }
+
+        let amount = Amount(decimalNumber: 0, currency: currentCurrency)
+        let transaction = try! judoKitSession.transaction(.saveCard, judoId: judoId, amount: amount, reference: ref)
+
+        transaction.card(Card(number: "<#card number#>", expiryDate: "<#expiry date#>", securityCode: "<#security code#>"))
+
+        try! judoKitSession.completion(transaction, block: { response, error in
+            if let error = error {
+                print(error)
+            }
+            if let resp = response, let transactionData = resp.items.first {
+                let cardDetails = transactionData.cardDetails
+                let paymentToken = transactionData.paymentToken()
+                print("cardDetails: \(cardDetails) token: \(String(describing: paymentToken))")
+            }
+        })
+    }
+
     func createCardTokenOperation() {
         guard let ref = Reference(consumerRef: self.reference) else { return }
         try! self.judoKitSession.invokeRegisterCard(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
@@ -403,7 +423,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     func initiateApplePay() {
         // Set up our payment request.
         let paymentRequest = PKPaymentRequest()
-        
+
         /*
         Our merchant identifier needs to match what we previously set up in
         the Capabilities window (or the developer portal).
