@@ -189,7 +189,7 @@ public class JudoKit {
     
     
     // MARK: Register Card
-    
+
     
     
     /**
@@ -204,8 +204,8 @@ public class JudoKit {
         let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, transactionType: .registerCard, completion: completion, currentSession: self, cardDetails: cardDetails)
         self.initiateAndShow(judoPayViewController)
     }
-    
-    
+
+
     // MARK: Token Transactions
     
     /**
@@ -261,6 +261,8 @@ public class JudoKit {
             return try self.preAuth(judoId, amount: amount, reference: reference)
         case .registerCard:
             return try self.registerCard(judoId, reference: reference)
+        case .saveCard:
+            return try saveCard(judoId, reference: reference)
         default:
             throw JudoError(.invalidOperationError)
         }
@@ -313,8 +315,23 @@ public class JudoKit {
     public func registerCard(_ judoId: String, reference: Reference) throws -> RegisterCard {
         return try RegisterCard(judoId: judoId, amount: nil, reference: reference).apiSession(self.apiSession)
     }
-    
-    
+
+
+    /**
+     Starting point and a reactive method to create a SaveCard that is sent to a certain judo ID
+
+     - Parameter judoId:    The recipient - has to be between 6 and 10 characters and LUHN valid
+     - Parameter reference: The reference
+
+     - Throws: JudoIDInvalidError judoId does not match the given length or is not LUHN valid
+
+     - Returns: a SaveCard Object
+     */
+    public func saveCard(_ judoId: String, reference: Reference) throws -> SaveCard {
+        return try SaveCard(judoId: judoId, amount: nil, reference: reference).apiSession(apiSession)
+    }
+
+
     /**
      Creates a Receipt object which can be used to query for the receipt of a given ID.
      
