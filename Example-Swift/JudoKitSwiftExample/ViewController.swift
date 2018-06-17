@@ -228,7 +228,12 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     func paymentOperation() {
         guard let ref = Reference(consumerRef: self.reference) else { return }
-        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
+
+        // Optionally set an address to validate when AVS is turned off
+//        let address = Address(line1: "1 Long street", line2: nil, line3: nil, town: "Camborne", postCode: "TR148PA", country: .uk)
+        let address: Address? = nil
+
+        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, address: address, completion: { (response, error) -> () in
             self.dismissView()
             if let error = error {
                 if error.code == .userDidCancel {

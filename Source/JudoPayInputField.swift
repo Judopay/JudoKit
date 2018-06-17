@@ -68,8 +68,6 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
     let hintLabel = UILabel()
     var hasRedBlockBeenLaiedout = false
     
-    var heightConstraint: NSLayoutConstraint!
-    
     // MARK: Initializers
     
     /**
@@ -152,12 +150,6 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[text(40)]", options: .alignAllLastBaseline, metrics: nil, views: ["text":textField]))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[hintLabel]|", options: .alignAllLastBaseline, metrics: nil, views: ["hintLabel":hintLabel]))
         
-        
-        let height = self.isKind(of: BillingCountryInputField.self) || self.isKind(of: PostCodeInputField.self) ? 0.0 : self.theme.inputFieldHeight
-        self.heightConstraint = NSLayoutConstraint(item: self, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: height)
-        if !self.isKind(of: SecurityInputField.self) && !self.isKind(of: IssueNumberInputField.self){
-            self.addConstraint(heightConstraint)
-        }
         self.setActive(false)
         
         textField.attributedPlaceholder = NSAttributedString(string: title(), attributes: [.foregroundColor: theme.getPlaceholderTextColor()])
@@ -346,20 +338,13 @@ extension JudoPayInputField: JudoInputType {
     public func displayHint(message: String) {
         self.hintLabel.text = message
         self.hintLabel.textColor = self.theme.getInputFieldHintTextColor()
-        self.updateConstraints(message: message)
     }
     
     public func displayError(message: String) {
         self.hintLabel.text = message
         self.hintLabel.textColor = self.theme.getErrorColor()
-        self.updateConstraints(message: message)
     }
-    
-    private func updateConstraints(message: String) {
-        heightConstraint.constant = message.isEmpty ? 50 : theme.inputFieldHeight
-        layoutIfNeeded()
-    }
-    
+
     private  func setRedBlockFrameAndBackgroundColor(height: CGFloat, backgroundColor: UIColor) {
         self.redBlock.backgroundColor = backgroundColor
         let yPosition:CGFloat = self.frame.size.height == 50 ? 4 : 22;

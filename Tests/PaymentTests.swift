@@ -362,7 +362,7 @@ class PaymentTests: JudoTestCase {
         XCTAssertTrue(parameterError)
     }
     
-    
+    // TODO: Investigate. Test is disabled because the API returns not_Found instead of validation_Passed
     func testJudoValidation() {
         // Given
         guard let references = Reference(consumerRef: "consumer0053252") else { return }
