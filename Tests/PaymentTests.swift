@@ -361,37 +361,6 @@ class PaymentTests: JudoTestCase {
         }
         XCTAssertTrue(parameterError)
     }
-    
-    // TODO: Investigate. Test is disabled because the API returns not_Found instead of validation_Passed
-    func testJudoValidation() {
-        // Given
-        guard let references = Reference(consumerRef: "consumer0053252") else { return }
-        let card = Card(number: "4976000000003436", expiryDate: "12/20", securityCode: "452")
-        let amount = Amount(amountString: "30", currency: .GBP)
-        let emailAddress = "hans@email.com"
-        let mobileNumber = "07100000000"
-
-        let expectation = self.expectation(description: "payment expectation")
-        
-        // When
-        do {
-            let makePayment = try judo.payment(myJudoId, amount: amount, reference: references).card(card).contact(mobileNumber, emailAddress).validate { dict, error in
-                if let error = error {
-                    XCTAssertEqual(error.code, JudoErrorCode.validation_Passed)
-                } else {
-                    XCTFail("api call did not respond with an error")
-                }
-                expectation.fulfill()
-            }
-            // Then
-            XCTAssertNotNil(makePayment)
-            XCTAssertEqual(makePayment.judoId, myJudoId)
-        } catch {
-            XCTFail("exception thrown: \(error)")
-        }
-        self.waitForExpectations(timeout: 30.0, handler: nil)
-        
-    }
 
     func testVCOPayment() {
         do {

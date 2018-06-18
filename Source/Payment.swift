@@ -22,33 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
-
 open class Payment: Transaction, TransactionPath {
-    
-    /// path variable for this class
     open static var path: String { get { return "transactions/payments" } }
-    
-    
-    /**
-    If you need to check a payment before actually processing it, you can use the validate call, we'll perform our internal checks on the payment without sending it to consumer's bank. We check if the merchant identified by the judo ID can accept the payment, if the card can be accepted and if the card number passes the LUHN test.
-    
-    - Parameter block: a completion block that is called when the request finishes
-    
-    - Returns: reactive Self
-    */
-    open func validate(_ block: @escaping (JudoCompletionBlock)) throws -> Self {
-        if (self.card != nil && self.payToken != nil) {
-            throw JudoError(.cardAndTokenError)
-        } else if self.card == nil && self.payToken == nil {
-            throw JudoError(.cardOrTokenMissingError)
-        }
-        
-        self.APISession?.POST(type(of: self).path + "/validate", parameters: self.parameters) { (dict, error) -> Void in
-            block(dict, error)
-        }
-
-        return self
-    }
-
 }
