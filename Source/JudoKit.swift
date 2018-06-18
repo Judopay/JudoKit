@@ -26,7 +26,7 @@ import Foundation
 import PassKit
 import DeviceDNA
 
-let JudoKitVersion = "7.0.1"
+let JudoKitVersion = "7.1.0"
 
 /**
  A method that checks if the device it is currently running on is jailbroken or not
@@ -166,14 +166,15 @@ public class JudoKit {
     - parameter judoId:       The judoId of the merchant to receive the payment
     - parameter amount:       The amount and currency of the payment (default is GBP)
     - parameter reference:    Reference object that holds consumer and payment reference and a meta data dictionary which can hold any kind of JSON formatted information
+    - parameter cardDetails:  Card details (optional)
+    - parameter address:      Address (optional) - will be passed through to Judo if AVS is turned off
     - parameter completion:   The completion handler which will respond with a Response Object or an NSError
     */
-    public func invokePayment(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
-        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, completion: completion, currentSession: self, cardDetails: cardDetails)
+    public func invokePayment(_ judoId: String, amount: Amount, reference: Reference, cardDetails: CardDetails? = nil, address: Address? = nil, completion: @escaping (Response?, JudoError?) -> ()) throws {
+        let judoPayViewController = try JudoPayViewController(judoId: judoId, amount: amount, reference: reference, completion: completion, currentSession: self, cardDetails: cardDetails, address: address)
         self.initiateAndShow(judoPayViewController)
     }
-    
-    
+
     /**
     Make a pre-auth using this method
     
