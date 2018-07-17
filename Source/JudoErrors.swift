@@ -181,7 +181,7 @@ public struct JudoError: Error {
             userInfoDict["details"] = details as AnyObject?
         }
         if let modelErrors = self.details {
-            userInfoDict["modelErrors"] = modelErrors.map({ $0.rawValue }).flatMap({ $0 }) as AnyObject?
+            userInfoDict["modelErrors"] = modelErrors.map({ $0.rawValue }).compactMap({ $0 }) as AnyObject?
         }
         return NSError(domain: JudoErrorDomain, code: self.code.rawValue, userInfo: userInfoDict)
     }

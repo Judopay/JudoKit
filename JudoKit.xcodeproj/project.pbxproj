@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		15850A151FD30D5C005C1BCC /* TrustKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15850A051FD30CE2005C1BCC /* TrustKit.framework */; };
 		1599F94C1FADF0370034A7AA /* VCOResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1599F94B1FADF0370034A7AA /* VCOResult.swift */; };
+		15C28AB4209623840013FB6B /* SaveCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C28AB3209623840013FB6B /* SaveCard.swift */; };
 		3B02A02F1CAA76A500953312 /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0251CAA76A500953312 /* Payment.swift */; };
 		3B02A0301CAA76A500953312 /* PreAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0261CAA76A500953312 /* PreAuth.swift */; };
 		3B02A0311CAA76A500953312 /* RegisterCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B02A0271CAA76A500953312 /* RegisterCard.swift */; };
@@ -168,6 +169,7 @@
 /* Begin PBXFileReference section */
 		158509F91FD30CE2005C1BCC /* TrustKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TrustKit.xcodeproj; path = TrustKit/TrustKit.xcodeproj; sourceTree = "<group>"; };
 		1599F94B1FADF0370034A7AA /* VCOResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VCOResult.swift; sourceTree = "<group>"; };
+		15C28AB3209623840013FB6B /* SaveCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveCard.swift; sourceTree = "<group>"; };
 		3B02A0251CAA76A500953312 /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
 		3B02A0261CAA76A500953312 /* PreAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreAuth.swift; sourceTree = "<group>"; };
 		3B02A0271CAA76A500953312 /* RegisterCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterCard.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				3B02A02B1CAA76A500953312 /* Receipt.swift */,
 				3B02A0281CAA76A500953312 /* Refund.swift */,
 				3B02A0271CAA76A500953312 /* RegisterCard.swift */,
+				15C28AB3209623840013FB6B /* SaveCard.swift */,
 				3B02A02C1CAA76A500953312 /* Session.swift */,
 				3B02A02D1CAA76A500953312 /* Transaction.swift */,
 				3B02A02E1CAA76A500953312 /* TransactionProcess.swift */,
@@ -535,7 +538,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0910;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Judo Payments";
 				TargetAttributes = {
 					3B5A60081CAACF6100E98AC6 = {
@@ -734,6 +737,7 @@
 				3BC4C0D01C6204A60010CE14 /* JudoPayView+JudoPayInputDelegate.swift in Sources */,
 				3B02A0371CAA76A500953312 /* Transaction.swift in Sources */,
 				DA3902351B95B5DF001A703C /* JudoPayViewController.swift in Sources */,
+				15C28AB4209623840013FB6B /* SaveCard.swift in Sources */,
 				3B02A0381CAA76A500953312 /* TransactionProcess.swift in Sources */,
 				3B02ED1B1C63BD770045C705 /* Theme.swift in Sources */,
 				DAC0A3D51BB14A8000EA689D /* 3DSWebView.swift in Sources */,
@@ -814,12 +818,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -874,12 +880,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

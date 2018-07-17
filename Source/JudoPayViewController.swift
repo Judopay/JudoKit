@@ -65,7 +65,9 @@ open class JudoPayViewController: UIViewController {
     open fileprivate (set) var reference: Reference?
     /// Card token and Consumer token
     open fileprivate (set) var paymentToken: PaymentToken?
-    
+    /// Customer address to use when AVS is turned off
+    open private(set) var address: Address?
+
     /// The current transaction
     open let transaction: Transaction
     
@@ -107,11 +109,12 @@ open class JudoPayViewController: UIViewController {
      
      - returns: a JPayViewController object for presentation on a view stack
      */
-    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .payment, completion: @escaping JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, paymentToken: PaymentToken? = nil) throws {
+    public init(judoId: String, amount: Amount, reference: Reference, transactionType: TransactionType = .payment, completion: @escaping JudoCompletionBlock, currentSession: JudoKit, cardDetails: CardDetails? = nil, address: Address? = nil, paymentToken: PaymentToken? = nil) throws {
         self.judoId = judoId
         self.amount = amount
         self.reference = reference
         self.paymentToken = paymentToken
+        self.address = address
         self.completionBlock = completion
         
         self.judoKitSession = currentSession
@@ -255,7 +258,6 @@ open class JudoPayViewController: UIViewController {
                 transaction.paymentToken(payToken)
             } else {
                 // I expect that all the texts are available because the Pay Button would not be active otherwise
-                var address: Address? = nil
                 if self.judoKitSession.theme.avsEnabled {
                     guard let postCode = self.myView.postCodeInputField.textField.text else { return }
                     

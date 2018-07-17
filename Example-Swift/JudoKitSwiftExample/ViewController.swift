@@ -98,7 +98,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.locationManager.requestWhenInUseAuthorization()
 
         self.reference = self.getSampleConsumerReference()
@@ -129,6 +129,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        hideSettingsPanel()
         if let alertController = self.alertController {
             self.present(alertController, animated: true, completion: nil)
             self.alertController = nil
@@ -143,27 +144,33 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     // MARK: Actions
     
     @IBAction func settingsButtonHandler(_ sender: AnyObject) {
-        if self.settingsViewBottomConstraint.constant != 0 {
-            self.view.layoutIfNeeded()
-            self.settingsViewBottomConstraint.constant = 0.0
-            UIView.animate(withDuration: 0.5, animations: { () -> Void in
+        if settingsViewBottomConstraint.constant <= 0 {
+            settingsViewBottomConstraint.constant = 0.0
+            UIView.animate(withDuration: 0.3) {
                 self.tableView.alpha = 0.2
                 self.view.layoutIfNeeded()
-            })
+            }
         }
     }
-    
+
     @IBAction func settingsButtonDismissHandler(_ sender: AnyObject) {
         if self.settingsViewBottomConstraint.constant == 0 {
-            self.view.layoutIfNeeded()
-            self.settingsViewBottomConstraint.constant = -190
-            UIView.animate(withDuration: 0.5, animations: { () -> Void in
-                self.tableView.alpha = 1.0
-                self.view.layoutIfNeeded()
-            })
+            hideSettingsPanel()
         }
     }
-    
+
+    private func hideSettingsPanel() {
+        var hiddenPos: CGFloat = -190
+        if #available(iOS 11, *) {
+            hiddenPos -= view.safeAreaInsets.bottom
+        }
+        settingsViewBottomConstraint.constant = hiddenPos
+        UIView.animate(withDuration: 0.3) {
+            self.tableView.alpha = 1.0
+            self.view.layoutIfNeeded()
+        }
+    }
+
     @IBAction func segmentedControlValueChange(_ segmentedControl: UISegmentedControl) {
         if let selectedIndexTitle = segmentedControl.titleForSegment(at: segmentedControl.selectedSegmentIndex) {
             self.currentCurrency = Currency(selectedIndexTitle)
@@ -221,7 +228,12 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     
     func paymentOperation() {
         guard let ref = Reference(consumerRef: self.reference) else { return }
-        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
+
+        // Optionally set an address to validate when AVS is turned off
+//        let address = Address(line1: "1 Long street", line2: nil, line3: nil, town: "Camborne", postCode: "TR148PA", country: .uk)
+        let address: Address? = nil
+
+        try! self.judoKitSession.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, address: address, completion: { (response, error) -> () in
             self.dismissView()
             if let error = error {
                 if error.code == .userDidCancel {
@@ -277,7 +289,27 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
             self.showResultInView(viewController: viewController)
             })
     }
-    
+
+    func saveCard() {
+        guard let ref = Reference(consumerRef: reference) else { return }
+
+        let amount = Amount(decimalNumber: 0, currency: currentCurrency)
+        let transaction = try! judoKitSession.transaction(.saveCard, judoId: judoId, amount: amount, reference: ref)
+
+        transaction.card(Card(number: "<#card number#>", expiryDate: "<#expiry date#>", securityCode: "<#security code#>"))
+
+        try! judoKitSession.completion(transaction, block: { response, error in
+            if let error = error {
+                print(error)
+            }
+            if let resp = response, let transactionData = resp.items.first {
+                let cardDetails = transactionData.cardDetails
+                let paymentToken = transactionData.paymentToken()
+                print("cardDetails: \(cardDetails) token: \(String(describing: paymentToken))")
+            }
+        })
+    }
+
     func createCardTokenOperation() {
         guard let ref = Reference(consumerRef: self.reference) else { return }
         try! self.judoKitSession.invokeRegisterCard(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
@@ -396,7 +428,7 @@ class ViewController: UIViewController, PKPaymentAuthorizationViewControllerDele
     func initiateApplePay() {
         // Set up our payment request.
         let paymentRequest = PKPaymentRequest()
-        
+
         /*
         Our merchant identifier needs to match what we previously set up in
         the Capabilities window (or the developer portal).

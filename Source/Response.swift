@@ -336,6 +336,8 @@ public enum TransactionType: String {
     case refund = "Refund"
     /// TransactionTypeRegisterCard for registering a card for a later transaction
     case registerCard = "RegisterCard"
+    /// A Save card transaction
+    case saveCard = "Save"
     /// A Collection
     case collection = "Collection"
     /// VOID

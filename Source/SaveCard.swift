@@ -1,8 +1,8 @@
 //
-//  Payment.swift
+//  RegisterCard.swift
 //  Judo
 //
-//  Copyright (c) 2016 Alternative Payments Ltd
+//  Copyright © 2018 Alternative Payments Ltd
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,6 +22,7 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-open class Payment: Transaction, TransactionPath {
-    open static var path: String { get { return "transactions/payments" } }
+open class SaveCard: Transaction, TransactionPath {
+
+    open static var path: String { get { return "transactions/savecard" } }
 }
