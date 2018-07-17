@@ -1,7 +1,7 @@
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/JudoKit.svg)](https://img.shields.io/cocoapods/v/JudoKit.svg)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage)
-[![License](https://img.shields.io/cocoapods/l/JudoKit.svg)](http://http://cocoadocs.org/docsets/Judo)
-[![Platform](https://img.shields.io/cocoapods/p/JudoKit.svg)](http://http://cocoadocs.org/docsets/Judo)
+[![License](https://img.shields.io/cocoapods/l/JudoKit.svg)](http://cocoadocs.org/docsets/Judo)
+[![Platform](https://img.shields.io/cocoapods/p/JudoKit.svg)](http://cocoadocs.org/docsets/Judo)
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPay)
 
 # Judo Swift SDK for iOS
@@ -22,11 +22,13 @@ Version 6.2.4 is the last version to support Xcode 7.3.1 and Swift 2.2.
 
 #### 1. Integration
 
-Add `import JudoKit` to the top of the file where you want to use the SDK.
+If your integration is based on **Carthage**, then visit [our GitHub Wiki](https://github.com/JudoPay/JudoKit/wiki/Carthage).
 
-If you are integrating using Cocoapods, follow the steps below (if your integration is based on Carthage, then visit https://github.com/JudoPay/JudoKit/wiki/Carthage. If you are integrating the SDK manually then follow the guide here https://github.com/JudoPay/JudoKit/wiki/Manual-integration):
+If you are integrating the SDK **manually** then follow the guide [here](https://github.com/JudoPay/JudoKit/wiki/Manual-integration):
 
-- You can install CocoaPods with the following command:
+If you are integrating using **CocoaPods**, follow the steps below.
+
+- You can install CocoaPods using [Homebrew](https://brew.sh/) or with the following command:
 
 ```bash
 $ gem install cocoapods
@@ -35,11 +37,10 @@ $ gem install cocoapods
 - Add judo to your `Podfile` to integrate it into your Xcode project:
 
 ```ruby
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 7.0'
+pod 'JudoKit', '~> 7.1'
 ```
 
 - Then run the following command:
@@ -60,18 +61,20 @@ sh "${PODS_ROOT}/DeviceDNA/Framework/strip-frameworks-cocoapods.sh"
 
 #### 2. Setup
 
-You can set your token and secret here when initializing the session:
+Add `import JudoKit` to the top of the file where you want to use the SDK.
+
+You need to set your token and secret when initializing JudoKit:
 
 ```swift
 // initialize the SDK by setting it up with a token and a secret
 var judoKit = JudoKit(token: "<TOKEN>", secret: "<SECRET>")
 ```
 
-To instruct the SDK to communicate with the Sandbox, include the following lines in the ViewController where the payment should be initiated:
+To instruct the SDK to communicate with the Sandbox environment, include the following lines in the ViewController where the payment should be initiated:
 
 ```swift
 // setting the SDK to Sandbox Mode - once this is set, the SDK wil stay in Sandbox mode until the process is killed
-self.judoKit.sandboxed(true)
+judoKit.sandboxed(true)
 ```
 
 When you are ready to go live you can remove this line.
@@ -81,7 +84,7 @@ When you are ready to go live you can remove this line.
 ```swift
 func paymentOperation() {
     guard let ref = Reference(consumerRef: "<CONSUMER_REFERENCE>") else { return }
-    try! self.judoKit.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) -> () in
+    try! judoKit.invokePayment(judoId, amount: Amount(decimalNumber: 0.01, currency: currentCurrency), reference: ref, completion: { (response, error) in
         self.dismiss(animated: true, completion: nil)
             
         if let error = error {
@@ -99,7 +102,7 @@ func paymentOperation() {
             self.alertController!.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.dismiss(animated: true, completion:nil)
                 
-            return // BAIL
+            return
         }
             
         if let resp = response, let receipt = resp.items.first {
