@@ -31,11 +31,11 @@ extension JudoPayView: JudoPayInputDelegate {
     
     
     /**
-    Delegate method that is triggered when the CardInputField encountered an error
-    
-    - parameter input: The input field calling the delegate method
-    - parameter error: The error that occured
-    */
+     Delegate method that is triggered when the CardInputField encountered an error
+
+     - parameter input: The input field calling the delegate method
+     - parameter error: The error that occured
+     */
     public func cardInput(_ input: CardInputField, error: JudoError) {
         input.errorAnimation(error.code != .inputLengthMismatchError)
         if let message = error.message {
@@ -75,11 +75,11 @@ extension JudoPayView: JudoPayInputDelegate {
     
     
     /**
-    Delegate method that is triggered when the date input field has encountered an error
-    
-    - parameter input: The input field calling the delegate method
-    - parameter error: The error that occured
-    */
+     Delegate method that is triggered when the date input field has encountered an error
+
+     - parameter input: The input field calling the delegate method
+     - parameter error: The error that occured
+     */
     public func dateInput(_ input: DateInputField, error: JudoError) {
         input.errorAnimation(error.code != .inputLengthMismatchError)
         if let message = error.message {
@@ -107,11 +107,11 @@ extension JudoPayView: JudoPayInputDelegate {
     
     
     /**
-    Delegate method that is triggered when the issueNumberInputField entered a code
-    
-    - parameter input:       The issueNumberInputField calling the delegate method
-    - parameter issueNumber: The issue number that has been entered as a String
-    */
+     Delegate method that is triggered when the issueNumberInputField entered a code
+
+     - parameter input:       The issueNumberInputField calling the delegate method
+     - parameter issueNumber: The issue number that has been entered as a String
+     */
     public func issueNumberInputDidEnterCode(_ inputField: IssueNumberInputField, issueNumber: String) {
         if issueNumber.count == 3 {
             self.expiryDateInputField.textField.becomeFirstResponder()
@@ -122,11 +122,11 @@ extension JudoPayView: JudoPayInputDelegate {
     
     
     /**
-    Delegate method that is triggered when the billing country input field selected a billing country
-    
-    - parameter input:          The input field calling the delegate method
-    - parameter billingCountry: The billing country that has been selected
-    */
+     Delegate method that is triggered when the billing country input field selected a billing country
+
+     - parameter input:          The input field calling the delegate method
+     - parameter billingCountry: The billing country that has been selected
+     */
     public func billingCountryInputDidEnter(_ input: BillingCountryInputField, billingCountry: BillingCountry) {
         self.postCodeInputField.billingCountry = billingCountry
         self.postCodeInputField.textField.text = ""
@@ -151,17 +151,17 @@ extension JudoPayView: JudoPayInputDelegate {
     
     
     /**
-    Delegate method that is triggered when the judoPayInputField was validated
-    
-    - parameter input:   The input field calling the delegate method
-    - parameter isValid: A boolean that indicates whether the input is valid or invalid
-    */
+     Delegate method that is triggered when the judoPayInputField was validated
+
+     - parameter input:   The input field calling the delegate method
+     - parameter isValid: A boolean that indicates whether the input is valid or invalid
+     */
     public func judoPayInput(_ input: JudoPayInputField, isValid: Bool) {
         if input == self.secureCodeInputField {
             if self.theme.avsEnabled {
                 if isValid {
                     self.postCodeInputField.textField.becomeFirstResponder()
-                    self.toggleAVSVisibility(true, completion: { () -> () in
+                    self.toggleAVSVisibility(true, completion: { _ in
                         self.contentView.scrollRectToVisible(self.postCodeInputField.frame, animated: true)
                     })
                 }
@@ -190,4 +190,3 @@ extension JudoPayView: JudoPayInputDelegate {
         self.paymentEnabled(allFieldsValid)
     }
 }
-

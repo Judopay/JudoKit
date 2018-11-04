@@ -37,11 +37,6 @@
                BlueprintName = "JudoKitTests"
                ReferencedContainer = "container:JudoKit.xcodeproj">
             </BuildableReference>
-            <SkippedTests>
-               <Test
-                  Identifier = "PaymentTests/testJudoValidation()">
-               </Test>
-            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

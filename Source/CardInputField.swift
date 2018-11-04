@@ -137,7 +137,7 @@ open class CardInputField: JudoPayInputField {
      - returns: an Attributed String that is the placeholder of the receiver
      */
     open override func placeholder() -> NSAttributedString? {
-        return NSAttributedString(string: title(), attributes: [NSAttributedStringKey.foregroundColor: theme.getPlaceholderTextColor()])
+        return NSAttributedString(string: title(), attributes: [NSAttributedString.Key.foregroundColor: theme.getPlaceholderTextColor()])
     }
     
     

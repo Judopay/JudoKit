@@ -22,11 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
-
 open class Refund: TransactionProcess, TransactionPath {
-    
-    /// path variable for a refund of a payment
-    open static var path: String { get { return "/transactions/refunds" } }
-    
+    public static var path: String { get { return "/transactions/refunds" } }
 }

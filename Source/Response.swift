@@ -53,7 +53,7 @@ public struct Response: IteratorProtocol, ExpressibleByArrayLiteral {
      - returns: a Response object
      */
     public init(arrayLiteral elements: TransactionData...) {
-        self.init()
+        self.init(nil)
         for element in elements {
             self.append(element)
         }

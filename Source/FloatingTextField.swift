@@ -136,7 +136,7 @@ class FloatingTextField: UITextField {
         if !text!.isEmpty || self.keepBaseline {
             var top = ceil(title.font.lineHeight + hintYPadding)
             top = min(top, maxTopInset())
-            r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top, 0.0, 0.0, 0.0))
+            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: 0.0, right: 0.0))
         }
         return r.integral
     }
@@ -146,7 +146,7 @@ class FloatingTextField: UITextField {
         if !text!.isEmpty || self.keepBaseline {
             var top = ceil(title.font.lineHeight + hintYPadding)
             top = min(top, maxTopInset())
-            r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top, 0.0, 0.0, 0.0))
+            r = r.inset(by: UIEdgeInsets(top: top, left: 0.0, bottom: 0.0, right: 0.0))
         }
         return r.integral
     }
@@ -164,7 +164,7 @@ class FloatingTextField: UITextField {
     // MARK: - Private Methods
     
     fileprivate func setup() {
-        borderStyle = UITextBorderStyle.none
+        borderStyle = UITextField.BorderStyle.none
         titleActiveTextColour = self.theme.getButtonColor()
         // Set up title label
         title.alpha = 0.0
@@ -197,7 +197,7 @@ class FloatingTextField: UITextField {
     fileprivate func showTitle(_ animated: Bool) {
         if self.title.alpha == 0.0 {
             let dur = animated ? animationDuration : 0
-            UIView.animate(withDuration: dur, delay:0, options: UIViewAnimationOptions.beginFromCurrentState.union(UIViewAnimationOptions.curveEaseOut), animations:{
+            UIView.animate(withDuration: dur, delay:0, options: UIView.AnimationOptions.beginFromCurrentState.union(UIView.AnimationOptions.curveEaseOut), animations:{
                 // Animation
                 self.title.alpha = 1.0
                 var r = self.title.frame
@@ -210,7 +210,7 @@ class FloatingTextField: UITextField {
     fileprivate func hideTitle(_ animated: Bool) {
         if self.title.alpha == 1.0 {
             let dur = animated ? animationDuration : 0
-            UIView.animate(withDuration: dur, delay:0, options: UIViewAnimationOptions.beginFromCurrentState.union(UIViewAnimationOptions.curveEaseIn), animations:{
+            UIView.animate(withDuration: dur, delay:0, options: UIView.AnimationOptions.beginFromCurrentState.union(UIView.AnimationOptions.curveEaseIn), animations:{
                 // Animation
                 self.title.alpha = 0.0
                 var r = self.title.frame

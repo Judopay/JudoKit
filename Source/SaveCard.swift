@@ -23,6 +23,5 @@
 //  SOFTWARE.
 
 open class SaveCard: Transaction, TransactionPath {
-
-    open static var path: String { get { return "transactions/savecard" } }
+    public static var path: String { get { return "transactions/savecard" } }
 }

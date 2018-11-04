@@ -22,11 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
-
 open class PreAuth: Transaction, TransactionPath {
-    
-    /// path variable for pre-auth class
-    open static var path: String { get { return "transactions/preauths" } }
-
+    public static var path: String { get { return "transactions/preauths" } }
 }

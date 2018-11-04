@@ -22,11 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
-
 open class RegisterCard: Transaction, TransactionPath {
-    
-    /// path variable for registering a card
-    open static var path: String { get { return "transactions/registercard" } }
-
+    public static var path: String { get { return "transactions/registercard" } }
 }

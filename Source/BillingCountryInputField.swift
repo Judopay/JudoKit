@@ -44,6 +44,7 @@ open class BillingCountryInputField: JudoPayInputField {
         self.textField.placeholder = " "
         self.textField.text = "UK"
         self.textField.inputView = self.countryPicker
+        self.textField.placeholder = title()
         
         self.setActive(true)
     }

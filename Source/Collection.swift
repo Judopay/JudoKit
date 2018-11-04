@@ -22,11 +22,6 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
-import Foundation
-
 open class Collection: TransactionProcess, TransactionPath {
-    
-    /// path variable for a collection of a pre-authorization
-    open static var path: String { get { return "/transactions/collections" } }
-    
+    public static var path: String { get { return "/transactions/collections" } }
 }
