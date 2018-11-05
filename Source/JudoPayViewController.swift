@@ -69,7 +69,7 @@ open class JudoPayViewController: UIViewController {
     open private(set) var address: Address?
 
     /// The current transaction
-    open let transaction: Transaction
+    public let transaction: Transaction
     
     // MARK: 3DS variables
     fileprivate var pending3DSTransaction: Transaction?
@@ -84,9 +84,8 @@ open class JudoPayViewController: UIViewController {
         get { return self.myView as UIView }
         set {
             if newValue is JudoPayView {
-                myView = newValue as! JudoPayView
+                myView = newValue as? JudoPayView
             }
-            // Do nothing
         }
     }
     
@@ -343,7 +342,7 @@ extension JudoPayViewController: UIWebViewDelegate {
      
      - returns: return whether webView should start loading the request
      */
-    public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebViewNavigationType) -> Bool {
+    public func webView(_ webView: UIWebView, shouldStartLoadWith request: URLRequest, navigationType: UIWebView.NavigationType) -> Bool {
         let urlString = request.url?.absoluteString
         
         if let urlString = urlString , urlString.range(of: "Parse3DS") != nil {

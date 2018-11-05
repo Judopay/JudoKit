@@ -72,15 +72,11 @@ open class PayButton: UIButton {
     
     // MARK: View Setup
     
-    /**
-    Helper method to setup the view
-    */
     open func setupView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = self.theme.getButtonColor()
-        self.setTitle("Pay", for: UIControlState())
-        self.setTitleColor(self.theme.getButtonTitleColor(), for: UIControlState())
+        self.setTitle("Pay", for: UIControl.State())
+        self.setTitleColor(self.theme.getButtonTitleColor(), for: UIControl.State())
         self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 22)
     }
-    
 }

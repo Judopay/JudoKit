@@ -23,5 +23,5 @@
 //  SOFTWARE.
 
 open class Payment: Transaction, TransactionPath {
-    open static var path: String { get { return "transactions/payments" } }
+    public static var path: String { get { return "transactions/payments" } }
 }

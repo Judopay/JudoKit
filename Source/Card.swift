@@ -552,9 +552,9 @@ open class CardDetails: NSObject, NSCoding {
     /// The last four digits of the card used for this transaction
     open var cardLastFour: String?
     /// Expiry date of the card used for this transaction formatted as a two digit month and year i.e. MM/YY
-    open let endDate: String?
+    public let endDate: String?
     /// Can be used to charge future payments against this card
-    open let cardToken: String?
+    public let cardToken: String?
     
     fileprivate var _cardNetwork: CardNetwork?
     /// The computed card network

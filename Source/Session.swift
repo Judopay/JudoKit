@@ -65,7 +65,6 @@ public class Session : NSObject {
         let trustKitConfig: [String: Any] = [
             kTSKPinnedDomains: [
                 "judopay-sandbox.com": [
-                    kTSKPublicKeyAlgorithms: [kTSKAlgorithmRsa2048],
                     kTSKPublicKeyHashes: [
                         "mpCgFwbYmjH0jpQ3EruXVo+/S73NOAtPeqtGJE8OdZ0=",
                         "SRjoMmxuXogV8jKdDUKPgRrk9YihOLsrx7ila3iDns4="
@@ -73,7 +72,6 @@ public class Session : NSObject {
                     kTSKIncludeSubdomains: true
                 ],
                 "gw1.judopay.com": [
-                    kTSKPublicKeyAlgorithms: [kTSKAlgorithmRsa2048],
                     kTSKPublicKeyHashes: [
                         "SuY75QgkSNBlMtHNPeW9AayE7KNDAypMBHlJH9GEhXs=",
                         "c4zbAoMygSbepJKqU3322FvFv5unm+TWZROW3FHU1o8="

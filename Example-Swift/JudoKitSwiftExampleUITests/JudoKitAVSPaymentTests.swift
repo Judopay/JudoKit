@@ -25,125 +25,148 @@
 import XCTest
 
 class JudoKitAVSPaymentTests: XCTestCase {
-        
+
     override func setUp() {
         super.setUp()
-        
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
         XCUIApplication().launch()
+    }
 
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testVISAPaymentAVS() {
-        
         let app = XCUIApplication()
         app.toolbars.buttons["Settings"].tap()
-        
-        let switch2 = app.switches["0"]
-        switch2.tap()
-        app.buttons["Close"].tap()
-        
-        app.tables.staticTexts["with default settings"].tap()
 
-        let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.secureTextFields["Card number"].typeText("4976000000003436")
-        
-        let expiryDateTextField = elementsQuery.textFields["Expiry date"]
+        let avsSwitch = app.switches["0"]
+        avsSwitch.tap()
+        app.buttons["Close"].tap()
+
+        app.tables.staticTexts["Payment"].tap()
+
+        let otherElements = app.scrollViews.otherElements
+        otherElements.secureTextFields["Card number"].typeText("4976000000003436")
+
+        let expiryDateTextField = otherElements.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
-        
-        let cvv2TextField = elementsQuery.secureTextFields["CVV2"]
+
+        let cvv2TextField = otherElements.secureTextFields["CVV2"]
         cvv2TextField.typeText("452")
-        
-        let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
+
+        let postCodeTextField = otherElements.textFields["Billing Postcode"]
         postCodeTextField.typeText("TR148PA")
-        
+
         app.navigationBars["Payment"].buttons["Pay"].tap()
-        
-        let button = app.buttons["Home"]
+
+        let homeButton = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
-        
-        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+
+        expectation(for: existsPredicate, evaluatedWith: homeButton, handler: nil)
         waitForExpectations(timeout: 15, handler: nil)
-        
-        button.tap()
+
+        homeButton.tap()
     }
-    
+
     func testMasterCardPaymentAVS() {
-        
         let app = XCUIApplication()
         app.toolbars.buttons["Settings"].tap()
-        
-        let switch2 = app.switches["0"]
-        switch2.tap()
+
+        let avsSwitch = app.switches["0"]
+        avsSwitch.tap()
         app.buttons["Close"].tap()
-        
-        app.tables.staticTexts["with default settings"].tap()
-        
-        let elementsQuery = app.scrollViews.otherElements
-        elementsQuery.secureTextFields["Card number"].typeText("5100000000005460")
-        
-        let expiryDateTextField = elementsQuery.textFields["Expiry date"]
+
+        app.tables.staticTexts["Payment"].tap()
+
+        let otherElements = app.scrollViews.otherElements
+        otherElements.secureTextFields["Card number"].typeText("5100000000005460")
+
+        let expiryDateTextField = otherElements.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
-        
-        let cvv2TextField = elementsQuery.secureTextFields["CVC2"]
-        cvv2TextField.typeText("524")
-        
-        let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
+
+        let cvc2TextField = otherElements.secureTextFields["CVC2"]
+        cvc2TextField.typeText("524")
+
+        let postCodeTextField = otherElements.textFields["Billing Postcode"]
         postCodeTextField.typeText("S205EJ")
 
         app.navigationBars["Payment"].buttons["Pay"].tap()
-        
-        let button = app.buttons["Home"]
+
+        let homeButton = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
-        
-        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+
+        expectation(for: existsPredicate, evaluatedWith: homeButton, handler: nil)
         waitForExpectations(timeout: 15, handler: nil)
-        
-        button.tap()
+
+        homeButton.tap()
     }
-    
+
     func testAMEXPaymentAVS() {
         let app = XCUIApplication()
         app.toolbars.buttons["Settings"].tap()
-        
-        let switch2 = app.switches["0"]
-        switch2.tap()
+
+        let avsSwitch = app.switches["0"]
+        avsSwitch.tap()
         app.buttons["Close"].tap()
-        
-        app.tables.staticTexts["with default settings"].tap()
-        
-        let elementsQuery = app.scrollViews.otherElements
-        let cardNumberTextField = elementsQuery.secureTextFields["Card number"]
+
+        app.tables.staticTexts["Payment"].tap()
+
+        let otherElements = app.scrollViews.otherElements
+        let cardNumberTextField = otherElements.secureTextFields["Card number"]
         cardNumberTextField.typeText("340000432128428")
-        
-        let expiryDateTextField = elementsQuery.textFields["Expiry date"]
+
+        let expiryDateTextField = otherElements.textFields["Expiry date"]
         expiryDateTextField.typeText("1220")
-        
-        let cidTextField = elementsQuery.secureTextFields["CID"]
+
+        let cidTextField = otherElements.secureTextFields["CID"]
         cidTextField.typeText("3469")
-        
-        let postCodeTextField = elementsQuery.textFields["Billing Postcode"]
+
+        let postCodeTextField = otherElements.textFields["Billing Postcode"]
         postCodeTextField.typeText("NW67BB")
-        
+
         app.navigationBars["Payment"].buttons["Pay"].tap()
-        
-        let button = app.buttons["Home"]
+
+        let homeButton = app.buttons["Home"]
         let existsPredicate = NSPredicate(format: "exists == 1")
-        
-        expectation(for: existsPredicate, evaluatedWith: button, handler: nil)
+
+        expectation(for: existsPredicate, evaluatedWith: homeButton, handler: nil)
         waitForExpectations(timeout: 15, handler: nil)
-        
-        button.tap()
+
+        homeButton.tap()
     }
-    
+
+    func testVISAInCanadaPayment() {
+        let app = XCUIApplication()
+        app.toolbars.buttons["Settings"].tap()
+
+        let avsSwitch = app.switches["0"]
+        avsSwitch.tap()
+        app.buttons["Close"].tap()
+
+        app.tables.staticTexts["Payment"].tap()
+
+        let otherElements = app.scrollViews.otherElements
+        otherElements.secureTextFields["Card number"].typeText("4976000000003436")
+
+        let expiryDateTextField = otherElements.textFields["Expiry date"]
+        expiryDateTextField.typeText("1220")
+
+        let cvv2TextField = otherElements.secureTextFields["CVV2"]
+        cvv2TextField.typeText("452")
+
+        let countryTextField = otherElements.textFields["Billing country"]
+        countryTextField.tap()
+        app.pickerWheels.element.adjust(toPickerWheelValue: "Canada")
+
+        let postCodeTextField = otherElements.textFields["Billing Postal code"]
+        postCodeTextField.tap()
+        postCodeTextField.typeText("K1K2C5")
+
+        app.navigationBars["Payment"].buttons["Pay"].tap()
+
+        let homeButton = app.buttons["Home"]
+        let existsPredicate = NSPredicate(format: "exists == 1")
+
+        expectation(for: existsPredicate, evaluatedWith: homeButton, handler: nil)
+        waitForExpectations(timeout: 15, handler: nil)
+
+        homeButton.tap()
+    }
 }

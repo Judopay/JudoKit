@@ -90,7 +90,7 @@ open class LoadingView: UIView {
         self.actionLabel.translatesAutoresizingMaskIntoConstraints = false
         
         self.blockView.backgroundColor = self.theme.getLoadingBlockViewColor()
-        self.activityIndicatorView.activityIndicatorViewStyle = .gray
+        self.activityIndicatorView.style = .gray
         self.actionLabel.textColor = self.theme.getTextColor()
         
         self.blockView.clipsToBounds = true

@@ -24,184 +24,104 @@
 
 import UIKit
 
-
-/// JudoPayView - the main view in the transaction journey
 open class JudoPayView: UIView {
-    
-    /// The content view of the JudoPayView
-    open let contentView: UIScrollView = {
+    let transactionType: TransactionType
+    let theme: Theme
+    let cardDetails: CardDetails?
+    let isTokenPayment: Bool
+
+    let contentView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.isDirectionalLockEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         return scrollView
     }()
-    
-    let theme: Theme
-    
-    /// The card input field object
     let cardInputField: CardInputField
-    /// The expiry date input field object
     let expiryDateInputField: DateInputField
-    /// The secure code input field object
     let secureCodeInputField: SecurityInputField
-    /// The start date input field object
     let startDateInputField: DateInputField
-    /// The issue number input field object
     let issueNumberInputField: IssueNumberInputField
-    /// The billing country input field object
     let billingCountryInputField: BillingCountryInputField
-    /// The post code input field object
     let postCodeInputField: PostCodeInputField
-    
-    /// The card details object
-    var cardDetails: CardDetails?
-    
-    /// The phantom keyboard height constraint
-    var keyboardHeightConstraint: NSLayoutConstraint?
-    
-    /// The Maestro card fields (issue number and start date) height constraint
-    var maestroFieldsHeightConstraint: NSLayoutConstraint?
-    /// The billing country field height constraint
-    var avsFieldsHeightConstraint: NSLayoutConstraint?
-    /// the security messages top distance constraint
-    var securityMessageTopConstraint: NSLayoutConstraint?
-    
-    // MARK: UI properties
-    var paymentEnabled = false
-    var currentKeyboardHeight: CGFloat = 0.0
-    
-    /// the security message label that is shown if showSecurityMessage is set to true
+    let paymentButton: PayButton
+    let loadingView: LoadingView
+    let threeDSecureWebView = _DSWebView()
     let securityMessageLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    // Can not initialize because self is not available at this point to set the target
-    // Must be var? because can also not be initialized in init before self is available
-    /// Payment navbar button
-    var paymentNavBarButton: UIBarButtonItem?
-    /// The payment button object
-    var paymentButton: PayButton
-    
-    var loadingView: LoadingView
-    let threeDSecureWebView = _DSWebView()
-    
-    /// The transactionType of the current journey
-    var transactionType: TransactionType
-    
-    internal let isTokenPayment: Bool
-    
-    /**
-     Designated initializer
-     
-     - parameter type:        The transactionType of this transaction
-     - parameter cardDetails: Card details information if they have been passed
-     
-     - returns: a JudoPayView object
-     */
-    public init(type: TransactionType, currentTheme: Theme, cardDetails: CardDetails? = nil, isTokenPayment: Bool = false) {
-        self.transactionType = type
-        self.cardDetails = cardDetails
-        self.theme = currentTheme
-        self.paymentButton = PayButton(currentTheme: currentTheme)
-        self.loadingView = LoadingView(currentTheme: currentTheme)
-        
-        self.cardInputField = CardInputField(theme: currentTheme)
-        self.expiryDateInputField = DateInputField(theme: currentTheme)
-        self.secureCodeInputField = SecurityInputField(theme: currentTheme)
-        self.startDateInputField = DateInputField(theme: currentTheme)
-        self.issueNumberInputField = IssueNumberInputField(theme: currentTheme)
-        self.billingCountryInputField = BillingCountryInputField(theme: currentTheme)
-        self.postCodeInputField = PostCodeInputField(theme: currentTheme)
 
+    var keyboardHeightConstraint: NSLayoutConstraint!
+    var maestroFieldsHeightConstraint: NSLayoutConstraint!
+    var avsFieldsHeightConstraint: NSLayoutConstraint!
+    var securityMessageTopConstraint: NSLayoutConstraint!
+    var paymentEnabled = false
+    var currentKeyboardHeight: CGFloat = 0.0
+    var paymentNavBarButton: UIBarButtonItem?
+
+    public init(type: TransactionType, currentTheme: Theme, cardDetails: CardDetails? = nil, isTokenPayment: Bool = false) {
+        transactionType = type
+        theme = currentTheme
+        self.cardDetails = cardDetails
         self.isTokenPayment = isTokenPayment
-        
+
+        cardInputField = CardInputField(theme: currentTheme)
+        expiryDateInputField = DateInputField(theme: currentTheme)
+        secureCodeInputField = SecurityInputField(theme: currentTheme)
+        startDateInputField = DateInputField(theme: currentTheme)
+        issueNumberInputField = IssueNumberInputField(theme: currentTheme)
+        billingCountryInputField = BillingCountryInputField(theme: currentTheme)
+        postCodeInputField = PostCodeInputField(theme: currentTheme)
+        paymentButton = PayButton(currentTheme: currentTheme)
+        loadingView = LoadingView(currentTheme: currentTheme)
+
         super.init(frame: UIScreen.main.bounds)
-        
-        self.setupView()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(JudoPayView.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(JudoPayView.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+        setupView()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(JudoPayView.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(JudoPayView.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
-    
-    /**
-     Required initializer for the JudoPayView that will fail
-     
-     - parameter aDecoder: A Decoder
-     
-     - returns: a fatal error will be thrown as this class should not be retrieved by decoding
-     */
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    // MARK: Keyboard notification configuration
-    
-    /**
-     Deinitializer
-     */
+
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    /**
-     This method will receive the height of the keyboard when the keyboard will appear to fit the size of the contentview accordingly
-     
-     - parameter note: the notification that calls this method
-     */
     @objc func keyboardWillShow(_ note: Notification) {
-        guard UI_USER_INTERFACE_IDIOM() == .phone else { return } // BAIL
-        
-        guard let info = (note as NSNotification).userInfo else { return } // BAIL
-        
-        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
-            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else { return } // BAIL
-        
-        guard let keyboardRect = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return } // BAIL
-        
-        self.currentKeyboardHeight = keyboardRect.height
-        
-        self.keyboardHeightConstraint!.constant = -1 * keyboardRect.height + (self.paymentEnabled ? 0 : self.paymentButton.bounds.height)
-        self.paymentButton.setNeedsUpdateConstraints()
-        
-        UIView.animate(withDuration: (animationDuration as AnyObject).doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+        guard let animationCurve = note.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
+            let animationDuration = (note.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue,
+            let keyboardHeight = (note.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else { return }
+        currentKeyboardHeight = keyboardHeight
+        keyboardHeightConstraint.constant = -1 * keyboardHeight + (paymentEnabled ? 0 : paymentButton.bounds.height)
+        paymentButton.setNeedsUpdateConstraints()
+
+        UIView.animate(withDuration: animationDuration, delay: 0, options: UIView.AnimationOptions(rawValue: animationCurve), animations: {
             self.paymentButton.layoutIfNeeded()
         }, completion: nil)
     }
-    
-    
-    /**
-     This method will receive the keyboard will disappear notification to fit the size of the contentview accordingly
-     
-     - parameter note: the notification that calls this method
-     */
+
     @objc func keyboardWillHide(_ note: Notification) {
-        guard UI_USER_INTERFACE_IDIOM() == .phone else { return } // BAIL
+        guard let animationCurve = note.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt,
+            let animationDuration = (note.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue else { return }
         
-        guard let info = (note as NSNotification).userInfo else { return } // BAIL
-        
-        guard let animationCurve = info[UIKeyboardAnimationCurveUserInfoKey],
-            let animationDuration = info[UIKeyboardAnimationDurationUserInfoKey] else { return } // BAIL
-        
-        self.currentKeyboardHeight = 0.0
-        
-        self.keyboardHeightConstraint!.constant = 0.0 + (self.paymentEnabled ? 0 : self.paymentButton.bounds.height)
-        self.paymentButton.setNeedsUpdateConstraints()
-        
-        UIView.animate(withDuration: (animationDuration as AnyObject).doubleValue, delay: 0.0, options:UIViewAnimationOptions(rawValue: (animationCurve as! UInt)), animations: { () -> Void in
+        currentKeyboardHeight = 0.0
+        keyboardHeightConstraint.constant = 0.0 + (paymentEnabled ? 0 : paymentButton.bounds.height)
+        paymentButton.setNeedsUpdateConstraints()
+
+        UIView.animate(withDuration: animationDuration, delay: 0, options: UIView.AnimationOptions(rawValue: animationCurve), animations: {
             self.paymentButton.layoutIfNeeded()
         }, completion: nil)
     }
-    
-    // MARK: View LifeCycle
-    
+
     func setupView() {
-        let payButtonTitle = transactionType == .registerCard ? theme.registerCardTitle : theme.paymentButtonTitle
         loadingView.actionLabel.text = transactionType == .registerCard ? theme.loadingIndicatorRegisterCardTitle : theme.loadingIndicatorProcessingTitle
 
         let attributedString = NSMutableAttributedString(string: "Secure server: ", attributes: [
@@ -210,210 +130,213 @@ open class JudoPayView: UIView {
             ])
         attributedString.append(NSAttributedString(string: theme.securityMessageString, attributes: [
             .foregroundColor: theme.getInputFieldHintTextColor(),
-            .font: UIFont.systemFont(ofSize: self.theme.securityMessageTextSize)
+            .font: UIFont.systemFont(ofSize: theme.securityMessageTextSize)
             ]))
-
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .left
         paragraphStyle.lineSpacing = 3
         attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSMakeRange(0, attributedString.length))
         securityMessageLabel.attributedText = attributedString
 
+        let payButtonTitle = transactionType == .registerCard ? theme.registerCardTitle : theme.paymentButtonTitle
         paymentButton.setTitle(payButtonTitle, for: .normal)
 
         startDateInputField.isStartDate = true
 
-        // View
-        self.addSubview(contentView)
-        self.contentView.contentSize = self.bounds.size
-        
-        self.backgroundColor = self.theme.getContentViewBackgroundColor()
-        
-        self.contentView.addSubview(cardInputField)
-        self.contentView.addSubview(startDateInputField)
-        self.contentView.addSubview(issueNumberInputField)
-        self.contentView.addSubview(expiryDateInputField)
-        self.contentView.addSubview(secureCodeInputField)
-        self.contentView.addSubview(billingCountryInputField)
-        self.contentView.addSubview(postCodeInputField)
-        self.contentView.addSubview(securityMessageLabel)
-        
-        self.addSubview(paymentButton)
-        self.addSubview(threeDSecureWebView)
-        self.addSubview(loadingView)
-        
-        // Delegates
-        self.cardInputField.delegate = self
-        self.expiryDateInputField.delegate = self
-        self.secureCodeInputField.delegate = self
-        self.issueNumberInputField.delegate = self
-        self.startDateInputField.delegate = self
-        self.billingCountryInputField.delegate = self
-        self.postCodeInputField.delegate = self
-        
-        let verticalTopSpace = 10
-        
-        // Layout constraints
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[scrollView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView]))
+        backgroundColor = theme.getContentViewBackgroundColor()
+
+        addSubview(contentView)
+        contentView.contentSize = bounds.size
+        contentView.addSubview(cardInputField)
+        contentView.addSubview(expiryDateInputField)
+        contentView.addSubview(secureCodeInputField)
+        contentView.addSubview(startDateInputField)
+        contentView.addSubview(issueNumberInputField)
+        contentView.addSubview(billingCountryInputField)
+        contentView.addSubview(postCodeInputField)
+        contentView.addSubview(securityMessageLabel)
+        addSubview(paymentButton)
+        addSubview(threeDSecureWebView)
+        addSubview(loadingView)
+
+        cardInputField.delegate = self
+        expiryDateInputField.delegate = self
+        secureCodeInputField.delegate = self
+        startDateInputField.delegate = self
+        issueNumberInputField.delegate = self
+        billingCountryInputField.delegate = self
+        postCodeInputField.delegate = self
+
+        let views: [String: Any] = [
+            "scrollView": contentView,
+            "paymentButton": paymentButton,
+            "loadingView": loadingView,
+            "card": cardInputField,
+            "expiry": expiryDateInputField,
+            "security": secureCodeInputField,
+            "start": startDateInputField,
+            "issue": issueNumberInputField,
+            "billing": billingCountryInputField,
+            "post": postCodeInputField,
+            "securityMessage": securityMessageLabel,
+            "tdsecure": threeDSecureWebView
+        ]
+
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[scrollView]|", metrics: nil, views: views))
 
         if #available(iOS 11, *) {
             NSLayoutConstraint.activate([
-                contentView.topAnchor.constraintEqualToSystemSpacingBelow(safeAreaLayoutGuide.topAnchor, multiplier: 1.0),
-                safeAreaLayoutGuide.bottomAnchor.constraintEqualToSystemSpacingBelow(contentView.bottomAnchor, multiplier: 1.0)
+                contentView.topAnchor.constraint(equalToSystemSpacingBelow: safeAreaLayoutGuide.topAnchor, multiplier: 1.0),
+                safeAreaLayoutGuide.bottomAnchor.constraint(equalToSystemSpacingBelow: contentView.bottomAnchor, multiplier: 1.0)
                 ])
         } else {
-            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[scrollView]-1-[button]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["scrollView":contentView, "button":paymentButton]))
+            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[scrollView]-1-[paymentButton]", metrics: nil, views: views))
         }
-        
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[loadingView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["loadingView":loadingView]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[loadingView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["loadingView":loadingView]))
-        
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-[tdsecure]-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["tdsecure":threeDSecureWebView]))
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(68)-[tdsecure]-(30)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["tdsecure":threeDSecureWebView]))
-        
-        self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[button]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["button":paymentButton]))
-        self.paymentButton.addConstraint(NSLayoutConstraint(item: paymentButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50))
-        
-        self.keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: paymentEnabled ? 0 : 50)
-        self.addConstraint(keyboardHeightConstraint!)
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[card]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics:nil, views: ["card":cardInputField]))
-        self.contentView.addConstraint(NSLayoutConstraint(item: cardInputField, attribute: NSLayoutAttribute.width, relatedBy: .equal, toItem: self.contentView, attribute: NSLayoutAttribute.width, multiplier: 1, constant: 2))
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["expiry":expiryDateInputField, "security":secureCodeInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[start]-(-1)-[issue(==start)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["start":startDateInputField, "issue":issueNumberInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[billing]-(-1)-[post(==billing)]-(-1)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["billing":billingCountryInputField, "post":postCodeInputField]))
-        
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(12)-[securityMessage]-(12)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["securityMessage":securityMessageLabel]))
 
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(fieldHeight)]-(topSpacing)-[start]-(topSpacing)-[expiry(fieldHeight)]-(topSpacing)-[billing]-(20)-|", options: [], metrics: ["fieldHeight":self.theme.inputFieldHeight, "topSpacing": verticalTopSpace], views: ["card":cardInputField, "start":startDateInputField, "expiry":expiryDateInputField, "billing":billingCountryInputField]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(fieldHeight)]-(topSpacing)-[issue(==start)]-(topSpacing)-[security(fieldHeight)]-(topSpacing)-[post(==billing)]-(20)-|", options: [], metrics: ["fieldHeight":self.theme.inputFieldHeight, "topSpacing": verticalTopSpace], views: ["card":cardInputField, "issue":issueNumberInputField, "start":startDateInputField, "security":secureCodeInputField, "post":postCodeInputField, "billing":billingCountryInputField]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[loadingView]|", metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[loadingView]|", metrics: nil, views: views))
 
-        self.maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 0)
-        self.avsFieldsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 0)
-        self.securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: self.postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 24.0)
-        
-        self.securityMessageLabel.isHidden = !(self.theme.showSecurityMessage)
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-[tdsecure]-|", metrics: nil, views: views))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(68)-[tdsecure]-(30)-|", metrics: nil, views: views))
 
-        self.startDateInputField.addConstraint(maestroFieldsHeightConstraint!)
-        self.billingCountryInputField.addConstraint(avsFieldsHeightConstraint!)
-        self.contentView.addConstraint(securityMessageTopConstraint!)
-        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[paymentButton]|", metrics: nil, views: views))
+        paymentButton.addConstraint(NSLayoutConstraint(item: paymentButton, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 50))
+
+        keyboardHeightConstraint = NSLayoutConstraint(item: paymentButton, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: paymentEnabled ? 0 : 50)
+        addConstraint(keyboardHeightConstraint)
+
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[card]-(-1)-|", metrics: nil, views: views))
+        contentView.addConstraint(NSLayoutConstraint(item: cardInputField, attribute: .width, relatedBy: .equal, toItem: contentView, attribute: .width, multiplier: 1, constant: 2))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[expiry]-(-1)-[security(==expiry)]-(-1)-|", metrics: nil, views: views))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[start]-(-1)-[issue(==start)]-(-1)-|", metrics: nil, views: views))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-1)-[billing]-(-1)-[post(==billing)]-(-1)-|", metrics: nil, views: views))
+
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(12)-[securityMessage]-(12)-|", metrics: nil, views: views))
+
+        let metrics: [String: Any] = [
+            "fieldHeight": theme.inputFieldHeight,
+            "spacing": 10
+        ]
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(fieldHeight)]-(spacing)-[start]-(spacing)-[expiry(fieldHeight)]-(spacing)-[billing]-(20)-|", metrics: metrics, views: views))
+        contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-75-[card(fieldHeight)]-(spacing)-[issue(==start)]-(spacing)-[security(fieldHeight)]-(spacing)-[post(==billing)]-(20)-|", metrics: metrics, views: views))
+
+        maestroFieldsHeightConstraint = NSLayoutConstraint(item: startDateInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 0)
+        avsFieldsHeightConstraint = NSLayoutConstraint(item: billingCountryInputField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 0)
+        securityMessageTopConstraint = NSLayoutConstraint(item: securityMessageLabel, attribute: .top, relatedBy: .equal, toItem: postCodeInputField, attribute: .bottom, multiplier: 1.0, constant: 8.0)
+
+        securityMessageLabel.isHidden = !theme.showSecurityMessage
+
+        startDateInputField.addConstraint(maestroFieldsHeightConstraint!)
+        billingCountryInputField.addConstraint(avsFieldsHeightConstraint!)
+        contentView.addConstraint(securityMessageTopConstraint!)
+
         // If card details are available, fill out the fields
-        if let cardDetails = self.cardDetails, let formattedLastFour = cardDetails.formattedLastFour(), let expiryDate = cardDetails.formattedEndDate() {
-            self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
-            if !self.isTokenPayment, let presentationCardNumber = try? cardDetails._cardNumber?.cardPresentationString(self.theme.acceptedCardNetworks) {
-                self.cardInputField.textField.text = presentationCardNumber
-                self.cardInputField.textField.alpha = 1.0
-                self.expiryDateInputField.textField.alpha = 1.0
+        if let cardDetails = cardDetails, let formattedLastFour = cardDetails.formattedLastFour(), let expiryDate = cardDetails.formattedEndDate() {
+            updateInputFieldsWithNetwork(cardDetails.cardNetwork)
+            if !isTokenPayment, let presentationCardNumber = try? cardDetails._cardNumber?.cardPresentationString(theme.acceptedCardNetworks) {
+                cardInputField.textField.text = presentationCardNumber
+                cardInputField.textField.alpha = 1.0
+                expiryDateInputField.textField.alpha = 1.0
             } else {
-                self.cardInputField.textField.text = formattedLastFour
+                cardInputField.textField.text = formattedLastFour
             }
-            
-            self.expiryDateInputField.textField.text = expiryDate
-            self.updateInputFieldsWithNetwork(cardDetails.cardNetwork)
-            self.secureCodeInputField.isTokenPayment = self.isTokenPayment
-            self.cardInputField.isTokenPayment = self.isTokenPayment
-            self.cardInputField.isUserInteractionEnabled = !self.isTokenPayment
-            self.expiryDateInputField.isUserInteractionEnabled = !self.isTokenPayment
-            self.cardInputField.textField.isSecureTextEntry = false
+
+            cardInputField.isTokenPayment = isTokenPayment
+            cardInputField.isUserInteractionEnabled = !isTokenPayment
+            cardInputField.textField.isSecureTextEntry = false
+            expiryDateInputField.textField.text = expiryDate
+            expiryDateInputField.isUserInteractionEnabled = !isTokenPayment
+            secureCodeInputField.isTokenPayment = isTokenPayment
+            updateInputFieldsWithNetwork(cardDetails.cardNetwork)
         }
     }
-    
+
     /**
      This method is intended to toggle the start date and issue number fields visibility when a Card has been identified.
-     
+
      - Discussion: Maestro cards need a start date or an issue number to be entered for making any transaction
-     
+
      - parameter isVisible: Whether start date and issue number fields should be visible
      */
     open func toggleStartDateVisibility(_ isVisible: Bool) {
-        self.maestroFieldsHeightConstraint?.constant = isVisible ? theme.inputFieldHeight : 0
-        self.issueNumberInputField.setNeedsUpdateConstraints()
-        self.startDateInputField.setNeedsUpdateConstraints()
-        self.startDateInputField.isVisible = isVisible
+        maestroFieldsHeightConstraint?.constant = isVisible ? theme.inputFieldHeight : 0
+        issueNumberInputField.setNeedsUpdateConstraints()
+        startDateInputField.setNeedsUpdateConstraints()
+        startDateInputField.isVisible = isVisible
         
-        UIView.animate(withDuration: 0.2, delay: 0.0, options:UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
+        UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveEaseIn, animations: {
             self.issueNumberInputField.layoutIfNeeded()
             self.startDateInputField.layoutIfNeeded()
-            
             self.expiryDateInputField.layoutIfNeeded()
             self.secureCodeInputField.layoutIfNeeded()
         }, completion: nil)
     }
-    
-    
+
     /**
      This method toggles the visibility of address fields (billing country and post code).
-     
+
      - Discussion: If AVS is necessary, this should be activated. AVS only needs Postcode to verify
-     
+
      - parameter isVisible:  Whether post code and billing country fields should be visible
      - parameter completion: Block that is called when animation was finished
      */
-    open func toggleAVSVisibility(_ isVisible: Bool, completion: (() -> ())? = nil) {
-        self.avsFieldsHeightConstraint?.constant = isVisible ? self.theme.inputFieldHeight : 0
-        self.billingCountryInputField.setNeedsUpdateConstraints()
-        self.postCodeInputField.setNeedsUpdateConstraints()
+    open func toggleAVSVisibility(_ isVisible: Bool, completion: ((Bool) -> Void)? = nil) {
+        avsFieldsHeightConstraint?.constant = isVisible ? theme.inputFieldHeight : 0
+        billingCountryInputField.setNeedsUpdateConstraints()
+        postCodeInputField.setNeedsUpdateConstraints()
+
         //Trigger constraint update for Start date for maestro cards to recalculate space
         if isVisible {
-            self.startDateInputField.displayHint(message: "")
+            startDateInputField.displayHint(message: "")
         }
 
-        UIView.animate(withDuration: 0.2, animations: { () -> Void in
+        UIView.animate(withDuration: 0.2, animations: {
             self.billingCountryInputField.layoutIfNeeded()
             self.postCodeInputField.layoutIfNeeded()
-        }, completion: { (didFinish) -> Void in
-            if let completion = completion {
-                completion()
-            }
-        })
+        }, completion: completion)
     }
-    
-    // MARK: Helpers
-    
-    
+
     /**
      When a network has been identified, the secure code text field has to adjust its title and maximum number entry to enable the payment
-     
+
      - parameter network: The network that has been identified
      */
     func updateInputFieldsWithNetwork(_ network: CardNetwork?) {
         guard let network = network else { return }
-        self.cardInputField.cardNetwork = network
-        self.cardInputField.updateCardLogo()
-        self.secureCodeInputField.cardNetwork = network
-        self.secureCodeInputField.updateCardLogo()
-        self.secureCodeInputField.textField.placeholder = network.securityCodeTitle()
-        self.toggleStartDateVisibility(network == .maestro)
+
+        cardInputField.cardNetwork = network
+        cardInputField.updateCardLogo()
+        secureCodeInputField.cardNetwork = network
+        secureCodeInputField.updateCardLogo()
+        secureCodeInputField.textField.placeholder = network.securityCodeTitle()
+        toggleStartDateVisibility(network == .maestro)
     }
-    
-    
+
     /**
      Helper method to enable the payment after all fields have been validated and entered
-     
+
      - parameter enabled: Pass true to enable the payment buttons
      */
     func paymentEnabled(_ enabled: Bool) {
-        self.paymentEnabled = enabled
-        self.paymentButton.isHidden = !enabled
+        paymentEnabled = enabled
+        paymentButton.isHidden = !enabled
+
+        keyboardHeightConstraint.constant = -currentKeyboardHeight + (paymentEnabled ? 0 : paymentButton.bounds.height)
+        paymentButton.setNeedsUpdateConstraints()
         
-        self.keyboardHeightConstraint?.constant = -self.currentKeyboardHeight + (paymentEnabled ? 0 : self.paymentButton.bounds.height)
-        self.paymentButton.setNeedsUpdateConstraints()
-        
-        UIView.animate(withDuration: 0.25, delay: 0.0, options: enabled ? .curveEaseOut : .curveEaseIn, animations: { () -> Void in
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: enabled ? .curveEaseOut : .curveEaseIn, animations: {
             self.paymentButton.layoutIfNeeded()
         }, completion: nil)
-        
+
         if enabled {
             paymentNavBarButton?.setTitleTextAttributes([.foregroundColor: theme.tintActiveColor], for: .normal)
         }
         paymentNavBarButton?.isEnabled = enabled
     }
-    
-    
+
     /**
      The hint label has a timer that executes the visibility.
-     
+
      - parameter input: The input field which the user is currently idling
      */
     func showHintAfterDefaultDelay(_ input: JudoPayInputField) {
@@ -421,47 +344,44 @@ open class JudoPayView: UIView {
             input.displayHint(message: secureCodeInputField.hintLabelText())
         } else {
             input.displayHint(message: "")
-            self.cardInputField.displayHint(message: "")
-            self.expiryDateInputField.displayHint(message: "")
-            if self.startDateInputField.isVisible {
-                self.startDateInputField.displayHint(message: "")
+            cardInputField.displayHint(message: "")
+            expiryDateInputField.displayHint(message: "")
+            if startDateInputField.isVisible {
+                startDateInputField.displayHint(message: "")
             }
-            self.updateViews(input: input, isFirstRun: true)
+            updateViews(input: input, isFirstRun: true)
         }
-        self.updateSecurityMessagePosition(toggleUp: true)
+        updateSecurityMessagePosition(toggleUp: true)
         _ = Timer.schedule(5.0, handler: { (timer) -> Void in
             let hintLabelText = input.hintLabelText()
             if hintLabelText.count > 0
                 && input.textField.text?.count == 0
                 && input.textField.isFirstResponder {
-                
                 self.updateSecurityMessagePosition(toggleUp: false)
                 input.displayHint(message: input.hintLabelText())
                 self.updateViews(input: input, isFirstRun: false)
             }
         })
     }
-    
-    
+
     /**
      Helper method to update the position of the security message
-     
+
      - parameter toggleUp: whether the label should move up or down
      */
     func updateSecurityMessagePosition(toggleUp: Bool) {
-        self.contentView.layoutIfNeeded()
-        //self.securityMessageTopConstraint?.constant = (toggleUp && !self.hintLabel.isActive()) ? -self.hintLabel.bounds.height : 14
+        contentView.layoutIfNeeded()
+        securityMessageTopConstraint.constant = toggleUp ? 8 : 24
         UIView.animate(withDuration: 0.3, animations: { self.contentView.layoutIfNeeded() })
     }
-    
-    func updateViews(input: JudoPayInputField, isFirstRun: Bool){
+
+    func updateViews(input: JudoPayInputField, isFirstRun: Bool) {
         //Just trigger first view constraint in Horizontal view
         if input.isKind(of: SecurityInputField.self) {
-            self.expiryDateInputField.displayHint(message: (self.expiryDateInputField.textField.text?.count)! > 0 ? (self.secureCodeInputField.textField.text?.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
+            expiryDateInputField.displayHint(message: (expiryDateInputField.textField.text?.count)! > 0 ? (secureCodeInputField.textField.text?.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
         }
-        if input.isKind(of: IssueNumberInputField.self){
-            self.startDateInputField.displayHint(message: (self.startDateInputField.textField.text?.count)! > 0 ? (self.issueNumberInputField.textField.text?.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
+        if input.isKind(of: IssueNumberInputField.self) {
+            startDateInputField.displayHint(message: (startDateInputField.textField.text?.count)! > 0 ? (issueNumberInputField.textField.text?.count)! > 0 ? "": isFirstRun ? "" : " " : isFirstRun ? "" : " ")
         }
     }
-    
 }
