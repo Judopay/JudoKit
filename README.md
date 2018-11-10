@@ -42,7 +42,7 @@ $ gem install cocoapods
 platform :ios, '9.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 8.0'
+pod 'JudoKit', '~> 8.0.1'
 ```
 
 - Then run the following command:

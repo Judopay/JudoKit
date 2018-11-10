@@ -26,7 +26,7 @@ import Foundation
 import PassKit
 import DeviceDNA
 
-let JudoKitVersion = "7.1.0"
+let JudoKitVersion = "8.0.1"
 
 /**
  A method that checks if the device it is currently running on is jailbroken or not
