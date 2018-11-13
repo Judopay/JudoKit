@@ -4,9 +4,9 @@
 [![Platform](https://img.shields.io/cocoapods/p/JudoKit.svg)](http://cocoadocs.org/docsets/Judo)
 [![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPay)
 
-# Judo Swift SDK for iOS
+# Judopay Swift SDK
 
-The judo Swift SDK is a framework for integrating easy, fast and secure payments inside your app with [judo](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick. If you are integrating your app in Objective-C, we highly recommend you to use the [judoKitObjC](https://github.com/judopay/JudoKitObjC) port.
+The Judopay Swift SDK is a framework for integrating easy, fast and secure payments inside your app with [Judopay](https://www.judopay.com/). It contains an exhaustive in-app payments and security toolkit that makes integration simple and quick. If you are integrating your app in Objective-C, we highly recommend you to use the [JudoKitObjC](https://github.com/judopay/JudoKitObjC) port.
 
 Use our UI components for a seamless user experience for card data capture. Minimise your [PCI scope](https://www.pcisecuritystandards.org/pci_security/completing_self_assessment) with a UI that can be themed or customised to match the look and feel of your app.
 
@@ -36,13 +36,13 @@ If you are integrating using **CocoaPods**, follow the steps below.
 $ gem install cocoapods
 ```
 
-- Add judo to your `Podfile` to integrate it into your Xcode project:
+- Add JudoKit to your `Podfile` to integrate it into your Xcode project:
 
 ```ruby
-platform :ios, '9.0'
+platform :ios, '10.0'
 use_frameworks!
 
-pod 'JudoKit', '~> 8.0'
+pod 'JudoKit', '~> 8.0.1'
 ```
 
 - Then run the following command:
@@ -124,4 +124,4 @@ func paymentOperation() {
 
 ## Next steps
 
-Judo's Swift SDK supports a range of customization options. For more information on using judo for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKit/wiki/) or [API reference](https://judopay.github.io/JudoKit).
+Judopay's Swift SDK supports a range of customization options. For more information on using Judopay for iOS see our [wiki documentation](https://github.com/JudoPay/JudoKit/wiki/) or [API reference](https://judopay.github.io/JudoKit).
