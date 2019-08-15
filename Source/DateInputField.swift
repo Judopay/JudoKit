@@ -158,7 +158,7 @@ open class DateInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a textfield
     */
-    open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    override public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         // Only handle calls if textinput is selected
         guard self.dateInputType == .text else { return true }
         

@@ -2,7 +2,8 @@
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/Carthage/Carthage)
 [![License](https://img.shields.io/cocoapods/l/JudoKit.svg)](http://cocoadocs.org/docsets/Judo)
 [![Platform](https://img.shields.io/cocoapods/p/JudoKit.svg)](http://cocoadocs.org/docsets/Judo)
-[![Twitter](https://img.shields.io/badge/twitter-@JudoPayments-orange.svg)](http://twitter.com/JudoPay)
+
+[![Twitter](https://img.shields.io/badge/twitter-@Judopay-orange.svg)](http://twitter.com/Judopay)
 
 # Judopay Swift SDK
 
@@ -11,6 +12,8 @@ The Judopay Swift SDK is a framework for integrating easy, fast and secure payme
 Use our UI components for a seamless user experience for card data capture. Minimise your [PCI scope](https://www.pcisecuritystandards.org/pci_security/completing_self_assessment) with a UI that can be themed or customised to match the look and feel of your app.
 
 ## Requirements
+
+Version 8.1+ requires Xcode 10.3 and Swift 5
 
 Version 8.0+ requires Xcode 10 and Swift 4.2
 
@@ -40,9 +43,12 @@ $ gem install cocoapods
 
 ```ruby
 platform :ios, '10.0'
-use_frameworks!
 
-pod 'JudoKit', '~> 8.0.1'
+target 'YourApp' do
+    use_frameworks!
+
+    pod 'JudoKit', '~> 8.1.0'
+end
 ```
 
 - Then run the following command:

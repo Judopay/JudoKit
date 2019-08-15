@@ -29,7 +29,7 @@ class TransactionTests: JudoTestCase {
     
     func testTransaction() {
         // Given I have a Transaction
-        let makePayment = try! judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let makePayment = try! judo.payment(judoId, amount: oneGBPAmount, reference: validReference)
         
         // And I have valid card details
         makePayment.card(validVisaTestCard)
@@ -52,7 +52,7 @@ class TransactionTests: JudoTestCase {
     
     func testTransactionDeclinedResponse() {
         // Given I have a Transaction
-        let makePayment = try! judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference)
+        let makePayment = try! judo.payment(judoId, amount: oneGBPAmount, reference: validReference)
         
         // And I have valid card details
         makePayment.card(declinedVisaTestCard)

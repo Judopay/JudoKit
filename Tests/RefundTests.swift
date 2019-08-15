@@ -33,7 +33,7 @@ class RefundTests: JudoTestCase {
         
         do {
             // Given I have made a payment
-            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
+            let payment = try judo.payment(judoId, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
             
             try payment.completion({ (response, error) -> () in
                 if let error = error {
@@ -73,7 +73,7 @@ class RefundTests: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoId, myJudoId)
+            XCTAssertEqual(payment.judoId, judoId)
         } catch {
             XCTFail("exception thrown: \(error)")
             expectation.fulfill();

@@ -64,7 +64,7 @@ open class IssueNumberInputField: JudoPayInputField {
     
     - returns: boolean to change characters in given range for a textfield
     */
-    open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    override public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         // Only handle delegate calls for own textfield
         guard textField == self.textField else { return false }

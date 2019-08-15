@@ -28,13 +28,10 @@ import XCTest
 class ReceiptTests: JudoTestCase {
     
     func testJudoTransactionReceipt() {
-        // Given
-        var receiptId = ""
-        
         let expectation = self.expectation(description: "receipt fetch expectation")
         
         do {
-            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference)
+            let payment = try judo.payment(judoId, amount: oneGBPAmount, reference: validReference)
             payment.card(validVisaTestCard)
             
             XCTAssertNotNil(payment)
@@ -50,20 +47,19 @@ class ReceiptTests: JudoTestCase {
                 
                 XCTAssertNotNil(respbody)
                 
-                receiptId = respbody!.receiptId
-                
-                do {
-                    try _ = self.judo.receipt(receiptId).completion({ (dict, error) -> () in
-                        if let error = error {
-                            XCTFail("api call failed with error: \(error)")
-                        }
+                if let receiptId = respbody?.receiptId {
+                    do {
+                        try _ = self.judo.receipt(receiptId).completion({ (dict, error) -> () in
+                            if let error = error {
+                                XCTFail("api call failed with error: \(error)")
+                            }
+                            expectation.fulfill()
+                        })
+                    } catch {
+                        XCTFail("exception thrown: \(error)")
                         expectation.fulfill()
-                    })
-                } catch {
-                    XCTFail("exception thrown: \(error)")
-                    expectation.fulfill()
+                    }
                 }
-            
             })
         } catch {
             XCTFail()
