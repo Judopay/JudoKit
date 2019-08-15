@@ -33,7 +33,7 @@ class VoidTransactionTests: JudoTestCase {
         
         do {
             // Given I have made a pre-authorisation
-            let preAuth = try judo.preAuth(myJudoId, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
+            let preAuth = try judo.preAuth(judoId, amount: oneGBPAmount, reference: validReference).card(validVisaTestCard)
             
             try preAuth.completion({ (response, error) -> () in
                 if let error = error {
@@ -73,7 +73,7 @@ class VoidTransactionTests: JudoTestCase {
             })
             
             XCTAssertNotNil(preAuth)
-            XCTAssertEqual(preAuth.judoId, myJudoId)
+            XCTAssertEqual(preAuth.judoId, judoId)
         } catch {
             XCTFail("exception thrown: \(error)")
             expectation.fulfill();

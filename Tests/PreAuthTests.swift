@@ -31,7 +31,7 @@ class PreAuthTests: JudoTestCase {
         guard let references = Reference(consumerRef: "consumer0053252") else { return }
         let amount = Amount(amountString: "30", currency: .GBP)
         do {
-            let preauth = try judo.preAuth(myJudoId, amount: amount, reference: references)
+            let preauth = try judo.preAuth(judoId, amount: amount, reference: references)
             XCTAssertNotNil(preauth)
         } catch {
             XCTFail("exception thrown: \(error)")
@@ -41,7 +41,7 @@ class PreAuthTests: JudoTestCase {
     func testJudoMakeValidPreAuth() {
         do {
             // Given I have a Pre-authorization
-            let preAuth = try judo.preAuth(myJudoId, amount: oneGBPAmount, reference: validReference)
+            let preAuth = try judo.preAuth(judoId, amount: oneGBPAmount, reference: validReference)
             
             // When I provide all the required fields
             preAuth.card(validVisaTestCard)
@@ -59,7 +59,7 @@ class PreAuthTests: JudoTestCase {
             })
             
             XCTAssertNotNil(preAuth)
-            XCTAssertEqual(preAuth.judoId, myJudoId)
+            XCTAssertEqual(preAuth.judoId, judoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -70,7 +70,7 @@ class PreAuthTests: JudoTestCase {
     func testJudoMakeValidPreAuthWithDeviceSignals() {
         do {
             // Given I have a Payment
-            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference)
+            let payment = try judo.payment(judoId, amount: oneGBPAmount, reference: validReference)
             
             // When I provide all the required fields
             payment.card(validVisaTestCard)
@@ -88,7 +88,7 @@ class PreAuthTests: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoId, myJudoId)
+            XCTAssertEqual(payment.judoId, judoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -100,7 +100,7 @@ class PreAuthTests: JudoTestCase {
         do {
             // Given I have a Pre-authorization
             // When I do not provide a currency
-            let preAuth = try judo.preAuth(myJudoId, amount: invalidCurrencyAmount, reference: validReference)
+            let preAuth = try judo.preAuth(judoId, amount: invalidCurrencyAmount, reference: validReference)
             
             preAuth.card(validVisaTestCard)
             
@@ -119,7 +119,7 @@ class PreAuthTests: JudoTestCase {
             })
             
             XCTAssertNotNil(preAuth)
-            XCTAssertEqual(preAuth.judoId, myJudoId)
+            XCTAssertEqual(preAuth.judoId, judoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -132,7 +132,7 @@ class PreAuthTests: JudoTestCase {
         do {
             // Given I have a Pre-authorization
             // When I do not provide a consumer reference
-            let preAuth = try judo.preAuth(myJudoId, amount: oneGBPAmount, reference: invalidReference)
+            let preAuth = try judo.preAuth(judoId, amount: oneGBPAmount, reference: invalidReference)
             
             preAuth.card(validVisaTestCard)
             
@@ -150,7 +150,7 @@ class PreAuthTests: JudoTestCase {
             })
             
             XCTAssertNotNil(preAuth)
-            XCTAssertEqual(preAuth.judoId, myJudoId)
+            XCTAssertEqual(preAuth.judoId, judoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -220,7 +220,7 @@ class PreAuthTests: JudoTestCase {
         
         // When
         do {
-            try _ = judo.preAuth(myJudoId, amount: amount, reference: references)
+            try _ = judo.preAuth(judoId, amount: amount, reference: references)
         } catch {
             XCTFail("exception thrown: \(error)")
         }

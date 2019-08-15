@@ -105,7 +105,7 @@ public extension JudoInputType where Self: JudoPayInputField {
      
      - returns: true if valid input
      */
-    public func isValid() -> Bool {
+    func isValid() -> Bool {
         return false
     }
     
@@ -113,7 +113,7 @@ public extension JudoInputType where Self: JudoPayInputField {
     /**
      Helper call for delegate method
      */
-    public func didChangeInputText() {
+    func didChangeInputText() {
         self.delegate?.judoPayInputDidChangeText(self)
     }
     
@@ -123,7 +123,7 @@ public extension JudoInputType where Self: JudoPayInputField {
      
      - parameter textField: the textfield of which the content has changed
      */
-    public func textFieldDidChangeValue(_ textField: UITextField) {
+    func textFieldDidChangeValue(_ textField: UITextField) {
         self.dismissError()
         // Method for subclassing
     }
@@ -134,7 +134,7 @@ public extension JudoInputType where Self: JudoPayInputField {
      
      - returns: an Attributed String that is the placeholder of the receiver
      */
-    public func placeholder() -> NSAttributedString? {
+    func placeholder() -> NSAttributedString? {
         return nil
     }
     
@@ -144,7 +144,7 @@ public extension JudoInputType where Self: JudoPayInputField {
      
      - returns: true if inputField shows a Logo
      */
-    public func containsLogo() -> Bool {
+    func containsLogo() -> Bool {
         return false
     }
     
@@ -154,7 +154,7 @@ public extension JudoInputType where Self: JudoPayInputField {
      
      - returns: an optional CardLogoView
      */
-    public func logoView() -> CardLogoView? {
+    func logoView() -> CardLogoView? {
         return nil
     }
     
@@ -164,7 +164,7 @@ public extension JudoInputType where Self: JudoPayInputField {
      
      - returns: a string that is the title of the receiver
      */
-    public func title() -> String {
+    func title() -> String {
         return ""
     }
     
@@ -174,7 +174,7 @@ public extension JudoInputType where Self: JudoPayInputField {
      
      - returns: width of the title
      */
-    public func titleWidth() -> Int {
+    func titleWidth() -> Int {
         return 50
     }
     
@@ -184,7 +184,7 @@ public extension JudoInputType where Self: JudoPayInputField {
      
      - returns: string that is shown as a hint when user resides in a inputField for more than 5 seconds
      */
-    public func hintLabelText() -> String {
+    func hintLabelText() -> String {
         return ""
     }
     

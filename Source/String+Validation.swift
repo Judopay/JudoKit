@@ -24,23 +24,14 @@
 
 import Foundation
 
-
 public extension String {
-    
-    
-    /// String by stripping all whitespaces
-    public var strippedWhitespaces: String {
+    var strippedWhitespaces: String {
         get {
             return self.replacingOccurrences(of: " ", with: "")
         }
-        set {
-            // do nothing
-        }
     }
-    
-    
-    /// String by stripping all non-digit characters
-    public var stripped: String {
+
+    var stripped: String {
         get {
             if self.isNumeric() {
                 return self
@@ -48,28 +39,15 @@ public extension String {
                 return self.components(separatedBy: CharacterSet.decimalDigits.inverted).joined(separator: "")
             }
         }
-        set {
-            // do nothing
-        }
     }
-    
-    
-    /// String by stripping commas
-    public var strippedCommas: String {
+
+    var strippedCommas: String {
         get {
             return self.replacingOccurrences(of: ",", with: "")
         }
-        set {
-            // do nothing
-        }
     }
-    
-    /**
-     Method to check if a string is Luhn valid
-     
-     - returns: true if given string is Luhn valid
-     */
-    public func isLuhnValid() -> Bool {
+
+    func isLuhnValid() -> Bool {
         guard self.isNumeric() else {
             return false
         }
@@ -79,25 +57,13 @@ public extension String {
             return sum + (odd ? (val.element! == 9 ? 9 : (val.element! * 2) % 9) : val.element!)
             } % 10 == 0
     }
-    
-    
-    /**
-     Method to check whether string contains only numbers and letters
-     
-     - returns: true if string consists of numbers and letters
-     */
-    public func isAlphaNumeric() -> Bool {
+
+    func isAlphaNumeric() -> Bool {
         let nonAlphaNum = CharacterSet.alphanumerics.inverted
         return self.rangeOfCharacter(from: nonAlphaNum) == nil
     }
     
-    /**
-     Method to check whether string contains only numbers and letters
-     
-     - returns: true if string consists of numbers and letters
-     */
-    public func isNumeric() -> Bool {
+    func isNumeric() -> Bool {
         return Double(self) != nil
     }
-    
 }

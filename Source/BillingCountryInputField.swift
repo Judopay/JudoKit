@@ -48,22 +48,7 @@ open class BillingCountryInputField: JudoPayInputField {
         self.setActive(true)
     }
     
-    
-    // MARK: UITextFieldDelegate Methods
-    
-    /**
-    Delegate method implementation
-    
-    - parameter textField: Text field
-    - parameter range:     Range
-    - parameter string:    String
-    
-    - returns: boolean to change characters in given range for a text field
-    */
-    open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return false
-    }
-    
+  
     // MARK: JudoInputType
     
     

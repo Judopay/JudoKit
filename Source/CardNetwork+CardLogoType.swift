@@ -26,13 +26,8 @@
 import Foundation
 
 public extension CardNetwork {
-    
-    /**
-     Get a CardLogoType from the receiving CardNetwork
-     
-     - returns: a CardLogoType
-     */
-    public func cardLogoType() -> CardLogoType {
+
+    func cardLogoType() -> CardLogoType {
         switch self {
         case .visa, .visaDebit, .visaElectron, .visaPurchasing:
             return .visa

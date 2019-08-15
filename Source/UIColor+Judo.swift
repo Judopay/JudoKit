@@ -32,7 +32,7 @@ public extension UIColor {
      
      - returns: The inverse color of the receiver
      */
-    public func inverseColor() -> UIColor {
+    func inverseColor() -> UIColor {
         var r: CGFloat = 0.0
         var g: CGFloat = 0.0
         var b: CGFloat = 0.0
@@ -47,7 +47,7 @@ public extension UIColor {
      
      - returns: A greyscale representation percentage CGFloat
      */
-    public func greyScale() -> CGFloat {
+    func greyScale() -> CGFloat {
         // 0.299r + 0.587g + 0.114b
         var r: CGFloat = 0.0
         var g: CGFloat = 0.0

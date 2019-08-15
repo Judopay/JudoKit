@@ -174,7 +174,11 @@ open class JudoPayInputField: UIView, UITextFieldDelegate, ErrorAnimatable {
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: visualFormat, options: .directionLeftToRight, metrics: nil, views: views))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-13-[hintLabel]-13-|", options: .directionLeftToRight, metrics: nil, views: ["hintLabel":self.hintLabel]))
     }
-    
+
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
+    }
+
     // MARK: Helpers
     
     /**

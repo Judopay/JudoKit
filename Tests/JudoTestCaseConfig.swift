@@ -1,5 +1,5 @@
 import Foundation
 
-let token = "<#YOUR TOKEN#>"
-let secret = "<#YOUR SECRET#>"
-let myJudoId = "<#YOUR JUDOID#>"
+let judoId = "<#JUDO ID#>"
+let token = "<#TOKEN#>"
+let secret = "<#SECRET#>"

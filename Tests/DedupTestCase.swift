@@ -29,7 +29,7 @@ class DedupTestCase: JudoTestCase {
 
     func testJudoMakeSuccesfulDedupPayment() {
         do {
-            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference)
+            let payment = try judo.payment(judoId, amount: oneGBPAmount, reference: validReference)
             
             payment.card(validVisaTestCard)
             
@@ -43,7 +43,7 @@ class DedupTestCase: JudoTestCase {
                 
                 do {
                     
-                    let payment2 = try self.judo.payment(myJudoId, amount: self.oneGBPAmount, reference: Reference(consumerRef: "consumer reference")!)
+                    let payment2 = try self.judo.payment(judoId, amount: self.oneGBPAmount, reference: Reference(consumerRef: "consumer reference")!)
                     
                     payment2.card(self.validVisaTestCard)
                     
@@ -63,7 +63,7 @@ class DedupTestCase: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoId, myJudoId)
+            XCTAssertEqual(payment.judoId, judoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }
@@ -75,7 +75,7 @@ class DedupTestCase: JudoTestCase {
     func testJudoMakeDeclinedDedupPayment() {
         do {
             // Given I have a Payment
-            let payment = try judo.payment(myJudoId, amount: oneGBPAmount, reference: validReference)
+            let payment = try judo.payment(judoId, amount: oneGBPAmount, reference: validReference)
             
             // When I provide all the required fields
             payment.card(validVisaTestCard)
@@ -102,7 +102,7 @@ class DedupTestCase: JudoTestCase {
             })
             
             XCTAssertNotNil(payment)
-            XCTAssertEqual(payment.judoId, myJudoId)
+            XCTAssertEqual(payment.judoId, judoId)
         } catch {
             XCTFail("exception thrown: \(error)")
         }

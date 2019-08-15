@@ -74,6 +74,6 @@ class CardDetailsSetTests : JudoTestCase {
     }
     
     fileprivate func getJudoPayViewController(_ cardDetails: CardDetails?, paymentToken: PaymentToken?) -> JudoPayViewController{
-        return try! JudoPayViewController(judoId: myJudoId, amount: oneGBPAmount, reference: validReference, transactionType: .payment, completion: { _, _ in }, currentSession: judo, cardDetails: cardDetails, paymentToken: paymentToken)
+        return try! JudoPayViewController(judoId: judoId, amount: oneGBPAmount, reference: validReference, transactionType: .payment, completion: { _, _ in }, currentSession: judo, cardDetails: cardDetails, paymentToken: paymentToken)
     }
 }
